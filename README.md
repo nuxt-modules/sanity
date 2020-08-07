@@ -13,9 +13,11 @@
 
 ## Features
 
-- Minimal configuration required
-- Supports GROQ syntax highlighting in VSCode
-- Ultra-lightweight Sanity client included
+- Just bring your sanity.json - no additional configuration required
+- Ultra-lightweight Sanity client
+- Zero-config image component
+- Supports GROQ syntax highlighting
+- Full support for TypeScript
 
 [📖 &nbsp;Read more](https://sanity.nuxtjs.org)
 
