@@ -16,7 +16,7 @@
 
       <SanityImage
         class="object-contain w-48"
-        :assetId="poster"
+        :asset-id="poster"
         w="128"
         auto="format"
       />
@@ -41,10 +41,9 @@ interface QueryResult {
 }
 
 export default Vue.extend({
-  async fetch() {
+  async fetch () {
     this.movies = await this.$sanity.fetch<QueryResult[]>(query)
   },
-  data: () => ({ movies: [] as QueryResult[] }),
+  data: () => ({ movies: [] as QueryResult[] })
 })
 </script>
-

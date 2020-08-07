@@ -5,7 +5,7 @@ describe('module', () => {
   const ctx = setupTest({
     __dirname,
     browser: true,
-    fixture: '../example',
+    fixture: '../example'
   })
 
   test('Sanity image builder works', async () => {

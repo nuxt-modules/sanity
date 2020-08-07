@@ -13,7 +13,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 const enc = encodeURIComponent
 
-function getQs(query: string, params: Record<string, any> = {}) {
+function getQs (query: string, params: Record<string, any> = {}) {
   const baseQs = `?query=${enc(query)}`
   return Object.keys(params).reduce((current, param) => {
     return `${current}&${enc(`$${param}`)}=${enc(
@@ -22,13 +22,13 @@ function getQs(query: string, params: Record<string, any> = {}) {
   }, baseQs)
 }
 
-export function createClient(config: SanityConfiguration) {
+export function createClient (config: SanityConfiguration) {
   const {
     projectId,
     dataset = 'production',
     useCdn = isProd,
     withCredentials = false,
-    token,
+    token
   } = config
   return {
     clone: () =>
@@ -36,7 +36,7 @@ export function createClient(config: SanityConfiguration) {
     /**
      * Perform a fetch using GROQ syntax.
      */
-    async fetch<T = unknown>(query: string, params?: Record<string, any>) {
+    async fetch<T = unknown> (query: string, params?: Record<string, any>) {
       const host = useCdn ? cdnHost : apiHost
       const qs = getQs(query, params)
       const response = await fetch(
@@ -46,16 +46,16 @@ export function createClient(config: SanityConfiguration) {
           headers: {
             ...(token
               ? {
-                  Authorization: `Bearer ${token}`,
-                }
+                Authorization: `Bearer ${token}`
+              }
               : {}),
             Accept: 'application/json',
-            ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
-          },
+            ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {})
+          }
         }
       )
       const { result } = await response.json()
       return result as T
-    },
+    }
   }
 }

@@ -7,16 +7,16 @@ const config = {
   modules: ['../src/index.ts'],
   sanity: {
     projectId: 'j1o4tmjp',
-    dataset: 'production',
+    dataset: 'production'
   },
   build: {
-    extend(config) {
+    extend (config) {
       config.resolve.alias['@nuxtjs/sanity'] = resolve(
         __dirname,
         '../src/index.ts'
       )
-    },
-  },
+    }
+  }
 }
 
 export default config

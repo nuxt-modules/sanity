@@ -22,11 +22,11 @@ export interface ModuleOptions extends Partial<SanityConfiguration> {
   imageHelper?: boolean
 }
 const DEFAULTS: ModuleOptions = {
-  imageHelper: true,
+  imageHelper: true
 }
 const CONFIG_KEY = 'sanity'
 
-function validateConfig({ projectId, dataset }: ModuleOptions) {
+function validateConfig ({ projectId, dataset }: ModuleOptions) {
   if (!projectId) {
     consola.warn(
       `Make sure you specify a ${bold('projectId')} in your sanity config.`
@@ -42,7 +42,7 @@ function validateConfig({ projectId, dataset }: ModuleOptions) {
   }
 }
 
-const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
+const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
   let sanityConfig: Record<string, any> = {}
 
   try {
@@ -61,7 +61,7 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
     DEFAULTS
   )
 
-  if (!validateConfig(options)) return
+  if (!validateConfig(options)) { return }
 
   let useOfficialClient = !options.minimal
   try {
@@ -88,9 +88,9 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
         projectId: options.projectId,
         dataset: options.dataset,
         withCredentials: options.withCredentials,
-        token: options.token,
-      }),
-    },
+        token: options.token
+      })
+    }
   })
 
   this.options.plugins = this.options.plugins || []
@@ -102,8 +102,8 @@ const nuxtModule: Module<ModuleOptions> = function(moduleOptions) {
       fileName: 'sanity/sanity-image.js',
       options: {
         projectId: options.projectId,
-        dataset: options.dataset,
-      },
+        dataset: options.dataset
+      }
     })
     this.options.plugins.push(resolve(this.options.buildDir || '', imageDst))
   }

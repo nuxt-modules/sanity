@@ -26,8 +26,9 @@
     <NuxtLink
       to="/"
       class="rounded shadow-md bg-red-700 text-white px-4 py-2 my-2 inline-block"
-      >Back</NuxtLink
     >
+      Back
+    </NuxtLink>
   </div>
 </template>
 
@@ -50,13 +51,12 @@ interface QueryResult {
 }
 
 export default Vue.extend({
-  async fetch() {
+  async fetch () {
     const movieDetails = await this.$sanity.fetch<QueryResult>(query, {
-      slug: this.$route.params.slug,
+      slug: this.$route.params.slug
     })
     this.details = movieDetails
   },
-  data: () => ({ details: null as null | QueryResult }),
+  data: () => ({ details: null as null | QueryResult })
 })
 </script>
-
