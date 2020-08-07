@@ -29,17 +29,33 @@ position: 2
 
 2. **Enable the module in your Nuxt configuration**
 
-   ```js{}[nuxt.config.js]
-   {
-     buildModules: ['@nuxtjs/sanity']
-   }
-   ```
+  <code-group>
+    <code-block label="Nuxt 2.9+" active>
 
-   Note that [using `buildModules`](https://nuxtjs.org/api/configuration-modules#-code-buildmodules-code-) requires Nuxt >= 2.9. Just add it to your `modules` if you're on a lower version.
+    ```js{}[nuxt.config.js]
+    {
+      buildModules: ['@nuxtjs/sanity']
+    }
+    ```
+
+    </code-block>
+    <code-block label="Nuxt < 2.9">
+
+    ```js{}[nuxt.config.js]
+    {
+      modules: ['@nuxtjs/sanity']
+    }
+    ```
+
+    </code-block>
+
+  </code-group>
 
 3. **Add Sanity configuration**
 
-   `@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory. Alternatively, you can pass in an object in your Nuxt config with key details.
+   `@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory. Just copy over the `sanity.json` from your CMS - and you're fully configured!
+
+   Alternatively, you can pass in an object in your Nuxt config with key details.
 
    ```js{}[nuxt.config.js]
    {
@@ -55,7 +71,10 @@ position: 2
 
 ## TypeScript
 
-`@nuxtjs/sanity` offers type definitions. Just make sure to add an entry in `tsconfig.json` after `@nuxt/types` (Nuxt 2.9.0+) or `@nuxt/vue-app`.
+`@nuxtjs/sanity` offers type definitions. Just add an entry in `tsconfig.json`.
+
+<code-group>
+  <code-block label="Nuxt 2.9+" active>
 
 ```json{}[tsconfig.json]
 {
@@ -64,3 +83,18 @@ position: 2
   }
 }
 ```
+
+  </code-block>
+  <code-block label="Nuxt < 2.9">
+
+```json{}[tsconfig.json]
+{
+  "compilerOptions": {
+    "types": ["@nuxt/vue-app", "@nuxtjs/sanity"]
+  }
+}
+```
+
+  </code-block>
+
+</code-group>
