@@ -23,7 +23,9 @@
     "build": "siroc build",
     "dev": "nuxt-ts example",
     "lint": "eslint --ext .js,.ts,.vue .",
-    "release": "yarn build && yarn test && standard-version && git push --follow-tags && npm publish",
+    "prepare": "yarn build",
+    "prepublishOnly": "yarn test",
+    "release": "yarn build && yarn test && release-it",
     "test": "yarn lint && jest"
   },
   "dependencies": {
@@ -39,6 +41,7 @@
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@nuxtjs/module-test-utils": "2.0.0-1",
+    "@release-it/conventional-changelog": "^1.1.4",
     "@sanity/client": "^1.149.18",
     "@types/jest": "latest",
     "babel-jest": "latest",
@@ -46,8 +49,8 @@
     "jest": "latest",
     "nuxt-edge": "^2.14.2-26612668.4a9c9a15",
     "puppeteer": "^5.2.1",
-    "siroc": "latest",
-    "standard-version": "latest"
+    "release-it": "^13.6.6",
+    "siroc": "latest"
   },
   "publishConfig": {
     "access": "public"
