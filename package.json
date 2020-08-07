@@ -22,7 +22,7 @@
   "scripts": {
     "build": "siroc build",
     "dev": "nuxt-ts example",
-    "lint": "eslint --ext .js,.ts,.vue .",
+    "lint": "eslint --fix --ext .js,.ts,.vue .",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
     "release": "yarn build && yarn test && release-it",
@@ -47,12 +47,17 @@
     "babel-jest": "latest",
     "eslint": "latest",
     "jest": "latest",
+    "lint-staged": "^10.2.11",
     "nuxt-edge": "^2.14.2-26612668.4a9c9a15",
     "puppeteer": "^5.2.1",
     "release-it": "^13.6.6",
-    "siroc": "latest"
+    "siroc": "latest",
+    "yorkie": "^2.0.0"
   },
   "publishConfig": {
     "access": "public"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
   }
 }
