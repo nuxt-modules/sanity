@@ -3,8 +3,11 @@ import { resolve } from 'path'
  * @type {import('@nuxt/types').NuxtConfig} config
  */
 const config = {
-  buildModules: ['@nuxt/typescript-build', '@nuxtjs/tailwindcss'],
-  modules: ['../src/index.ts'],
+  buildModules: [
+    '@nuxt/typescript-build',
+    ...(process.env.NODE_ENV === 'development' ? ['@nuxtjs/tailwindcss'] : []),
+    '../src/index.ts'
+  ],
   sanity: {
     projectId: 'j1o4tmjp',
     dataset: 'production'

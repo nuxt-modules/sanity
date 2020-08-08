@@ -61,11 +61,15 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     DEFAULTS
   )
 
-  if (!validateConfig(options)) { return }
+  if (!validateConfig(options)) {
+    return
+  }
 
   let useOfficialClient = !options.minimal
   try {
-    require('@sanity/client')
+    if (useOfficialClient) {
+      require('@sanity/client')
+    }
   } catch {
     useOfficialClient = false
     consola.warn(
@@ -78,7 +82,7 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     )
   }
 
-  const { dst } = this.addTemplate({
+  this.addPlugin({
     src: resolve(__dirname, '../templates/plugin.js'),
     fileName: 'sanity/plugin.js',
     options: {
@@ -93,11 +97,8 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
     }
   })
 
-  this.options.plugins = this.options.plugins || []
-  this.options.plugins.push(resolve(this.options.buildDir || '', dst))
-
   if (options.imageHelper) {
-    const { dst: imageDst } = this.addTemplate({
+    this.addPlugin({
       src: resolve(__dirname, '../templates/sanity-image.js'),
       fileName: 'sanity/sanity-image.js',
       options: {
@@ -105,7 +106,6 @@ const nuxtModule: Module<ModuleOptions> = function (moduleOptions) {
         dataset: options.dataset
       }
     })
-    this.options.plugins.push(resolve(this.options.buildDir || '', imageDst))
   }
 
   this.options.build.transpile = this.options.build.transpile || []

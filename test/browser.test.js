@@ -1,11 +1,16 @@
 import { setupTest, createPage } from '@nuxtjs/module-test-utils'
 
-describe('module', () => {
-  // eslint-disable-next-line
-  const ctx = setupTest({
+describe.skip('module with default options', () => {
+  setupTest({
     __dirname,
     browser: true,
-    fixture: '../example'
+    fixture: '../example',
+    config: {
+      sanity: {
+        projectId: 'j1o4tmjp'
+        // minimal: true,
+      }
+    }
   })
 
   test('Sanity image builder works', async () => {
