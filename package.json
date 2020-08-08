@@ -29,7 +29,6 @@
     "test": "yarn lint && jest"
   },
   "dependencies": {
-    "@nuxtjs/tailwindcss": "^3.0.0",
     "defu": "^3.1.0"
   },
   "devDependencies": {
@@ -41,6 +40,7 @@
     "@nuxt/typescript-runtime": "latest",
     "@nuxtjs/eslint-config-typescript": "latest",
     "@nuxtjs/module-test-utils": "2.0.0-1",
+    "@nuxtjs/tailwindcss": "^3.0.0",
     "@release-it/conventional-changelog": "^1.1.4",
     "@sanity/client": "^1.149.18",
     "@types/jest": "latest",
@@ -48,11 +48,18 @@
     "eslint": "latest",
     "jest": "latest",
     "lint-staged": "^10.2.11",
-    "nuxt-edge": "^2.14.2-26612668.4a9c9a15",
+    "nuxt-edge": "latest",
     "puppeteer": "^5.2.1",
     "release-it": "^13.6.6",
     "siroc": "latest",
     "yorkie": "^2.0.0"
+  },
+  "peerDependencies": {
+    "chalk": "^3.0.0",
+    "consola": "^2.14.0"
+  },
+  "optionalDependencies": {
+    "@sanity/client": "^1.149.18"
   },
   "publishConfig": {
     "access": "public"
