@@ -19,6 +19,8 @@
           {{ characterName }}
         </li>
       </ul>
+      <LocalSanityImage asset-id="test-id" />
+      <SanityContent :blocks="details.overview" />
     </template>
     <template v-else>
       Loading ...
@@ -35,22 +37,28 @@
 <script lang="ts">
 import Vue from 'vue'
 import { groq } from '@nuxtjs/sanity'
+import { SanityImage } from '@nuxtjs/sanity/sanity-image'
 
 const query = groq`*[_type == "movie" && slug.current == $slug][0] {
   title,
   releaseDate,
   castMembers[] {
     characterName
-  }
+  },
+  overview
 }`
 
 interface QueryResult {
   title: string
   releaseDate: string
   castMembers: Array<{ characterName: string }>
+  overview: any[]
 }
 
 export default Vue.extend({
+  components: {
+    LocalSanityImage: SanityImage,
+  },
   async fetch () {
     const movieDetails = await this.$sanity.fetch<QueryResult>(query, {
       slug: this.$route.params.slug,

@@ -10,6 +10,11 @@ import Vue from 'vue'
   Vue.component('SanityImage', SanityImage)
 <% } %>
 
+<% if (options.components.contentHelper) { %>
+  import { SanityContent } from '@nuxtjs/sanity/sanity-content'
+  Vue.component('SanityContent', SanityContent)
+<% } %>
+
 const options = JSON.parse('<%= options.sanityConfig %>')
 
 /**

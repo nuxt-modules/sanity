@@ -22,10 +22,16 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    * @default true
    */
   imageHelper?: boolean
+  /**
+   * Register a global SanityContent component to serialize Sanity Portable Text
+   * @default true
+   */
+  contentHelper?: boolean
 }
 const isProd = process.env.NODE_ENV === 'production'
 
 const DEFAULTS: SanityModuleOptions = {
+  contentHelper: true,
   imageHelper: true,
   dataset: 'production',
   withCredentials: false,
@@ -105,6 +111,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
       client: useOfficialClient,
       components: {
         imageHelper: options.imageHelper,
+        contentHelper: options.contentHelper,
       },
       sanityConfig: JSON.stringify({
         useCdn: options.useCdn,

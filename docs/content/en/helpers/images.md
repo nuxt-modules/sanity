@@ -2,7 +2,7 @@
 title: Image formatting
 description: 'Sanity integration for Nuxt.js.'
 category: Helpers
-position: 10
+position: 11
 ---
 
 ## Global helper
@@ -55,7 +55,7 @@ You may wish to import `SanityImage` only in the components that need it. If you
 </template>
 
 <script>
-import { SanityImage } from '@nuxtjs/sanity/components/sanity-image'
+import { SanityImage } from '@nuxtjs/sanity/sanity-image'
 
 export default {
   components: { SanityImage },
