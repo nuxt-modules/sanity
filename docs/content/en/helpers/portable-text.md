@@ -20,7 +20,7 @@ This module defines a global `<SanityContent>` component that can turn portable 
 
 ## Local import
 
-You may wish to import `SanityContent` only in the components that need it.
+You may wish to import `SanityContent` only in the components that need it if you have disabled the global `contentHelper` option. Note that you will need to provide your `projectId` (and `dataset` if not `production`):
 
 ### Example
 
@@ -30,7 +30,7 @@ You may wish to import `SanityContent` only in the components that need it.
 </template>
 
 <script>
-import { SanityContent } from '@nuxtjs/sanity/components/sanity-content'
+import { SanityContent } from '@nuxtjs/sanity/sanity-content'
 
 export default {
   components: { SanityContent },

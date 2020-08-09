@@ -76,3 +76,10 @@ Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](h
 - Default: **true**
 
 Add a global `<SanityImage>` component to assist with URL transformations. See [the docs](/helpers/images) for more information.
+
+### `contentHelper`
+
+- Type: **boolean**
+- Default: **true**
+
+Add a global `<SanityContent>` component to display portable text. See [the docs](/helpers/portable-text) for more information.

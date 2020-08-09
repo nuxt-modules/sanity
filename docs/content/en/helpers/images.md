@@ -41,7 +41,7 @@ All other image transformation options are valid props - see [the Sanity documen
 
 ## Local import
 
-You may wish to import `SanityImage` only in the components that need it. If you do so, you can do so - but note that you will need to provide your `projectId` (and `dataset` if not `production`):
+You may wish to import `SanityImage` only in the components that need it, if you have disabled the global `imageHelper` option. Note that you will need to provide your `projectId` (and `dataset` if not `production`):
 
 ### Example
 

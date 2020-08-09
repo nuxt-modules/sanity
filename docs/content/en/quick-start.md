@@ -69,6 +69,8 @@ position: 2
 
 4. **You're good to go!**
 
+   Check out [how to use Sanity](/usage).
+
 ## TypeScript
 
 `@nuxtjs/sanity` offers type definitions. Just add an entry in `tsconfig.json`.

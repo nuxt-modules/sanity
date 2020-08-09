@@ -8,7 +8,8 @@ items:
   - Ultra-lightweight Sanity client
   - Zero-config image component
   - Supports GROQ syntax highlighting
-  - Full support for TypeScript
+  - Module and all dependencies < 1.7kB gzipped
+  - Written in TypeScript
 ---
 
 [Sanity](https://www.sanity.io/) integration for [Nuxt.js](https://nuxtjs.org).
