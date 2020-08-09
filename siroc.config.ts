@@ -1,7 +1,6 @@
 import { resolve } from 'path'
 
 import type { PackageOptions } from 'siroc'
-import type { RollupOptions } from 'rollup'
 
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
@@ -15,8 +14,8 @@ const config: PackageOptions = {
   },
   hooks: {
     'build:extendRollup' (_pkg, { rollupConfig }) {
-      const config = components.map((base): RollupOptions[] => {
-        return [{
+      components.forEach((base) => {
+        rollupConfig.push({
           input: resolve(__dirname, `./src/components/${base}.ts`),
           output: {
             file: resolve(__dirname, `./dist/${base}.js`),
@@ -26,8 +25,8 @@ const config: PackageOptions = {
           plugins: [
             esbuild(),
           ],
-        },
-        {
+        })
+        rollupConfig.push({
           input: resolve(__dirname, `./src/components/${base}.ts`),
           output: {
             file: resolve(__dirname, `./dist/${base}.d.ts`),
@@ -37,10 +36,8 @@ const config: PackageOptions = {
           plugins: [
             dts(),
           ],
-        }]
-      }).flat()
-
-      rollupConfig.push(...config)
+        })
+      })
     },
   },
 }
