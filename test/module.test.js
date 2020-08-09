@@ -14,7 +14,7 @@ describe('module with default options', () => {
     expect(ctx.nuxt.moduleContainer.addPlugin).toBeCalledTimes(2)
 
     expect(ctx).toNuxtPluginAdded({
-      src: expect.stringContaining('templates/plugin.js'),
+      src: expect.stringContaining('plugin.js'),
       fileName: 'sanity/plugin.js',
       options: {
         client: true,
@@ -26,7 +26,7 @@ describe('module with default options', () => {
     })
 
     expect(ctx).toNuxtPluginAdded({
-      src: expect.stringContaining('templates/sanity-image.js'),
+      src: expect.stringContaining('sanity-image.js'),
       fileName: 'sanity/sanity-image.js',
       options: {
         ...ctx.config.sanity,
