@@ -7,7 +7,7 @@ describe('module without a project id', () => {
     warn: mockWarn,
   }))
   setupTest({
-    __dirname,
+    testDir: __dirname,
     fixture: '../../example',
     config: {
       sanity: {},

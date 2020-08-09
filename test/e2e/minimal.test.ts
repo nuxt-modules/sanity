@@ -11,8 +11,8 @@ describe('module with minimal options', () => {
     jest.clearAllMocks()
   })
 
-  const ctx = setupTest({
-    __dirname,
+  setupTest({
+    testDir: __dirname,
     browser: true,
     fixture: '../../example',
     config: {
@@ -28,9 +28,5 @@ describe('module with minimal options', () => {
     const page = await createPage('/')
     await page.getHtml()
     expect(mockSanityClient).toHaveBeenCalledTimes(0)
-  })
-
-  test('should not inject image helper', () => {
-    expect(ctx.nuxt.moduleContainer.addPlugin).toBeCalledTimes(1)
   })
 })

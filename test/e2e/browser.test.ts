@@ -2,7 +2,7 @@ import { setupTest, createPage } from '@nuxtjs/module-test-utils'
 
 describe('module with default options', () => {
   setupTest({
-    __dirname,
+    testDir: __dirname,
     browser: true,
     fixture: '../../example',
     config: {

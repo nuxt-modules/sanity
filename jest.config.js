@@ -8,6 +8,7 @@ module.exports = {
       },
     ],
   },
+  snapshotSerializers: [require.resolve('jest-serializer-vue-tjw')],
   collectCoverage: true,
   collectCoverageFrom: ['src/**', '!templates/**'],
 }
