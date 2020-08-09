@@ -12,8 +12,8 @@ describe('minimal sanity client', () => {
   })
 
   afterEach(() => {
-    global.fetch.mockClear()
-    delete global.fetch
+    ;(global.fetch as any).mockClear()
+    delete (global as any).fetch
   })
 
   it('correctly encodes query variables', () => {
