@@ -26,7 +26,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
     "release": "yarn build && yarn test && release-it",
-    "test": "yarn lint && jest"
+    "test": "yarn lint && jest --runInBand"
   },
   "dependencies": {
     "defu": "^3.1.0"

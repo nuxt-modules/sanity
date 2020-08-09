@@ -1,6 +1,6 @@
 import { setupTest, createPage } from '@nuxtjs/module-test-utils'
 
-describe.skip('module with default options', () => {
+describe('module with default options', () => {
   setupTest({
     __dirname,
     browser: true,
@@ -8,7 +8,6 @@ describe.skip('module with default options', () => {
     config: {
       sanity: {
         projectId: 'j1o4tmjp'
-        // minimal: true,
       }
     }
   })
