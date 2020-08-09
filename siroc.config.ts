@@ -7,7 +7,7 @@ import type { RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 
-const components = readdirSync('./src/components')
+const components = readdirSync(resolve(__dirname, './src/components'))
 const externals = ['chalk', 'consola', 'defu', 'fs-extra']
 
 const config: PackageOptions = {
