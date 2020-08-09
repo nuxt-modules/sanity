@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 
-import { SanityImage } from '../templates/sanity-image'
+import { SanityImage } from '../../templates/sanity-image'
 
 const getWrapper = propsData => mount(SanityImage, { propsData })
 

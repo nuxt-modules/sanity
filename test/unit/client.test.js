@@ -1,4 +1,4 @@
-import { getQs, createClient } from '../src/client'
+import { getQs, createClient } from '../../src/client'
 
 describe('minimal sanity client', () => {
   const mockFetch = jest

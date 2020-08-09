@@ -1,4 +1,4 @@
-import { groq } from '../src/helpers'
+import { groq } from '../../src/helpers'
 
 describe('groq', () => {
   it('converts tagged literal into string', () => {

@@ -1,12 +1,15 @@
 import { setupTest } from '@nuxtjs/module-test-utils'
 
+const projectId = 'j1o4tmjp'
+const dataset = 'production'
+
 describe('module with default options', () => {
   const ctx = setupTest({
     __dirname,
-    fixture: '../example',
+    fixture: '../../example',
     config: {
       sanity: {
-        projectId: 'j1o4tmjp'
+        projectId
       }
     }
   })
@@ -19,8 +22,8 @@ describe('module with default options', () => {
       options: {
         client: true,
         sanityConfig: JSON.stringify({
-          ...ctx.config.sanity,
-          dataset: 'production'
+          projectId,
+          dataset
         })
       }
     })
@@ -29,8 +32,8 @@ describe('module with default options', () => {
       src: expect.stringContaining('sanity-image.js'),
       fileName: 'sanity/sanity-image.js',
       options: {
-        ...ctx.config.sanity,
-        dataset: 'production'
+        projectId,
+        dataset
       }
     })
   })

@@ -9,7 +9,7 @@ const config = {
     '../src/index.ts'
   ],
   sanity: {
-    projectId: 'j1o4tmjp',
+    projectId: process.env.NODE_ENV === 'development' ? 'j1o4tmjp' : undefined,
     dataset: 'production'
   },
   build: {
