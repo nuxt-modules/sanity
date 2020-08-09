@@ -53,10 +53,10 @@ interface QueryResult {
 export default Vue.extend({
   async fetch () {
     const movieDetails = await this.$sanity.fetch<QueryResult>(query, {
-      slug: this.$route.params.slug
+      slug: this.$route.params.slug,
     })
     this.details = movieDetails
   },
-  data: () => ({ details: null as null | QueryResult })
+  data: () => ({ details: null as null | QueryResult }),
 })
 </script>

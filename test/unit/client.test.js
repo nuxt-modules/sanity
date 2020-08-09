@@ -4,7 +4,7 @@ describe('minimal sanity client', () => {
   const mockFetch = jest
     .fn()
     .mockImplementation(() =>
-      Promise.resolve({ json: () => Promise.resolve([1, 2]) })
+      Promise.resolve({ json: () => Promise.resolve([1, 2]) }),
     )
 
   beforeEach(() => {
@@ -19,17 +19,17 @@ describe('minimal sanity client', () => {
   it('correctly encodes query variables', () => {
     const encoded = getQs('*[_type == $type]', {
       type: 'article',
-      extra: 'nothing'
+      extra: 'nothing',
     })
 
     const decoded = decodeURIComponent(encoded)
 
     expect(encoded).toBe(
-      '?query=*%5B_type%20%3D%3D%20%24type%5D&%24type=%22article%22&%24extra=%22nothing%22'
+      '?query=*%5B_type%20%3D%3D%20%24type%5D&%24type=%22article%22&%24extra=%22nothing%22',
     )
     // For clarity!
     expect(decoded).toBe(
-      '?query=*[_type == $type]&$type="article"&$extra="nothing"'
+      '?query=*[_type == $type]&$type="article"&$extra="nothing"',
     )
   })
 
@@ -48,7 +48,7 @@ describe('minimal sanity client', () => {
   const project = 'sample-project'
   const defaultOptions = {
     credentials: 'omit',
-    headers: { Accept: 'application/json' }
+    headers: { Accept: 'application/json' },
   }
 
   it('uses API host where appropriate', async () => {
@@ -57,7 +57,7 @@ describe('minimal sanity client', () => {
 
     expect(mockFetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
-      defaultOptions
+      defaultOptions,
     )
   })
 
@@ -67,7 +67,7 @@ describe('minimal sanity client', () => {
 
     expect(mockFetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.apicdn.sanity.io`),
-      defaultOptions
+      defaultOptions,
     )
   })
 
@@ -76,7 +76,7 @@ describe('minimal sanity client', () => {
     const client = createClient({
       projectId: 'sample-project',
       token,
-      withCredentials: true
+      withCredentials: true,
     })
     await client.fetch('*[_type == "article"]')
 
@@ -87,9 +87,9 @@ describe('minimal sanity client', () => {
         credentials: 'include',
         headers: {
           Accept: 'application/json',
-          Authorization: `Bearer ${token}`
-        }
-      }
+          Authorization: `Bearer ${token}`,
+        },
+      },
     )
   })
 
@@ -104,9 +104,9 @@ describe('minimal sanity client', () => {
         credentials: 'omit',
         headers: {
           'accept-encoding': 'gzip, deflate',
-          Accept: 'application/json'
-        }
-      }
+          Accept: 'application/json',
+        },
+      },
     )
   })
 })

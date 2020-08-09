@@ -8,7 +8,7 @@ export const groq = (strings: TemplateStringsArray, ...keys: any[]) => {
       .slice(0, lastIndex)
       .reduce(
         (query, currentString, index) => query + currentString + keys[index],
-        ''
+        '',
       ) + strings[lastIndex]
   )
 }

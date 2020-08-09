@@ -21,7 +21,7 @@ export function getQs (query: string, params: Record<string, any> = {}) {
   const baseQs = `?query=${enc(query)}`
   return Object.keys(params).reduce((current, param) => {
     return `${current}&${enc(`$${param}`)}=${enc(
-      JSON.stringify(params[param])
+      JSON.stringify(params[param]),
     )}`
   }, baseQs)
 }
@@ -32,7 +32,7 @@ export function createClient (config: SanityConfiguration) {
     dataset = 'production',
     useCdn = isProd,
     withCredentials = false,
-    token
+    token,
   } = config
   return {
     clone: () =>
@@ -50,16 +50,16 @@ export function createClient (config: SanityConfiguration) {
           headers: {
             ...(token
               ? {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${token}`,
               }
               : {}),
             Accept: 'application/json',
-            ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {})
-          }
-        }
+            ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
+          },
+        },
       )
       const { result } = await response.json()
       return result as T
-    }
+    },
   }
 }

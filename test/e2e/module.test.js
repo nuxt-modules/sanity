@@ -9,9 +9,9 @@ describe('module with default options', () => {
     fixture: '../../example',
     config: {
       sanity: {
-        projectId
-      }
-    }
+        projectId,
+      },
+    },
   })
   test('should inject core plugin with correct options', () => {
     expect(ctx.nuxt.moduleContainer.addPlugin).toBeCalledTimes(2)
@@ -23,9 +23,9 @@ describe('module with default options', () => {
         client: true,
         sanityConfig: JSON.stringify({
           projectId,
-          dataset
-        })
-      }
+          dataset,
+        }),
+      },
     })
 
     expect(ctx).toNuxtPluginAdded({
@@ -33,8 +33,8 @@ describe('module with default options', () => {
       fileName: 'sanity/sanity-image.js',
       options: {
         projectId,
-        dataset
-      }
+        dataset,
+      },
     })
   })
 })

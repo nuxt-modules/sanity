@@ -44,6 +44,6 @@ export default Vue.extend({
   async fetch () {
     this.movies = await this.$sanity.fetch<QueryResult[]>(query)
   },
-  data: () => ({ movies: [] as QueryResult[] })
+  data: () => ({ movies: [] as QueryResult[] }),
 })
 </script>

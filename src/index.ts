@@ -24,21 +24,21 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
   imageHelper?: boolean
 }
 const DEFAULTS: SanityModuleOptions = {
-  imageHelper: true
+  imageHelper: true,
 }
 const CONFIG_KEY = 'sanity'
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   if (!projectId) {
     consola.warn(
-      `Make sure you specify a ${bold('projectId')} in your sanity config.`
+      `Make sure you specify a ${bold('projectId')} in your sanity config.`,
     )
     return false
   } else {
     consola.info(
       `Enabled ${bold('@nuxtjs/sanity')} for project ${bold(projectId)} (${bold(
-        dataset
-      )}).`
+        dataset,
+      )}).`,
     )
     return true
   }
@@ -56,7 +56,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     if (process.server) {
       const fs = require('fs-extra')
       const { projectId, dataset } = fs.readJSONSync(
-        resolve(this.options.rootDir, './sanity.json')
+        resolve(this.options.rootDir, './sanity.json'),
       ).api
       sanityConfig = { projectId, dataset }
     }
@@ -66,7 +66,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     this.options[CONFIG_KEY],
     moduleOptions,
     sanityConfig,
-    DEFAULTS
+    DEFAULTS,
   )
 
   if (!validateConfig(options)) {
@@ -82,14 +82,14 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     useOfficialClient = false
     consola.warn(
       `Not using ${bold(
-        '@sanity/client'
+        '@sanity/client',
       )} as it cannot be resolved in your project dependencies.
        Try running ${bold('yarn add @sanity/client')} or ${bold(
-        'npm install @sanity/client'
+        'npm install @sanity/client',
       )}.
        To disable this warning, set ${bold(
-         'sanity: { minimal: true }'
-       )} in your nuxt.config.js.`
+         'sanity: { minimal: true }',
+       )} in your nuxt.config.js.`,
     )
   }
 
@@ -103,9 +103,9 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
         projectId: options.projectId,
         dataset: options.dataset,
         withCredentials: options.withCredentials,
-        token: options.token
-      })
-    }
+        token: options.token,
+      }),
+    },
   })
 
   if (options.imageHelper) {
@@ -114,8 +114,8 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
       fileName: 'sanity/sanity-image.js',
       options: {
         projectId: options.projectId,
-        dataset: options.dataset
-      }
+        dataset: options.dataset,
+      },
     })
   }
 
