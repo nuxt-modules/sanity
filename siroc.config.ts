@@ -1,5 +1,4 @@
 import { resolve } from 'path'
-import { readdirSync } from 'fs-extra'
 
 import type { PackageOptions } from 'siroc'
 import type { RollupOptions } from 'rollup'
@@ -7,7 +6,7 @@ import type { RollupOptions } from 'rollup'
 import dts from 'rollup-plugin-dts'
 import esbuild from 'rollup-plugin-esbuild'
 
-const components = readdirSync(resolve(__dirname, './src/components'))
+const components = ['sanity-content', 'sanity-image']
 const externals = ['chalk', 'consola', 'defu', 'fs-extra']
 
 const config: PackageOptions = {
@@ -16,12 +15,11 @@ const config: PackageOptions = {
   },
   hooks: {
     'build:extendRollup' (_pkg, { rollupConfig }) {
-      const config = components.map((filename): RollupOptions[] => {
-        const base = filename.split('.').slice(0, -1).join('.')
+      const config = components.map((base): RollupOptions[] => {
         return [{
-          input: resolve(`./src/components/${filename}`),
+          input: resolve(__dirname, `./src/components/${base}.ts`),
           output: {
-            file: resolve(`./dist/${base}.js`),
+            file: resolve(__dirname, `./dist/${base}.js`),
             format: 'es',
           },
           external: externals,
@@ -30,9 +28,9 @@ const config: PackageOptions = {
           ],
         },
         {
-          input: resolve(`./src/components/${filename}`),
+          input: resolve(__dirname, `./src/components/${base}.ts`),
           output: {
-            file: resolve(`./dist/${base}.d.ts`),
+            file: resolve(__dirname, `./dist/${base}.d.ts`),
             format: 'es',
           },
           external: externals,
