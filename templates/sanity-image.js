@@ -1,3 +1,5 @@
+// @ts-check
+
 import Vue from 'vue'
 
 const baseURL = 'https://cdn.sanity.io/images'
@@ -21,7 +23,7 @@ export const SanityImage = Vue.extend({
      */
     blur: {
       type: [Number, String],
-      validator: value => Number(value) >= 0 && Number(value) <= 100,
+      validator: value => Number(value) >= 0 && Number(value) <= 100
     },
     /**
        * Use with fit=crop to specify how cropping is performed:
@@ -40,8 +42,8 @@ export const SanityImage = Vue.extend({
           'right',
           'center',
           'focalpoint',
-          'entropy',
-        ].includes(value),
+          'entropy'
+        ].includes(value)
     },
     /**
      * Configures the headers so that opening this link causes the browser to download the image rather than showing it. The browser will suggest to use the file name you provided.
@@ -52,7 +54,7 @@ export const SanityImage = Vue.extend({
      */
     dpr: {
       type: [Number, String],
-      validator: value => [1, 2, 3].includes(Number(value)),
+      validator: value => [1, 2, 3].includes(Number(value))
     },
     /**
        * Affects how the image is handled when you specify target dimensions.
@@ -69,35 +71,35 @@ export const SanityImage = Vue.extend({
       validator: value =>
         ['clip', 'crop', 'fill', 'fillmax', 'max', 'scale', 'min'].includes(
           value
-        ),
+        )
     },
     /**
      * Flipping. Flip image horizontally, vertically or both. Possible values: h, v, hv
      */
     flip: {
       type: String,
-      validator: value => ['h', 'v', 'hv'].includes(value),
+      validator: value => ['h', 'v', 'hv'].includes(value)
     },
     /**
      * Convert image to jpg, pjpg, png, or webp.
      */
     fm: {
       type: String,
-      validator: value => ['jpg', 'pjpg', 'png', 'webp'].includes(value),
+      validator: value => ['jpg', 'pjpg', 'png', 'webp'].includes(value)
     },
     /**
      * Focal Point X. Specify a center point to focus on when cropping the image. Values from 0.0 to 1.0 in fractions of the image dimensions. (See crop)
      */
     fpX: {
       type: [Number, String],
-      validator: value => Number(value) <= 1.0 && Number(value) >= 0,
+      validator: value => Number(value) <= 1.0 && Number(value) >= 0
     },
     /**
      * Focal Point Y. Specify a center point to focus on when cropping the image. Values from 0.0 to 1.0 in fractions of the image dimensions. (See crop)
      */
     fpY: {
       type: [Number, String],
-      validator: value => Number(value) <= 1.0 && Number(value) >= 0,
+      validator: value => Number(value) <= 1.0 && Number(value) >= 0
     },
     /**
      * Height of the image in pixels. Scales the image to be that tall.
@@ -128,14 +130,14 @@ export const SanityImage = Vue.extend({
      */
     or: {
       type: [Number, String],
-      validator: value => [0, 90, 180, 270].includes(Number(value)),
+      validator: value => [0, 90, 180, 270].includes(Number(value))
     },
     /**
      * Quality 0-100. Specify the compression quality (where applicable).
      */
     q: {
       type: [Number, String],
-      validator: value => Number(value) >= 0 && Number(value) <= 100,
+      validator: value => Number(value) >= 0 && Number(value) <= 100
     },
     /**
      * Crop the image according to the provided coordinates (in pixel units of the source image).
@@ -150,15 +152,18 @@ export const SanityImage = Vue.extend({
      */
     sharpen: {
       type: [Number, String],
-      validator: value => Number(value) >= 0 && Number(value) <= 100,
+      validator: value => Number(value) >= 0 && Number(value) <= 100
     },
     /**
      * Width of the image in pixels. Scales the image to be that wide.
      */
-    w: { type: [Number, String] },
+    w: { type: [Number, String] }
   },
-  render(h, { props, data }) {
-    const queryParams = [
+  render (h, { props, data }) {
+    /**
+     * @type {Array<keyof typeof props>} keys
+     */
+    const keys = [
       'auto',
       'bg',
       'blur',
@@ -180,16 +185,18 @@ export const SanityImage = Vue.extend({
       'rect',
       'sat',
       'sharpen',
-      'w',
+      'w'
     ]
-      .map(prop => {
+
+    const queryParams = keys
+      .map((prop) => {
         const urlFormat = prop.replace(/[A-Z]./, r => '-' + r[1].toLowerCase())
         return props[prop] ? `${urlFormat}=${props[prop]}` : undefined
       })
       .filter(Boolean)
       .join('&')
 
-    const [_type, ...parts] = props.assetId.split('-')
+    const parts = props.assetId.split('-').slice(1)
     const format = parts.pop()
 
     const src = `${baseURL}/<%= options.projectId %>/<%= options.dataset %>/${parts.join(
@@ -199,10 +206,10 @@ export const SanityImage = Vue.extend({
     return h('img', {
       attrs: {
         src,
-        class: [data.class, data.staticClass].filter(Boolean).join(' '),
-      },
+        class: [data.class, data.staticClass].filter(Boolean).join(' ')
+      }
     })
-  },
+  }
 })
 
 Vue.component('SanityImage', SanityImage)
