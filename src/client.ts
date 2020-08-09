@@ -1,3 +1,7 @@
+/**
+ * Adapted from https://github.com/rexxars/picosanity
+ */
+
 const apiHost = 'api.sanity.io'
 const cdnHost = 'apicdn.sanity.io'
 
@@ -13,7 +17,7 @@ const isProd = process.env.NODE_ENV === 'production'
 
 const enc = encodeURIComponent
 
-function getQs (query: string, params: Record<string, any> = {}) {
+export function getQs (query: string, params: Record<string, any> = {}) {
   const baseQs = `?query=${enc(query)}`
   return Object.keys(params).reduce((current, param) => {
     return `${current}&${enc(`$${param}`)}=${enc(
