@@ -59,7 +59,7 @@ Include credentials in requests made to Sanity. Useful if you want to take advan
 ### `useCdn`
 
 - Type: **boolean**
-- Default: **process.env.NODE_ENV === production**
+- Default: **true** in production or **false** if a token has been passed in
 
 ### `minimal`
 

@@ -1,7 +1,14 @@
+import Vue from 'vue'
+
 <%= options.client
   ? "import createClient from '@sanity/client'"
   : "import { createClient } from '@nuxtjs/sanity'"
 %>
+
+<% if (options.components.imageHelper) { %>
+  import { SanityImage } from './sanity-image'
+  Vue.component('SanityImage', SanityImage)
+<% } %>
 
 const options = JSON.parse('<%= options.sanityConfig %>')
 

@@ -14,27 +14,23 @@ describe('module with default options', () => {
     },
   })
   test('should inject core plugin with correct options', () => {
-    expect(ctx.nuxt.moduleContainer.addPlugin).toBeCalledTimes(2)
-
     expect(ctx).toNuxtPluginAdded({
       src: expect.stringContaining('plugin.js'),
       fileName: 'sanity/plugin.js',
       options: {
         client: true,
+        components: {
+          imageHelper: true,
+        },
         sanityConfig: JSON.stringify({
+          useCdn: false,
           projectId,
           dataset,
+          withCredentials: false,
         }),
       },
     })
 
-    expect(ctx).toNuxtPluginAdded({
-      src: expect.stringContaining('sanity-image.js'),
-      fileName: 'sanity/sanity-image.js',
-      options: {
-        projectId,
-        dataset,
-      },
-    })
+    expect(ctx.nuxt.moduleContainer.addTemplate).toBeCalled()
   })
 })

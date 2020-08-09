@@ -1,15 +1,30 @@
-// @ts-check
-
-import Vue from 'vue'
+import { extendVue } from '../vue'
 
 const baseURL = 'https://cdn.sanity.io/images'
 
-export const SanityImage = Vue.extend({
+const projectId = '<%= options.projectId %>'
+const dataset = '<%= options.dataset %>'
+
+const isTemplated = projectId.includes('options')
+
+export const SanityImage = extendVue({
   functional: true,
   props: {
     //
     assetId: { type: String, required: true },
     //
+    projectId: {
+      type: String,
+      ...(isTemplated
+        ? { required: true }
+        : {
+          default: projectId,
+        }),
+    },
+    dataset: {
+      type: String,
+      default: isTemplated ? 'production' : dataset,
+    },
     /**
      * Set auto=format to automatically return an image in webp formatting if the browser supports it.
      */
@@ -160,10 +175,7 @@ export const SanityImage = Vue.extend({
     w: { type: [Number, String] },
   },
   render (h, { props, data }) {
-    /**
-     * @type {Array<keyof typeof props>} keys
-     */
-    const keys = [
+    const keys: Array<keyof typeof props> = [
       'auto',
       'bg',
       'blur',
@@ -199,17 +211,16 @@ export const SanityImage = Vue.extend({
     const parts = props.assetId.split('-').slice(1)
     const format = parts.pop()
 
-    const src = `${baseURL}/<%= options.projectId %>/<%= options.dataset %>/${parts.join(
+    const src = `${baseURL}/${props.projectId}/${props.dataset}/${parts.join(
       '-',
     )}.${format}${queryParams ? '?' + queryParams : ''}`
 
     return h('img', {
+      ...data,
       attrs: {
+        ...data.attrs,
         src,
-        class: [data.class, data.staticClass].filter(Boolean).join(' '),
       },
     })
   },
 })
-
-Vue.component('SanityImage', SanityImage)

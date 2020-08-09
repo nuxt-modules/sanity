@@ -23,8 +23,12 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    */
   imageHelper?: boolean
 }
+const isProd = process.env.NODE_ENV === 'production'
+
 const DEFAULTS: SanityModuleOptions = {
   imageHelper: true,
+  dataset: 'production',
+  withCredentials: false,
 }
 const CONFIG_KEY = 'sanity'
 
@@ -66,6 +70,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     this.options[CONFIG_KEY],
     moduleOptions,
     sanityConfig,
+    { useCdn: isProd && !moduleOptions.token && !this.options[CONFIG_KEY].token },
     DEFAULTS,
   )
 
@@ -98,6 +103,9 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     fileName: 'sanity/plugin.js',
     options: {
       client: useOfficialClient,
+      components: {
+        imageHelper: options.imageHelper,
+      },
       sanityConfig: JSON.stringify({
         useCdn: options.useCdn,
         projectId: options.projectId,
@@ -109,8 +117,8 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   })
 
   if (options.imageHelper) {
-    this.addPlugin({
-      src: resolve(__dirname, '../templates/sanity-image.js'),
+    this.addTemplate({
+      src: resolve(__dirname, '../dist/sanity-image.js'),
       fileName: 'sanity/sanity-image.js',
       options: {
         projectId: options.projectId,

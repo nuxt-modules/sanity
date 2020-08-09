@@ -13,8 +13,6 @@ export interface SanityConfiguration {
   token?: string
 }
 
-const isProd = process.env.NODE_ENV === 'production'
-
 const enc = encodeURIComponent
 
 export function getQs (query: string, params: Record<string, any> = {}) {
@@ -27,13 +25,7 @@ export function getQs (query: string, params: Record<string, any> = {}) {
 }
 
 export function createClient (config: SanityConfiguration) {
-  const {
-    projectId,
-    dataset = 'production',
-    useCdn = isProd,
-    withCredentials = false,
-    token,
-  } = config
+  const { projectId, dataset, useCdn, withCredentials, token } = config
   return {
     clone: () =>
       createClient({ projectId, dataset, useCdn, withCredentials, token }),
