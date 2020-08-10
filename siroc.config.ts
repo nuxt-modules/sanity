@@ -19,7 +19,7 @@ const config: PackageOptions = {
           input: resolve(__dirname, `./src/components/${base}.ts`),
           output: {
             file: resolve(__dirname, `./dist/${base}.js`),
-            format: 'es',
+            format: 'cjs',
           },
           external: externals,
           plugins: [
