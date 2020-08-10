@@ -1,3 +1,10 @@
+### [0.2.2](https://github.com/nuxt-community/sanity-module/compare/0.2.1...0.2.2) (2020-08-10)
+
+
+### Bug Fixes
+
+* build components in `cjs` format ([742cfa1](https://github.com/nuxt-community/sanity-module/commit/742cfa1b6bfe48ef28714f1a8949d3f7c647754f))
+
 ### [0.2.1](https://github.com/nuxt-community/sanity-module/compare/0.2.0...0.2.1) (2020-08-10)
 
 
