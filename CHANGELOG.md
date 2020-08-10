@@ -1,3 +1,10 @@
+### [0.2.1](https://github.com/nuxt-community/sanity-module/compare/0.2.0...0.2.1) (2020-08-10)
+
+
+### Bug Fixes
+
+* correct import path for `<SanityContent>` helper ([2aa00c4](https://github.com/nuxt-community/sanity-module/commit/2aa00c49aea623c030f01390bd577217386b2c58))
+
 ## [0.2.0](https://github.com/nuxt-community/sanity-module/compare/0.1.0...0.2.0) (2020-08-09)
 
 
