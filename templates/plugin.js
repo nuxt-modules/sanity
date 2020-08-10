@@ -11,7 +11,7 @@ import Vue from 'vue'
 <% } %>
 
 <% if (options.components.contentHelper) { %>
-  import { SanityContent } from '@nuxtjs/sanity/sanity-content'
+  import { SanityContent } from '@nuxtjs/sanity/dist/sanity-content'
   Vue.component('SanityContent', SanityContent)
 <% } %>
 
