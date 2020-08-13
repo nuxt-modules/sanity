@@ -1,6 +1,6 @@
 ---
 title: Introduction
-description: 'Sanity integration for Nuxt.js.'
+description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: ''
 position: 1
 items:
@@ -11,6 +11,9 @@ items:
   - Module and all dependencies < 1.7kB gzipped
   - Written in TypeScript
 ---
+
+<img src="/preview.png" class="light-img" alt="Access text, images, and other media with Nuxt and the Sanity headless CMS."/>
+<img src="/preview-dark.png" class="dark-img" alt="Access text, images, and other media with Nuxt and the Sanity headless CMS."/>
 
 [Sanity](https://www.sanity.io/) integration for [Nuxt.js](https://nuxtjs.org).
 

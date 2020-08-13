@@ -1,6 +1,6 @@
 ---
 title: Portable text
-description: 'Sanity integration for Nuxt.js.'
+description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 10
 version: 0.11

@@ -1,6 +1,6 @@
 ---
 title: Syntax highlighting
-description: 'Sanity integration for Nuxt.js.'
+description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 12
 ---
