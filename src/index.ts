@@ -72,13 +72,11 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
   try {
     // eslint-disable-next-line
-    if (process.server) {
-      const fs = require('fs-extra')
-      const { projectId, dataset } = fs.readJSONSync(
-        resolve(this.options.rootDir, './sanity.json'),
-      ).api
-      sanityConfig = { projectId, dataset }
-    }
+    const fs: typeof import('fs-extra') = process.client ? {} : require('fs-extra')
+    const { projectId, dataset } = fs.readJSONSync(
+      resolve(this.options.rootDir, './sanity.json'),
+    ).api
+    sanityConfig = { projectId, dataset }
   } catch {}
 
   const options = defu<SanityModuleOptions>(
