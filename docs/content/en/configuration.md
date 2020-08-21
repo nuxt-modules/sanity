@@ -23,8 +23,26 @@ If you need to provide additional configuration, you can pass in an object in yo
 {
   sanity: {
     projectId: 'myProject',
-    token: process.env.SANITY_TOKEN
-  }
+  },
+}
+```
+
+## Runtime configuration
+
+It is also possible to pass options to this module through [runtime configuration](https://nuxtjs.org/guide/runtime-config/), via a `sanity` key. If you do so they will be merged with (and override) any other options passed in.
+
+For example:
+
+```js{}[nuxt.config.js]
+{
+  privateRuntimeConfig: {
+    sanity: {
+      token: process.env.SANITY_TOKEN,
+    },
+  },
+  sanity: {
+    projectId: 'myProject',
+  },
 }
 ```
 
