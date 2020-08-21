@@ -129,7 +129,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
         withCredentials: options.withCredentials,
         token: options.token,
       }),
-      additionalClients: JSON.stringify(options.additionalClients),
+      additionalClients: JSON.stringify(options.additionalClients || {}),
     },
   })
 
