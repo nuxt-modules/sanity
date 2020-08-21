@@ -25,6 +25,10 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    * @default true
    */
   contentHelper?: boolean
+  /**
+   * Configuration for any additional clients
+   */
+  additionalClients?: Record<string, Partial<SanityConfiguration>>
 }
 const isProd = process.env.NODE_ENV === 'production'
 
@@ -35,6 +39,7 @@ const DEFAULTS: SanityModuleOptions = {
   withCredentials: false,
 }
 const CONFIG_KEY = 'sanity'
+const HELPER_KEY = '$sanity'
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   if (isNuxtBuild) return
@@ -124,6 +129,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
         withCredentials: options.withCredentials,
         token: options.token,
       }),
+      additionalClients: JSON.stringify(options.additionalClients),
     },
   })
 
@@ -143,39 +149,35 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 }
 ;(nuxtModule as any).meta = { name: '@nuxtjs/sanity' }
 
+interface Client {
+  client: SanityClient
+  fetch: ReturnType<typeof createClient>['fetch']
+  setToken: (token: string) => void
+}
+
+type SanityHelper = Record<string, Client> & Client
+
 declare module '@nuxt/types' {
   interface NuxtConfig {
-    sanity: SanityModuleOptions
+    [CONFIG_KEY]: SanityModuleOptions
   } // Nuxt 2.14+
   interface Configuration {
-    sanity: SanityModuleOptions
+    [CONFIG_KEY]: SanityModuleOptions
   } // Nuxt 2.9 - 2.13
   interface NuxtAppOptions {
-    $sanity: {
-      client: SanityClient
-      fetch: ReturnType<typeof createClient>['fetch']
-      setToken: (token: string) => void
-    }
+    [HELPER_KEY]: SanityHelper
   }
 }
 
 declare module 'vue/types/vue' {
   interface Vue {
-    $sanity: {
-      client: SanityClient
-      fetch: ReturnType<typeof createClient>['fetch']
-      setToken: (token: string) => void
-    }
+    [HELPER_KEY]: SanityHelper
   }
 }
 
 declare module 'vuex/types/index' {
   interface Store<S> {
-    $sanity: {
-      client: SanityClient
-      fetch: ReturnType<typeof createClient>['fetch']
-      setToken: (token: string) => void
-    }
+    [HELPER_KEY]: SanityHelper
   }
 }
 

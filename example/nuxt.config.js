@@ -11,6 +11,9 @@ const config = {
   sanity: {
     projectId: process.env.NODE_ENV === 'development' ? 'j1o4tmjp' : undefined,
     dataset: 'production',
+    additionalClients: {
+      another: {},
+    },
   },
   build: {
     extend (config) {
