@@ -1,7 +1,5 @@
 import { resolve } from 'path'
 
-import { bold } from 'chalk'
-import consola from 'consola'
 import defu from 'defu'
 
 import type { Module } from '@nuxt/types'
@@ -39,6 +37,11 @@ const DEFAULTS: SanityModuleOptions = {
 const CONFIG_KEY = 'sanity'
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
+  if (isNuxtBuild) return
+
+  const { bold }: typeof import('chalk') = process.client ? {} : require('chalk')
+  const consola: typeof import('consola').default = process.client ? {} : require('consola')
+
   if (!projectId) {
     consola.warn(
       `Make sure you specify a ${bold('projectId')} in your sanity config.`,
@@ -55,9 +58,10 @@ function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
 }
 
 const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
-  if (isNuxtBuild) {
-    return
-  }
+  if (isNuxtBuild) return
+
+  const { bold }: typeof import('chalk') = process.client ? {} : require('chalk')
+  const consola: typeof import('consola').default = process.client ? {} : require('consola')
 
   let sanityConfig: Record<string, any> = {}
 
