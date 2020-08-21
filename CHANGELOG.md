@@ -1,3 +1,17 @@
+## [0.3.0](https://github.com/nuxt-community/sanity-module/compare/0.2.2...0.3.0) (2020-08-21)
+
+
+### Features
+
+* add multiple sanity client capability ([fa4c08e](https://github.com/nuxt-community/sanity-module/commit/fa4c08ebf7adefebeb9c0ed17ed748dae8f03436)), closes [#2](https://github.com/nuxt-community/sanity-module/issues/2)
+* allow using `runtimeConfig` to set sanity options ([20fa796](https://github.com/nuxt-community/sanity-module/commit/20fa796066badca4da6a1bc8d42cdbbe5c2caa57))
+
+
+### Bug Fixes
+
+* avoid accidentally including `@sanity/client` in bundle ([cc09401](https://github.com/nuxt-community/sanity-module/commit/cc0940155d87e5ef43ec410f8226a59e24bc80a2))
+* prevent `chalk` and `consola` from being included in client build ([0a8c792](https://github.com/nuxt-community/sanity-module/commit/0a8c792fec11fbe8ff7f38314b6c00f8d4f099b9))
+
 ### [0.2.2](https://github.com/nuxt-community/sanity-module/compare/0.2.1...0.2.2) (2020-08-10)
 
 
