@@ -17,19 +17,30 @@ Vue.component('SanityContent', SanityContent)
 <% } %>
 
 const _options = JSON.parse('<%= options.sanityConfig %>')
+const _additionalClients = JSON.parse('<%= options.additionalClients %>')
+
+const createSanity = options => ({
+  client: createClient(options),
+  fetch(...args) {
+    return this.client.fetch(...args)
+  },
+  setToken(token) {
+    this.client = createClient({ ...options, token })
+  },
+})
 
 /**
  * @type {import('@nuxt/types').Plugin}
  */
 export default async ({ $config }, inject) => {
-  const options = defu($config.sanity || {}, _options)
+  const options = defu($config && $config.sanity || {}, _options)
+  const additionalClients = defu($config && $config.sanity && $config.sanity.additionalClients || {}, _additionalClients)
+
   inject('sanity', {
-    client: createClient(options),
-    fetch(...args) {
-      return this.client.fetch(...args)
-    },
-    setToken(token) {
-      this.client = createClient({ ...options, token })
-    }
+    ...createSanity(options),
+    ...Object.entries(additionalClients).reduce((clients, [name, clientOptions]) => {
+      clients[name] = createSanity(defu(clientOptions, options))
+      return clients
+    }, {})
   })
 }

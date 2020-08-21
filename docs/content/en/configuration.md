@@ -3,6 +3,7 @@ title: Configuration
 description: 'Sanity integration for Nuxt.js.'
 category: Getting started
 position: 3
+version: 0.23
 ---
 
 By default, `@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory, and it will read your `projectId` and `dataset` from there.
@@ -52,19 +53,19 @@ You can provide a token or leave blank to be an anonymous user. (You can also se
 ### `withCredentials`
 
 - Type: **boolean**
-- Default: **false**
+- Default: **`false`**
 
 Include credentials in requests made to Sanity. Useful if you want to take advantage of an existing authorisation to the Sanity CMS.
 
 ### `useCdn`
 
 - Type: **boolean**
-- Default: **true** in production or **false** if a token has been passed in
+- Default: **`true`** in production or **`false`** if a token has been passed in
 
 ### `minimal`
 
 - Type: **boolean**
-- Default: **false**
+- Default: **`false`**
 
 Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](https://github.com/rexxars/picosanity) with SSR-specific changes). It only supports `fetch` requests, but will significantly decrease your bundle size.
 
@@ -73,13 +74,47 @@ Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](h
 ### `imageHelper`
 
 - Type: **boolean**
-- Default: **true**
+- Default: **`true`**
 
 Add a global `<SanityImage>` component to assist with URL transformations. See [the docs](/helpers/images) for more information.
 
 ### `contentHelper`
 
 - Type: **boolean**
-- Default: **true**
+- Default: **`true`**
 
 Add a global `<SanityContent>` component to display portable text. See [the docs](/helpers/portable-text) for more information.
+
+### `additionalClients`
+
+- Type: **Object**
+- Default: **`{}`**
+
+You can create additional clients. Each client's name will be the key of the object provided, and the options provided will be merged with the options of the default client.
+
+The options that can be provided are:
+
+- `projectId`
+- `dataset`
+- `token`
+- `withCredentials`
+- `useCdn`
+
+So, for example:
+
+```js{}[nuxt.config.js]
+{
+  // ...
+  sanity: {
+    additionalClients: {
+      another: {
+        projectId: 'anotherproject',
+      },
+    },
+  },
+}
+```
+
+<alert>Because these clients will be accessible directly off the `$sanity` helper, take care not to name them `client`, `fetch` or `setToken`, or they will conflict with the default client properties.
+
+</alert>

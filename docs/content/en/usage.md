@@ -3,6 +3,7 @@ title: Usage
 description: 'Sanity integration for Nuxt.js.'
 category: Getting started
 position: 4
+version: 0.23
 ---
 
 This module globally injects a `$sanity` helper, meaning that you can access it anywhere using `this.$sanity`. For plugins, asyncData, fetch, nuxtServerInit and middleware, you can access it from `context.$sanity`.
@@ -57,5 +58,15 @@ You can securely set the token for your Sanity client in a Nuxt plugin.
 export default async ({ req, $sanity }) => {
   const token = getTokenFromReq(req)
   $sanity.setToken(token)
+}
+```
+
+### Additional clients
+
+If you have [configured additional clients](/configuration#additionalclients) you can access them directly off `$sanity`, with all the same properties and methods as specified above. So, for example:
+
+```js{}[plugins/fetch.js]
+export default async ({ $sanity }) => {
+  $sanity.another.fetch('*[type == "article"][0]')
 }
 ```

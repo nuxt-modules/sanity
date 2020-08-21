@@ -60,7 +60,7 @@ export default Vue.extend({
     LocalSanityImage: SanityImage,
   },
   async fetch () {
-    const movieDetails = await this.$sanity.fetch<QueryResult>(query, {
+    const movieDetails = await this.$sanity.another.fetch<QueryResult>(query, {
       slug: this.$route.params.slug,
     })
     this.details = movieDetails
