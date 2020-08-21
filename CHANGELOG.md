@@ -1,3 +1,10 @@
+### [0.3.2](https://github.com/nuxt-community/sanity-module/compare/0.3.1...0.3.2) (2020-08-21)
+
+
+### Bug Fixes
+
+* read `sanity.json` at build time ([b3e804f](https://github.com/nuxt-community/sanity-module/commit/b3e804fd4ed9a0ea9c5e509575ed85144aa9e3d9))
+
 ### [0.3.1](https://github.com/nuxt-community/sanity-module/compare/0.3.0...0.3.1) (2020-08-21)
 
 
