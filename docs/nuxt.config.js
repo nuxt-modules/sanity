@@ -1,6 +1,7 @@
 import theme from '@nuxt/content-theme-docs'
 
 export default theme({
+  loading: { color: '#fa1607' },
   generate: {
     routes: ['/'],
   },
