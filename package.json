@@ -29,6 +29,11 @@
     "release": "yarn build && yarn test && release-it",
     "test": "yarn lint && yarn build && jest --runInBand"
   },
+  "husky": {
+    "gitHooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
   "dependencies": {
     "defu": "^3.1.0"
   },
@@ -50,14 +55,14 @@
     "@vue/test-utils": "^1.0.3",
     "babel-jest": "26.3.0",
     "eslint": "^7.8.1",
+    "husky": "^4.2.5",
     "jest": "26.4.2",
     "jest-serializer-vue-tjw": "^3.14.0",
     "lint-staged": "^10.2.11",
     "nuxt-edge": "latest",
     "puppeteer": "^5.2.1",
     "release-it": "^13.7.1",
-    "siroc": "^0.3.1",
-    "yorkie": "^2.0.0"
+    "siroc": "^0.3.1"
   },
   "peerDependencies": {
     "chalk": "^3.0.0",
@@ -65,8 +70,5 @@
   },
   "publishConfig": {
     "access": "public"
-  },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
   }
 }
