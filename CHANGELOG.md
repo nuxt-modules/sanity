@@ -1,3 +1,10 @@
+### [0.3.3](https://github.com/nuxt-community/sanity-module/compare/0.3.2...0.3.3) (2020-09-27)
+
+
+### Features
+
+* add vetur auto-completion for `<SanityImage>` and `<SanityContent>` ([01ddb19](https://github.com/nuxt-community/sanity-module/commit/01ddb1916a43fb58d02164632af693366c941aea))
+
 ### [0.3.2](https://github.com/nuxt-community/sanity-module/compare/0.3.1...0.3.2) (2020-08-21)
 
 
