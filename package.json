@@ -18,6 +18,7 @@
   "types": "dist/index.d.ts",
   "files": [
     "dist",
+    "vetur",
     "templates"
   ],
   "scripts": {
@@ -70,5 +71,9 @@
   },
   "publishConfig": {
     "access": "public"
+  },
+  "vetur": {
+    "tags": "vetur/tags.json",
+    "attributes": "vetur/attributes.json"
   }
 }
