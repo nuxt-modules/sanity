@@ -26,7 +26,7 @@ describe('module with minimal options', () => {
 
   test('Minimal client is used', async () => {
     const page = await createPage('/')
-    await page.getHtml()
+    await page.innerHTML('body')
     expect(mockSanityClient).toHaveBeenCalledTimes(0)
   })
 })
