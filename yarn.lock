@@ -7880,6 +7880,11 @@ jiti@^0.1.11:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-0.1.11.tgz#8b27b92e4c0866b3c8c91945c55a99a1db17a782"
   integrity sha512-zSPegl+ageMLSYcq1uAZa6V56pX2GbNl/eU3Or7PFHu10a2YhLAXj5fnHJGd6cHZTalSR8zXGH8WmyuyufMhLA==
 
+joycon@^2.2.5:
+  version "2.2.5"
+  resolved "https://registry.yarnpkg.com/joycon/-/joycon-2.2.5.tgz#8d4cf4cbb2544d7b7583c216fcdfec19f6be1615"
+  integrity sha512-YqvUxoOcVPnCp0VU1/56f+iKSdvIRJYPznH22BdXV3xMk75SFXhWeJkZ8C9XxUWt1b5x2X1SxuFygW1U0FmkEQ==
+
 jpeg-js@^0.4.2:
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/jpeg-js/-/jpeg-js-0.4.2.tgz#8b345b1ae4abde64c2da2fe67ea216a114ac279d"
@@ -11323,12 +11328,14 @@ rollup-plugin-dts@^1.4.13:
   optionalDependencies:
     "@babel/code-frame" "^7.10.4"
 
-rollup-plugin-esbuild@2.3.0, rollup-plugin-esbuild@2.5.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.3.0.tgz#7c107d4508af80d30966a148b306cb7d5b36b258"
-  integrity sha512-lNbWDRaClwXauaIybuaiOBRWgxcp3GkZu0UUix9yH/OHFgVohKmzlU0NtNbvfbxAcfEooyuBRAv6YCaJl1Mbpw==
+rollup-plugin-esbuild@2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/rollup-plugin-esbuild/-/rollup-plugin-esbuild-2.5.0.tgz#5748352d0b688743ac64fc85fa86939e00098524"
+  integrity sha512-Tfi8Zynux67j4h4xEp/OvP2EDrKk/nM9Eghe1sT2+Nw4s6ei9vsqO1ajU+Y8EFfizMk3KEfYCicBKX6QLTW33w==
   dependencies:
     "@rollup/pluginutils" "^3.1.0"
+    joycon "^2.2.5"
+    strip-json-comments "^3.1.1"
 
 rollup@^2.28.2:
   version "2.28.2"
