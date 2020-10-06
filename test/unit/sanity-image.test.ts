@@ -12,17 +12,17 @@ const getWrapper = (propsData: Record<string, any>) =>
 const projectId = 'test-project'
 
 describe('SanityImage', () => {
-  test('it parses asset IDs correctly', () => {
+  it('parses asset IDs correctly', () => {
     const wrapper = getWrapper({
       assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
     })
 
     expect(wrapper.attributes().src).toBe(
-      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg`,
+      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg`
     )
   })
 
-  test('it correctly adds query params', () => {
+  it('correctly adds query params', () => {
     const wrapper = getWrapper({
       assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
       w: 20,
@@ -30,12 +30,34 @@ describe('SanityImage', () => {
     })
 
     expect(wrapper.attributes().src).toBe(
-      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?h=21&w=20`,
+      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?h=21&w=20`
     )
+  })
+
+  it('provides a valid renderless component', () => {
+    const wrapper = mount(
+      {
+        template: `
+          <SanityImage
+            asset-id="image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg"
+            auto="format"
+          >
+            <template #default="{ src }">
+              <img :src="src" />
+            </template>
+          </SanityImage>
+      `,
+      },
+      {
+        components: { SanityImage },
+      }
+    )
+
+    expect(wrapper.html()).toMatchSnapshot()
   })
 })
 
-describe('it validates props', () => {
+describe('SanityImage prop validation', () => {
   const mockError = jest.fn()
   console.error = mockError
 
@@ -71,7 +93,7 @@ describe('it validates props', () => {
 
   failures.forEach(([key, values]) => {
     it(`fails for ${key}`, () => {
-      values.forEach((value) => {
+      values.forEach(value => {
         getWrapper({
           assetId:
             'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
@@ -92,7 +114,7 @@ describe('it validates props', () => {
 
   validOptions.forEach(([key, values]) => {
     it(`succeeds for ${key}`, () => {
-      values.forEach((value) => {
+      values.forEach(value => {
         getWrapper({
           assetId:
             'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',

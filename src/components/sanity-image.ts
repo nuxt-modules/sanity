@@ -18,8 +18,8 @@ export const SanityImage = extendVue({
       ...(isTemplated
         ? { required: true }
         : {
-          default: projectId,
-        }),
+            default: projectId,
+          }),
     },
     dataset: {
       type: String,
@@ -85,7 +85,7 @@ export const SanityImage = extendVue({
       type: String,
       validator: value =>
         ['clip', 'crop', 'fill', 'fillmax', 'max', 'scale', 'min'].includes(
-          value,
+          value
         ),
     },
     /**
@@ -174,7 +174,7 @@ export const SanityImage = extendVue({
      */
     w: { type: [Number, String] },
   },
-  render (h, { props, data }) {
+  render(h, { props, data, scopedSlots }) {
     const keys: Array<keyof typeof props> = [
       'auto',
       'bg',
@@ -201,7 +201,7 @@ export const SanityImage = extendVue({
     ]
 
     const queryParams = keys
-      .map((prop) => {
+      .map(prop => {
         const urlFormat = prop.replace(/[A-Z]./, r => '-' + r[1].toLowerCase())
         return props[prop] ? `${urlFormat}=${props[prop]}` : undefined
       })
@@ -212,15 +212,18 @@ export const SanityImage = extendVue({
     const format = parts.pop()
 
     const src = `${baseURL}/${props.projectId}/${props.dataset}/${parts.join(
-      '-',
+      '-'
     )}.${format}${queryParams ? '?' + queryParams : ''}`
 
-    return h('img', {
-      ...data,
-      attrs: {
-        ...data.attrs,
-        src,
-      },
-    })
+    // console.log('render -> scopedSlots', scopedSlots)
+    return scopedSlots.default
+      ? scopedSlots.default({ src })
+      : h('img', {
+          ...data,
+          attrs: {
+            ...data.attrs,
+            src,
+          },
+        })
   },
 })

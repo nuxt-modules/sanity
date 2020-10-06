@@ -3,6 +3,7 @@ title: Image formatting
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 11
+version: 0.33
 ---
 
 ## Global helper
@@ -61,6 +62,25 @@ export default {
   components: { SanityImage },
 }
 </script>
+```
+
+## Renderless usage
+
+If you pass in a default scopedSlot you can use the `<SanityImage>` component as a renderless component to allow you to take full control of the functionality.
+
+### Example
+
+```vue
+<template>
+  <SanityImage
+    asset-id="image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg"
+    auto="format"
+  >
+    <template #default="{ src }">
+      <img :src="src" />
+    </template>
+  </SanityImage>
+</template>
 ```
 
 ## Other resources
