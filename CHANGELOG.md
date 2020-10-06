@@ -1,3 +1,10 @@
+### [0.3.5](https://github.com/nuxt-community/sanity-module/compare/0.3.4...0.3.5) (2020-10-06)
+
+
+### Bug Fixes
+
+* correct type error of renderless component ([b4679f7](https://github.com/nuxt-community/sanity-module/commit/b4679f731406c3405cbf8bbfd599cf7ae22265fb))
+
 ### [0.3.4](https://github.com/nuxt-community/sanity-module/compare/0.3.3...0.3.4) (2020-10-06)
 
 
