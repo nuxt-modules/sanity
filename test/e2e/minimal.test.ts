@@ -28,5 +28,5 @@ describe('module with minimal options', () => {
     const page = await createPage('/')
     await page.innerHTML('body')
     expect(mockSanityClient).toHaveBeenCalledTimes(0)
-  })
+  }, 50000)
 })

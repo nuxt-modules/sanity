@@ -17,5 +17,5 @@ describe('module without a project id', () => {
     expect(mockWarn).toBeCalledWith(
       expect.stringContaining('Make sure you specify'),
     )
-  })
+  }, 50000)
 })

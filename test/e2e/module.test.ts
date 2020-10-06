@@ -35,5 +35,5 @@ describe('module with default options', () => {
         }),
       },
     })
-  })
+  }, 50000)
 })
