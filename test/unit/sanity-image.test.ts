@@ -18,7 +18,7 @@ describe('SanityImage', () => {
     })
 
     expect(wrapper.attributes().src).toBe(
-      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg`
+      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg`,
     )
   })
 
@@ -30,7 +30,7 @@ describe('SanityImage', () => {
     })
 
     expect(wrapper.attributes().src).toBe(
-      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?h=21&w=20`
+      `https://cdn.sanity.io/images/${projectId}/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?h=21&w=20`,
     )
   })
 
@@ -50,7 +50,7 @@ describe('SanityImage', () => {
       },
       {
         components: { SanityImage },
-      }
+      },
     )
 
     expect(wrapper.html()).toMatchSnapshot()
@@ -93,7 +93,7 @@ describe('SanityImage prop validation', () => {
 
   failures.forEach(([key, values]) => {
     it(`fails for ${key}`, () => {
-      values.forEach(value => {
+      values.forEach((value) => {
         getWrapper({
           assetId:
             'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
@@ -114,7 +114,7 @@ describe('SanityImage prop validation', () => {
 
   validOptions.forEach(([key, values]) => {
     it(`succeeds for ${key}`, () => {
-      values.forEach(value => {
+      values.forEach((value) => {
         getWrapper({
           assetId:
             'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
