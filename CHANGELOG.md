@@ -1,3 +1,10 @@
+### [0.3.4](https://github.com/nuxt-community/sanity-module/compare/0.3.3...0.3.4) (2020-10-06)
+
+
+### Features
+
+* allow using scoped slots for full control of `<SanityImage>` ([c40313d](https://github.com/nuxt-community/sanity-module/commit/c40313d37933d9c601a30c7cce22ee4de44c5491))
+
 ### [0.3.3](https://github.com/nuxt-community/sanity-module/compare/0.3.2...0.3.3) (2020-09-27)
 
 
