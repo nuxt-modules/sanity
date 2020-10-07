@@ -1,3 +1,10 @@
+### [0.3.6](https://github.com/nuxt-community/sanity-module/compare/0.3.5...0.3.6) (2020-10-07)
+
+
+### Bug Fixes
+
+* correctly extend `@nuxt/types` ([7f54ba7](https://github.com/nuxt-community/sanity-module/commit/7f54ba7d114e132ec5c52a71e507b1d3c2d45b58))
+
 ### [0.3.5](https://github.com/nuxt-community/sanity-module/compare/0.3.4...0.3.5) (2020-10-06)
 
 
