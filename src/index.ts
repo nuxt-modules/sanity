@@ -156,7 +156,7 @@ interface Client {
 type SanityHelper = Record<string, Client> & Client
 
 declare module '@nuxt/types' {
-  interface NuxtConfig {
+  interface NuxtOptions {
     [CONFIG_KEY]: SanityModuleOptions
   } // Nuxt 2.14+
   interface Configuration {
