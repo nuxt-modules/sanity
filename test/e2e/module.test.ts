@@ -21,7 +21,7 @@ describe('module with default options', () => {
       src: expect.stringContaining('plugin.js'),
       fileName: 'sanity/plugin.js',
       options: {
-        client: false,
+        client: true,
         additionalClients: JSON.stringify({ another: {} }),
         components: {
           contentHelper: true,

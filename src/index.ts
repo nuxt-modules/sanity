@@ -94,7 +94,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   let useOfficialClient = !options.minimal
   try {
     if (useOfficialClient) {
-      useOfficialClient = !!require.resolveWeak('@sanity/client')
+      useOfficialClient = !!((require.resolveWeak || require)('@sanity/client'))
     }
   } catch {
     useOfficialClient = false
