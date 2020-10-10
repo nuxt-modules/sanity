@@ -1,3 +1,10 @@
+### [0.3.7](https://github.com/nuxt-community/sanity-module/compare/0.3.6...0.3.7) (2020-10-10)
+
+
+### Bug Fixes
+
+* correctly detect `@sanity/client` ([0792049](https://github.com/nuxt-community/sanity-module/commit/07920495700120223254acf5aaa0d679db344266))
+
 ### [0.3.6](https://github.com/nuxt-community/sanity-module/compare/0.3.5...0.3.6) (2020-10-07)
 
 
