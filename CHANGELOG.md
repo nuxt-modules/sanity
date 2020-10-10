@@ -1,3 +1,10 @@
+### [0.3.8](https://github.com/nuxt-community/sanity-module/compare/0.3.7...0.3.8) (2020-10-10)
+
+
+### Bug Fixes
+
+* resolve `unexpected token` error ([ac9c52c](https://github.com/nuxt-community/sanity-module/commit/ac9c52cf4945e6a8f522e2a60e7cd1fbbd5a1307)), closes [#19](https://github.com/nuxt-community/sanity-module/issues/19)
+
 ### [0.3.7](https://github.com/nuxt-community/sanity-module/compare/0.3.6...0.3.7) (2020-10-10)
 
 
