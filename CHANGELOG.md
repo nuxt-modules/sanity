@@ -1,3 +1,10 @@
+### [0.3.9](https://github.com/nuxt-community/sanity-module/compare/0.3.8...0.3.9) (2020-10-11)
+
+
+### Features
+
+* expose sanity configuration as `$sanity.config` ([35f3e92](https://github.com/nuxt-community/sanity-module/commit/35f3e92255911244ac77a11a8c71bbe5ef84a08b)), closes [#19](https://github.com/nuxt-community/sanity-module/issues/19)
+
 ### [0.3.8](https://github.com/nuxt-community/sanity-module/compare/0.3.7...0.3.8) (2020-10-10)
 
 
