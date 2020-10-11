@@ -20,6 +20,12 @@ describe('module with default options', () => {
     )
   }, 50000)
 
+  test('Sanity config is exposed', async () => {
+    const page = await createPage('/')
+    const html = await page.innerHTML('body')
+    expect(html).toContain('Project ID: j1o4tmjp')
+  }, 50000)
+
   test('CMS items are fetched', async () => {
     const page = await createPage('/')
     const html = await page.innerHTML('body')

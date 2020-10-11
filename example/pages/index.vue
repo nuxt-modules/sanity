@@ -2,6 +2,7 @@
   <div
     class="bg-gray-300 grid grid-flow-col grid-rows-3 p-8 overflow-x-hidden min-h-screen"
   >
+    <h2>Project ID: {{ $sanity.config.projectId }}</h2>
     <NuxtLink
       v-for="{ title, poster, slug } in movies"
       :key="title"

@@ -3,7 +3,7 @@ title: Usage
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Getting started
 position: 4
-version: 0.23
+version: 0.39
 ---
 
 This module globally injects a `$sanity` helper, meaning that you can access it anywhere using `this.$sanity`. For plugins, asyncData, fetch, nuxtServerInit and middleware, you can access it from `context.$sanity`.
@@ -58,6 +58,23 @@ You can securely set the token for your Sanity client in a Nuxt plugin.
 export default async ({ req, $sanity }) => {
   const token = getTokenFromReq(req)
   $sanity.setToken(token)
+}
+```
+
+### `config`
+
+You can access the Sanity config you have passed into the module if you need to do so (for example, with `@sanity/image-url`):
+
+```js{}[plugins/sanity.js]
+import imageUrlBuilder from '@sanity/image-url'
+export default ({ $sanity }, inject) => {
+  const builder = imageUrlBuilder($sanity.config)
+
+  function urlFor(source) {
+    return builder.image(source)
+  }
+
+  inject('urlFor', urlFor)
 }
 ```
 

@@ -149,6 +149,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
 interface Client {
   client: SanityClient
+  config: Pick<SanityModuleOptions, 'useCdn' | 'projectId' | 'dataset' | 'withCredentials' | 'token'>
   fetch: ReturnType<typeof createClient>['fetch']
   setToken: (token: string) => void
 }

@@ -21,11 +21,13 @@ const _additionalClients = JSON.parse('<%= options.additionalClients %>')
 
 const createSanity = options => ({
   client: createClient(options),
+  config: options,
   fetch(...args) {
     return this.client.fetch(...args)
   },
   setToken(token) {
     this.client = createClient({ ...options, token })
+    this.options = ({ ...options, token })
   },
 })
 
