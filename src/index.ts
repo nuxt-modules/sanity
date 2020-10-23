@@ -175,6 +175,7 @@ declare module 'vue/types/vue' {
 }
 
 declare module 'vuex/types/index' {
+  // eslint-disable-next-line
   interface Store<S> {
     [HELPER_KEY]: SanityHelper
   }
