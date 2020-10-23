@@ -1,7 +1,10 @@
 /**
- * From https://github.com/sanity-io/sanity/tree/next/packages/groq
+ * For use with https://github.com/asbjornh/eslint-plugin-groq
+ * and https://github.com/sanity-io/vscode-sanity
+ *
+ * based on https://github.com/sanity-io/sanity/tree/next/packages/groq
  */
-export const groq = (strings: TemplateStringsArray, ...keys: any[]) => {
+export const groq = String.raw || ((strings: TemplateStringsArray, ...keys: any[]) => {
   const lastIndex = strings.length - 1
   return (
     strings
@@ -11,4 +14,4 @@ export const groq = (strings: TemplateStringsArray, ...keys: any[]) => {
         '',
       ) + strings[lastIndex]
   )
-}
+})

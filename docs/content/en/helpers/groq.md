@@ -5,7 +5,7 @@ category: Helpers
 position: 12
 ---
 
-This module exports a `groq` helper function to assist with GROQ syntax highlighting (a duplicate of [this package](https://github.com/sanity-io/sanity/tree/next/packages/groq)). Make sure to install [the VSCode extension](https://github.com/sanity-io/vscode-sanity) - and enjoy!
+This module exports a `groq` helper function to assist with GROQ syntax highlighting and [eslint rules](https://github.com/asbjornh/eslint-plugin-groq). Make sure to install [the VSCode extension](https://github.com/sanity-io/vscode-sanity) - and enjoy!
 
 ## Example
 
