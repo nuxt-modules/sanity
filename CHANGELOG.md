@@ -1,3 +1,10 @@
+### [0.3.11](https://github.com/nuxt-community/sanity-module/compare/0.3.10...0.3.11) (2020-10-27)
+
+
+### Bug Fixes
+
+* set Content-Type header for POST query ([c251a21](https://github.com/nuxt-community/sanity-module/commit/c251a21318a1da95f5441d2fe9a11d0e9e666411))
+
 ### [0.3.10](https://github.com/nuxt-community/sanity-module/compare/0.3.9...0.3.10) (2020-10-27)
 
 
