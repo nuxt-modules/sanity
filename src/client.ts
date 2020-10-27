@@ -60,10 +60,14 @@ export function createClient (config: SanityConfiguration) {
           method: 'post',
           body: JSON.stringify({ query, params }),
           ...fetchOptions,
+          headers: {
+            ...fetchOptions.headers,
+            'Content-Type': 'application/json',
+          },
         })
         : await fetch(
-            `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
-            fetchOptions,
+          `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
+          fetchOptions,
         )
       const { result } = await response.json()
       return result as T
