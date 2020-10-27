@@ -1,3 +1,15 @@
+### [0.3.10](https://github.com/nuxt-community/sanity-module/compare/0.3.9...0.3.10) (2020-10-27)
+
+
+### Features
+
+* make POST requests for large queries ([12c7bb1](https://github.com/nuxt-community/sanity-module/commit/12c7bb14ef6a1121eea1775ff1beb55ad288ae0e)), closes [/www.sanity.io/docs/http-query#the-post-form-J0Wj7](https://github.com/nuxt-community//www.sanity.io/docs/http-query/issues/the-post-form-J0Wj7)
+
+
+### Performance Improvements
+
+* use built-in `String.raw` if available ([0da5573](https://github.com/nuxt-community/sanity-module/commit/0da55733ba6bc3a61fc892961980f51ebdbe5bb7))
+
 ### [0.3.9](https://github.com/nuxt-community/sanity-module/compare/0.3.8...0.3.9) (2020-10-11)
 
 
