@@ -15,7 +15,7 @@ export interface SanityConfiguration {
 
 const enc = encodeURIComponent
 
-export function getQs (query: string, params: Record<string, any> = {}) {
+export function getQuery (query: string, params: Record<string, any> = {}) {
   const baseQs = `?query=${enc(query)}`
   return Object.keys(params).reduce((current, param) => {
     return `${current}&${enc(`$${param}`)}=${enc(
@@ -24,8 +24,25 @@ export function getQs (query: string, params: Record<string, any> = {}) {
   }, baseQs)
 }
 
+export const getByteSize = (query: string) => encodeURI(query).split(/%..|./).length
+
 export function createClient (config: SanityConfiguration) {
   const { projectId, dataset, useCdn, withCredentials, token } = config
+  const fetchOptions: RequestInit = {
+    credentials: withCredentials ? 'include' : 'omit',
+    headers: {
+      ...(token
+        ? {
+          Authorization: `Bearer ${token}`,
+        }
+        : {}),
+      Accept: 'application/json',
+      ...(process.server
+        ? { 'accept-encoding': 'gzip, deflate' }
+        : {}),
+    },
+  }
+
   return {
     clone: () =>
       createClient({ projectId, dataset, useCdn, withCredentials, token }),
@@ -33,23 +50,21 @@ export function createClient (config: SanityConfiguration) {
      * Perform a fetch using GROQ syntax.
      */
     async fetch<T = unknown> (query: string, params?: Record<string, any>) {
-      const host = useCdn ? cdnHost : apiHost
-      const qs = getQs(query, params)
-      const response = await fetch(
-        `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
-        {
-          credentials: withCredentials ? 'include' : 'omit',
-          headers: {
-            ...(token
-              ? {
-                Authorization: `Bearer ${token}`,
-              }
-              : {}),
-            Accept: 'application/json',
-            ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
-          },
-        },
-      )
+      const qs = getQuery(query, params)
+      const usePostRequest = getByteSize(qs) > 9000
+
+      const host = useCdn && !usePostRequest ? cdnHost : apiHost
+
+      const response = usePostRequest
+        ? await fetch(`https://${projectId}.${host}/v1/data/query/${dataset}`, {
+          method: 'post',
+          body: JSON.stringify({ query, params }),
+          ...fetchOptions,
+        })
+        : await fetch(
+            `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
+            fetchOptions,
+        )
       const { result } = await response.json()
       return result as T
     },

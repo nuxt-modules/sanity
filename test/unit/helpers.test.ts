@@ -1,3 +1,5 @@
+import { getByteSize } from '../../src/client'
+
 const behaviour = () => {
   const variable = 'description'
   const { groq } = require('../../src/helpers')
@@ -30,4 +32,15 @@ describe('groq with polyfill', () => {
     String.raw = raw
   })
   it('converts tagged literal into string with polyfill', behaviour)
+})
+
+describe('byte size', () => {
+  it('calculates byte size', () => {
+    expect(
+      getByteSize('0123456789 0123456789 0123456789 0123456789')
+    ).toBeLessThan(50)
+    expect(
+      getByteSize('0123456789 0123456789 0123456789 0123456789')
+    ).toBeGreaterThan(40)
+  })
 })

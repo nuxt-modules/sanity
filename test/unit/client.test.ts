@@ -1,4 +1,4 @@
-import { getQs, createClient } from '../../src/client'
+import { getQuery, createClient } from '../../src/client'
 
 describe('minimal sanity client', () => {
   const mockFetch = jest
@@ -17,7 +17,7 @@ describe('minimal sanity client', () => {
   })
 
   it('correctly encodes query variables', () => {
-    const encoded = getQs('*[_type == $type]', {
+    const encoded = getQuery('*[_type == $type]', {
       type: 'article',
       extra: 'nothing',
     })
@@ -36,6 +36,26 @@ describe('minimal sanity client', () => {
   it('creates a client with the correct methods', () => {
     const client = createClient({ projectId: 'sample-project' })
     expect(Object.keys(client)).toEqual(['clone', 'fetch'])
+  })
+
+  it('sends a GET request for smaller queries', () => {
+    const client = createClient({ projectId: 'sample-project' })
+    client.fetch('*[_type == "article"')
+
+    expect(mockFetch).toBeCalledWith(
+      'https://sample-project.api.sanity.io/v1/data/query/undefined?query=*%5B_type%20%3D%3D%20%22article%22',
+      expect.not.objectContaining({ method: 'post' })
+    )
+  })
+
+  it('sends a POST request for large queries', () => {
+    const client = createClient({ projectId: 'sample-project' })
+    client.fetch(require('./fixture/large-request.json').request)
+
+    expect(mockFetch).toBeCalledWith(
+      'https://sample-project.api.sanity.io/v1/data/query/undefined',
+      expect.objectContaining({ method: 'post' })
+    )
   })
 
   it('can clone the client', () => {
