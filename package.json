@@ -28,7 +28,7 @@
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
     "release": "yarn build && yarn test && release-it",
-    "test": "yarn lint && yarn build && jest --runInBand"
+    "test": "yarn lint && yarn build && jest"
   },
   "husky": {
     "gitHooks": {
