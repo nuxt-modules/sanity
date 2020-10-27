@@ -37,10 +37,10 @@ describe('groq with polyfill', () => {
 describe('byte size', () => {
   it('calculates byte size', () => {
     expect(
-      getByteSize('0123456789 0123456789 0123456789 0123456789')
+      getByteSize('0123456789 0123456789 0123456789 0123456789'),
     ).toBeLessThan(50)
     expect(
-      getByteSize('0123456789 0123456789 0123456789 0123456789')
+      getByteSize('0123456789 0123456789 0123456789 0123456789'),
     ).toBeGreaterThan(40)
   })
 })

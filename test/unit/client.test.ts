@@ -44,7 +44,7 @@ describe('minimal sanity client', () => {
 
     expect(mockFetch).toBeCalledWith(
       'https://sample-project.api.sanity.io/v1/data/query/undefined?query=*%5B_type%20%3D%3D%20%22article%22',
-      expect.not.objectContaining({ method: 'post' })
+      expect.not.objectContaining({ method: 'post' }),
     )
   })
 
@@ -54,7 +54,7 @@ describe('minimal sanity client', () => {
 
     expect(mockFetch).toBeCalledWith(
       'https://sample-project.api.sanity.io/v1/data/query/undefined',
-      expect.objectContaining({ method: 'post' })
+      expect.objectContaining({ method: 'post' }),
     )
   })
 
