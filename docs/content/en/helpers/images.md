@@ -3,7 +3,7 @@ title: Image formatting
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 11
-version: 0.33
+version: 0.34
 ---
 
 ## Global helper
@@ -83,6 +83,32 @@ If you pass in a default scopedSlot you can use the `<SanityImage>` component as
 </template>
 ```
 
-## Other resources
+## Using @sanity/image-url
 
-If you are procedurally generating your image URLs you may wish to use [the `@sanity/image-url` package](https://github.com/sanity-io/image-url).
+If the `SanityImage` helper doesn't cover your needs, you can use [the `@sanity/image-url` package](https://github.com/sanity-io/image-url). One way to add it to your Nuxt project is through a plugin:
+
+```js{}[plugins/sanity-image-builder.js]
+import imageUrlBuilder from '@sanity/image-url'
+
+export default ({ $sanity }, inject) => {
+  const builder = imageUrlBuilder($sanity.config)
+  function urlFor(source) {
+    return builder.image(source).auto('format')
+  }
+  inject('urlFor', urlFor)
+}
+```
+
+Then you can use the global `$urlFor` helper:
+
+```vue
+<template>
+  <img
+    :src="$urlFor(movie.image).size(426)"
+    :alt="movie.title"
+    height="426"
+    width="426"
+    loading="lazy"
+  />
+</template>
+```
