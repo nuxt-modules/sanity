@@ -85,7 +85,7 @@ If you pass in a default scopedSlot you can use the `<SanityImage>` component as
 
 ## Using @sanity/image-url
 
-If the `SanityContent` helper doesn't cover your needs, you can use [the `@sanity/image-url` package](https://github.com/sanity-io/image-url). One way to add it to your Nuxt project is through a plugin:
+If the `SanityImage` helper doesn't cover your needs, you can use [the `@sanity/image-url` package](https://github.com/sanity-io/image-url). One way to add it to your Nuxt project is through a plugin:
 
 ```js{}[plugins/sanity-image-builder.js]
 import imageUrlBuilder from '@sanity/image-url'
