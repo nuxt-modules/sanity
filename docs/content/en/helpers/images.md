@@ -3,7 +3,7 @@ title: Image formatting
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 11
-version: 0.33
+version: 0.34
 ---
 
 ## Global helper
