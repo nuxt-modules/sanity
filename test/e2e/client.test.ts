@@ -7,10 +7,6 @@ describe('module with minimal options', () => {
     jest.mock('@sanity/client', () => mockSanityClient)
   })
 
-  afterAll(() => {
-    jest.clearAllMocks()
-  })
-
   setupTest({
     testDir: __dirname,
     fixture: '../../example',

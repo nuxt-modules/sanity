@@ -71,3 +71,21 @@ describe('module without a project id', () => {
     )
   }, 50000)
 })
+
+describe('module without sanity client installed', () => {
+  beforeAll(() => {
+    jest.mock('@sanity/client', () => {
+      throw new Error('no client')
+    })
+  })
+
+  setupTest({
+    testDir: __dirname,
+    fixture: '../../example',
+  })
+
+  it('should default to minimal client', () => {
+    const { options } = getNuxt()
+    expect(options.sanity.minimal).toBeTruthy()
+  })
+})

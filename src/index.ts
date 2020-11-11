@@ -91,15 +91,12 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     return
   }
 
-  this.options[CONFIG_KEY] = options
-
-  let useOfficialClient = !options.minimal
   try {
-    if (useOfficialClient) {
-      useOfficialClient = !!((process.client || process.server) ? require.resolveWeak('@sanity/client') : require('@sanity/client'))
+    if (!options.minimal) {
+      options.minimal = !((process.client || process.server) ? require.resolveWeak('@sanity/client') : require('@sanity/client'))
     }
   } catch {
-    useOfficialClient = false
+    options.minimal = true
     consola.warn(
       `Not using ${bold(
         '@sanity/client',
@@ -113,13 +110,14 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     )
   }
 
+  this.options[CONFIG_KEY] = options
   const autoregister = !!this.options.components
 
   this.addPlugin({
     src: resolve(__dirname, '../templates/plugin.js'),
     fileName: 'sanity/plugin.js',
     options: {
-      client: useOfficialClient,
+      client: !options.minimal,
       components: {
         autoregister,
         imageHelper: options.imageHelper,
