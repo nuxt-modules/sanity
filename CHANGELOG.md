@@ -1,3 +1,17 @@
+## [0.4.0](https://github.com/nuxt-community/sanity-module/compare/0.3.11...0.4.0) (2020-11-11)
+
+
+### Features
+
+* expose generated sanity config within nuxt config for later use ([0b4ebe8](https://github.com/nuxt-community/sanity-module/commit/0b4ebe89cc2acfad8b629551fe9311b3424f5e35))
+* use `@nuxt/components` for auto-registration of helper components ([4ea5796](https://github.com/nuxt-community/sanity-module/commit/4ea57969e562435a3e69e54d5c97b575fab4bd91))
+
+
+### Bug Fixes
+
+* add name to `<SanityImage>` component for better DX ([8d581ce](https://github.com/nuxt-community/sanity-module/commit/8d581ce2493c77e9f96a897c61beb075e80b7b3a))
+* correctly handle vue keys from portable text ([9e6ca61](https://github.com/nuxt-community/sanity-module/commit/9e6ca617a4355113b6d34abf7a275f06f59271bc))
+
 ### [0.3.11](https://github.com/nuxt-community/sanity-module/compare/0.3.10...0.3.11) (2020-10-27)
 
 
