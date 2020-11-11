@@ -254,6 +254,7 @@ export const SanityContent = extendVue({
         )
         if (process.env.NODE_ENV === 'development') {
           if (!node || (Array.isArray(node) && !node.length))
+            // eslint-disable-next-line
             console.warn(
               `No serializer found for block type "${block._type}".`,
               block,

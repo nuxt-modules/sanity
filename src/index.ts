@@ -42,10 +42,11 @@ const CONFIG_KEY = 'sanity'
 const HELPER_KEY = '$sanity'
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
+  /* istanbul ignore if  */
   if (isNuxtBuild) return
 
-  const { bold }: typeof import('chalk') = process.client ? {} : require('chalk')
-  const consola: typeof import('consola').default = process.client ? {} : require('consola')
+  const { bold }: typeof import('chalk') = process.client ? /* istanbul ignore next */ {} : require('chalk')
+  const consola: typeof import('consola').default = process.client ? /* istanbul ignore next */ {} : require('consola')
 
   if (!projectId) {
     consola.warn(
@@ -63,16 +64,17 @@ function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
 }
 
 const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
+  /* istanbul ignore if  */
   if (isNuxtBuild) return
 
-  const { bold }: typeof import('chalk') = process.client ? {} : require('chalk')
-  const consola: typeof import('consola').default = process.client ? {} : require('consola')
+  const { bold }: typeof import('chalk') = process.client ? /* istanbul ignore next */ {} : require('chalk')
+  const consola: typeof import('consola').default = process.client ? /* istanbul ignore next */ {} : require('consola')
 
   let sanityConfig: Record<string, any> = {}
 
   try {
     // eslint-disable-next-line
-    const fs: typeof import('fs-extra') = process.client ? {} : require('fs-extra')
+    const fs: typeof import('fs-extra') = process.client ? /* istanbul ignore next */ {} : require('fs-extra')
     const { projectId, dataset } = fs.readJSONSync(
       resolve(this.options.rootDir, './sanity.json'),
     ).api
@@ -93,7 +95,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
   try {
     if (!options.minimal) {
-      options.minimal = !((process.client || process.server) ? require.resolveWeak('@sanity/client') : require('@sanity/client'))
+      options.minimal = !((process.client || process.server) ? /* istanbul ignore next */ require.resolveWeak('@sanity/client') : require('@sanity/client'))
     }
   } catch {
     options.minimal = true

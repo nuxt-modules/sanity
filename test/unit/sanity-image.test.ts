@@ -59,6 +59,7 @@ describe('SanityImage', () => {
 
 describe('SanityImage prop validation', () => {
   const mockError = jest.fn()
+  // eslint-disable-next-line
   console.error = mockError
 
   const failures: [string, any[]][] = [
