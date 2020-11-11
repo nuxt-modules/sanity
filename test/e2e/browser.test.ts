@@ -1,4 +1,4 @@
-import { setupTest, createPage } from '@nuxtjs/module-test-utils'
+import { setupTest, createPage } from '@nuxt/test-utils'
 
 describe('module with default options', () => {
   setupTest({

@@ -1,7 +1,4 @@
-import {
-  setupTest,
-  expectModuleToBeCalledWith,
-} from '@nuxtjs/module-test-utils'
+import { setupTest, expectModuleToBeCalledWith } from '@nuxt/test-utils'
 
 const projectId = 'j1o4tmjp'
 const dataset = 'production'

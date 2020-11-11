@@ -79,7 +79,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     sanityConfig = { projectId, dataset }
   } catch {}
 
-  const options = defu<SanityModuleOptions>(
+  const options = defu(
     this.options[CONFIG_KEY],
     moduleOptions,
     sanityConfig,
