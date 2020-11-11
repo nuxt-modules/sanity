@@ -95,10 +95,10 @@ function getProps (item?: Record<string, any>) {
   const obj = Object.entries(item).reduce(
     (obj, [key, value]) => {
       switch (true) {
-        case (['key'] as Array<keyof VNodeData>).includes(
-          key as keyof VNodeData,
+        case (['_key', 'key']).includes(
+          key,
         ):
-          obj[key as keyof VNodeData] = value
+          obj.key = value
           return obj
 
         case ['class', 'href'].includes(key):
