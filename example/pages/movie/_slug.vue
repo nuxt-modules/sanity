@@ -19,7 +19,7 @@
           {{ characterName }}
         </li>
       </ul>
-      <LocalSanityImage asset-id="test-id" />
+      <LocalSanityImage class="w-6 h-12" project-id="j1o4tmjp" asset-id="image-e22a88d23751a84df81f03ef287ae85fc992fe12-780x1170-jpg" />
       <SanityContent :blocks="details.overview" />
     </template>
     <template v-else>

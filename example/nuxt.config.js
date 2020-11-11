@@ -9,25 +9,27 @@ const config = {
     '../src/index.ts',
   ],
   sanity: {
-    projectId: process.env.NODE_ENV === 'development' ? 'j1o4tmjp' : undefined,
+    ...(process.env.NODE_ENV === 'development'
+      ? { projectId: 'j1o4tmjp' }
+      : {}),
     dataset: 'production',
     additionalClients: {
       another: {},
     },
   },
   build: {
-    extend (config) {
+    extend(config) {
       config.resolve.alias['@nuxtjs/sanity/dist/sanity-content'] = resolve(
         __dirname,
-        '../src/components/sanity-content',
+        '../src/components/sanity-content'
       )
       config.resolve.alias['@nuxtjs/sanity/dist/sanity-image'] = resolve(
         __dirname,
-        '../src/components/sanity-image',
+        '../src/components/sanity-image'
       )
       config.resolve.alias['@nuxtjs/sanity'] = resolve(
         __dirname,
-        '../src/index.ts',
+        '../src/index.ts'
       )
     },
   },

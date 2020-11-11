@@ -1,4 +1,5 @@
 module.exports = {
+  setupFiles: ['<rootDir>/test/setup.ts'],
   transform: {
     '\\.(js|ts)$': [
       'babel-jest',

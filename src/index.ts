@@ -91,6 +91,8 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     return
   }
 
+  this.options[CONFIG_KEY] = options
+
   let useOfficialClient = !options.minimal
   try {
     if (useOfficialClient) {

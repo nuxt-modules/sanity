@@ -1,4 +1,4 @@
-import { setupTest, createPage } from '@nuxt/test-utils'
+import { setupTest, get } from '@nuxt/test-utils'
 
 describe('module with minimal options', () => {
   const mockSanityClient = jest.fn()
@@ -13,8 +13,8 @@ describe('module with minimal options', () => {
 
   setupTest({
     testDir: __dirname,
-    browser: true,
     fixture: '../../example',
+    server: true,
     config: {
       sanity: {
         projectId: 'sample-project',
@@ -24,9 +24,8 @@ describe('module with minimal options', () => {
     },
   })
 
-  test('Minimal client is used', async () => {
-    const page = await createPage('/')
-    await page.innerHTML('body')
+  it('should use minimal client', async () => {
+    await get('/')
     expect(mockSanityClient).toHaveBeenCalledTimes(0)
   }, 50000)
 })
