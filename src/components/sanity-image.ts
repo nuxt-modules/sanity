@@ -8,6 +8,7 @@ const dataset = '<%= options.dataset %>'
 const isTemplated = projectId.includes('options')
 
 export const SanityImage = extendVue({
+  name: 'SanityImage',
   functional: true,
   props: {
     //
