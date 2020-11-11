@@ -15,7 +15,6 @@ describe('module with minimal options', () => {
       sanity: {
         projectId: 'sample-project',
         minimal: true,
-        imageHelper: false,
       },
     },
   })

@@ -1,4 +1,9 @@
-import { setupTest, expectModuleToBeCalledWith, getNuxt } from '@nuxt/test-utils'
+import {
+  setupTest,
+  expectModuleToBeCalledWith,
+  getNuxt,
+  expectModuleNotToBeCalledWith,
+} from '@nuxt/test-utils'
 
 const projectId = 'j1o4tmjp'
 const dataset = 'production'
@@ -14,25 +19,61 @@ describe('module with default options', () => {
     },
   })
   it('should inject core plugin with correct defaults', () => {
-    expectModuleToBeCalledWith('addPlugin', {
-      src: expect.stringContaining('plugin.js'),
-      fileName: 'sanity/plugin.js',
-      options: {
-        client: true,
-        additionalClients: JSON.stringify({ another: {} }),
-        components: {
-          autoregister: false,
-          contentHelper: true,
-          imageHelper: true,
+    expectModuleToBeCalledWith(
+      'addPlugin',
+      {
+        src: expect.stringContaining(
+          'plugin.js',
+        ),
+        fileName:
+                                                                      'sanity/plugin.js',
+        options: {
+          client: true,
+          additionalClients: JSON.stringify(
+            {
+              another: {},
+            },
+          ),
+          components: {
+            autoregister: false,
+            contentHelper: true,
+            imageHelper: true,
+          },
+          sanityConfig: JSON.stringify(
+            {
+              useCdn: false,
+              projectId,
+              dataset,
+              withCredentials: false,
+            },
+          ),
         },
-        sanityConfig: JSON.stringify({
-          useCdn: false,
-          projectId,
-          dataset,
-          withCredentials: false,
-        }),
       },
-    })
+    )
+
+    // TODO: waiting for test-utils to remove the ts-ignore
+    expectModuleToBeCalledWith(
+      // @ts-ignore
+      'addTemplate',
+      expect.objectContaining(
+        {
+          src: expect.stringContaining(
+            'sanity-image',
+          ),
+        },
+      ),
+    )
+    expectModuleToBeCalledWith(
+      // @ts-ignore
+      'addTemplate',
+      expect.objectContaining(
+        {
+          src: expect.stringContaining(
+            'sanity-content',
+          ),
+        },
+      ),
+    )
   }, 50000)
 })
 
@@ -87,5 +128,53 @@ describe('module without sanity client installed', () => {
   it('should default to minimal client', () => {
     const { options } = getNuxt()
     expect(options.sanity.minimal).toBeTruthy()
+  })
+})
+
+describe('module with existing transpiles', () => {
+  setupTest({
+    testDir: __dirname,
+    fixture: '../../example',
+    config: {
+      build: {
+        transpile: ['imaginary-module'],
+      },
+    },
+  })
+
+  it('should add module to transpile array', () => {
+    const { options } = getNuxt()
+    expect(options.build.transpile!.some(obj => obj instanceof RegExp && obj.test('@nuxtjs/sanity'))).toBeTruthy()
+  })
+})
+
+describe('module without helpers', () => {
+  setupTest({
+    testDir: __dirname,
+    fixture: '../../example',
+    config: {
+      sanity: {
+        contentHelper: false,
+        imageHelper: false,
+      },
+    },
+  })
+
+  it('should not install components', () => {
+    // TODO: waiting for test-utils to remove the ts-ignore
+    expectModuleNotToBeCalledWith(
+      // @ts-ignore
+      'addTemplate',
+      expect.objectContaining({
+        src: expect.stringContaining('sanity-image'),
+      }),
+    )
+    expectModuleNotToBeCalledWith(
+      // @ts-ignore
+      'addTemplate',
+      expect.objectContaining({
+        src: expect.stringContaining('sanity-content'),
+      }),
+    )
   })
 })

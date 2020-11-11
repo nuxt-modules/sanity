@@ -37,6 +37,7 @@ const DEFAULTS: SanityModuleOptions = {
   imageHelper: true,
   dataset: 'production',
   withCredentials: false,
+  additionalClients: {},
 }
 const CONFIG_KEY = 'sanity'
 const HELPER_KEY = '$sanity'
@@ -85,7 +86,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     this.options[CONFIG_KEY],
     moduleOptions,
     sanityConfig,
-    { useCdn: isProd && !moduleOptions.token && !this.options[CONFIG_KEY].token },
+    { useCdn: /* istanbul ignore next */ isProd && !moduleOptions.token && !this.options[CONFIG_KEY].token },
     DEFAULTS,
   )
 
@@ -132,7 +133,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
         withCredentials: options.withCredentials,
         token: options.token,
       }),
-      additionalClients: JSON.stringify(options.additionalClients || {}),
+      additionalClients: JSON.stringify(options.additionalClients),
     },
   })
 
@@ -160,7 +161,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     })
   }
 
-  this.options.build.transpile = this.options.build.transpile || []
+  this.options.build.transpile = this.options.build.transpile || /* istanbul ignore next */ []
   this.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)
 }
 ;(nuxtModule as any).meta = { name: '@nuxtjs/sanity' }
