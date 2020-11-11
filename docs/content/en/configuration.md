@@ -3,7 +3,7 @@ title: Configuration
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Getting started
 position: 3
-version: 0.23
+version: 0.31
 ---
 
 By default, `@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory, and it will read your `projectId` and `dataset` from there.
@@ -96,12 +96,16 @@ Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](h
 
 Add a global `<SanityImage>` component to assist with URL transformations. See [the docs](/helpers/images) for more information.
 
+If you have `components: true` set in your `nuxt.config` file, then this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
+
 ### `contentHelper`
 
 - Type: **boolean**
 - Default: **`true`**
 
 Add a global `<SanityContent>` component to display portable text. See [the docs](/helpers/portable-text) for more information.
+
+If you have `components: true` set in your `nuxt.config` file, then this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
 
 ### `additionalClients`
 

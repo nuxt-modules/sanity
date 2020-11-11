@@ -6,13 +6,13 @@ import defu from 'defu'
   : "import { createClient } from '@nuxtjs/sanity'"
 %>
 
-<% if (options.components.imageHelper) { %>
-import { SanityImage } from './sanity-image'
+<% if (options.components.imageHelper && !options.components.autoregister) { %>
+import { SanityImage } from './components/sanity-image'
 Vue.component('SanityImage', SanityImage)
 <% } %>
 
-<% if (options.components.contentHelper) { %>
-import { SanityContent } from '@nuxtjs/sanity/dist/sanity-content'
+<% if (options.components.contentHelper && !options.components.autoregister) { %>
+import { SanityContent } from './components/sanity-content'
 Vue.component('SanityContent', SanityContent)
 <% } %>
 

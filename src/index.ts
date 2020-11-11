@@ -111,12 +111,15 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     )
   }
 
+  const autoregister = !!this.options.components
+
   this.addPlugin({
     src: resolve(__dirname, '../templates/plugin.js'),
     fileName: 'sanity/plugin.js',
     options: {
       client: useOfficialClient,
       components: {
+        autoregister,
         imageHelper: options.imageHelper,
         contentHelper: options.contentHelper,
       },
@@ -134,11 +137,24 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   if (options.imageHelper) {
     this.addTemplate({
       src: resolve(__dirname, '../dist/sanity-image.js'),
-      fileName: 'sanity/sanity-image.js',
+      fileName: 'sanity/components/sanity-image.js',
       options: {
         projectId: options.projectId,
         dataset: options.dataset,
       },
+    })
+  }
+
+  if (options.contentHelper) {
+    this.addTemplate({
+      src: resolve(__dirname, '../dist/sanity-content.js'),
+      fileName: 'sanity/components/sanity-content.js',
+    })
+  }
+
+  if (autoregister) {
+    this.nuxt.hook('components:dirs', (dirs: string[]) => {
+      dirs.push(resolve(this.nuxt.options.buildDir, './sanity/components'))
     })
   }
 

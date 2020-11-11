@@ -21,6 +21,7 @@ describe('module with default options', () => {
         client: true,
         additionalClients: JSON.stringify({ another: {} }),
         components: {
+          autoregister: false,
           contentHelper: true,
           imageHelper: true,
         },
