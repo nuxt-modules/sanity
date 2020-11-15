@@ -19,8 +19,8 @@ export const SanityImage = extendVue({
       ...(isTemplated
         ? { required: true }
         : {
-          default: projectId,
-        }),
+            default: projectId,
+          }),
     },
     dataset: {
       type: String,

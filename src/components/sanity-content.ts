@@ -190,20 +190,20 @@ export const SanityContent = extendVue({
     function wrapMarks (
       content: VNode | string,
       [mark, ...marks]: Block['children'][number]['marks'] = [],
-      serializers: Required<Serializers>,
-      markDefs: Block['markDefs'],
+      _serializers: Required<Serializers> = serializers,
+      markDefs: Block['markDefs'] = [],
     ): VNode | string {
       if (!mark) return content
 
       const definition =
-        mark in serializers.marks
+        mark in _serializers.marks
           ? { _type: mark, _key: '' }
           : markDefs.find(m => m._key === mark)
 
       return h(
-        findSerializer(definition, serializers) || 'span',
+        findSerializer(definition, _serializers) || 'span',
         getProps(definition),
-        [wrapMarks(content, marks, serializers, markDefs)],
+        [wrapMarks(content, marks, _serializers, markDefs)],
       )
     }
 
@@ -241,13 +241,13 @@ export const SanityContent = extendVue({
             block,
             block._type === 'block'
               ? (block.children || []).map(child =>
-                wrapMarks(
-                  child.text,
-                  child.marks,
-                  serializers,
-                  block.markDefs,
-                ),
-              )
+                  wrapMarks(
+                    child.text,
+                    child.marks,
+                    serializers,
+                    block.markDefs,
+                  ),
+                )
               : [],
             serializers,
           ),

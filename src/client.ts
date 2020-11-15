@@ -33,8 +33,8 @@ export function createClient (config: SanityConfiguration) {
     headers: {
       ...(token
         ? {
-          Authorization: `Bearer ${token}`,
-        }
+            Authorization: `Bearer ${token}`,
+          }
         : {}),
       Accept: 'application/json',
       ...(process.server
@@ -57,14 +57,14 @@ export function createClient (config: SanityConfiguration) {
 
       const response = usePostRequest
         ? await fetch(`https://${projectId}.${host}/v1/data/query/${dataset}`, {
-          method: 'post',
-          body: JSON.stringify({ query, params }),
-          ...fetchOptions,
-          headers: {
-            ...fetchOptions.headers,
-            'Content-Type': 'application/json',
-          },
-        })
+            method: 'post',
+            body: JSON.stringify({ query, params }),
+            ...fetchOptions,
+            headers: {
+              ...fetchOptions.headers,
+              'Content-Type': 'application/json',
+            },
+          })
         : await fetch(
           `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
           fetchOptions,

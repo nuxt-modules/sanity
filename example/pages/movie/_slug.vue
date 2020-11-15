@@ -59,12 +59,12 @@ export default Vue.extend({
   components: {
     LocalSanityImage: SanityImage,
   },
+  data: () => ({ details: null as null | QueryResult }),
   async fetch () {
     const movieDetails = await this.$sanity.another.fetch<QueryResult>(query, {
       slug: this.$route.params.slug,
     })
     this.details = movieDetails
   },
-  data: () => ({ details: null as null | QueryResult }),
 })
 </script>
