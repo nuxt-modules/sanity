@@ -195,6 +195,7 @@ export const SanityImage = extendVue({
       'minH',
       'minW',
       'or',
+      'q',
       'rect',
       'sat',
       'sharpen',
