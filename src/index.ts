@@ -114,7 +114,8 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   }
 
   this.options[CONFIG_KEY] = options
-  const autoregister = !!this.options.components
+  // TODO: #51
+  const autoregister = false // !!this.options.components
 
   this.addPlugin({
     src: resolve(__dirname, '../templates/plugin.js'),
@@ -155,11 +156,12 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     })
   }
 
-  if (autoregister) {
-    this.nuxt.hook('components:dirs', (dirs: string[]) => {
-      dirs.push(resolve(this.nuxt.options.buildDir, './sanity/components'))
-    })
-  }
+  // TODO: #51
+  // if (autoregister) {
+  //   this.nuxt.hook('components:dirs', (dirs: string[]) => {
+  //     dirs.push(resolve(this.nuxt.options.buildDir, './sanity/components'))
+  //   })
+  // }
 
   this.options.build.transpile = this.options.build.transpile || /* istanbul ignore next */ []
   this.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)
