@@ -1,3 +1,11 @@
+### [0.4.2](https://github.com/nuxt-community/sanity-module/compare/0.4.0...0.4.2) (2020-11-18)
+
+
+### Bug Fixes
+
+* correctly use `q` prop in `<SanityImage>` ([#52](https://github.com/nuxt-community/sanity-module/issues/52)) ([7f5eeba](https://github.com/nuxt-community/sanity-module/commit/7f5eebae6e449c224ce1e2dd02c86d4f9e712990))
+* temporarily disable autoregistration of components ([b5abd8d](https://github.com/nuxt-community/sanity-module/commit/b5abd8d76fb9ade8443ff9916802d691fccb8f7a)), closes [#51](https://github.com/nuxt-community/sanity-module/issues/51)
+
 ## [0.4.0](https://github.com/nuxt-community/sanity-module/compare/0.3.11...0.4.0) (2020-11-11)
 
 
