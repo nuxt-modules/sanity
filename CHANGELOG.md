@@ -1,3 +1,10 @@
+### [0.4.1](https://github.com/nuxt-community/sanity-module/compare/0.4.0...0.4.1) (2020-11-18)
+
+
+### Bug Fixes
+
+* temporarily disable autoregistration of components ([ee2a322](https://github.com/nuxt-community/sanity-module/commit/ee2a3226f881a0e7c8e44a527cde33a46cbc5218)), closes [#51](https://github.com/nuxt-community/sanity-module/issues/51)
+
 ## [0.4.0](https://github.com/nuxt-community/sanity-module/compare/0.3.11...0.4.0) (2020-11-11)
 
 
