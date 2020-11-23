@@ -36,8 +36,7 @@
     "lint": "eslint --fix --ext .js,.ts,.vue .",
     "prepare": "yarn build",
     "prepublishOnly": "yarn test",
-    "release": "yarn build && yarn test && release-it",
-    "test": "yarn lint && yarn build && jest"
+    "test": "yarn lint && jest"
   },
   "husky": {
     "gitHooks": {
