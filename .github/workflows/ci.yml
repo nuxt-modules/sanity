@@ -20,7 +20,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v1
         with:
-          node-version: 14
+          node-version: ${{ matrix.node }}
 
       - name: checkout
         uses: actions/checkout@master
@@ -42,10 +42,6 @@ jobs:
 
       - name: Build project
         run: yarn build
-
-      - uses: actions/setup-node@v1
-        with:
-          node-version: ${{ matrix.node }}
 
       - name: Test
         run: yarn test
