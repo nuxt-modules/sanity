@@ -1,5 +1,5 @@
 import defu from 'defu'
-import type { VNode, VNodeData, VueConstructor } from 'vue'
+import type { CreateElement, VNode, VNodeData, VueConstructor } from 'vue'
 
 import { extendVue } from './vue'
 
@@ -67,9 +67,11 @@ export interface Serializers {
 const defaults: Required<Serializers> = {
   types: {
     span: 'span',
+    image: 'img',
   },
   marks: {
     strong: 'strong',
+    em: 'em',
     link: 'a',
   },
   styles: {
@@ -101,7 +103,7 @@ function getProps (item?: Record<string, any>) {
           obj.key = value
           return obj
 
-        case ['class', 'href'].includes(key):
+        case ['class', 'href', 'src'].includes(key):
           obj.attrs![key] = value
           return obj
 
@@ -145,6 +147,111 @@ function findSerializer (
         : undefined
 }
 
+function wrapStyle (
+  h: CreateElement,
+  { style, listItem }: CustomBlock | Block | List,
+  serializers: Required<Serializers>,
+  children: Array<VNode | string>,
+) {
+  const matches = style ? style.match(/^h(\d)$/) : []
+  if (!listItem && matches && matches.length > 1) {
+    level = Number(matches[1])
+  }
+  if (!listItem && style && serializers.styles[style]) {
+    return h(serializers.styles[style], {}, children)
+  }
+
+  return children
+}
+
+function wrapInSerializer (
+  h: CreateElement,
+  item: CustomBlock | Block | List | Block['markDefs'][number],
+  content: Array<VNode | string>,
+  serializers: Required<Serializers>,
+) {
+  const serializer = findSerializer(item, serializers)
+  if (!serializer) return content
+
+  return [h(serializer, getProps(item), content)]
+}
+
+function wrapMarks (
+  h: CreateElement,
+  content: VNode | string,
+  [mark, ...marks]: Block['children'][number]['marks'] = [],
+  serializers: Required<Serializers> = defaults,
+  markDefs: Block['markDefs'] = [],
+): VNode | string {
+  if (!mark) return content
+
+  const definition =
+    mark in serializers.marks
+      ? { _type: mark, _key: '' }
+      : markDefs.find(m => m._key === mark)
+
+  return h(
+    findSerializer(definition, serializers) || 'span',
+    getProps(definition),
+    [wrapMarks(h, content, marks, serializers, markDefs)],
+  )
+}
+
+function renderBlocks (
+  h: CreateElement,
+  blocks: Array<CustomBlock | Block | List>,
+  serializers: Required<Serializers>,
+  nested = false,
+) {
+  const nestedBlocks = nested
+    ? blocks
+    : blocks.reduce((blocks, block) => {
+      const { length } = blocks
+
+      if (block.level && length) {
+        const { _type, children } = blocks[length - 1]
+        if (_type === 'list' && children) {
+          children.push(block)
+        } else {
+          blocks.push({
+            _type: 'list',
+            children: [block],
+          } as List)
+        }
+      } else {
+        blocks.push(block)
+      }
+      return blocks
+    }, [] as Array<Block | CustomBlock | List>)
+
+  return nestedBlocks.map((block) => {
+    const node = wrapStyle(
+      h,
+      block,
+      serializers,
+      wrapInSerializer(
+        h,
+        block,
+        block._type === 'block'
+          ? (block.children || []).map(child =>
+              wrapMarks(h, child.text, child.marks, serializers, block.markDefs),
+            )
+          : [],
+        serializers,
+      ),
+    )
+    if (process.env.NODE_ENV === 'development') {
+      if (!node || (Array.isArray(node) && !node.length))
+      // eslint-disable-next-line
+        console.warn(
+          `No serializer found for block type "${block._type}".`,
+          block,
+        )
+    }
+    return node
+  })
+}
+
 export const SanityContent = extendVue({
   name: 'SanityContent',
   functional: true,
@@ -160,110 +267,6 @@ export const SanityContent = extendVue({
     renderContainerOnSingleChild: { type: Boolean, default: false },
   },
   render (h, { props, data }) {
-    function wrapStyle (
-      { style, listItem }: CustomBlock | Block | List,
-      serializers: Required<Serializers>,
-      children: Array<VNode | string>,
-    ) {
-      const matches = style ? style.match(/^h(\d)$/) : []
-      if (!listItem && matches && matches.length > 1) {
-        level = Number(matches[1])
-      }
-      if (!listItem && style && serializers.styles[style]) {
-        return h(serializers.styles[style], {}, children)
-      }
-
-      return children
-    }
-
-    function wrapInSerializer (
-      item: CustomBlock | Block | List | Block['markDefs'][number],
-      content: Array<VNode | string>,
-      serializers: Required<Serializers>,
-    ) {
-      const serializer = findSerializer(item, serializers)
-      if (!serializer) return content
-
-      return [h(serializer, getProps(item), content)]
-    }
-
-    function wrapMarks (
-      content: VNode | string,
-      [mark, ...marks]: Block['children'][number]['marks'] = [],
-      _serializers: Required<Serializers> = serializers,
-      markDefs: Block['markDefs'] = [],
-    ): VNode | string {
-      if (!mark) return content
-
-      const definition =
-        mark in _serializers.marks
-          ? { _type: mark, _key: '' }
-          : markDefs.find(m => m._key === mark)
-
-      return h(
-        findSerializer(definition, _serializers) || 'span',
-        getProps(definition),
-        [wrapMarks(content, marks, _serializers, markDefs)],
-      )
-    }
-
-    function renderBlocks (
-      blocks: Array<CustomBlock | Block | List>,
-      serializers: Required<Serializers>,
-      nested = false,
-    ) {
-      const nestedBlocks = nested
-        ? blocks
-        : blocks.reduce((blocks, block) => {
-          const { length } = blocks
-
-          if (block.level && length) {
-            const { _type, children } = blocks[length - 1]
-            if (_type === 'list' && children) {
-              children.push(block)
-            } else {
-              blocks.push({
-                _type: 'list',
-                children: [block],
-              } as List)
-            }
-          } else {
-            blocks.push(block)
-          }
-          return blocks
-        }, [] as Array<Block | CustomBlock | List>)
-
-      return nestedBlocks.map((block) => {
-        const node = wrapStyle(
-          block,
-          serializers,
-          wrapInSerializer(
-            block,
-            block._type === 'block'
-              ? (block.children || []).map(child =>
-                  wrapMarks(
-                    child.text,
-                    child.marks,
-                    serializers,
-                    block.markDefs,
-                  ),
-                )
-              : [],
-            serializers,
-          ),
-        )
-        if (process.env.NODE_ENV === 'development') {
-          if (!node || (Array.isArray(node) && !node.length))
-            // eslint-disable-next-line
-            console.warn(
-              `No serializer found for block type "${block._type}".`,
-              block,
-            )
-        }
-        return node
-      })
-    }
-
     const serializers = defu(props.serializers, defaults) as Required<
       Serializers
     >
@@ -276,7 +279,7 @@ export const SanityContent = extendVue({
         props: {
           children: {
             type: Array as () => Array<Block | CustomBlock | List>,
-            default: () => [] as Array<Block | CustomBlock | List>,
+            default: () => [],
           },
         },
         render (h, { props }) {
@@ -284,14 +287,14 @@ export const SanityContent = extendVue({
             props.children.length && props.children[0].listItem === 'number'
               ? 'ol'
               : 'ul'
-          return h(tag, {}, renderBlocks(props.children, serializers, true))
+          return h(tag, {}, renderBlocks(h, props.children, serializers, true))
         },
       })
 
     return h(
       serializers.container,
       data,
-      renderBlocks(props.blocks || [], serializers),
+      renderBlocks(h, props.blocks || [], serializers),
     )
   },
 })
