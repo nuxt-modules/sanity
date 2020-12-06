@@ -7,65 +7,65 @@ position: 2
 
 ## Setup
 
-1. **Install Sanity integration**
+### Install Sanity integration
 
-  <code-group>
-    <code-block label="Yarn" active>
+<code-group>
+  <code-block label="Yarn" active>
 
-    ```bash
-    yarn add @nuxtjs/sanity
-    ```
+```bash
+yarn add @nuxtjs/sanity
+```
 
-    </code-block>
-    <code-block label="NPM">
+  </code-block>
+  <code-block label="NPM">
 
-    ```bash
-    npm install @nuxtjs/sanity --save
-    ```
+```bash
+npm install @nuxtjs/sanity --save
+```
 
-    </code-block>
+  </code-block>
 
-  </code-group>
+</code-group>
 
-2. **Enable the module in your Nuxt configuration**
+### Enable the module in your Nuxt configuration
 
-  <code-group>
-    <code-block label="Nuxt 2.9+" active>
+<code-group>
+  <code-block label="Nuxt 2.9+" active>
 
-    ```js{}[nuxt.config.js]
-    {
-      buildModules: ['@nuxtjs/sanity']
-    }
-    ```
+```js{}[nuxt.config.js]
+{
+  buildModules: ['@nuxtjs/sanity']
+}
+```
 
-    </code-block>
-    <code-block label="Nuxt < 2.9">
+  </code-block>
+  <code-block label="Nuxt < 2.9">
 
-    ```js{}[nuxt.config.js]
-    {
-      modules: ['@nuxtjs/sanity']
-    }
-    ```
+```js{}[nuxt.config.js]
+{
+  modules: ['@nuxtjs/sanity']
+}
+```
 
-    </code-block>
+  </code-block>
 
-  </code-group>
+</code-group>
 
-3. **Add Sanity configuration**
+### Add Sanity configuration
 
-   `@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory. Just copy over the `sanity.json` from your CMS - and you're fully configured!
+`@nuxtjs/sanity` will look for a `sanity.json` file in your project root directory. Just copy over the `sanity.json` from your CMS - and you're fully configured!
 
-   Alternatively, you can pass in an object in your Nuxt config with key details.
+Alternatively, you can pass in an object in your Nuxt config with key details.
 
-   ```js{}[nuxt.config.js]
-   {
-     sanity: {
-       projectId: 'myProject'
-     }
-   }
-   ```
+```js{}[nuxt.config.js]
+{
+  sanity: {
+    projectId: 'myProject'
+  }
+}
+```
 
-   <alert type="info">You can find more about configuring `@nuxtjs/sanity` [here](/configuration).</alert>
+<alert type="info">You can find more about configuring `@nuxtjs/sanity` [here](/configuration).</alert>
 
 4. **You're good to go!**
 
