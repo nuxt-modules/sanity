@@ -10,7 +10,11 @@ This module globally injects a `$sanity` helper, meaning that you can access it 
 
 ## Reference
 
-### Example with `asyncData`
+### fetch
+
+This enables you to perform a GROQ query against your Sanity dataset.
+
+#### Example with `asyncData`
 
 <code-group>
   <code-block label="JavaScript" active>
@@ -49,7 +53,7 @@ export default {
 
 <alert type="info">By wrapping the GROQ query into an object, you can return the promise directly. The data will be available in your component under the key used in the query.</alert>
 
-### Example with `fetch`
+#### Example with `fetch`
 
 <code-group>
   <code-block label="JavaScript" active>
@@ -61,8 +65,7 @@ const query = groq`*[_type == "article"][0].title`
 
 export default {
   async fetch() {
-    const result = await this.$sanity.fetch(query)
-    this.title = result
+    this.title = await this.$sanity.fetch(query)
   },
   data: () => ({ title: '' }),
 }
@@ -78,8 +81,9 @@ const query = groq`*[_type == "article"][0].title`
 
 export default {
   async fetch() {
-    const result = await this.$sanity.fetch<string>(query)
-    this.title = result
+    // By default it returns a `Promise<unknown>`,
+    // but you can customise the type of the return.
+    this.title = await this.$sanity.fetch<string>(query)
   },
   data: () => ({ title: '' }),
 }
