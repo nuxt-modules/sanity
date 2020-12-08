@@ -14,6 +14,66 @@ This module globally injects a `$sanity` helper, meaning that you can access it 
 
 This enables you to perform a GROQ query against your Sanity dataset. By default it returns a `Promise<unknown>` although you can customise the type of the return.
 
+#### Example with `asyncData`
+
+<code-group>
+  <code-block label="JavaScript" active>
+
+```js
+import { groq } from '@nuxtjs/sanity'
+
+const query = groq`{ "articles": *[_type == "article"] }`
+
+export default {
+  asyncData({ $sanity }) {
+    return $sanity.fetch(query)
+  },
+}
+```
+
+  </code-block>
+  <code-block label="TypeScript">
+
+```ts
+import { groq } from '@nuxtjs/sanity'
+
+const query = groq`{ "articles": *[_type == "article"] }`
+
+export default {
+  asyncData({ $sanity }) {
+    // By default it returns a `Promise<unknown>`,
+    // but you can customise the type of the return.
+    return $sanity.fetch<{ articles: Article[] }>(query)
+  },
+}
+```
+
+  </code-block>
+</code-group>
+
+<alert type="info">By wrapping the GROQ query into an object, you can return the promise directly. The data will be available in your component under the key used in the query.</alert>
+
+#### Example with `fetch`
+
+<code-group>
+  <code-block label="JavaScript" active>
+
+```js
+import { groq } from '@nuxtjs/sanity'
+
+const query = groq`*[_type == "article"][0].title`
+
+export default {
+  async fetch() {
+    this.title = await this.$sanity.fetch(query)
+  },
+  data: () => ({ title: '' }),
+}
+```
+
+  </code-block>
+  <code-block label="TypeScript">
+
 ```ts
 import { groq } from '@nuxtjs/sanity'
 
@@ -21,16 +81,16 @@ const query = groq`*[_type == "article"][0].title`
 
 export default {
   async fetch() {
-    // TypeScript (with a typed response)
-    const result = await this.$sanity.fetch<string>(query)
-
-    // JavaScript
-    const result = await this.$sanity.fetch(query)
-    this.title = result
+    // By default it returns a `Promise<unknown>`,
+    // but you can customise the type of the return.
+    this.title = await this.$sanity.fetch<string>(query)
   },
   data: () => ({ title: '' }),
 }
 ```
+
+  </code-block>
+</code-group>
 
 ### `client`
 
