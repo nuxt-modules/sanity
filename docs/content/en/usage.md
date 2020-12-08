@@ -22,7 +22,7 @@ This enables you to perform a GROQ query against your Sanity dataset.
 ```js
 import { groq } from '@nuxtjs/sanity'
 
-const query = groq`{ "articles": *[_type == "article"]}`
+const query = groq`{ "articles": *[_type == "article"] }`
 
 export default {
   asyncData({ $sanity }) {
@@ -37,7 +37,7 @@ export default {
 ```ts
 import { groq } from '@nuxtjs/sanity'
 
-const query = groq`{ "articles": *[_type == "article"]}`
+const query = groq`{ "articles": *[_type == "article"] }`
 
 export default {
   asyncData({ $sanity }) {
