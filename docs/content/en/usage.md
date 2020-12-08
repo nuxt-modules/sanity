@@ -3,7 +3,7 @@ title: Usage
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Getting started
 position: 4
-version: 0.40
+version: 0.39
 ---
 
 This module globally injects a `$sanity` helper, meaning that you can access it anywhere using `this.$sanity`. For plugins, asyncData, fetch, nuxtServerInit and middleware, you can access it from `context.$sanity`.
