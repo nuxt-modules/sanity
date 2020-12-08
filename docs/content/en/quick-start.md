@@ -9,7 +9,7 @@ position: 2
 
 1. **Install Sanity integration**
 
-  <code-group>
+    <code-group>
     <code-block label="Yarn" active>
 
     ```bash
@@ -24,12 +24,11 @@ position: 2
     ```
 
     </code-block>
-
-  </code-group>
+    </code-group>
 
 2. **Enable the module in your Nuxt configuration**
 
-  <code-group>
+    <code-group>
     <code-block label="Nuxt 2.9+" active>
 
     ```js{}[nuxt.config.js]
@@ -48,8 +47,7 @@ position: 2
     ```
 
     </code-block>
-
-  </code-group>
+    </code-group>
 
 3. **Add Sanity configuration**
 
