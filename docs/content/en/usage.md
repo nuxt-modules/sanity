@@ -12,7 +12,7 @@ This module globally injects a `$sanity` helper, meaning that you can access it 
 
 ### `fetch`
 
-This enables you to perform a GROQ query against your Sanity dataset.
+This enables you to perform a GROQ query against your Sanity dataset. By default it returns a `Promise<unknown>` although you can customise the type of the return.
 
 #### Example with `asyncData`
 
@@ -43,7 +43,7 @@ export default {
   asyncData({ $sanity }) {
     // By default it returns a `Promise<unknown>`,
     // but you can customise the type of the return.
-    return $sanity.fetch<string>(query)
+    return $sanity.fetch<{ articles: Article[] }>(query)
   },
 }
 ```
