@@ -10,7 +10,7 @@ This module globally injects a `$sanity` helper, meaning that you can access it 
 
 ## Reference
 
-### fetch
+### `fetch`
 
 This enables you to perform a GROQ query against your Sanity dataset.
 
