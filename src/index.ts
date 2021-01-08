@@ -86,7 +86,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     this.options[CONFIG_KEY],
     moduleOptions,
     sanityConfig,
-    { useCdn: /* istanbul ignore next */ isProd && !moduleOptions.token && !this.options[CONFIG_KEY].token },
+    { useCdn: /* istanbul ignore next */ isProd && !moduleOptions.token && (!this.options[CONFIG_KEY] || !this.options[CONFIG_KEY].token) },
     DEFAULTS,
   )
 
