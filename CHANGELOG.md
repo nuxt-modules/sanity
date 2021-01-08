@@ -1,3 +1,15 @@
+## [0.5.0](https://github.com/nuxt-community/sanity-module/compare/0.4.2...0.5.0) (2021-01-08)
+
+
+### Features
+
+* disable cdn when enablePreview is called ([137149a](https://github.com/nuxt-community/sanity-module/commit/137149a2e689a7f7be53701a4e76e00ff1eca959)), closes [#45](https://github.com/nuxt-community/sanity-module/issues/45)
+
+
+### Bug Fixes
+
+* don't fail when no sanity object exists in nuxt.config.js ([f5ab953](https://github.com/nuxt-community/sanity-module/commit/f5ab953d47daad2458cbec6ff258efaeb1ff1d4a)), closes [#62](https://github.com/nuxt-community/sanity-module/issues/62)
+
 ### [0.4.2](https://github.com/nuxt-community/sanity-module/compare/0.4.0...0.4.2) (2020-11-18)
 
 
