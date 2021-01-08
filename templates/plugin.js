@@ -34,8 +34,11 @@ const createSanity = options => ({
 /**
  * @type {import('@nuxt/types').Plugin}
  */
-export default async ({ $config }, inject) => {
+export default async (context, inject) => {
+  const { $config } = context
   const options = defu($config && $config.sanity || {}, _options)
+
+  if (!options.disableSmartCdn && '$preview' in context) options.useCdn = false
   const additionalClients = defu($config && $config.sanity && $config.sanity.additionalClients || {}, _additionalClients)
 
   inject('sanity', {

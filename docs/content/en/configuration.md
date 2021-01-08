@@ -107,6 +107,13 @@ Add a global `<SanityContent>` component to display portable text. See [the docs
 
 If you have `components: true` set in your `nuxt.config` file, then this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
 
+### `disableSmartCdn`
+
+- Type: **boolean**
+- Default: **`false`**
+
+By default, if [Preview Mode](https://nuxtjs.org/docs/2.x/features/live-preview) has been switched on, `useCdn` will be disabled. If this behaviour isn't desirable, you can disable it by setting `{ disableSmartCdn: false }`.
+
 ### `additionalClients`
 
 - Type: **Object**

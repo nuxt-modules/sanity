@@ -26,6 +26,13 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    */
   contentHelper?: boolean
   /**
+   * Don't disable `useCdn` when preview mode is on
+   * https://nuxtjs.org/docs/2.x/features/live-preview/
+   *
+   * @default false
+   */
+  disableSmartCdn?: boolean
+  /**
    * Configuration for any additional clients
    */
   additionalClients?: Record<string, Partial<SanityConfiguration>>
