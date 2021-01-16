@@ -204,7 +204,7 @@ export const SanityImage = extendVue({
 
     const queryParams = keys
       .map((prop) => {
-        const urlFormat = prop.replace(/[A-Z]./, r => '-' + r[1].toLowerCase())
+        const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
         return props[prop] ? `${urlFormat}=${props[prop]}` : undefined
       })
       .filter(Boolean)

@@ -41,6 +41,7 @@ describe('SanityImage', () => {
           <SanityImage
             asset-id="image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg"
             auto="format"
+            :fp-x="0.5"
           >
             <template #default="{ src }">
               <img :src="src" />
