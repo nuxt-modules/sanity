@@ -103,7 +103,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
   try {
     if (!options.minimal) {
-      options.minimal = !((process.client || process.server) ? /* istanbul ignore next */ require.resolveWeak('@sanity/client') : require('@sanity/client'))
+      options.minimal = !this.nuxt.resolver.requireModule('@sanity/client')
     }
   } catch {
     options.minimal = true
@@ -143,24 +143,6 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
       additionalClients: JSON.stringify(options.additionalClients),
     },
   })
-
-  if (options.imageHelper && !autoregister) {
-    this.addTemplate({
-      src: resolve(__dirname, '../dist/components/sanity-image.js'),
-      fileName: 'sanity/components/sanity-image.js',
-      options: {
-        projectId: options.projectId,
-        dataset: options.dataset,
-      },
-    })
-  }
-
-  if (options.contentHelper && !autoregister) {
-    this.addTemplate({
-      src: resolve(__dirname, '../dist/components/sanity-content.js'),
-      fileName: 'sanity/components/sanity-content.js',
-    })
-  }
 
   if (autoregister) {
     this.nuxt.hook('components:dirs', (dirs: string[]) => {
