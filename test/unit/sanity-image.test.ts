@@ -8,6 +8,13 @@ const getWrapper = (propsData: Record<string, any>) =>
       projectId,
       ...propsData,
     },
+    mocks: {
+      $sanity: {
+        config: {
+          projectId,
+        },
+      },
+    },
   })
 const projectId = 'test-project'
 
@@ -50,6 +57,13 @@ describe('SanityImage', () => {
       `,
       },
       {
+        mocks: {
+          $sanity: {
+            config: {
+              projectId,
+            },
+          },
+        },
         components: { SanityImage },
       },
     )
