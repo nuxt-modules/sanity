@@ -1,3 +1,18 @@
+## [0.6.0](https://github.com/nuxt-community/sanity-module/compare/0.5.0...0.6.0) (2021-01-17)
+
+
+### Features
+
+* re-enable autoregistration of components ([1af262e](https://github.com/nuxt-community/sanity-module/commit/1af262e13281df7f45ad6ca92ed4332fc182a50e)), closes [#53](https://github.com/nuxt-community/sanity-module/issues/53) [#51](https://github.com/nuxt-community/sanity-module/issues/51)
+
+
+### Bug Fixes
+
+* correctly generate url params for sanity images ([cb9c223](https://github.com/nuxt-community/sanity-module/commit/cb9c2233879b33d21d3c1e958df9e3d95a694ecf)), closes [#63](https://github.com/nuxt-community/sanity-module/issues/63)
+* get `<SanityImage>` config from injected config ([4d5684f](https://github.com/nuxt-community/sanity-module/commit/4d5684f961b23e606f1bfaf2f254d3a887d1982b))
+* improve windows compatibility ([6efe29a](https://github.com/nuxt-community/sanity-module/commit/6efe29a85548110691baadda78550e334b7f42f9))
+* use nuxt resolver to suppress warnings about missing dependency ([b0d7222](https://github.com/nuxt-community/sanity-module/commit/b0d7222e937d46b120eb485e3adae38f986e9b5e)), closes [#33](https://github.com/nuxt-community/sanity-module/issues/33)
+
 ## [0.5.0](https://github.com/nuxt-community/sanity-module/compare/0.4.2...0.5.0) (2021-01-08)
 
 
