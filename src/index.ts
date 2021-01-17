@@ -1,6 +1,5 @@
-import { resolve } from 'path'
-
 import defu from 'defu'
+import { join, resolve } from 'upath'
 
 import type { Module } from '@nuxt/types'
 import type { SanityClient } from '@sanity/client'
@@ -146,7 +145,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
   if (autoregister) {
     this.nuxt.hook('components:dirs', (dirs: string[]) => {
-      dirs.push(resolve(__dirname, './components'))
+      dirs.push(join(__dirname, 'components'))
     })
   }
 
