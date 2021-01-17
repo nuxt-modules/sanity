@@ -3,7 +3,7 @@ title: Portable text
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 10
-version: 0.11
+version: 0.51
 ---
 
 ## Global helper
@@ -30,7 +30,7 @@ You may wish to import `SanityContent` only in the components that need it if yo
 </template>
 
 <script>
-import { SanityContent } from '@nuxtjs/sanity/dist/sanity-content'
+import { SanityContent } from '@nuxtjs/sanity/sanity-content'
 
 export default {
   components: { SanityContent },

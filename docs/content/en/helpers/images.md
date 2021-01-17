@@ -3,7 +3,7 @@ title: Image formatting
 description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.'
 category: Helpers
 position: 11
-version: 0.34
+version: 0.51
 ---
 
 ## Global helper
@@ -42,7 +42,7 @@ All other image transformation options are valid props - see [the Sanity documen
 
 ## Local import
 
-You may wish to import `SanityImage` only in the components that need it, if you have disabled the global `imageHelper` option. Note that you will need to provide your `projectId` (and `dataset` if not `production`):
+You may wish to import `SanityImage` only in the components that need it, if you have disabled the global `imageHelper` option.
 
 ### Example
 
@@ -56,7 +56,7 @@ You may wish to import `SanityImage` only in the components that need it, if you
 </template>
 
 <script>
-import { SanityImage } from '@nuxtjs/sanity/dist/sanity-image'
+import { SanityImage } from '@nuxtjs/sanity/sanity-image'
 
 export default {
   components: { SanityImage },

@@ -1,7 +1,7 @@
 import defu from 'defu'
 import type { CreateElement, VNode, VNodeData, VueConstructor } from 'vue'
 
-import { extendVue } from './vue'
+import { extendVue } from '../vue'
 
 interface MarkDefs {
   _key: string

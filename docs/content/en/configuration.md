@@ -96,7 +96,7 @@ Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](h
 
 Add a global `<SanityImage>` component to assist with URL transformations. See [the docs](/helpers/images) for more information.
 
-If you have `components: true` set in your `nuxt.config` file, then this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
+If you have `components: true` set in your `nuxt.config` file, then this option has no effect and this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
 
 ### `contentHelper`
 
@@ -105,7 +105,7 @@ If you have `components: true` set in your `nuxt.config` file, then this helper 
 
 Add a global `<SanityContent>` component to display portable text. See [the docs](/helpers/portable-text) for more information.
 
-If you have `components: true` set in your `nuxt.config` file, then this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
+If you have `components: true` set in your `nuxt.config` file, then this option has no effect and this helper will be registered with `@nuxt/components` and imported only where needed, rather than registered globally.
 
 ### `disableSmartCdn`
 

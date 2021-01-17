@@ -19,8 +19,8 @@
       "import": "./dist/index.es.js"
     },
     "./": "./",
-    "./dist/sanity-content": "./dist/sanity-content.js",
-    "./dist/sanity-image": "./dist/sanity-image.js"
+    "./sanity-content": "./dist/components/sanity-content.js",
+    "./sanity-image": "./dist/components/sanity-image.js"
   },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
@@ -74,7 +74,7 @@
     "nuxt": "^2.14.0",
     "playwright": "1.7.1",
     "release-it": "14.2.2",
-    "siroc": "0.6.0"
+    "siroc": "0.6.2"
   },
   "peerDependencies": {
     "chalk": "^3.0.0",

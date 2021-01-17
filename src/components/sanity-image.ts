@@ -1,4 +1,4 @@
-import { extendVue } from './vue'
+import { extendVue } from '../vue'
 
 const baseURL = 'https://cdn.sanity.io/images'
 

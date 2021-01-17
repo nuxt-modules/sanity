@@ -121,8 +121,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   }
 
   this.options[CONFIG_KEY] = options
-  // TODO: #51
-  const autoregister = false // !!this.options.components
+  const autoregister = !!this.options.components
 
   this.addPlugin({
     src: resolve(__dirname, '../templates/plugin.js'),
@@ -145,9 +144,9 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     },
   })
 
-  if (options.imageHelper) {
+  if (options.imageHelper && !autoregister) {
     this.addTemplate({
-      src: resolve(__dirname, '../dist/sanity-image.js'),
+      src: resolve(__dirname, '../dist/components/sanity-image.js'),
       fileName: 'sanity/components/sanity-image.js',
       options: {
         projectId: options.projectId,
@@ -156,19 +155,18 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
     })
   }
 
-  if (options.contentHelper) {
+  if (options.contentHelper && !autoregister) {
     this.addTemplate({
-      src: resolve(__dirname, '../dist/sanity-content.js'),
+      src: resolve(__dirname, '../dist/components/sanity-content.js'),
       fileName: 'sanity/components/sanity-content.js',
     })
   }
 
-  // TODO: #51
-  // if (autoregister) {
-  //   this.nuxt.hook('components:dirs', (dirs: string[]) => {
-  //     dirs.push(resolve(this.nuxt.options.buildDir, './sanity/components'))
-  //   })
-  // }
+  if (autoregister) {
+    this.nuxt.hook('components:dirs', (dirs: string[]) => {
+      dirs.push(resolve(__dirname, './components'))
+    })
+  }
 
   this.options.build.transpile = this.options.build.transpile || /* istanbul ignore next */ []
   this.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)

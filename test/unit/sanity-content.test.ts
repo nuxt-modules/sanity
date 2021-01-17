@@ -1,6 +1,6 @@
 import { mount } from '@vue/test-utils'
 
-import { SanityContent } from '../../src/sanity-content'
+import { SanityContent } from '../../src/components/sanity-content'
 
 type ExampleBlock = { _type: string; [key: string]: any }
 
