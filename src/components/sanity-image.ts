@@ -223,3 +223,5 @@ export const SanityImage = extendVue({
       : renderRawImage()
   },
 })
+
+export default SanityImage

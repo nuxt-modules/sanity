@@ -298,3 +298,5 @@ export const SanityContent = extendVue({
     )
   },
 })
+
+export default SanityContent
