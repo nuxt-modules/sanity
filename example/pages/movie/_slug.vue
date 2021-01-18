@@ -37,7 +37,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { groq } from '@nuxtjs/sanity'
-import { SanityImage } from '@nuxtjs/sanity/sanity-image'
+import { SanityImage } from '@nuxtjs/sanity/dist/components/sanity-image'
 
 const query = groq`*[_type == "movie" && slug.current == $slug][0] {
   title,

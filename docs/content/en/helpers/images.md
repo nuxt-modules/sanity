@@ -56,7 +56,7 @@ You may wish to import `SanityImage` only in the components that need it, if you
 </template>
 
 <script>
-import { SanityImage } from '@nuxtjs/sanity/sanity-image'
+import { SanityImage } from '@nuxtjs/sanity/dist/components/sanity-image'
 
 export default {
   components: { SanityImage },

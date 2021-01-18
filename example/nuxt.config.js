@@ -19,14 +19,12 @@ const config = {
   },
   build: {
     extend (config) {
-      config.resolve.alias['@nuxtjs/sanity/sanity-content'] = resolve(
-        __dirname,
-        '../src/components/sanity-content',
-      )
-      config.resolve.alias['@nuxtjs/sanity/sanity-image'] = resolve(
-        __dirname,
-        '../src/components/sanity-image',
-      )
+      config.resolve.alias[
+        '@nuxtjs/sanity/dist/components/sanity-content'
+      ] = resolve(__dirname, '../src/components/sanity-content')
+      config.resolve.alias[
+        '@nuxtjs/sanity/dist/components/sanity-image'
+      ] = resolve(__dirname, '../src/components/sanity-image')
       config.resolve.alias['@nuxtjs/sanity'] = resolve(
         __dirname,
         '../src/index.ts',

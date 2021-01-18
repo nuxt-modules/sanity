@@ -7,12 +7,12 @@ import defu from 'defu'
 %>
 
 <% if (options.components.imageHelper && !options.components.autoregister) { %>
-import { SanityImage } from '@nuxtjs/sanity/sanity-image'
+import { SanityImage } from '@nuxtjs/sanity/dist/components/sanity-image'
 Vue.component('SanityImage', SanityImage)
 <% } %>
 
 <% if (options.components.contentHelper && !options.components.autoregister) { %>
-import { SanityContent } from '@nuxtjs/sanity/sanity-content'
+import { SanityContent } from '@nuxtjs/sanity/dist/components/sanity-content'
 Vue.component('SanityContent', SanityContent)
 <% } %>
 

@@ -30,7 +30,7 @@ You may wish to import `SanityContent` only in the components that need it if yo
 </template>
 
 <script>
-import { SanityContent } from '@nuxtjs/sanity/sanity-content'
+import { SanityContent } from '@nuxtjs/sanity/dist/components/sanity-content'
 
 export default {
   components: { SanityContent },
