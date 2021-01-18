@@ -1,3 +1,11 @@
+### [0.6.1](https://github.com/nuxt-community/sanity-module/compare/0.6.0...0.6.1) (2021-01-18)
+
+
+### Bug Fixes
+
+* add default exports for compatibility with `@nuxt/components` ([d48f61a](https://github.com/nuxt-community/sanity-module/commit/d48f61ab205b3126c5ba788a1a418d20d35a24d3)), closes [#51](https://github.com/nuxt-community/sanity-module/issues/51)
+* hotfix to use backwards-compatible imports ([f36a3c4](https://github.com/nuxt-community/sanity-module/commit/f36a3c43a7996c66acd0a68d8145f6e411a18788)), closes [#64](https://github.com/nuxt-community/sanity-module/issues/64)
+
 ## [0.6.0](https://github.com/nuxt-community/sanity-module/compare/0.5.0...0.6.0) (2021-01-17)
 
 
