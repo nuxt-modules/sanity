@@ -1,3 +1,10 @@
+### [0.6.2](https://github.com/nuxt-community/sanity-module/compare/0.6.1...0.6.2) (2021-01-20)
+
+
+### Bug Fixes
+
+* export types for components ([dab55f2](https://github.com/nuxt-community/sanity-module/commit/dab55f2776631749e8235043055320430cf0cda8))
+
 ### [0.6.1](https://github.com/nuxt-community/sanity-module/compare/0.6.0...0.6.1) (2021-01-18)
 
 
