@@ -1,3 +1,19 @@
+## [0.7.0](https://github.com/nuxt-community/sanity-module/compare/0.6.2...0.7.0) (2021-01-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* change minimum supported node version to 12
+
+### Bug Fixes
+
+* exclude `upath` from client bundle ([88b7d58](https://github.com/nuxt-community/sanity-module/commit/88b7d5871879f369e0b759513c7b23796bfe1f33)), closes [#66](https://github.com/nuxt-community/sanity-module/issues/66)
+
+
+### Miscellaneous Chores
+
+* change minimum supported node version to 12 ([adcde28](https://github.com/nuxt-community/sanity-module/commit/adcde28c292f23bdfb052ce1b0862be6f922f079))
+
 ### [0.6.2](https://github.com/nuxt-community/sanity-module/compare/0.6.1...0.6.2) (2021-01-20)
 
 
