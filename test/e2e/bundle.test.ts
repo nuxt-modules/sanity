@@ -3,7 +3,7 @@ import { readdirSync, readFileSync } from 'fs-extra'
 
 import { setupTest, getNuxt } from '@nuxt/test-utils'
 
-const serverDeps = ['chalk', 'consola', 'fs-extra']
+const serverDeps = ['chalk', 'consola', 'fs-extra', 'upath']
 
 describe('built files', () => {
   setupTest({

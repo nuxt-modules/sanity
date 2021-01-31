@@ -1,5 +1,4 @@
 import defu from 'defu'
-import { join, resolve } from 'upath'
 
 import type { Module } from '@nuxt/types'
 import type { SanityClient } from '@sanity/client'
@@ -76,6 +75,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
 
   const { bold }: typeof import('chalk') = process.client ? /* istanbul ignore next */ {} : require('chalk')
   const consola: typeof import('consola').default = process.client ? /* istanbul ignore next */ {} : require('consola')
+  const { join, resolve }: typeof import('upath') = process.client ? /* istanbul ignore next */ {} : require('upath')
 
   let sanityConfig: Record<string, any> = {}
 
