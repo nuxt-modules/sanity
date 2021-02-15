@@ -59,6 +59,10 @@ describe('module without a project id', () => {
   jest.mock('consola', () => ({
     info: () => {},
     warn: mockWarn,
+    withTag: () => ({
+      info: () => {},
+      warn: mockWarn,
+    }),
   }))
 
   setupTest({
@@ -109,6 +113,10 @@ describe('module with existing transpiles', () => {
 
   it('should add module to transpile array', () => {
     const { options } = getNuxt()
-    expect(options.build.transpile!.some(obj => obj instanceof RegExp && obj.test('@nuxtjs/sanity'))).toBeTruthy()
+    expect(
+      options.build.transpile!.some(
+        obj => obj instanceof RegExp && obj.test('@nuxtjs/sanity'),
+      ),
+    ).toBeTruthy()
   })
 })
