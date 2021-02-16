@@ -1,3 +1,10 @@
+### [0.7.1](https://github.com/nuxt-community/sanity-module/compare/0.7.0...0.7.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* exclude .d.ts files from `@nuxt/components` treatment ([df53978](https://github.com/nuxt-community/sanity-module/commit/df53978cd31d0ffd54760b6ca88737da479bdb46)), closes [#68](https://github.com/nuxt-community/sanity-module/issues/68)
+
 ## [0.7.0](https://github.com/nuxt-community/sanity-module/compare/0.6.2...0.7.0) (2021-01-31)
 
 
