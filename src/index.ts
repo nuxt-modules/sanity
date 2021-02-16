@@ -144,8 +144,11 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
   })
 
   if (autoregister) {
-    this.nuxt.hook('components:dirs', (dirs: string[]) => {
-      dirs.push(join(__dirname, 'components'))
+    this.nuxt.hook('components:dirs', (dirs: Array<{ path: string, extensions?: string[] }>) => {
+      dirs.push({
+        path: join(__dirname, 'components'),
+        extensions: ['js'],
+      })
     })
   }
 
