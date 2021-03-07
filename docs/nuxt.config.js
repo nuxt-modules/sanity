@@ -1,12 +1,12 @@
-import theme from '@nuxt/content-theme-docs'
+import { withDocus } from 'docus'
 
-export default theme({
+export default withDocus({
   loading: { color: '#fa1607' },
   generate: {
     routes: ['/'],
   },
   buildModules: ['vue-plausible'],
   ackee: {
-    server: 'sanity.nuxtjs.org'
+    server: 'sanity.nuxtjs.org',
   },
 })
