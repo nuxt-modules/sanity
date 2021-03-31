@@ -1,3 +1,24 @@
+## [0.8.0](https://github.com/nuxt-community/sanity-module/compare/0.7.1...0.8.0) (2021-03-31)
+
+
+### ⚠ BREAKING CHANGES
+
+* `@nuxtjs/sanity/module` is now how the module should be imported in `nuxt.config`
+
+### Features
+
+* support sanity `apiVersion` option ([6a2c956](https://github.com/nuxt-community/sanity-module/commit/6a2c9569f079bdce222dbcd9c37fefec0c40866d))
+
+
+### Bug Fixes
+
+* add entrypoint for pre-exports support ([a053822](https://github.com/nuxt-community/sanity-module/commit/a053822dfee85ae4b9ffd129a67a01b2faa988ec))
+
+
+### Code Refactoring
+
+* change how library is imported ([#101](https://github.com/nuxt-community/sanity-module/issues/101)) ([21c4fa9](https://github.com/nuxt-community/sanity-module/commit/21c4fa9c30edc7a9b5601b1d8529ce6f599269ae))
+
 ### [0.7.1](https://github.com/nuxt-community/sanity-module/compare/0.7.0...0.7.1) (2021-02-16)
 
 
