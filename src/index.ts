@@ -41,6 +41,7 @@ const DEFAULTS: SanityModuleOptions = {
   contentHelper: true,
   imageHelper: true,
   dataset: 'production',
+  apiVersion: '1',
   withCredentials: false,
   additionalClients: {},
 }
@@ -136,6 +137,7 @@ const nuxtModule: Module<SanityModuleOptions> = function (moduleOptions) {
         useCdn: options.useCdn,
         projectId: options.projectId,
         dataset: options.dataset,
+        apiVersion: options.apiVersion,
         withCredentials: options.withCredentials,
         token: options.token,
       }),

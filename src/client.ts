@@ -9,6 +9,7 @@ export interface SanityConfiguration {
   useCdn?: boolean
   projectId: string
   dataset?: string
+  apiVersion: string
   withCredentials?: boolean
   token?: string
 }
@@ -27,7 +28,14 @@ export function getQuery (query: string, params: Record<string, any> = {}) {
 export const getByteSize = (query: string) => encodeURI(query).split(/%..|./).length
 
 export function createClient (config: SanityConfiguration) {
-  const { projectId, dataset, useCdn, withCredentials, token } = config
+  const {
+    useCdn,
+    projectId,
+    dataset,
+    apiVersion,
+    withCredentials,
+    token,
+  } = config
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
     headers: {
@@ -45,7 +53,14 @@ export function createClient (config: SanityConfiguration) {
 
   return {
     clone: () =>
-      createClient({ projectId, dataset, useCdn, withCredentials, token }),
+      createClient({
+        useCdn,
+        projectId,
+        dataset,
+        apiVersion,
+        withCredentials,
+        token,
+      }),
     /**
      * Perform a fetch using GROQ syntax.
      */
@@ -55,8 +70,10 @@ export function createClient (config: SanityConfiguration) {
 
       const host = useCdn && !usePostRequest ? cdnHost : apiHost
 
+      const urlBase = `https://${projectId}.${host}/v${apiVersion}/data/query/${dataset}`
+
       const response = usePostRequest
-        ? await fetch(`https://${projectId}.${host}/v1/data/query/${dataset}`, {
+        ? await fetch(urlBase, {
           method: 'post',
           body: JSON.stringify({ query, params }),
           ...fetchOptions,
@@ -65,10 +82,7 @@ export function createClient (config: SanityConfiguration) {
             'Content-Type': 'application/json',
           },
         })
-        : await fetch(
-          `https://${projectId}.${host}/v1/data/query/${dataset}${qs}`,
-          fetchOptions,
-        )
+        : await fetch(`${urlBase}${qs}`, fetchOptions)
       const { result } = await response.json()
       return result as T
     },
