@@ -18,7 +18,6 @@ const config = {
       ? { projectId: 'j1o4tmjp' }
       : {}),
     dataset: 'production',
-    minimal: true,
     additionalClients: {
       another: {},
     },

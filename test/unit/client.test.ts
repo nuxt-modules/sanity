@@ -34,12 +34,18 @@ describe('minimal sanity client', () => {
   })
 
   it('creates a client with the correct methods', () => {
-    const client = createClient({ projectId: 'sample-project' })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
     expect(Object.keys(client)).toEqual(['clone', 'fetch'])
   })
 
   it('sends a GET request for smaller queries', () => {
-    const client = createClient({ projectId: 'sample-project' })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
     client.fetch('*[_type == "article"')
 
     expect(mockFetch).toBeCalledWith(
@@ -49,7 +55,10 @@ describe('minimal sanity client', () => {
   })
 
   it('sends a POST request for large queries', () => {
-    const client = createClient({ projectId: 'sample-project' })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
     client.fetch(require('./fixture/large-request.json').request)
 
     expect(mockFetch).toBeCalledWith(
@@ -59,7 +68,10 @@ describe('minimal sanity client', () => {
   })
 
   it('can clone the client', () => {
-    const client = createClient({ projectId: 'sample-project' })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
     const newClient = client.clone()
     expect(Object.keys(newClient)).toEqual(['clone', 'fetch'])
     expect(newClient === client).toBeFalsy()
@@ -72,7 +84,11 @@ describe('minimal sanity client', () => {
   }
 
   it('uses API host where appropriate', async () => {
-    const client = createClient({ projectId: 'sample-project', useCdn: false })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+      useCdn: false,
+    })
     await client.fetch('*[_type == "article"]')
 
     expect(mockFetch).toBeCalledWith(
@@ -82,7 +98,11 @@ describe('minimal sanity client', () => {
   })
 
   it('uses CDN host where appropriate', async () => {
-    const client = createClient({ projectId: 'sample-project', useCdn: true })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+      useCdn: true,
+    })
     await client.fetch('*[_type == "article"]')
 
     expect(mockFetch).toBeCalledWith(
@@ -95,6 +115,7 @@ describe('minimal sanity client', () => {
     const token = 'myToken'
     const client = createClient({
       projectId: 'sample-project',
+      apiVersion: '1',
       token,
       withCredentials: true,
     })
@@ -115,11 +136,34 @@ describe('minimal sanity client', () => {
 
   it('uses compression on server', async () => {
     process.server = true
-    const client = createClient({ projectId: 'sample-project' })
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
     await client.fetch('*[_type == "article"]')
 
     expect(mockFetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
+      {
+        credentials: 'omit',
+        headers: {
+          'accept-encoding': 'gzip, deflate',
+          Accept: 'application/json',
+        },
+      },
+    )
+  })
+
+  it('uses versioned api', async () => {
+    process.server = true
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '2021-03-25',
+    })
+    await client.fetch('*[_type == "article"]')
+
+    expect(mockFetch).toBeCalledWith(
+      expect.stringContaining(`https://${project}.api.sanity.io/v2021-03-25`),
       {
         credentials: 'omit',
         headers: {

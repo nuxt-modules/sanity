@@ -35,6 +35,7 @@ describe('module with default options', () => {
           useCdn: false,
           projectId,
           dataset,
+          apiVersion: '1',
           withCredentials: false,
         }),
       },
