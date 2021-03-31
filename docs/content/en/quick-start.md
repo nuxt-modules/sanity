@@ -9,27 +9,27 @@ position: 2
 
 1. **Install Sanity integration**
 
-    <code-group>
-    <code-block label="Yarn" active>
+    <d-code-group>
+    <d-code-block label="Yarn" active>
 
     ```bash
     yarn add @nuxtjs/sanity
     ```
 
-    </code-block>
-    <code-block label="NPM">
+    </d-code-block>
+    <d-code-block label="NPM">
 
     ```bash
     npm install @nuxtjs/sanity --save
     ```
 
-    </code-block>
-    </code-group>
+    </d-code-block>
+    </d-code-group>
 
 2. **Enable the module in your Nuxt configuration**
 
-    <code-group>
-    <code-block label="Nuxt 2.9+" active>
+    <d-code-group>
+    <d-code-block label="Nuxt 2.9+" active>
 
     ```js{}[nuxt.config.js]
     {
@@ -37,8 +37,8 @@ position: 2
     }
     ```
 
-    </code-block>
-    <code-block label="Nuxt < 2.9">
+    </d-code-block>
+    <d-code-block label="Nuxt < 2.9">
 
     ```js{}[nuxt.config.js]
     {
@@ -46,8 +46,8 @@ position: 2
     }
     ```
 
-    </code-block>
-    </code-group>
+    </d-code-block>
+    </d-code-group>
 
 3. **Add Sanity configuration**
 
@@ -63,7 +63,7 @@ position: 2
    }
    ```
 
-   <alert type="info">You can find more about configuring `@nuxtjs/sanity` [here](/configuration).</alert>
+   <d-alert type="info">You can find more about configuring `@nuxtjs/sanity` [here](/configuration).</d-alert>
 
 4. **You're good to go!**
 
@@ -73,8 +73,8 @@ position: 2
 
 `@nuxtjs/sanity` offers type definitions. Just add an entry in `tsconfig.json`.
 
-<code-group>
-  <code-block label="Nuxt 2.9+" active>
+<d-code-group>
+  <d-code-block label="Nuxt 2.9+" active>
 
 ```json{}[tsconfig.json]
 {
@@ -84,8 +84,8 @@ position: 2
 }
 ```
 
-  </code-block>
-  <code-block label="Nuxt < 2.9">
+  </d-code-block>
+  <d-code-block label="Nuxt < 2.9">
 
 ```json{}[tsconfig.json]
 {
@@ -95,6 +95,6 @@ position: 2
 }
 ```
 
-  </code-block>
+  </d-code-block>
 
-</code-group>
+</d-code-group>

@@ -87,7 +87,7 @@ Include credentials in requests made to Sanity. Useful if you want to take advan
 
 Use an ultra-minimal Sanity client for making requests (a fork of [picosanity](https://github.com/rexxars/picosanity) with SSR-specific changes). It only supports `fetch` requests, but will significantly decrease your bundle size.
 
-<alert type="info">If you don't have `@sanity/client` installed, then `@nuxtjs/sanity` will use the minimal client by default.</alert>
+<d-alert type="info">If you don't have `@sanity/client` installed, then `@nuxtjs/sanity` will use the minimal client by default.</d-alert>
 
 ### `imageHelper`
 
@@ -144,6 +144,6 @@ So, for example:
 }
 ```
 
-<alert>Because these clients will be accessible directly off the `$sanity` helper, take care not to name them `client`, `fetch` or `setToken`, or they will conflict with the default client properties.
+<d-alert>Because these clients will be accessible directly off the `$sanity` helper, take care not to name them `client`, `fetch` or `setToken`, or they will conflict with the default client properties.
 
-</alert>
+</d-alert>

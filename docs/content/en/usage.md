@@ -16,8 +16,8 @@ This enables you to perform a GROQ query against your Sanity dataset. By default
 
 #### Example with `asyncData`
 
-<code-group>
-  <code-block label="JavaScript" active>
+<d-code-group>
+  <d-code-block label="JavaScript" active>
 
 ```js
 import { groq } from '@nuxtjs/sanity'
@@ -31,8 +31,8 @@ export default {
 }
 ```
 
-  </code-block>
-  <code-block label="TypeScript">
+  </d-code-block>
+  <d-code-block label="TypeScript">
 
 ```ts
 import { groq } from '@nuxtjs/sanity'
@@ -48,15 +48,15 @@ export default {
 }
 ```
 
-  </code-block>
-</code-group>
+  </d-code-block>
+</d-code-group>
 
-<alert type="info">By wrapping the GROQ query into an object, you can return the promise directly. The data will be available in your component under the key used in the query.</alert>
+<d-alert type="info">By wrapping the GROQ query into an object, you can return the promise directly. The data will be available in your component under the key used in the query.</d-alert>
 
 #### Example with `fetch`
 
-<code-group>
-  <code-block label="JavaScript" active>
+<d-code-group>
+  <d-code-block label="JavaScript" active>
 
 ```js
 import { groq } from '@nuxtjs/sanity'
@@ -71,8 +71,8 @@ export default {
 }
 ```
 
-  </code-block>
-  <code-block label="TypeScript">
+  </d-code-block>
+  <d-code-block label="TypeScript">
 
 ```ts
 import { groq } from '@nuxtjs/sanity'
@@ -89,8 +89,8 @@ export default {
 }
 ```
 
-  </code-block>
-</code-group>
+  </d-code-block>
+</d-code-group>
 
 ### `client`
 
