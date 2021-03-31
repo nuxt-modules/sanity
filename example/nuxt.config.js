@@ -11,7 +11,7 @@ const config = {
   buildModules: [
     '@nuxt/typescript-build',
     ...(process.env.NODE_ENV === 'development' ? ['@nuxtjs/tailwindcss'] : []),
-    '../src/index.ts',
+    '../src/module.ts',
   ],
   sanity: {
     ...(process.env.NODE_ENV === 'development'

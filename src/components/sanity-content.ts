@@ -3,7 +3,7 @@ import type { CreateElement, VNode, VNodeData, VueConstructor } from 'vue'
 
 // eslint-disable-next-line
 import type { SanityConfiguration } from '..'
-import { extendVue } from '../vue'
+import { extendVue } from './vue'
 
 interface MarkDefs {
   _key: string
