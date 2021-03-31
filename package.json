@@ -18,6 +18,10 @@
       "require": "./dist/index.js",
       "import": "./dist/index.es.js"
     },
+    "./module": {
+      "require": "./dist/module.js",
+      "import": "./dist/module.es.js"
+    },
     "./": "./",
     "./sanity-content": "./dist/components/sanity-content.js",
     "./sanity-image": "./dist/components/sanity-image.js"
@@ -39,7 +43,10 @@
     "test": "yarn lint && jest"
   },
   "dependencies": {
+    "chalk": "^4.1.0",
+    "consola": "^2.15.0",
     "defu": "3.2.2",
+    "fs-extra": "^9.1.0",
     "upath": "2.0.1"
   },
   "devDependencies": {
