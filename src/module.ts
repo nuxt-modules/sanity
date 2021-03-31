@@ -5,13 +5,10 @@ import { readJSONSync } from 'fs-extra'
 import { join, resolve } from 'upath'
 
 import type { Module } from '@nuxt/types'
-import type { SanityClient } from '@sanity/client'
 
 import { name, version } from '../package.json'
 
-import type { SanityConfiguration, createClient } from '.'
-
-export type { SanityConfiguration }
+import type { SanityConfiguration } from '.'
 
 export interface SanityModuleOptions extends Partial<SanityConfiguration> {
   /**
@@ -52,8 +49,7 @@ const DEFAULTS: SanityModuleOptions = {
   additionalClients: {},
 }
 
-const CONFIG_KEY = 'sanity'
-const HELPER_KEY = '$sanity'
+export const CONFIG_KEY = 'sanity' as const
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   if (!projectId) {
@@ -151,39 +147,5 @@ const sanityModule: Module<SanityModuleOptions> = function sanityModule (moduleO
 }
 
 ;(sanityModule as any).meta = { name, version }
-
-interface Client {
-  client: SanityClient
-  config: Pick<SanityModuleOptions, 'useCdn' | 'projectId' | 'dataset' | 'withCredentials' | 'token'>
-  fetch: ReturnType<typeof createClient>['fetch']
-  setToken: (token: string) => void
-}
-
-type SanityHelper = Record<string, Client> & Client
-
-declare module '@nuxt/types' {
-  interface NuxtOptions {
-    [CONFIG_KEY]: SanityModuleOptions
-  } // Nuxt 2.14+
-  interface Configuration {
-    [CONFIG_KEY]: SanityModuleOptions
-  } // Nuxt 2.9 - 2.13
-  interface NuxtAppOptions {
-    [HELPER_KEY]: SanityHelper
-  }
-}
-
-declare module 'vue/types/vue' {
-  interface Vue {
-    [HELPER_KEY]: SanityHelper
-  }
-}
-
-declare module 'vuex/types/index' {
-  // eslint-disable-next-line
-  interface Store<S> {
-    [HELPER_KEY]: SanityHelper
-  }
-}
 
 export default sanityModule

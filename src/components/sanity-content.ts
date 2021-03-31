@@ -2,7 +2,7 @@ import defu from 'defu'
 import type { CreateElement, VNode, VNodeData, VueConstructor } from 'vue'
 
 // eslint-disable-next-line
-import type { SanityConfiguration } from '../module'
+import type { SanityConfiguration } from '..'
 import { extendVue } from './vue'
 
 interface MarkDefs {

@@ -1,7 +1,7 @@
 import { extendVue } from './vue'
 
 // eslint-disable-next-line
-import type { SanityConfiguration } from '../module'
+import type { SanityConfiguration } from '..'
 
 const baseURL = 'https://cdn.sanity.io/images'
 
