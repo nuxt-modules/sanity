@@ -2,9 +2,11 @@
 
 exports[`SanityContent should render exampleMarkDefs blocks 1`] = `
 <div>
-  <li>
-    <strong>Google Analytics</strong>: The Sites use Google Analytics. Further information is available at <a href="https://tools.google.com/dlpage/gaoptout/">https://tools.google.com/dlpage/gaoptout/</a>.
-  </li>
+  <ul>
+    <li>
+      <strong>Google Analytics</strong>: The Sites use Google Analytics. Further information is available at <a href="https://tools.google.com/dlpage/gaoptout/">https://tools.google.com/dlpage/gaoptout/</a>.
+    </li>
+  </ul>
 </div>
 `;
 
@@ -17,6 +19,29 @@ exports[`SanityContent should render heading blocks 1`] = `
 exports[`SanityContent should render link blocks 1`] = `
 <div>
   <a href="http://test.com/"></a>
+</div>
+`;
+
+exports[`SanityContent should render list blocks 1`] = `
+<div>
+  <ol>
+    <li>test</li>
+    <li>thing</li>
+  </ol>
+</div>
+`;
+
+exports[`SanityContent should render nestedList blocks 1`] = `
+<div>
+  <h3>3. Providing your personal data to others</h3>
+  <ol>
+    <li>test</li>
+    <li>thing</li>
+    <ul>
+      <li>nested</li>
+      <li>list</li>
+    </ul>
+  </ol>
 </div>
 `;
 

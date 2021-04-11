@@ -199,6 +199,33 @@ function wrapMarks (
   )
 }
 
+function walkList (blocks: Array<CustomBlock | Block | List>, block: CustomBlock | Block | List) {
+  const { length } = blocks
+
+  // Not a list item
+  if (!block.level) {
+    blocks.push(block)
+    return blocks
+  }
+
+  const { _type, children, level } = blocks[length - 1] || {}
+  if (_type === 'list' && children) {
+    if (level === block.level) {
+      children.push(block)
+    } else {
+      walkList(children, block)
+    }
+  } else {
+    blocks.push({
+      _type: 'list',
+      children: [block],
+      level: block.level,
+    } as List)
+  }
+
+  return blocks
+}
+
 function renderBlocks (
   h: CreateElement,
   blocks: Array<CustomBlock | Block | List>,
@@ -207,24 +234,7 @@ function renderBlocks (
 ) {
   const nestedBlocks = nested
     ? blocks
-    : blocks.reduce((blocks, block) => {
-      const { length } = blocks
-
-      if (block.level && length) {
-        const { _type, children } = blocks[length - 1]
-        if (_type === 'list' && children) {
-          children.push(block)
-        } else {
-          blocks.push({
-            _type: 'list',
-            children: [block],
-          } as List)
-        }
-      } else {
-        blocks.push(block)
-      }
-      return blocks
-    }, [] as Array<Block | CustomBlock | List>)
+    : blocks.reduce(walkList, [] as Array<Block | CustomBlock | List>)
 
   return nestedBlocks.map((block) => {
     const node = wrapStyle(
