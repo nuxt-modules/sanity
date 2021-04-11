@@ -33,7 +33,7 @@ position: 2
 
     ```js{}[nuxt.config.js]
     {
-      buildModules: ['@nuxtjs/sanity']
+      buildModules: ['@nuxtjs/sanity/module']
     }
     ```
 
@@ -42,7 +42,7 @@ position: 2
 
     ```js{}[nuxt.config.js]
     {
-      modules: ['@nuxtjs/sanity']
+      modules: ['@nuxtjs/sanity/module']
     }
     ```
 

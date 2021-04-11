@@ -29,12 +29,12 @@
 yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
 ```
 
-2. Add `@nuxtjs/sanity` to the `buildModules` section of `nuxt.config.js`
+2. Add `@nuxtjs/sanity/module` to the `buildModules` section of `nuxt.config.js`
 
 ```js
 {
   buildModules: [
-    '@nuxtjs/sanity',
+    '@nuxtjs/sanity/module',
   ],
   sanity: {
     // module options
