@@ -1,3 +1,15 @@
+## [0.9.0](https://github.com/nuxt-community/sanity-module/compare/0.8.0...0.9.0) (2021-04-11)
+
+
+### Features
+
+* add `<SanityFile>` component to assist with auto-generating file URLs ([0b2d353](https://github.com/nuxt-community/sanity-module/commit/0b2d35391433752b57085a852abc859a49ece803)), closes [#70](https://github.com/nuxt-community/sanity-module/issues/70)
+
+
+### Bug Fixes
+
+* list rendering fixes for SanityContent ([db4408a](https://github.com/nuxt-community/sanity-module/commit/db4408ad3fb36a0ba690d6aaa129636b72bd1705)), closes [#102](https://github.com/nuxt-community/sanity-module/issues/102)
+
 ## [0.8.0](https://github.com/nuxt-community/sanity-module/compare/0.7.1...0.8.0) (2021-03-31)
 
 
