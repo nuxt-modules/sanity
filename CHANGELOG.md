@@ -1,3 +1,10 @@
+### [0.9.1](https://github.com/nuxt-community/sanity-module/compare/0.9.0...0.9.1) (2021-04-14)
+
+
+### Bug Fixes
+
+* don't break if no `apiVersion` is set ([0023bfe](https://github.com/nuxt-community/sanity-module/commit/0023bfec6578b0183fe92354d3af4397bc8c7f2d)), closes [#120](https://github.com/nuxt-community/sanity-module/issues/120)
+
 ## [0.9.0](https://github.com/nuxt-community/sanity-module/compare/0.8.0...0.9.0) (2021-04-11)
 
 
