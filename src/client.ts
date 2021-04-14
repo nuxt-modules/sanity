@@ -32,7 +32,7 @@ export function createClient (config: SanityConfiguration) {
     useCdn,
     projectId,
     dataset,
-    apiVersion,
+    apiVersion = '1',
     withCredentials,
     token,
   } = config
