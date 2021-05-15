@@ -84,6 +84,7 @@ const defaults: Required<Serializers> = {
     h5: 'h5',
     h6: 'h6',
     normal: 'p',
+    blockquote: 'blockquote',
   },
   listItem: 'li',
   container: 'div',
@@ -99,9 +100,7 @@ function getProps (item?: Record<string, any>) {
   const obj = Object.entries(item).reduce(
     (obj, [key, value]) => {
       switch (true) {
-        case (['_key', 'key']).includes(
-          key,
-        ):
+        case ['_key', 'key'].includes(key):
           obj.key = value
           return obj
 
@@ -199,7 +198,10 @@ function wrapMarks (
   )
 }
 
-function walkList (blocks: Array<CustomBlock | Block | List>, block: CustomBlock | Block | List) {
+function walkList (
+  blocks: Array<CustomBlock | Block | List>,
+  block: CustomBlock | Block | List,
+) {
   const { length } = blocks
 
   // Not a list item
@@ -254,7 +256,7 @@ function renderBlocks (
     )
     if (process.env.NODE_ENV === 'development') {
       if (!node || (Array.isArray(node) && !node.length))
-      // eslint-disable-next-line
+        // eslint-disable-next-line
         console.warn(
           `No serializer found for block type "${block._type}".`,
           block,
@@ -279,9 +281,10 @@ export const SanityContent = extendVue({
     renderContainerOnSingleChild: { type: Boolean, default: false },
   },
   render (h, { props, data }) {
-    const serializers = defu(props.serializers, defaults) as Required<
-      Serializers
-    >
+    const serializers = defu(
+      props.serializers,
+      defaults,
+    ) as Required<Serializers>
 
     serializers.types.list =
       serializers.types.list ||
