@@ -84,6 +84,7 @@ const defaults: Required<Serializers> = {
     h5: 'h5',
     h6: 'h6',
     normal: 'p',
+    blockquote: 'blockquote',
   },
   listItem: 'li',
   container: 'div',
@@ -91,7 +92,7 @@ const defaults: Required<Serializers> = {
 
 let level = 1
 
-function getProps (item?: Record<string, any>) {
+function getProps(item?: Record<string, any>) {
   if (!item) {
     return {}
   }
@@ -99,9 +100,7 @@ function getProps (item?: Record<string, any>) {
   const obj = Object.entries(item).reduce(
     (obj, [key, value]) => {
       switch (true) {
-        case (['_key', 'key']).includes(
-          key,
-        ):
+        case ['_key', 'key'].includes(key):
           obj.key = value
           return obj
 
@@ -122,7 +121,7 @@ function getProps (item?: Record<string, any>) {
     {
       props: {},
       attrs: {},
-    } as VNodeData,
+    } as VNodeData
   )
 
   obj.props = {
@@ -132,9 +131,9 @@ function getProps (item?: Record<string, any>) {
   return obj
 }
 
-function findSerializer (
+function findSerializer(
   item: CustomBlock | Block | List | Block['markDefs'][number] | undefined,
-  serializers: Required<Serializers>,
+  serializers: Required<Serializers>
 ) {
   if (!item) return undefined
 
@@ -143,17 +142,17 @@ function findSerializer (
   return listItem
     ? serializers.listItem || 'li'
     : _type && _type in serializers.types
-      ? serializers.types[_type]
-      : _type && _type in serializers.marks
-        ? serializers.marks[_type]
-        : undefined
+    ? serializers.types[_type]
+    : _type && _type in serializers.marks
+    ? serializers.marks[_type]
+    : undefined
 }
 
-function wrapStyle (
+function wrapStyle(
   h: CreateElement,
   { style, listItem }: CustomBlock | Block | List,
   serializers: Required<Serializers>,
-  children: Array<VNode | string>,
+  children: Array<VNode | string>
 ) {
   const matches = style ? style.match(/^h(\d)$/) : []
   if (!listItem && matches && matches.length > 1) {
@@ -166,11 +165,11 @@ function wrapStyle (
   return children
 }
 
-function wrapInSerializer (
+function wrapInSerializer(
   h: CreateElement,
   item: CustomBlock | Block | List | Block['markDefs'][number],
   content: Array<VNode | string>,
-  serializers: Required<Serializers>,
+  serializers: Required<Serializers>
 ) {
   const serializer = findSerializer(item, serializers)
   if (!serializer) return content
@@ -178,12 +177,12 @@ function wrapInSerializer (
   return [h(serializer, getProps(item), content)]
 }
 
-function wrapMarks (
+function wrapMarks(
   h: CreateElement,
   content: VNode | string,
   [mark, ...marks]: Block['children'][number]['marks'] = [],
   serializers: Required<Serializers> = defaults,
-  markDefs: Block['markDefs'] = [],
+  markDefs: Block['markDefs'] = []
 ): VNode | string {
   if (!mark) return content
 
@@ -195,11 +194,14 @@ function wrapMarks (
   return h(
     findSerializer(definition, serializers) || 'span',
     getProps(definition),
-    [wrapMarks(h, content, marks, serializers, markDefs)],
+    [wrapMarks(h, content, marks, serializers, markDefs)]
   )
 }
 
-function walkList (blocks: Array<CustomBlock | Block | List>, block: CustomBlock | Block | List) {
+function walkList(
+  blocks: Array<CustomBlock | Block | List>,
+  block: CustomBlock | Block | List
+) {
   const { length } = blocks
 
   // Not a list item
@@ -226,17 +228,17 @@ function walkList (blocks: Array<CustomBlock | Block | List>, block: CustomBlock
   return blocks
 }
 
-function renderBlocks (
+function renderBlocks(
   h: CreateElement,
   blocks: Array<CustomBlock | Block | List>,
   serializers: Required<Serializers>,
-  nested = false,
+  nested = false
 ) {
   const nestedBlocks = nested
     ? blocks
     : blocks.reduce(walkList, [] as Array<Block | CustomBlock | List>)
 
-  return nestedBlocks.map((block) => {
+  return nestedBlocks.map(block => {
     const node = wrapStyle(
       h,
       block,
@@ -246,18 +248,18 @@ function renderBlocks (
         block,
         block._type === 'block'
           ? (block.children || []).map(child =>
-              wrapMarks(h, child.text, child.marks, serializers, block.markDefs),
+              wrapMarks(h, child.text, child.marks, serializers, block.markDefs)
             )
           : [],
-        serializers,
-      ),
+        serializers
+      )
     )
     if (process.env.NODE_ENV === 'development') {
       if (!node || (Array.isArray(node) && !node.length))
-      // eslint-disable-next-line
+        // eslint-disable-next-line
         console.warn(
           `No serializer found for block type "${block._type}".`,
-          block,
+          block
         )
     }
     return node
@@ -278,10 +280,11 @@ export const SanityContent = extendVue({
     },
     renderContainerOnSingleChild: { type: Boolean, default: false },
   },
-  render (h, { props, data }) {
-    const serializers = defu(props.serializers, defaults) as Required<
-      Serializers
-    >
+  render(h, { props, data }) {
+    const serializers = defu(
+      props.serializers,
+      defaults
+    ) as Required<Serializers>
 
     serializers.types.list =
       serializers.types.list ||
@@ -294,7 +297,7 @@ export const SanityContent = extendVue({
             default: () => [],
           },
         },
-        render (h, { props }) {
+        render(h, { props }) {
           const tag =
             props.children.length && props.children[0].listItem === 'number'
               ? 'ol'
@@ -306,7 +309,7 @@ export const SanityContent = extendVue({
     return h(
       serializers.container,
       data,
-      renderBlocks(h, props.blocks || [], serializers),
+      renderBlocks(h, props.blocks || [], serializers)
     )
   },
 })
