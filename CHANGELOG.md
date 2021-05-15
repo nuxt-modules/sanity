@@ -1,3 +1,10 @@
+### [0.9.3](https://github.com/nuxt-community/sanity-module/compare/0.9.2...0.9.3) (2021-05-15)
+
+
+### Bug Fixes
+
+* add missing blockquote style ([#144](https://github.com/nuxt-community/sanity-module/issues/144)) ([b2e55d8](https://github.com/nuxt-community/sanity-module/commit/b2e55d896a12aa428aa49c2f761b759a3402b78b))
+
 ### [0.9.2](https://github.com/nuxt-community/sanity-module/compare/0.9.1...0.9.2) (2021-04-23)
 
 ### [0.9.1](https://github.com/nuxt-community/sanity-module/compare/0.9.0...0.9.1) (2021-04-14)
