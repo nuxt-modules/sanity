@@ -1,3 +1,10 @@
+### [0.9.4](https://github.com/nuxt-community/sanity-module/compare/0.9.3...0.9.4) (2021-05-15)
+
+
+### Bug Fixes
+
+* don't set empty keys on marks ([cefdaaa](https://github.com/nuxt-community/sanity-module/commit/cefdaaa453bef3b7dc76c5d6977a87364b68ff36)), closes [#116](https://github.com/nuxt-community/sanity-module/issues/116)
+
 ### [0.9.3](https://github.com/nuxt-community/sanity-module/compare/0.9.2...0.9.3) (2021-05-15)
 
 
