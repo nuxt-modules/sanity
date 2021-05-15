@@ -101,7 +101,7 @@ function getProps (item?: Record<string, any>) {
     (obj, [key, value]) => {
       switch (true) {
         case ['_key', 'key'].includes(key):
-          obj.key = value
+          obj.key = value || null
           return obj
 
         case ['class', 'href', 'src'].includes(key):
