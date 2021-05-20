@@ -1,5 +1,6 @@
 export default {
   title: '@nuxtjs/sanity',
+  twitter: 'nuxt_js',
   url: 'https://sanity.nuxtjs.org',
   theme: {
     header: {
@@ -7,6 +8,7 @@ export default {
         dark: '/sanity-dark.svg',
         light: '/sanity-light.svg',
       },
+      title: false,
     },
   },
   github: {
