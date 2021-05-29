@@ -1,3 +1,6 @@
+/**
+ * @jest-environment jsdom
+ */
 import { mount } from '@vue/test-utils'
 
 import { SanityImage } from '../../src/components/sanity-image'
