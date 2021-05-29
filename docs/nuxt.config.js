@@ -1,10 +1,7 @@
 import { withDocus } from 'docus'
 
 export default withDocus({
-  loading: { color: '#fa1607' },
-  generate: {
-    routes: ['/'],
-  },
+  rootDir: __dirname,
   buildModules: ['vue-plausible'],
   ackee: {
     server: 'sanity.nuxtjs.org',
