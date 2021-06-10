@@ -1,12 +1,11 @@
+import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+
 import { bold } from 'chalk'
 import consola from 'consola'
-import defu from 'defu'
 import { readJSONSync } from 'fs-extra'
 import { join, resolve } from 'upath'
 
-import type { Module } from '@nuxt/types'
-
-import { name, version } from '../package.json'
+import { name } from '../package.json'
 
 import type { SanityConfiguration } from '.'
 
@@ -38,16 +37,6 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    */
   additionalClients?: Record<string, Partial<SanityConfiguration>>
 }
-const isProd = process.env.NODE_ENV === 'production'
-
-const DEFAULTS: SanityModuleOptions = {
-  contentHelper: true,
-  imageHelper: true,
-  dataset: 'production',
-  apiVersion: '1',
-  withCredentials: false,
-  additionalClients: {},
-}
 
 export const CONFIG_KEY = 'sanity' as const
 
@@ -67,35 +56,42 @@ function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   }
 }
 
-const sanityModule: Module<SanityModuleOptions> = function sanityModule (moduleOptions) {
-  let sanityConfig: Record<string, any> = {}
-
+function getDefaultSanityConfig (jsonPath: string) {
   try {
-    const { projectId, dataset } = readJSONSync(
-      resolve(this.options.rootDir, './sanity.json'),
-    ).api
-    sanityConfig = { projectId, dataset }
-  } catch {}
-
-  const options = defu(
-    this.options[CONFIG_KEY],
-    moduleOptions,
-    sanityConfig,
-    { useCdn: /* istanbul ignore next */ isProd && !moduleOptions.token && (!this.options[CONFIG_KEY] || !this.options[CONFIG_KEY].token) },
-    DEFAULTS,
-  )
-
-  if (!validateConfig(options)) {
-    return
-  }
-
-  try {
-    if (!options.minimal) {
-      options.minimal = !this.nuxt.resolver.requireModule('@sanity/client')
-    }
+    const { projectId, dataset } = readJSONSync(jsonPath).api
+    return { projectId, dataset }
   } catch {
-    options.minimal = true
-    consola.warn(
+    return {}
+  }
+}
+
+export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
+  name,
+  configKey: 'sanity',
+  defaults: {
+    contentHelper: true,
+    imageHelper: true,
+    dataset: 'production',
+    apiVersion: '1',
+    withCredentials: false,
+    additionalClients: {},
+    ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
+  },
+  setup (options, nuxt) {
+    if (!('useCdn' in options)) {
+      options.useCdn = process.env.NODE_ENV === 'production' && !options.token
+    }
+
+    if (!validateConfig(options)) return
+
+    try {
+      if (!options.minimal) {
+        // TODO: This will fail in Nuxt 3
+        options.minimal = !(nuxt as any).resolver.requireModule('@sanity/client')
+      }
+    } catch {
+      options.minimal = true
+      consola.warn(
       `Not using ${bold(
         '@sanity/client',
       )} as it cannot be resolved in your project dependencies.
@@ -105,47 +101,45 @@ const sanityModule: Module<SanityModuleOptions> = function sanityModule (moduleO
        To disable this warning, set ${bold(
          'sanity: { minimal: true }',
        )} in your nuxt.config.js.`,
-    )
-  }
+      )
+    }
 
-  this.options[CONFIG_KEY] = options
-  const autoregister = !!this.options.components
+    nuxt.options[CONFIG_KEY] = options
+    const autoregister = !!nuxt.options.components
 
-  this.addPlugin({
-    src: resolve(__dirname, '../templates/plugin.js'),
-    fileName: 'sanity/plugin.js',
-    options: {
-      client: !options.minimal,
-      components: {
-        autoregister,
-        imageHelper: options.imageHelper,
-        contentHelper: options.contentHelper,
+    addPlugin({
+      src: resolve(__dirname, '../templates/plugin.js'),
+      fileName: 'sanity/plugin.js',
+      options: {
+        client: !options.minimal,
+        components: {
+          autoregister,
+          imageHelper: options.imageHelper,
+          contentHelper: options.contentHelper,
+        },
+        sanityConfig: JSON.stringify({
+          useCdn: options.useCdn,
+          projectId: options.projectId,
+          dataset: options.dataset,
+          apiVersion: options.apiVersion,
+          withCredentials: options.withCredentials,
+          token: options.token,
+        }),
+        additionalClients: JSON.stringify(options.additionalClients),
       },
-      sanityConfig: JSON.stringify({
-        useCdn: options.useCdn,
-        projectId: options.projectId,
-        dataset: options.dataset,
-        apiVersion: options.apiVersion,
-        withCredentials: options.withCredentials,
-        token: options.token,
-      }),
-      additionalClients: JSON.stringify(options.additionalClients),
-    },
-  })
-
-  if (autoregister) {
-    this.nuxt.hook('components:dirs', (dirs: Array<{ path: string, extensions?: string[] }>) => {
-      dirs.push({
-        path: join(__dirname, 'components'),
-        extensions: ['js'],
-      })
     })
-  }
 
-  this.options.build.transpile = this.options.build.transpile || /* istanbul ignore next */ []
-  this.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)
-}
+    if (autoregister) {
+      nuxt.hook('components:dirs', (dirs: Array<{ path: string, extensions?: string[] }>) => {
+        dirs.push({
+          path: join(__dirname, 'components'),
+          extensions: ['js'],
+        })
+      })
+    }
 
-;(sanityModule as any).meta = { name, version }
-
-export default sanityModule
+    nuxt.options.build.transpile = nuxt.options.build.transpile || /* istanbul ignore next */[]
+    nuxt.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)
+  },
+}),
+)

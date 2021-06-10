@@ -1,11 +1,13 @@
 import {
   setupTest,
-  expectModuleToBeCalledWith,
   getNuxt,
 } from '@nuxt/test-utils'
+const nuxtKit = require('@nuxt/kit')
 
 const projectId = 'j1o4tmjp'
 const dataset = 'production'
+
+jest.spyOn(nuxtKit, 'addPlugin')
 
 describe('module with default options', () => {
   setupTest({
@@ -18,7 +20,7 @@ describe('module with default options', () => {
     },
   })
   it('should inject core plugin with correct defaults', () => {
-    expectModuleToBeCalledWith('addPlugin', {
+    expect(nuxtKit.addPlugin).toBeCalledWith({
       src: expect.stringContaining('plugin.js'),
       fileName: 'sanity/plugin.js',
       options: {
