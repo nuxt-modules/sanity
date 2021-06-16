@@ -87,9 +87,9 @@ describe('module without a project id', () => {
 
 describe('module without sanity client installed', () => {
   beforeAll(() => {
-    jest.mock('@sanity/client', () => {
+    nuxtKit.requireModule = () => {
       throw new Error('no client')
-    })
+    }
   })
 
   setupTest({

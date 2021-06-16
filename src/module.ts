@@ -1,4 +1,4 @@
-import { defineNuxtModule, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, addPlugin, requireModule } from '@nuxt/kit'
 
 import { bold } from 'chalk'
 import consola from 'consola'
@@ -86,8 +86,7 @@ export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
 
     try {
       if (!options.minimal) {
-        // TODO: This will fail in Nuxt 3
-        options.minimal = !(nuxt as any).resolver.requireModule('@sanity/client')
+        options.minimal = !requireModule('@sanity/client')
       }
     } catch {
       options.minimal = true
