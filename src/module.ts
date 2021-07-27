@@ -72,7 +72,7 @@ export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
     contentHelper: true,
     imageHelper: true,
     dataset: 'production',
-    apiVersion: '1',
+    apiVersion: `${new Date().toISOString().split('T')[0]}`,
     withCredentials: false,
     additionalClients: {},
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
