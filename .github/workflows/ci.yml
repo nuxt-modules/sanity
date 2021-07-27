@@ -23,21 +23,25 @@ jobs:
           node-version: ${{ matrix.node }}
 
       - name: checkout
-        uses: actions/checkout@master
+        uses: actions/checkout@v2
 
-      - name: cache node_modules
-        uses: actions/cache@v2
-        id: cache
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+
+      - uses: actions/cache@v2
+        id: yarn-cache
         with:
           path: |
-            node_modules
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
             C:\Users\runneradmin\AppData\Local\ms-playwright
             ~/Library/Caches/ms-playwright
             ~/.cache/ms-playwright
-          key: ${{ matrix.os }}-node-v${{ matrix.node }}-deps-${{ hashFiles(format('{0}{1}', github.workspace, '/yarn.lock')) }}
+          key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
 
       - name: Install dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
         run: yarn
 
       - name: Build project
