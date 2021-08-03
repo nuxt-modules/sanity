@@ -1,3 +1,10 @@
+## [0.10.0](https://github.com/nuxt-community/sanity-module/compare/0.9.4...0.10.0) (2021-08-03)
+
+
+### Features
+
+* support custom block types ([#216](https://github.com/nuxt-community/sanity-module/issues/216)) ([88330cf](https://github.com/nuxt-community/sanity-module/commit/88330cf9af5bb70411fa1ece4796a48e7bc23409))
+
 ### [0.9.4](https://github.com/nuxt-community/sanity-module/compare/0.9.3...0.9.4) (2021-05-15)
 
 
