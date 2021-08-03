@@ -248,7 +248,9 @@ function renderBlocks (
         block,
         block._type === 'block'
           ? (block.children || []).map(child =>
-              wrapMarks(h, child.text, child.marks, serializers, block.markDefs),
+              child._type !== 'span'
+                ? h(findSerializer(child as CustomBlock, serializers) || 'span', getProps(child), [wrapMarks(h, child.text, child.marks, serializers, block.markDefs)])
+                : wrapMarks(h, child.text, child.marks, serializers, block.markDefs),
             )
           : [],
         serializers,
