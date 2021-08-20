@@ -2187,7 +2187,7 @@ __metadata:
     lint-staged: 11.1.2
     nuxt: 2.15.8
     playwright: 1.13.1
-    release-it: 14.10.1
+    release-it: 14.11.5
     siroc: 0.14.0
     ts-loader: 8.3.0
     upath: 2.0.1
@@ -2301,15 +2301,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/plugin-rest-endpoint-methods@npm:5.5.1":
-  version: 5.5.1
-  resolution: "@octokit/plugin-rest-endpoint-methods@npm:5.5.1"
+"@octokit/plugin-rest-endpoint-methods@npm:5.7.0":
+  version: 5.7.0
+  resolution: "@octokit/plugin-rest-endpoint-methods@npm:5.7.0"
   dependencies:
-    "@octokit/types": ^6.21.1
+    "@octokit/types": ^6.24.0
     deprecation: ^2.3.1
   peerDependencies:
     "@octokit/core": ">=3"
-  checksum: 2ddf81a6d41beee4ecf36b893a6e6bcb62e1010063c1c4afcc398f9223237afcd232c57cc5f9e55bb31d4e376c26cfafd9170d8985b60f6f2a6d38bf3d522050
+  checksum: 3335fb0ae7d43965f7d598cfc19b353e63e6d4befd150954826eefdde3c1779be2965b4fbaeb59725fe7071db73865132ccc3fa5945b4a3751644feb5bd7e7bf
   languageName: node
   linkType: hard
 
@@ -2338,19 +2338,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/rest@npm:18.7.1":
-  version: 18.7.1
-  resolution: "@octokit/rest@npm:18.7.1"
+"@octokit/rest@npm:18.9.0":
+  version: 18.9.0
+  resolution: "@octokit/rest@npm:18.9.0"
   dependencies:
     "@octokit/core": ^3.5.0
     "@octokit/plugin-paginate-rest": ^2.6.2
     "@octokit/plugin-request-log": ^1.0.2
-    "@octokit/plugin-rest-endpoint-methods": 5.5.1
-  checksum: e2b67c99a0e8e58537ba922cd8e621ed85ce1817c565637dcfcf80eb53bdcf5d31d31f682344368033f7a05e1f4cf9dfcb9b8c5b3091fe1291e50e0e574ba06e
+    "@octokit/plugin-rest-endpoint-methods": 5.7.0
+  checksum: 16402f0df79b2461af334c1615dec1614afe2c739ba2bfaa1e169d9f9d833f063736ddd1a968d86f91bf8d3311b362ef19e9b7bdd249747923e0b9f1d4a0221f
   languageName: node
   linkType: hard
 
-"@octokit/types@npm:^6.0.3, @octokit/types@npm:^6.16.1, @octokit/types@npm:^6.21.1, @octokit/types@npm:^6.24.0":
+"@octokit/types@npm:^6.0.3, @octokit/types@npm:^6.16.1, @octokit/types@npm:^6.24.0":
   version: 6.25.0
   resolution: "@octokit/types@npm:6.25.0"
   dependencies:
@@ -4909,16 +4909,6 @@ __metadata:
   version: 1.0.1
   resolution: "capture-stack-trace@npm:1.0.1"
   checksum: 493668211de1307009589aeba5c382dc8b1011a41ca02f033b5f5a489ee174323a4b31d5afdc4bd48f64e1dd23b2521ddda4dbdcd382767e140f94b555f8f332
-  languageName: node
-  linkType: hard
-
-"chalk@npm:4.1.1":
-  version: 4.1.1
-  resolution: "chalk@npm:4.1.1"
-  dependencies:
-    ansi-styles: ^4.1.0
-    supports-color: ^7.1.0
-  checksum: 036e973e665ba1a32c975e291d5f3d549bceeb7b1b983320d4598fb75d70fe20c5db5d62971ec0fe76cdbce83985a00ee42372416abfc3a5584465005a7855ed
   languageName: node
   linkType: hard
 
@@ -7815,16 +7805,6 @@ __metadata:
     make-dir: ^3.0.2
     pkg-dir: ^4.1.0
   checksum: 0f7c22b65e07f9b486b4560227d014fab1e79ffbbfbafb87d113a2e878510bd620ef6fdff090e5248bb2846d28851d19e42bfdc7c50687966acc106328e7abf1
-  languageName: node
-  linkType: hard
-
-"find-up@npm:5.0.0":
-  version: 5.0.0
-  resolution: "find-up@npm:5.0.0"
-  dependencies:
-    locate-path: ^6.0.0
-    path-exists: ^4.0.0
-  checksum: 07955e357348f34660bde7920783204ff5a26ac2cafcaa28bace494027158a97b9f56faaf2d89a6106211a8174db650dd9f503f9c0d526b1202d5554a00b9095
   languageName: node
   linkType: hard
 
@@ -11026,15 +11006,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"locate-path@npm:^6.0.0":
-  version: 6.0.0
-  resolution: "locate-path@npm:6.0.0"
-  dependencies:
-    p-locate: ^5.0.0
-  checksum: 72eb661788a0368c099a184c59d2fee760b3831c9c1c33955e8a19ae4a21b4116e53fa736dc086cdeb9fce9f7cc508f2f92d2d3aae516f133e16a2bb59a39f5a
-  languageName: node
-  linkType: hard
-
 "lodash._reinterpolate@npm:^3.0.0":
   version: 3.0.0
   resolution: "lodash._reinterpolate@npm:3.0.0"
@@ -11211,7 +11182,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"macos-release@npm:^2.2.0":
+"macos-release@npm:^2.5.0":
   version: 2.5.0
   resolution: "macos-release@npm:2.5.0"
   checksum: 57379ba354449898ceca91ca8f1ae4d0b2c45671e8a5200d29054a77b462a0319eb3dcb8a8b6bbe2257079cf682550abcfd8a6214a60ac78e4a71c007df1fc85
@@ -11515,13 +11486,6 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"mime-db@npm:1.48.0":
-  version: 1.48.0
-  resolution: "mime-db@npm:1.48.0"
-  checksum: d778392e474a5e78c24eef5a2894261f0ed168d2762c1ac2a115aa34c2274c9426178b92a6cc55e9edb8f13e7e9b8116380b0e61db9ff6d763e62876a65eea57
-  languageName: node
-  linkType: hard
-
 "mime-db@npm:1.49.0, mime-db@npm:>= 1.43.0 < 2":
   version: 1.49.0
   resolution: "mime-db@npm:1.49.0"
@@ -11529,16 +11493,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"mime-types@npm:2.1.31":
-  version: 2.1.31
-  resolution: "mime-types@npm:2.1.31"
-  dependencies:
-    mime-db: 1.48.0
-  checksum: eb1612aa96403823c7a2ccb1a39d58ce11477e685560186e7d369d8164260fd6fc1eeb56fa23acb6a4050583f417b2a685b69c23eb2bd8ed169fb0c6e323740a
-  languageName: node
-  linkType: hard
-
-"mime-types@npm:^2.1.12, mime-types@npm:^2.1.18, mime-types@npm:^2.1.19, mime-types@npm:^2.1.27, mime-types@npm:^2.1.30, mime-types@npm:~2.1.24":
+"mime-types@npm:2.1.32, mime-types@npm:^2.1.12, mime-types@npm:^2.1.18, mime-types@npm:^2.1.19, mime-types@npm:^2.1.27, mime-types@npm:^2.1.30, mime-types@npm:~2.1.24":
   version: 2.1.32
   resolution: "mime-types@npm:2.1.32"
   dependencies:
@@ -11930,6 +11885,15 @@ fsevents@^1.2.7:
   version: 2.6.2
   resolution: "neo-async@npm:2.6.2"
   checksum: deac9f8d00eda7b2e5cd1b2549e26e10a0faa70adaa6fdadca701cc55f49ee9018e427f424bac0c790b7c7e2d3068db97f3093f1093975f2acb8f8818b936ed9
+  languageName: node
+  linkType: hard
+
+"new-github-release-url@npm:1.0.0":
+  version: 1.0.0
+  resolution: "new-github-release-url@npm:1.0.0"
+  dependencies:
+    type-fest: ^0.4.1
+  checksum: 70c8d2fe9b12e3b045cc4e7f57be227686daa55be4697e95439de120b5872c1e3c0f6bc8ea7e0435a107fefc7aadf1b9b985524168ae166c92c3322d9901b68f
   languageName: node
   linkType: hard
 
@@ -12378,7 +12342,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"open@npm:^7.0.4":
+"open@npm:7.4.2, open@npm:^7.0.4":
   version: 7.4.2
   resolution: "open@npm:7.4.2"
   dependencies:
@@ -12470,13 +12434,13 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"os-name@npm:4.0.0":
-  version: 4.0.0
-  resolution: "os-name@npm:4.0.0"
+"os-name@npm:4.0.1":
+  version: 4.0.1
+  resolution: "os-name@npm:4.0.1"
   dependencies:
-    macos-release: ^2.2.0
+    macos-release: ^2.5.0
     windows-release: ^4.0.0
-  checksum: a1f1122587befcc85ce1d7f7a70da2e979d07d1a039181b4de9501d5abf919ece1b269985df987f45969a09e67198af42879e01abb46ca41d520ef3a8d7b22ae
+  checksum: 507ae75979ec410b5fccaddddc7e8afb3f9fd096e902230d8ae940590513e64fce6fe25fd1ccc410ec89defc78b5593d71cb1c323e546621c210c4a7086c7399
   languageName: node
   linkType: hard
 
@@ -12573,15 +12537,6 @@ fsevents@^1.2.7:
   dependencies:
     p-limit: ^2.2.0
   checksum: 513bd14a455f5da4ebfcb819ef706c54adb09097703de6aeaa5d26fe5ea16df92b48d1ac45e01e3944ce1e6aa2a66f7f8894742b8c9d6e276e16cd2049a2b870
-  languageName: node
-  linkType: hard
-
-"p-locate@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "p-locate@npm:5.0.0"
-  dependencies:
-    p-limit: ^3.0.2
-  checksum: 1623088f36cf1cbca58e9b61c4e62bf0c60a07af5ae1ca99a720837356b5b6c5ba3eb1b2127e47a06865fee59dd0453cad7cc844cda9d5a62ac1a5a51b7c86d3
   languageName: node
   linkType: hard
 
@@ -14683,19 +14638,18 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"release-it@npm:14.10.1":
-  version: 14.10.1
-  resolution: "release-it@npm:14.10.1"
+"release-it@npm:14.11.5":
+  version: 14.11.5
+  resolution: "release-it@npm:14.11.5"
   dependencies:
     "@iarna/toml": 2.2.5
-    "@octokit/rest": 18.7.1
+    "@octokit/rest": 18.9.0
     async-retry: 1.3.1
-    chalk: 4.1.1
+    chalk: 4.1.2
     cosmiconfig: 7.0.0
     debug: 4.3.2
     deprecated-obj: 2.0.0
     execa: 5.1.1
-    find-up: 5.0.0
     form-data: 4.0.0
     git-url-parse: 11.5.0
     globby: 11.0.4
@@ -14704,9 +14658,11 @@ fsevents@^1.2.7:
     inquirer: 8.1.2
     is-ci: 3.0.0
     lodash: 4.17.21
-    mime-types: 2.1.31
+    mime-types: 2.1.32
+    new-github-release-url: 1.0.0
+    open: 7.4.2
     ora: 5.4.1
-    os-name: 4.0.0
+    os-name: 4.0.1
     parse-json: 5.2.0
     semver: 7.3.5
     shelljs: 0.8.4
@@ -14717,7 +14673,7 @@ fsevents@^1.2.7:
     yargs-parser: 20.2.9
   bin:
     release-it: bin/release-it.js
-  checksum: 1ae6eb95e9603e668ad4af971ffc796ccfd7e1165d8d518ffe6640748377e2a9f6f6a71fa7b253e7dac47b11c09280f25b55bcf14cc812a3d539be52a76493d5
+  checksum: dbc77de78455839d331009c3dfb5f3bd1830f87b87aac5ff17426a4cc5bee82a89bc72c016087083f3bfd22ce379f19e365313a50b4a9ff2ecbb335850483493
   languageName: node
   linkType: hard
 
@@ -16803,6 +16759,13 @@ fsevents@^1.2.7:
   version: 0.21.3
   resolution: "type-fest@npm:0.21.3"
   checksum: e6b32a3b3877f04339bae01c193b273c62ba7bfc9e325b8703c4ee1b32dc8fe4ef5dfa54bf78265e069f7667d058e360ae0f37be5af9f153b22382cd55a9afe0
+  languageName: node
+  linkType: hard
+
+"type-fest@npm:^0.4.1":
+  version: 0.4.1
+  resolution: "type-fest@npm:0.4.1"
+  checksum: 25f882d9cc2f24af7a0a529157f96dead157894c456bfbad16d48f990c43b470dfb79848e8d9c03fe1be72a7d169e44f6f3135b54628393c66a6189c5dc077f7
   languageName: node
   linkType: hard
 
