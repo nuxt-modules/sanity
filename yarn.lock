@@ -2671,7 +2671,7 @@ __metadata:
     "@nuxtjs/eslint-config-typescript": 6.0.1
     "@nuxtjs/tailwindcss": 4.2.1
     "@release-it/conventional-changelog": 3.3.0
-    "@sanity/client": 2.19.0
+    "@sanity/client": 2.21.0
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.0.2
     "@types/webpack-env": 1.16.3
@@ -2685,7 +2685,7 @@ __metadata:
     husky: 7.0.2
     jest: 27.2.5
     jest-serializer-vue-tjw: 3.19.0
-    lint-staged: 11.1.4
+    lint-staged: 11.2.3
     nuxt: 2.15.8
     playwright: 1.15.2
     release-it: 14.11.6
@@ -2994,9 +2994,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/client@npm:2.19.0":
-  version: 2.19.0
-  resolution: "@sanity/client@npm:2.19.0"
+"@sanity/client@npm:2.21.0":
+  version: 2.21.0
+  resolution: "@sanity/client@npm:2.21.0"
   dependencies:
     "@sanity/eventsource": 2.14.0
     "@sanity/generate-help-url": 2.18.0
@@ -3005,7 +3005,7 @@ __metadata:
     get-it: ^5.0.3
     make-error: ^1.3.0
     object-assign: ^4.1.1
-  checksum: f05be206b383b0e6e2780c299234489cd12544096d2cc43f5bbf5ae9e551cf6efe91095906ce06c70c7cfea56f79ed9944113aa76c4d3ebd0e32f3960450488e
+  checksum: 5af96d8753536031ab1732640219232b6303a6a216e42224cf6acc2faea527bf0d044a838e41f2bc30f03b032ffb09fd79e0650e5067a424dcbd748e98e4425b
   languageName: node
   linkType: hard
 
@@ -4327,14 +4327,14 @@ __metadata:
   linkType: hard
 
 "ajv@npm:^8.0.1":
-  version: 8.6.2
-  resolution: "ajv@npm:8.6.2"
+  version: 8.6.3
+  resolution: "ajv@npm:8.6.3"
   dependencies:
     fast-deep-equal: ^3.1.1
     json-schema-traverse: ^1.0.0
     require-from-string: ^2.0.2
     uri-js: ^4.2.2
-  checksum: b86d6cb86c69abbd8ce71ab7d4ff272660bf6d34fa9fbe770f73e54da59d531b2546692e36e2b35bbcfb11d20db774b4c09189671335185b8c799d65194e5169
+  checksum: 690ffb9408415fdab43686b3f92037ba0c8362f5d0709a123ba3fb546e6ad81414455f80a2b5cc432ce924afe9864671198f022bc331a19c072d4ede152ec3ca
   languageName: node
   linkType: hard
 
@@ -5710,7 +5710,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-truncate@npm:^2.1.0":
+"cli-truncate@npm:2.1.0, cli-truncate@npm:^2.1.0":
   version: 2.1.0
   resolution: "cli-truncate@npm:2.1.0"
   dependencies:
@@ -5855,6 +5855,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"colorette@npm:^1.4.0":
+  version: 1.4.0
+  resolution: "colorette@npm:1.4.0"
+  checksum: 01c3c16058b182a4ab4c126a65a75faa4d38a20fa7c845090b25453acec6c371bb2c5dceb0a2338511f17902b9d1a9af0cadd8509c9403894b79311032c256c3
+  languageName: node
+  linkType: hard
+
 "combined-stream@npm:^1.0.8":
   version: 1.0.8
   resolution: "combined-stream@npm:1.0.8"
@@ -5885,10 +5892,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "commander@npm:7.2.0"
-  checksum: 53501cbeee61d5157546c0bef0fedb6cdfc763a882136284bed9a07225f09a14b82d2a84e7637edfd1a679fb35ed9502fd58ef1d091e6287f60d790147f68ddc
+"commander@npm:^8.2.0":
+  version: 8.2.0
+  resolution: "commander@npm:8.2.0"
+  checksum: e868805bc266777f7a9c8a740e15b9e02b8148d8251f577ea9b9ef373ac0bdeb77b9b60cfc033592c9e1affea89993be08c13c623f0c619f9bf152c0e4d12cb0
   languageName: node
   linkType: hard
 
@@ -6349,7 +6356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cosmiconfig@npm:7.0.1":
+"cosmiconfig@npm:7.0.1, cosmiconfig@npm:^7.0.1":
   version: 7.0.1
   resolution: "cosmiconfig@npm:7.0.1"
   dependencies:
@@ -6857,7 +6864,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:4.3.2, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1":
+"debug@npm:4, debug@npm:4.3.2, debug@npm:^4.0.1, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -11518,36 +11525,36 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"lint-staged@npm:11.1.4":
-  version: 11.1.4
-  resolution: "lint-staged@npm:11.1.4"
+"lint-staged@npm:11.2.3":
+  version: 11.2.3
+  resolution: "lint-staged@npm:11.2.3"
   dependencies:
-    chalk: ^4.1.1
-    cli-truncate: ^2.1.0
-    commander: ^7.2.0
-    cosmiconfig: ^7.0.0
-    debug: ^4.3.1
+    cli-truncate: 2.1.0
+    colorette: ^1.4.0
+    commander: ^8.2.0
+    cosmiconfig: ^7.0.1
+    debug: ^4.3.2
     enquirer: ^2.3.6
-    execa: ^5.0.0
-    listr2: ^3.8.2
-    log-symbols: ^4.1.0
+    execa: ^5.1.1
+    listr2: ^3.12.2
     micromatch: ^4.0.4
     normalize-path: ^3.0.0
     please-upgrade-node: ^3.2.0
     string-argv: 0.3.1
-    stringify-object: ^3.3.0
+    stringify-object: 3.3.0
+    supports-color: 8.1.1
   bin:
     lint-staged: bin/lint-staged.js
-  checksum: aa2a54678f639f90a08d059f510274371d2fceb4866da35dbd2d84205027ddca30114702c78507ee34c12d850d640a20434b508df1e0e8827a1276eb5d0939b0
+  checksum: cf3a1612a8cb3790030fb1eaf98071b97be0c71e9ee87f2f65741321974178e9b15b480dac695bb126d2cd8751dd7d72071b13d7ea0e1a97a735d88bd3cc8bb7
   languageName: node
   linkType: hard
 
-"listr2@npm:^3.8.2":
-  version: 3.11.0
-  resolution: "listr2@npm:3.11.0"
+"listr2@npm:^3.12.2":
+  version: 3.12.2
+  resolution: "listr2@npm:3.12.2"
   dependencies:
     cli-truncate: ^2.1.0
-    colorette: ^1.2.2
+    colorette: ^1.4.0
     log-update: ^4.0.0
     p-map: ^4.0.0
     rxjs: ^6.6.7
@@ -11555,7 +11562,7 @@ fsevents@^1.2.7:
     wrap-ansi: ^7.0.0
   peerDependencies:
     enquirer: ">= 2.3.0 < 3"
-  checksum: 6533edd4304f5c113198db42b87ddb17fb3dc2167017b2d63c30df50c1277865fc0eed99c4f4c8abdfc5a960b997049dba14a65180fbf2851ad82f2259038a0c
+  checksum: 92d72b9b6ae835893618c9a46015d538b8d39602208bd9dc0ddc2d73f3cb24175b5367c6af50a7a8ac6cdf2c1a0d4b398455dc4c4fce29954cb5267343a1d974
   languageName: node
   linkType: hard
 
@@ -16603,6 +16610,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"string-width@npm:^4.2.3":
+  version: 4.2.3
+  resolution: "string-width@npm:4.2.3"
+  dependencies:
+    emoji-regex: ^8.0.0
+    is-fullwidth-code-point: ^3.0.0
+    strip-ansi: ^6.0.1
+  checksum: e52c10dc3fbfcd6c3a15f159f54a90024241d0f149cf8aed2982a2d801d2e64df0bf1dc351cf8e95c3319323f9f220c16e740b06faecd53e2462df1d2b5443fb
+  languageName: node
+  linkType: hard
+
 "string.prototype.trimend@npm:^1.0.4":
   version: 1.0.4
   resolution: "string.prototype.trimend@npm:1.0.4"
@@ -16641,7 +16659,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"stringify-object@npm:^3.3.0":
+"stringify-object@npm:3.3.0":
   version: 3.3.0
   resolution: "stringify-object@npm:3.3.0"
   dependencies:
@@ -16685,6 +16703,15 @@ fsevents@^1.2.7:
   dependencies:
     ansi-regex: ^5.0.0
   checksum: 04c3239ede44c4d195b0e66c0ad58b932f08bec7d05290416d361ff908ad282ecdaf5d9731e322c84f151d427436bde01f05b7422c3ec26dd927586736b0e5d0
+  languageName: node
+  linkType: hard
+
+"strip-ansi@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "strip-ansi@npm:6.0.1"
+  dependencies:
+    ansi-regex: ^5.0.1
+  checksum: f3cd25890aef3ba6e1a74e20896c21a46f482e93df4a06567cebf2b57edabb15133f1f94e57434e0a958d61186087b1008e89c94875d019910a213181a14fc8c
   languageName: node
   linkType: hard
 
@@ -16756,6 +16783,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"supports-color@npm:8.1.1, supports-color@npm:^8.0.0":
+  version: 8.1.1
+  resolution: "supports-color@npm:8.1.1"
+  dependencies:
+    has-flag: ^4.0.0
+  checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
+  languageName: node
+  linkType: hard
+
 "supports-color@npm:^2.0.0":
   version: 2.0.0
   resolution: "supports-color@npm:2.0.0"
@@ -16787,15 +16823,6 @@ fsevents@^1.2.7:
   dependencies:
     has-flag: ^4.0.0
   checksum: 3dda818de06ebbe5b9653e07842d9479f3555ebc77e9a0280caf5a14fb877ffee9ed57007c3b78f5a6324b8dbeec648d9e97a24e2ed9fdb81ddc69ea07100f4a
-  languageName: node
-  linkType: hard
-
-"supports-color@npm:^8.0.0":
-  version: 8.1.1
-  resolution: "supports-color@npm:8.1.1"
-  dependencies:
-    has-flag: ^4.0.0
-  checksum: c052193a7e43c6cdc741eb7f378df605636e01ad434badf7324f17fb60c69a880d8d8fcdcb562cf94c2350e57b937d7425ab5b8326c67c2adc48f7c87c1db406
   languageName: node
   linkType: hard
 
@@ -16847,16 +16874,16 @@ fsevents@^1.2.7:
   linkType: hard
 
 "table@npm:^6.0.9":
-  version: 6.7.1
-  resolution: "table@npm:6.7.1"
+  version: 6.7.2
+  resolution: "table@npm:6.7.2"
   dependencies:
     ajv: ^8.0.1
     lodash.clonedeep: ^4.5.0
     lodash.truncate: ^4.4.2
     slice-ansi: ^4.0.0
-    string-width: ^4.2.0
-    strip-ansi: ^6.0.0
-  checksum: 053b61fa4e8f8396c65ff7a95da90e85620370932652d501ff7a0a3ed7317f1cc549702bd2abf2bd9ed01e20757b73a8b57374f8a8a2ac02fbe0550276263fb6
+    string-width: ^4.2.3
+    strip-ansi: ^6.0.1
+  checksum: d61f91d64b9be56ac66edd2a8c0f10fcc59995313f37198cb87de73a6b441a05ad36f4a567bd8736da35bc4a2f8f4049b0e4ff1d4356c0a7c2b91af48b8bf8b2
   languageName: node
   linkType: hard
 
@@ -17477,21 +17504,21 @@ typescript@^4.3.5:
 
 "typescript@patch:typescript@^4.3.5#~builtin<compat/typescript>":
   version: 4.3.5
-  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=d8b4e7"
+  resolution: "typescript@patch:typescript@npm%3A4.3.5#~builtin<compat/typescript>::version=4.3.5&hash=32657b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: bc2c4fdf0f1557fdafe4ef74848c72ebd9c8c60829568248f869121aea2bb20e16649a252431d0acb185ec118143be22bed73d08f64379557810d82756afedde
+  checksum: 4e2edec3c9b7b9a22ad9cbf9371339d9e13bfe44731f0e2d6a5287f991c3b0e3e0ac0c0ebbf9bf6fc2051e30559c789bfc9cf572cd6b836a0222ae141fac1dba
   languageName: node
   linkType: hard
 
 "typescript@patch:typescript@~4.2#~builtin<compat/typescript>":
   version: 4.2.4
-  resolution: "typescript@patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=d8b4e7"
+  resolution: "typescript@patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=32657b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 3d8ac56cd91f6f60e69aff212cb3601c8affd8dd7b3fac115b836b7d59ab8c7b21778635f07971cbcb6035019df1abefe3047c1d46f3d42d087ceb0552af0206
+  checksum: 91772e5fc70895a8f645837cb91d14af95a11b173043ed0dcf12c1069f9dcf5c3c82bc7212c217c9a2cb488900dd2cda3f40f543bed5d149428df13c90c10098
   languageName: node
   linkType: hard
 
