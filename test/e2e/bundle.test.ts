@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { readdirSync, readFileSync } from 'fs-extra'
+import { readdir, readFile } from 'fs-extra'
 
 import { setupTest, getNuxt } from '@nuxt/test-utils'
 
@@ -12,17 +12,17 @@ describe('built files', () => {
     build: true,
   })
 
-  it('should not include module requirements', () => {
+  it('should not include module requirements', async () => {
     const { options } = getNuxt()
 
     const clientDistDir = resolve(options.buildDir, './dist/client')
 
-    const distContents = readdirSync(clientDistDir)
+    const distContents = (await Promise.all((await readdir(clientDistDir))
       .map(file =>
-        readFileSync(
+        readFile(
           resolve(options.buildDir, './dist/client', file),
         ).toString(),
-      )
+      )))
       .join('\n')
 
     serverDeps.forEach((dep) => {
