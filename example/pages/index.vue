@@ -42,6 +42,7 @@ interface QueryResult {
 }
 
 export default Vue.extend({
+  name: 'IndexPage',
   data: () => ({ movies: [] as QueryResult[] }),
   async fetch () {
     this.movies = await this.$sanity.fetch<QueryResult[]>(query)
