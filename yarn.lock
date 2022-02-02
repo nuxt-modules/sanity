@@ -2187,7 +2187,7 @@ __metadata:
     "@nuxtjs/eslint-config-typescript": 8.0.0
     "@nuxtjs/tailwindcss": 4.2.1
     "@release-it/conventional-changelog": 4.1.0
-    "@sanity/client": 2.23.2
+    "@sanity/client": 3.0.3
     "@types/fs-extra": 9.0.13
     "@types/jest": 27.4.0
     "@types/webpack-env": 1.16.3
@@ -2494,22 +2494,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/client@npm:2.23.2":
-  version: 2.23.2
-  resolution: "@sanity/client@npm:2.23.2"
+"@sanity/client@npm:3.0.3":
+  version: 3.0.3
+  resolution: "@sanity/client@npm:3.0.3"
   dependencies:
-    "@sanity/eventsource": 2.23.0
-    "@sanity/generate-help-url": 2.18.0
-    "@sanity/observable": 2.0.9
-    deep-assign: ^2.0.0
-    get-it: ^5.2.1
+    "@sanity/eventsource": ^2.23.0
+    "@sanity/generate-help-url": ^2.18.0
+    get-it: ^6.0.0
     make-error: ^1.3.0
     object-assign: ^4.1.1
-  checksum: d20aa3f49c74be70042b7e193245d43c0ab3d7f48b9be844c5ddabc34e0928cceb5209430f65097cd272db0fcbcf908e73a5b5e2f95482a0c217ee48ffc79ef2
+    rxjs: ^6.0.0
+  checksum: fdeb72cc508195ce2c1effdb5891637c6fd7ddac9ebe549b040d7b4c8ed0f4f4520bf1fc440ce0b65bb2c0f860796124e1092198becbf4c3041c0704d680a9f6
   languageName: node
   linkType: hard
 
-"@sanity/eventsource@npm:2.23.0":
+"@sanity/eventsource@npm:^2.23.0":
   version: 2.23.0
   resolution: "@sanity/eventsource@npm:2.23.0"
   dependencies:
@@ -2519,20 +2518,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/generate-help-url@npm:2.18.0":
+"@sanity/generate-help-url@npm:^2.18.0":
   version: 2.18.0
   resolution: "@sanity/generate-help-url@npm:2.18.0"
   checksum: 2a6af4523428d4d7da2bfc9d88089932efd083350f099883bd287a95a529031c6c39adac5beeef6a709e2f5f4e98afb3a73876c9a8cfa9585530f5b21ead370c
-  languageName: node
-  linkType: hard
-
-"@sanity/observable@npm:2.0.9":
-  version: 2.0.9
-  resolution: "@sanity/observable@npm:2.0.9"
-  dependencies:
-    object-assign: ^4.1.1
-    rxjs: ^6.5.3
-  checksum: 10ccbb5043dbaf041f2cd9aceeba59ce8da184f117c5503d0fc70f88592cc9356942b366c80f7bf2ed6d4c7c0dce0834bf4f234b429156775ffadd8f9c98f995
   languageName: node
   linkType: hard
 
@@ -6484,15 +6473,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"deep-assign@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "deep-assign@npm:2.0.0"
-  dependencies:
-    is-obj: ^1.0.0
-  checksum: f1208e46794d1e8e7c90d5747875e98caed2f4e8f1fae98d221b3cc61949ca2ed3fee2cbd4d990cb481d1f09ffe1721a3489c1308ff70355e9c6734848e03f37
-  languageName: node
-  linkType: hard
-
 "deep-equal@npm:~1.0.1":
   version: 1.0.1
   resolution: "deep-equal@npm:1.0.1"
@@ -8278,14 +8258,14 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"get-it@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "get-it@npm:5.2.1"
+"get-it@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "get-it@npm:6.0.0"
   dependencies:
     "@sanity/timed-out": ^4.0.2
     create-error-class: ^3.0.2
     debug: ^2.6.8
-    decompress-response: ^3.3.0
+    decompress-response: ^6.0.0
     follow-redirects: ^1.2.4
     form-urlencoded: ^2.0.7
     into-stream: ^3.1.0
@@ -8294,13 +8274,13 @@ fsevents@^1.2.7:
     is-stream: ^1.1.0
     nano-pubsub: ^1.0.2
     object-assign: ^4.1.1
-    parse-headers: ^2.0.1
+    parse-headers: ^2.0.4
     progress-stream: ^2.0.0
     same-origin: ^0.1.1
-    simple-concat: ^1.0.0
+    simple-concat: ^1.0.1
     tunnel-agent: ^0.6.0
     url-parse: ^1.1.9
-  checksum: eddb0f8931c919a94d445fef0bf40f9185581d0d876f7957407d16e5740155cca3dc6bf80b986838189da4580ad8d5eb210de49f1cce7899fb84ab1c79bda079
+  checksum: 2babdc6e75a55d1e09e316927e1e5c92cf8fcf65c5de7fd1fa841937f037728058bae5ccb1e5d7c2b2c1cc61a4dd7d41e03fa21280df8c34c706593591baa1cb
   languageName: node
   linkType: hard
 
@@ -9760,13 +9740,6 @@ fsevents@^1.2.7:
   version: 7.0.0
   resolution: "is-number@npm:7.0.0"
   checksum: 456ac6f8e0f3111ed34668a624e45315201dff921e5ac181f8ec24923b99e9f32ca1a194912dc79d539c97d33dba17dc635202ff0b2cf98326f608323276d27a
-  languageName: node
-  linkType: hard
-
-"is-obj@npm:^1.0.0":
-  version: 1.0.1
-  resolution: "is-obj@npm:1.0.1"
-  checksum: 3ccf0efdea12951e0b9c784e2b00e77e87b2f8bd30b42a498548a8afcc11b3287342a2030c308e473e93a7a19c9ea7854c99a8832a476591c727df2a9c79796c
   languageName: node
   linkType: hard
 
@@ -12785,7 +12758,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"parse-headers@npm:^2.0.1":
+"parse-headers@npm:^2.0.4":
   version: 2.0.4
   resolution: "parse-headers@npm:2.0.4"
   checksum: 29519ac013e100c11a67d0fc64eb33ae86523abf547f71dba36d484dcd16a2835dd11f31303f4ded27c40133dca5a5fe4d15b77f49091e470a6f74a023c59c4a
@@ -15118,7 +15091,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"rxjs@npm:^6.5.3, rxjs@npm:^6.6.0":
+"rxjs@npm:^6.0.0, rxjs@npm:^6.6.0":
   version: 6.6.7
   resolution: "rxjs@npm:6.6.7"
   dependencies:
@@ -15517,7 +15490,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"simple-concat@npm:^1.0.0":
+"simple-concat@npm:^1.0.1":
   version: 1.0.1
   resolution: "simple-concat@npm:1.0.1"
   checksum: 4d211042cc3d73a718c21ac6c4e7d7a0363e184be6a5ad25c8a1502e49df6d0a0253979e3d50dbdd3f60ef6c6c58d756b5d66ac1e05cda9cacd2e9fc59e3876a
