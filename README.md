@@ -6,7 +6,7 @@
 [![Codecov][codecov-src]][codecov-href]
 [![License][license-src]][license-href]
 
-> [Sanity](https://sanity.io/) integration for [NuxtJS](https://nuxtjs.org)
+> [Sanity](https://sanity.io/) integration for [Nuxt](https://nuxtjs.org)
 
 - [✨ &nbsp;Release Notes](https://sanity.nuxtjs.org/releases)
 - [📖 &nbsp;Documentation](https://sanity.nuxtjs.org)
@@ -15,9 +15,9 @@
 
 - Just bring your sanity.json - no additional configuration required
 - Ultra-lightweight Sanity client
-- Zero-config image component
+- Zero-config image/file components + portable text renderer
 - Supports GROQ syntax highlighting
-- Full support for TypeScript
+- Nuxt 3 and Nuxt Bridge support
 
 [📖 &nbsp;Read more](https://sanity.nuxtjs.org)
 
