@@ -1,9 +1,6 @@
-/**
- * @jest-environment jsdom
- */
+import { expect, describe, it } from 'vitest'
 import { mount } from '@vue/test-utils'
-
-import { SanityContent } from '../../src/components/sanity-content'
+import SanityContent from '../../src/runtime/components/sanity-content'
 
 type ExampleBlock = { _type: string; [key: string]: any }
 
@@ -291,21 +288,10 @@ describe('SanityContent', () => {
     expect(wrapper.html()).toMatchSnapshot()
   })
 
-  it('should render with non-standard props', () => {
-    const wrapper = mount(SanityContent, {
-      propsData: {
-        serializers: { container: 'section' },
-        class: 'customClass',
-        blocks: null,
-      },
-    })
-    expect(wrapper.html()).toMatchSnapshot()
-  })
-
   Object.entries(exampleBlocks).forEach(([component, block]) => {
     it(`should render ${component} blocks`, () => {
       const wrapper = mount(SanityContent, {
-        propsData: {
+        props: {
           blocks: Array.isArray(block) ? block : [block],
           serializers: {
             types: { customIcon: 'i' },

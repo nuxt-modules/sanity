@@ -1,9 +1,10 @@
-/**
- * @jest-environment jsdom
- */
+import { vi, expect, describe, it, beforeEach, afterEach } from 'vitest'
+import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 
-import { SanityImage } from '../../src/components/sanity-image'
+import SanityImage from '../../src/runtime/components/sanity-image'
+
+const projectId = 'test-project'
 
 const getWrapper = (propsData: Record<string, any>) =>
   mount(SanityImage, {
@@ -11,15 +12,7 @@ const getWrapper = (propsData: Record<string, any>) =>
       projectId,
       ...propsData,
     },
-    mocks: {
-      $sanity: {
-        config: {
-          projectId,
-        },
-      },
-    },
   })
-const projectId = 'test-project'
 
 describe('SanityImage', () => {
   it('parses asset IDs correctly', () => {
@@ -45,29 +38,16 @@ describe('SanityImage', () => {
   })
 
   it('provides a valid renderless component', () => {
-    const wrapper = mount(
+    const wrapper = mount(SanityImage,
       {
-        template: `
-          <SanityImage
-            asset-id="image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg"
-            auto="format"
-            :fp-x="0.5"
-          >
-            <template #default="{ src }">
-              <img :src="src" />
-            </template>
-          </SanityImage>
-      `,
-      },
-      {
-        mocks: {
-          $sanity: {
-            config: {
-              projectId,
-            },
-          },
+        props: {
+          assetId: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+          auto: 'format',
+          fpX: 0.5,
         },
-        components: { SanityImage },
+        slots: {
+          default: ({ src }) => h('img', { src }),
+        },
       },
     )
 
@@ -76,10 +56,6 @@ describe('SanityImage', () => {
 })
 
 describe('SanityImage prop validation', () => {
-  const mockError = jest.fn()
-  // eslint-disable-next-line
-  console.error = mockError
-
   const failures: [string, any[]][] = [
     ['auto', [-200, 200]],
     ['bg', [-200, 200]],
@@ -106,8 +82,16 @@ describe('SanityImage prop validation', () => {
     ['w', [false]],
   ]
 
+  let mockError
+
   beforeEach(() => {
-    mockError.mockReset()
+    mockError = vi.fn()
+    // eslint-disable-next-line no-console
+    console.warn = mockError
+  })
+
+  afterEach(() => {
+    vi.clearAllMocks()
   })
 
   failures.forEach(([key, values]) => {

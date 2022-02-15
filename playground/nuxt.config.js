@@ -1,0 +1,16 @@
+import { defineNuxtConfig } from 'nuxt3'
+import sanityModule from '../src/module'
+
+export default defineNuxtConfig({
+  meta: {
+    script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
+  },
+  modules: [sanityModule],
+  sanity: {
+    projectId: 'j1o4tmjp',
+    dataset: 'production',
+    additionalClients: {
+      another: {},
+    },
+  },
+})

@@ -2,7 +2,7 @@
   <div
     class="bg-gray-300 grid grid-flow-col grid-rows-3 p-8 overflow-x-hidden min-h-screen"
   >
-    <h2>Project ID: {{ $sanity.config.projectId }}</h2>
+    <h2>Project ID: {{ client.config.projectId }}</h2>
     <NuxtLink
       v-for="{ title, poster, slug } in movies"
       :key="title"
@@ -25,10 +25,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import { groq } from '@nuxtjs/sanity'
-
+<script setup lang="ts">
 const query = groq`*[_type == "movie"] {
   title,
   "poster": poster.asset._ref,
@@ -40,12 +37,6 @@ interface QueryResult {
   poster: string
   slug: string
 }
-
-export default Vue.extend({
-  name: 'IndexPage',
-  data: () => ({ movies: [] as QueryResult[] }),
-  async fetch () {
-    this.movies = await this.$sanity.fetch<QueryResult[]>(query)
-  },
-})
+const client = useSanity()
+const movies = await client.fetch<QueryResult[]>(query)
 </script>

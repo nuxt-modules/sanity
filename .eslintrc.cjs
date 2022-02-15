@@ -7,5 +7,8 @@ module.exports = {
     curly: 'off',
     'no-empty': 'off',
     'no-undef': 'off',
+    'vue/require-default-prop': 'off',
+    'vue/one-component-per-file': 'off',
+    'vue/multi-word-component-names': 'off',
   },
 }

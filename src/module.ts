@@ -1,13 +1,16 @@
-import { defineNuxtModule, addPlugin, requireModule } from '@nuxt/kit'
+import { fileURLToPath } from 'url'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport } from '@nuxt/kit'
 
-import { bold } from 'chalk'
+import chalk from 'chalk'
 import consola from 'consola'
-import { readJSONSync } from 'fs-extra'
-import { join, resolve } from 'upath'
+import * as fse from 'fs-extra'
+import { join, resolve } from 'pathe'
+import defu from 'defu'
+import { genImport } from 'knitwork'
 
-import { name } from '../package.json'
+import { name, version } from '../package.json'
 
-import type { SanityConfiguration } from '.'
+import type { SanityConfiguration } from './runtime/client'
 
 export interface SanityModuleOptions extends Partial<SanityConfiguration> {
   /**
@@ -38,19 +41,21 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
   additionalClients?: Record<string, Partial<SanityConfiguration>>
 }
 
-export const CONFIG_KEY = 'sanity' as const
+export type ModuleOptions = SanityModuleOptions
 
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   if (!projectId) {
     consola.warn(
-      `Make sure you specify a ${bold('projectId')} in your sanity config.`,
+      `Make sure you specify a ${chalk.bold(
+        'projectId',
+      )} in your sanity config.`,
     )
     return false
   } else {
     consola.info(
-      `Enabled ${bold('@nuxtjs/sanity')} for project ${bold(projectId)} (${bold(
-        dataset,
-      )}).`,
+      `Enabled ${chalk.bold('@nuxtjs/sanity')} for project ${chalk.bold(
+        projectId,
+      )} (${chalk.bold(dataset)}).`,
     )
     return true
   }
@@ -58,17 +63,25 @@ function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
 
 function getDefaultSanityConfig (jsonPath: string) {
   try {
-    const { projectId, dataset } = readJSONSync(jsonPath).api
+    const { projectId, dataset } = fse.readJSONSync(jsonPath).api
     return { projectId, dataset }
   } catch {
     return {}
   }
 }
 
-export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
-  name,
-  configKey: 'sanity',
-  defaults: {
+const CONFIG_KEY = 'sanity' as const
+
+export default defineNuxtModule<SanityModuleOptions>({
+  meta: {
+    name,
+    version,
+    configKey: CONFIG_KEY,
+    compatibility: {
+      bridge: true,
+    },
+  },
+  defaults: nuxt => ({
     contentHelper: true,
     imageHelper: true,
     dataset: 'production',
@@ -76,8 +89,8 @@ export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
     withCredentials: false,
     additionalClients: {},
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
-  },
-  setup (options, nuxt) {
+  }),
+  async setup (options, nuxt) {
     if (!('useCdn' in options)) {
       options.useCdn = process.env.NODE_ENV === 'production' && !options.token
     }
@@ -91,54 +104,46 @@ export default defineNuxtModule<SanityModuleOptions>(nuxt => ({
     } catch {
       options.minimal = true
       consola.warn(
-      `Not using ${bold(
-        '@sanity/client',
-      )} as it cannot be resolved in your project dependencies.
-       Try running ${bold('yarn add @sanity/client')} or ${bold(
-        'npm install @sanity/client',
-      )}.
-       To disable this warning, set ${bold(
-         'sanity: { minimal: true }',
-       )} in your nuxt.config.js.`,
+        `Not using ${chalk.bold('@sanity/client')} as it cannot be resolved in your project dependencies.
+       Try running ${chalk.bold('yarn add @sanity/client')} or ${chalk.bold('npm install @sanity/client')}.
+       To disable this warning, set ${chalk.bold('sanity: { minimal: true }')} in your nuxt.config.js.`,
       )
     }
 
-    nuxt.options[CONFIG_KEY] = options
-    const autoregister = !!nuxt.options.components
-
-    addPlugin({
-      src: resolve(__dirname, '../templates/plugin.js'),
-      fileName: 'sanity/plugin.js',
-      options: {
-        client: !options.minimal,
-        components: {
-          autoregister,
-          imageHelper: options.imageHelper,
-          contentHelper: options.contentHelper,
-        },
-        sanityConfig: JSON.stringify({
-          useCdn: options.useCdn,
-          projectId: options.projectId,
-          dataset: options.dataset,
-          apiVersion: options.apiVersion,
-          withCredentials: options.withCredentials,
-          token: options.token,
-        }),
-        additionalClients: JSON.stringify(options.additionalClients),
-      },
+    // Final resolved configuration
+    nuxt.options.publicRuntimeConfig.sanity = defu(nuxt.options.publicRuntimeConfig.sanity, {
+      useCdn: options.useCdn,
+      projectId: options.projectId,
+      dataset: options.dataset,
+      apiVersion: options.apiVersion,
+      withCredentials: options.withCredentials,
+      token: options.token,
+      additionalClients: options.additionalClients,
     })
 
-    if (autoregister) {
-      nuxt.hook('components:dirs', (dirs: Array<{ path: string, extensions?: string[] }>) => {
-        dirs.push({
-          path: join(__dirname, 'components'),
-          extensions: ['js'],
-        })
-      })
-    }
+    const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    nuxt.options.build.transpile.push(runtimeDir, '@nuxtjs/sanity')
 
-    nuxt.options.build.transpile = nuxt.options.build.transpile || /* istanbul ignore next */[]
-    nuxt.options.build.transpile.push(/^@nuxtjs[\\/]sanity/)
+    addTemplate({
+      filename: 'sanity-client.mjs',
+      getContents: () =>
+        [
+          options.minimal
+            ? genImport(join(runtimeDir, 'client'), ['createClient'])
+            : genImport('@sanity/client', 'createClient'),
+          'export { createClient }',
+        ].join('\n'),
+    })
+
+    addAutoImport([
+      { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
+      { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
+      { name: 'useSanity', as: 'useSanity', from: join(runtimeDir, 'composables') },
+    ])
+
+    await addComponentsDir({
+      path: join(runtimeDir, 'components'),
+      extensions: ['js', 'ts', 'mjs'],
+    })
   },
-}),
-)
+})
