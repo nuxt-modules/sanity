@@ -103,8 +103,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     } catch {
       options.minimal = true
-      consola.warn(
-        `Not using ${chalk.bold('@sanity/client')} as it cannot be resolved in your project dependencies.
+      consola.info(
+        `Enabling minimal client as ${chalk.bold('@sanity/client')} cannot be resolved in your project dependencies.
        Try running ${chalk.bold('yarn add @sanity/client')} or ${chalk.bold('npm install @sanity/client')}.
        To disable this warning, set ${chalk.bold('sanity: { minimal: true }')} in your nuxt.config.js.`,
       )

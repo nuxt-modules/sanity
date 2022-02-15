@@ -10,5 +10,6 @@ module.exports = {
     'vue/require-default-prop': 'off',
     'vue/one-component-per-file': 'off',
     'vue/multi-word-component-names': 'off',
+    'import/named': 'off',
   },
 }
