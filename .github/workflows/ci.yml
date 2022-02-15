@@ -47,6 +47,9 @@ jobs:
       - name: Build project
         run: yarn build
 
+      - name: Build project
+        run: yarn dev:prepare
+
       - name: Test
         run: yarn test
 
