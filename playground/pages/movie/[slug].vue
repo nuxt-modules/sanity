@@ -52,8 +52,7 @@ interface QueryResult {
 }
 
 const route = useRoute()
-const client = useSanity('another')
-const details = await client.fetch<QueryResult>(query, {
+const { data: details } = await useSanityQuery<QueryResult>(query, {
   slug: route.params.slug,
 })
 </script>

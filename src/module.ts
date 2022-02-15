@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport } from '@nuxt/kit'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3 } from '@nuxt/kit'
 
 import chalk from 'chalk'
 import consola from 'consola'
@@ -139,7 +139,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'useSanity', as: 'useSanity', from: join(runtimeDir, 'composables') },
-    ])
+      { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables') },
+      isNuxt3() && { name: 'useSanityQuery', as: 'useSanityQuery', from: join(runtimeDir, 'composables') },
+    ].filter(Boolean))
 
     await addComponentsDir({
       path: join(runtimeDir, 'components'),

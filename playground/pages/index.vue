@@ -2,7 +2,7 @@
   <div
     class="bg-gray-300 grid grid-flow-col grid-rows-3 p-8 overflow-x-hidden min-h-screen"
   >
-    <h2>Project ID: {{ client.config.projectId }}</h2>
+    <h2>Project ID: {{ sanity.config.projectId }}</h2>
     <NuxtLink
       v-for="{ title, poster, slug } in movies"
       :key="title"
@@ -37,6 +37,8 @@ interface QueryResult {
   poster: string
   slug: string
 }
-const client = useSanity()
-const movies = await client.fetch<QueryResult[]>(query)
+
+const sanity = useSanity()
+
+const { data: movies } = await useAsyncData<QueryResult[]>('movies', () => sanity.fetch(query))
 </script>

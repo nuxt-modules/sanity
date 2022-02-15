@@ -1,6 +1,7 @@
 import defu from 'defu'
+import { murmurHashV3 } from 'murmurhash-es'
 
-import { useNuxtApp, useRuntimeConfig } from '#app'
+import { useNuxtApp, useRuntimeConfig, AsyncDataOptions } from '#app'
 import type { SanityClient, SanityConfiguration } from './client'
 
 import { createSanityClient } from '#imports'
@@ -49,4 +50,20 @@ export const useSanity = (client = 'default'): Client => {
 
   nuxtApp._sanity[client] = createSanityHelper(defu(additionalClients[client], options))
   return nuxtApp._sanity[client]
+}
+
+interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
+  client?: string
+}
+
+export const useSanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
+  const { client, ..._options } = options
+  const sanity = useSanity(client)
+  return useAsyncData<T>('sanity-' + murmurHashV3(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
+}
+
+export const useLazySanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
+  const { client, ..._options } = options
+  const sanity = useSanity(client)
+  return useLazyAsyncData<T>('sanity-' + murmurHashV3(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
 }
