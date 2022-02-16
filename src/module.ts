@@ -21,16 +21,6 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
    */
   minimal?: boolean
   /**
-   * Register a global SanityImage component to generate correct Sanity image URLs
-   * @default true
-   */
-  imageHelper?: boolean
-  /**
-   * Register a global SanityContent component to serialize Sanity Portable Text
-   * @default true
-   */
-  contentHelper?: boolean
-  /**
    * Don't disable `useCdn` when preview mode is on
    * https://nuxtjs.org/docs/2.x/features/live-preview/
    *
@@ -84,8 +74,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     },
   },
   defaults: nuxt => ({
-    contentHelper: true,
-    imageHelper: true,
     dataset: 'production',
     apiVersion: '1',
     withCredentials: false,

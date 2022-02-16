@@ -28,11 +28,6 @@ describe('module with default options', () => {
         additionalClients: JSON.stringify({
           another: {},
         }),
-        components: {
-          autoregister: false,
-          contentHelper: true,
-          imageHelper: true,
-        },
         sanityConfig: JSON.stringify({
           useCdn: false,
           projectId,
