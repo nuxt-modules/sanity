@@ -1,7 +1,7 @@
 import defu from 'defu'
 import { murmurHashV3 } from 'murmurhash-es'
 
-import { useNuxtApp, useRuntimeConfig, AsyncDataOptions } from '#app'
+import { useNuxtApp, useRuntimeConfig, AsyncDataOptions, useAsyncData, useLazyAsyncData } from '#app'
 import type { SanityClient, SanityConfiguration } from './client'
 
 import { createSanityClient } from '#imports'
