@@ -2203,7 +2203,7 @@ __metadata:
     jest-serializer-vue-tjw: 3.19.0
     lint-staged: 12.3.3
     nuxt: 2.15.8
-    playwright: 1.18.1
+    playwright: 1.19.1
     release-it: 14.12.4
     siroc: 0.16.0
     ts-loader: 8.3.0
@@ -5428,6 +5428,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"commander@npm:8.3.0, commander@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "commander@npm:8.3.0"
+  checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
+  languageName: node
+  linkType: hard
+
 "commander@npm:^2.19.0, commander@npm:^2.20.0":
   version: 2.20.3
   resolution: "commander@npm:2.20.3"
@@ -5446,13 +5453,6 @@ __metadata:
   version: 6.2.1
   resolution: "commander@npm:6.2.1"
   checksum: d7090410c0de6bc5c67d3ca41c41760d6d268f3c799e530aafb73b7437d1826bbf0d2a3edac33f8b57cc9887b4a986dce307fa5557e109be40eadb7c43b21742
-  languageName: node
-  linkType: hard
-
-"commander@npm:^8.2.0, commander@npm:^8.3.0":
-  version: 8.3.0
-  resolution: "commander@npm:8.3.0"
-  checksum: 0f82321821fc27b83bd409510bb9deeebcfa799ff0bf5d102128b500b7af22872c0c92cb6a0ebc5a4cf19c6b550fba9cedfa7329d18c6442a625f851377bacf0
   languageName: node
   linkType: hard
 
@@ -7756,7 +7756,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"extract-zip@npm:^2.0.1":
+"extract-zip@npm:2.0.1":
   version: 2.0.1
   resolution: "extract-zip@npm:2.0.1"
   dependencies:
@@ -9079,7 +9079,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"https-proxy-agent@npm:^5.0.0":
+"https-proxy-agent@npm:5.0.0, https-proxy-agent@npm:^5.0.0":
   version: 5.0.0
   resolution: "https-proxy-agent@npm:5.0.0"
   dependencies:
@@ -10621,7 +10621,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"jpeg-js@npm:^0.4.2":
+"jpeg-js@npm:0.4.3":
   version: 0.4.3
   resolution: "jpeg-js@npm:0.4.3"
   checksum: 9e5bacc9135efa7da340b62e81fa56fab0c8516ef617228758132af5b7d31b516cc6e1500cdffb82d3161629be341be980099f2b37eb76b81e26db6e3e848c77
@@ -11691,7 +11691,16 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"mime@npm:^2.3.1, mime@npm:^2.4.6, mime@npm:~2.5.2":
+"mime@npm:3.0.0":
+  version: 3.0.0
+  resolution: "mime@npm:3.0.0"
+  bin:
+    mime: cli.js
+  checksum: f43f9b7bfa64534e6b05bd6062961681aeb406a5b53673b53b683f27fcc4e739989941836a355eef831f4478923651ecc739f4a5f6e20a76487b432bfd4db928
+  languageName: node
+  linkType: hard
+
+"mime@npm:^2.3.1, mime@npm:~2.5.2":
   version: 2.5.2
   resolution: "mime@npm:2.5.2"
   bin:
@@ -13071,40 +13080,40 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"playwright-core@npm:=1.18.1":
-  version: 1.18.1
-  resolution: "playwright-core@npm:1.18.1"
+"playwright-core@npm:1.19.1":
+  version: 1.19.1
+  resolution: "playwright-core@npm:1.19.1"
   dependencies:
-    commander: ^8.2.0
-    debug: ^4.1.1
-    extract-zip: ^2.0.1
-    https-proxy-agent: ^5.0.0
-    jpeg-js: ^0.4.2
-    mime: ^2.4.6
-    pngjs: ^5.0.0
-    progress: ^2.0.3
-    proper-lockfile: ^4.1.1
-    proxy-from-env: ^1.1.0
-    rimraf: ^3.0.2
-    socks-proxy-agent: ^6.1.0
-    stack-utils: ^2.0.3
-    ws: ^7.4.6
-    yauzl: ^2.10.0
-    yazl: ^2.5.1
+    commander: 8.3.0
+    debug: 4.3.3
+    extract-zip: 2.0.1
+    https-proxy-agent: 5.0.0
+    jpeg-js: 0.4.3
+    mime: 3.0.0
+    pngjs: 6.0.0
+    progress: 2.0.3
+    proper-lockfile: 4.1.2
+    proxy-from-env: 1.1.0
+    rimraf: 3.0.2
+    socks-proxy-agent: 6.1.1
+    stack-utils: 2.0.5
+    ws: 8.4.2
+    yauzl: 2.10.0
+    yazl: 2.5.1
   bin:
     playwright: cli.js
-  checksum: 7b3d5a228bb0559eece28c82f6aa963a9f3cb68f56e470feb968fe414e4f0074edb9a2d9b27266f4927be31d57203cdfb739e57d5b30744d5f30800a8025b3b8
+  checksum: a88b055d1180b128bc073b58dd63aff29d1f996711e8f72cae4df03ecc8c133822caf04a9f6838b4bd3f6473b9c58661274f39e9db3b4570b18bbe0a3eef1fb6
   languageName: node
   linkType: hard
 
-"playwright@npm:1.18.1":
-  version: 1.18.1
-  resolution: "playwright@npm:1.18.1"
+"playwright@npm:1.19.1":
+  version: 1.19.1
+  resolution: "playwright@npm:1.19.1"
   dependencies:
-    playwright-core: =1.18.1
+    playwright-core: 1.19.1
   bin:
     playwright: cli.js
-  checksum: a50c4c3b04c0f4c2698898003b5cba8d24af0de01e13e9af754d34af4d928d5397704ab7e84a593fb614d538fe72e307f69f01971219857118cd619ee3f91c88
+  checksum: 36c5b0f631b53dda3c46cac8b1fec51ddc0ea738a388bb566f6baab7f81fac918158456cb2efdf77af2cf543f63a779e5ee049d1090ff1a54934c6196576fa03
   languageName: node
   linkType: hard
 
@@ -13115,10 +13124,10 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"pngjs@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "pngjs@npm:5.0.0"
-  checksum: 04e912cc45fb9601564e2284efaf0c5d20d131d9b596244f8a6789fc6cdb6b18d2975a6bbf7a001858d7e159d5c5c5dd7b11592e97629b7137f7f5cef05904c8
+"pngjs@npm:6.0.0":
+  version: 6.0.0
+  resolution: "pngjs@npm:6.0.0"
+  checksum: ab6c285086060087097eab9fe6b5a528a24f9e79c03dea2b4fd6264ed4fdb5beff4a3257eeeaf2a9dc18249b539609c2a4e4013c567164a1f6b5ba2c974d5ecb
   languageName: node
   linkType: hard
 
@@ -14241,7 +14250,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"progress@npm:^2.0.3":
+"progress@npm:2.0.3":
   version: 2.0.3
   resolution: "progress@npm:2.0.3"
   checksum: f67403fe7b34912148d9252cb7481266a354bd99ce82c835f79070643bb3c6583d10dbcfda4d41e04bbc1d8437e9af0fb1e1f2135727878f5308682a579429b7
@@ -14275,7 +14284,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"proper-lockfile@npm:^4.1.1, proper-lockfile@npm:^4.1.2":
+"proper-lockfile@npm:4.1.2, proper-lockfile@npm:^4.1.2":
   version: 4.1.2
   resolution: "proper-lockfile@npm:4.1.2"
   dependencies:
@@ -14300,7 +14309,7 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"proxy-from-env@npm:^1.1.0":
+"proxy-from-env@npm:1.1.0":
   version: 1.1.0
   resolution: "proxy-from-env@npm:1.1.0"
   checksum: ed7fcc2ba0a33404958e34d95d18638249a68c430e30fcb6c478497d72739ba64ce9810a24f53a7d921d0c065e5b78e3822759800698167256b04659366ca4d4
@@ -15062,6 +15071,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"rimraf@npm:3.0.2, rimraf@npm:^3.0.0, rimraf@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "rimraf@npm:3.0.2"
+  dependencies:
+    glob: ^7.1.3
+  bin:
+    rimraf: bin.js
+  checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
+  languageName: node
+  linkType: hard
+
 "rimraf@npm:^2.5.4, rimraf@npm:^2.6.2, rimraf@npm:^2.6.3":
   version: 2.7.1
   resolution: "rimraf@npm:2.7.1"
@@ -15070,17 +15090,6 @@ fsevents@^1.2.7:
   bin:
     rimraf: ./bin.js
   checksum: cdc7f6eacb17927f2a075117a823e1c5951792c6498ebcce81ca8203454a811d4cf8900314154d3259bb8f0b42ab17f67396a8694a54cae3283326e57ad250cd
-  languageName: node
-  linkType: hard
-
-"rimraf@npm:^3.0.0, rimraf@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "rimraf@npm:3.0.2"
-  dependencies:
-    glob: ^7.1.3
-  bin:
-    rimraf: bin.js
-  checksum: 87f4164e396f0171b0a3386cc1877a817f572148ee13a7e113b238e48e8a9f2f31d009a92ec38a591ff1567d9662c6b67fd8818a2dbbaed74bc26a87a2a4a9a0
   languageName: node
   linkType: hard
 
@@ -15712,6 +15721,17 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
+"socks-proxy-agent@npm:6.1.1":
+  version: 6.1.1
+  resolution: "socks-proxy-agent@npm:6.1.1"
+  dependencies:
+    agent-base: ^6.0.2
+    debug: ^4.3.1
+    socks: ^2.6.1
+  checksum: 9a8a4f791bba0060315cf7291ca6f9db37d6fc280fd0860d73d8887d3efe4c22e823aa25a8d5375f6079279f8dc91b50c075345179bf832bfe3c7c26d3582e3c
+  languageName: node
+  linkType: hard
+
 "socks-proxy-agent@npm:^5.0.0":
   version: 5.0.1
   resolution: "socks-proxy-agent@npm:5.0.1"
@@ -15720,17 +15740,6 @@ fsevents@^1.2.7:
     debug: 4
     socks: ^2.3.3
   checksum: 1b60c4977b2fef783f0fc4dc619cd2758aafdb43f3cf679f1e3627cb6c6e752811cee5513ebb4157ad26786033d2f85029440f197d321e8293b38cc5aab01e06
-  languageName: node
-  linkType: hard
-
-"socks-proxy-agent@npm:^6.1.0":
-  version: 6.1.0
-  resolution: "socks-proxy-agent@npm:6.1.0"
-  dependencies:
-    agent-base: ^6.0.2
-    debug: ^4.3.1
-    socks: ^2.6.1
-  checksum: 32ea0d62c848b5c246955e8d6c34832fe6cd8c5f3b66f5ace3a9bd7387bafae3e67d96474d41291723ba7135e2da46d65e008a8a35a793dfa5cb0f4ac05429df
   languageName: node
   linkType: hard
 
@@ -15975,6 +15984,15 @@ fsevents@^1.2.7:
   version: 0.0.10
   resolution: "stack-trace@npm:0.0.10"
   checksum: 473036ad32f8c00e889613153d6454f9be0536d430eb2358ca51cad6b95cea08a3cc33cc0e34de66b0dad221582b08ed2e61ef8e13f4087ab690f388362d6610
+  languageName: node
+  linkType: hard
+
+"stack-utils@npm:2.0.5":
+  version: 2.0.5
+  resolution: "stack-utils@npm:2.0.5"
+  dependencies:
+    escape-string-regexp: ^2.0.0
+  checksum: 76b69da0f5b48a34a0f93c98ee2a96544d2c4ca2557f7eef5ddb961d3bdc33870b46f498a84a7c4f4ffb781df639840e7ebf6639164ed4da5e1aeb659615b9c7
   languageName: node
   linkType: hard
 
@@ -17961,6 +17979,21 @@ typescript@~4.2:
   languageName: node
   linkType: hard
 
+"ws@npm:8.4.2":
+  version: 8.4.2
+  resolution: "ws@npm:8.4.2"
+  peerDependencies:
+    bufferutil: ^4.0.1
+    utf-8-validate: ^5.0.2
+  peerDependenciesMeta:
+    bufferutil:
+      optional: true
+    utf-8-validate:
+      optional: true
+  checksum: 4369caaac8d1092a73871f5cf1d87fcbb995dc4183a1bc48e4f451bc2d02d0a8bf7c17edf1da18e2be3c773b09262275356b256d1c55bc7ca096154293ba2a8c
+  languageName: node
+  linkType: hard
+
 "ws@npm:^7.3.1, ws@npm:^7.4.6":
   version: 7.5.3
   resolution: "ws@npm:7.5.3"
@@ -18087,7 +18120,7 @@ typescript@~4.2:
   languageName: node
   linkType: hard
 
-"yauzl@npm:^2.10.0":
+"yauzl@npm:2.10.0, yauzl@npm:^2.10.0":
   version: 2.10.0
   resolution: "yauzl@npm:2.10.0"
   dependencies:
@@ -18097,7 +18130,7 @@ typescript@~4.2:
   languageName: node
   linkType: hard
 
-"yazl@npm:^2.5.1":
+"yazl@npm:2.5.1":
   version: 2.5.1
   resolution: "yazl@npm:2.5.1"
   dependencies:
