@@ -7,6 +7,7 @@ export default defineNuxtConfig({
   },
   modules: [sanityModule],
   sanity: {
+    globalHelper: true,
     projectId: 'j1o4tmjp',
     dataset: 'production',
     additionalClients: {

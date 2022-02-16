@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3 } from '@nuxt/kit'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin } from '@nuxt/kit'
 
 import chalk from 'chalk'
 import consola from 'consola'
@@ -13,6 +13,8 @@ import { name, version } from '../package.json'
 import type { SanityConfiguration } from './runtime/client'
 
 export interface SanityModuleOptions extends Partial<SanityConfiguration> {
+  /** Globally register a $sanity helper throughout your app */
+  globalHelper?: boolean
   /**
    * Use a micro-client that only supports making queries.
    * @default false
@@ -134,6 +136,10 @@ export default defineNuxtModule<SanityModuleOptions>({
           'export { createClient }',
         ].join('\n'),
     })
+
+    if (options.globalHelper) {
+      addPlugin({ src: join(runtimeDir, 'plugin') })
+    }
 
     addAutoImport([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },

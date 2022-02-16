@@ -6,14 +6,14 @@ import type { SanityClient, SanityConfiguration } from './client'
 
 import { createSanityClient } from '#imports'
 
-interface Client {
+export interface SanityHelper {
   client: SanityClient
   config: SanityConfiguration
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
 }
 
-const createSanityHelper = (options: SanityConfiguration): Client => {
+const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
   const config = options
   let client = createSanityClient(config)
 
@@ -28,7 +28,7 @@ const createSanityHelper = (options: SanityConfiguration): Client => {
   }
 }
 
-export const useSanity = (client = 'default'): Client => {
+export const useSanity = (client = 'default'): SanityHelper => {
   const nuxtApp = useNuxtApp()
   if (nuxtApp._sanity?.[client]) {
     return nuxtApp._sanity[client]
