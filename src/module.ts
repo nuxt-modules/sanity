@@ -1,5 +1,5 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin, isNuxt2 } from '@nuxt/kit'
 
 import chalk from 'chalk'
 import consola from 'consola'
@@ -127,6 +127,11 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.globalHelper) {
       addPlugin({ src: join(runtimeDir, 'plugin') })
+      if (isNuxt2()) {
+        nuxt.hook('prepare:types', ({ references }) => {
+          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugin' })
+        })
+      }
     }
 
     addAutoImport([
