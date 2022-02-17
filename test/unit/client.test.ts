@@ -1,19 +1,18 @@
-import { getQuery, createClient } from '../../src/client'
+import { beforeEach, afterEach, describe, it, vi, expect } from 'vitest'
+import { getQuery, createClient } from '../../src/runtime/client'
+import { request as largeRequest } from './fixture/large-request.json'
 
 describe('minimal sanity client', () => {
-  const mockFetch = jest
-    .fn()
-    .mockImplementation(() =>
+  let mockFetch
+  beforeEach(() => {
+    mockFetch = vi.fn(() =>
       Promise.resolve({ json: () => Promise.resolve([1, 2]) }),
     )
-
-  beforeEach(() => {
+    // @ts-ignore
     global.fetch = mockFetch
   })
-
   afterEach(() => {
-    ;(global.fetch as any).mockClear()
-    delete (global as any).fetch
+    vi.clearAllMocks()
   })
 
   it('correctly encodes query variables', () => {
@@ -59,7 +58,7 @@ describe('minimal sanity client', () => {
       projectId: 'sample-project',
       apiVersion: '1',
     })
-    client.fetch(require('./fixture/large-request.json').request)
+    client.fetch(largeRequest)
 
     expect(mockFetch).toBeCalledWith(
       'https://sample-project.api.sanity.io/v1/data/query/undefined',
@@ -74,7 +73,7 @@ describe('minimal sanity client', () => {
     })
     const newClient = client.clone()
     expect(Object.keys(newClient)).toEqual(['clone', 'fetch'])
-    expect(newClient === client).toBeFalsy()
+    expect(newClient).not.toEqual(client)
   })
 
   const project = 'sample-project'
@@ -123,7 +122,6 @@ describe('minimal sanity client', () => {
 
     expect(mockFetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
-
       {
         credentials: 'include',
         headers: {
@@ -135,6 +133,7 @@ describe('minimal sanity client', () => {
   })
 
   it('uses compression on server', async () => {
+    // @ts-ignore
     process.server = true
     const client = createClient({
       projectId: 'sample-project',
@@ -155,6 +154,7 @@ describe('minimal sanity client', () => {
   })
 
   it('uses versioned api', async () => {
+    // @ts-ignore
     process.server = true
     const client = createClient({
       projectId: 'sample-project',

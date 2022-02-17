@@ -25,10 +25,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-import { groq } from '@nuxtjs/sanity'
-
+<script setup lang="ts">
 const query = groq`*[_type == "movie"] {
   title,
   "poster": poster.asset._ref,
@@ -41,11 +38,7 @@ interface QueryResult {
   slug: string
 }
 
-export default Vue.extend({
-  name: 'IndexPage',
-  data: () => ({ movies: [] as QueryResult[] }),
-  async fetch () {
-    this.movies = await this.$sanity.fetch<QueryResult[]>(query)
-  },
-})
+const sanity = useSanity()
+
+const { data: movies } = await useAsyncData<QueryResult[]>('movies', () => sanity.fetch(query))
 </script>

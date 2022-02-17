@@ -1,8 +1,9 @@
-import { getByteSize } from '../../src/client'
+import { expect, describe, it } from 'vitest'
+import { getByteSize } from '../../src/runtime/client'
 
-const behaviour = () => {
+const behaviour = async () => {
   const variable = 'description'
-  const { groq } = require('../../src/helpers')
+  const { groq } = await import('../../src/runtime/groq')
   const result = groq`
     *[_type == 'article'] {
       title,
@@ -23,15 +24,12 @@ describe('groq', () => {
 })
 
 describe('groq with polyfill', () => {
-  const raw = String.raw
-  beforeAll(() => {
-    jest.resetModules()
+  it('converts tagged literal into string with polyfill', async () => {
+    const raw = String.raw
     delete (String as any).raw
-  })
-  afterAll(() => {
+    await behaviour()
     String.raw = raw
   })
-  it('converts tagged literal into string with polyfill', behaviour)
 })
 
 describe('byte size', () => {

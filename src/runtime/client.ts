@@ -5,6 +5,8 @@
 const apiHost = 'api.sanity.io'
 const cdnHost = 'apicdn.sanity.io'
 
+export type SanityClient = ReturnType<typeof createClient>
+
 export interface SanityConfiguration {
   useCdn?: boolean
   projectId: string
@@ -25,7 +27,8 @@ export function getQuery (query: string, params: Record<string, any> = {}) {
   }, baseQs)
 }
 
-export const getByteSize = (query: string) => encodeURI(query).split(/%..|./).length
+export const getByteSize = (query: string) =>
+  encodeURI(query).split(/%..|./).length
 
 export function createClient (config: SanityConfiguration) {
   const {
@@ -45,9 +48,7 @@ export function createClient (config: SanityConfiguration) {
           }
         : {}),
       Accept: 'application/json',
-      ...(process.server
-        ? { 'accept-encoding': 'gzip, deflate' }
-        : {}),
+      ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
   }
 

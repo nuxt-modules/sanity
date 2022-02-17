@@ -1,33 +1,19 @@
-/**
- * @jest-environment jsdom
- */
+import { expect, describe, it } from 'vitest'
 import { mount } from '@vue/test-utils'
+import { h } from 'vue'
 
-import { SanityFile } from '../../src/components/sanity-file'
-
-const projectId = 'test-project'
+import SanityFile from '../../src/runtime/components/sanity-file'
 
 describe('SanityFile', () => {
   it('provides a valid renderless component', () => {
-    const wrapper = mount(
+    const wrapper = mount(SanityFile,
       {
-        template: `
-          <SanityFile asset-id="file-41773b5c55bc5414ab7554a75eefddf8e2e14524-txt">
-            <template #default="{ src }">
-              <a :href="src">Click here to read</a>
-            </template>
-          </SanityFile>
-      `,
-      },
-      {
-        mocks: {
-          $sanity: {
-            config: {
-              projectId,
-            },
-          },
+        props: {
+          assetId: 'file-41773b5c55bc5414ab7554a75eefddf8e2e14524-txt',
         },
-        components: { SanityFile },
+        slots: {
+          default: ({ src }) => h('a', { href: src }, 'Click here to read'),
+        },
       },
     )
 
@@ -35,25 +21,15 @@ describe('SanityFile', () => {
   })
 
   it('allows injecting download params', () => {
-    const wrapper = mount(
+    const wrapper = mount(SanityFile,
       {
-        template: `
-          <SanityFile asset-id="file-41773b5c55bc5414ab7554a75eefddf8e2e14524-txt" download="myfile.txt">
-            <template #default="{ src }">
-              <a :href="src">Click here to download</a>
-            </template>
-          </SanityFile>
-      `,
-      },
-      {
-        mocks: {
-          $sanity: {
-            config: {
-              projectId,
-            },
-          },
+        props: {
+          assetId: 'file-41773b5c55bc5414ab7554a75eefddf8e2e14524-txt',
+          download: 'myfile.txt',
         },
-        components: { SanityFile },
+        slots: {
+          default: ({ src }) => h('a', { href: src }, 'Click here to download'),
+        },
       },
     )
 
