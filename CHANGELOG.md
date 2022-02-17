@@ -1,3 +1,10 @@
+## [1.0.0](https://github.com/nuxt-community/sanity-module/compare/0.10.0...1.0.0) (2022-02-17)
+
+
+### Features
+
+* migrate module to support nuxt3 and bridge ([#316](https://github.com/nuxt-community/sanity-module/issues/316)) ([2ec11d6](https://github.com/nuxt-community/sanity-module/commit/2ec11d6642403845619c353a97440ce3b184c16b))
+
 ## [0.10.0](https://github.com/nuxt-community/sanity-module/compare/0.9.4...0.10.0) (2021-08-03)
 
 
