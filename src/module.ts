@@ -79,6 +79,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     withCredentials: false,
     additionalClients: {},
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
+    ...nuxt.options.publicRuntimeConfig.sanity
   }),
   async setup (options, nuxt) {
     if (!('useCdn' in options)) {
