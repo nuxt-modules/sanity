@@ -826,7 +826,7 @@ __metadata:
     "@nuxtjs/eslint-config-typescript": 8.0.0
     "@portabletext/types": 1.0.3
     "@release-it/conventional-changelog": 4.1.0
-    "@sanity/client": 3.0.6
+    "@sanity/client": 3.1.0
     "@types/fs-extra": 9.0.13
     "@vue/test-utils": 2.0.0-rc.18
     c8: 7.11.0
@@ -1007,13 +1007,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rexxars/eventsource-polyfill@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@rexxars/eventsource-polyfill@npm:1.0.0"
-  checksum: d5b9439738e93edcff0628c19d796207e5f27221a428d05983d02db1b9fec50230ab1b676dbaed89d9a2f8bc60b12a3daa228f621496e7f16a89564cac5dc7c5
-  languageName: node
-  linkType: hard
-
 "@rollup/plugin-alias@npm:^3.1.9":
   version: 3.1.9
   resolution: "@rollup/plugin-alias@npm:3.1.9"
@@ -1135,27 +1128,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/client@npm:3.0.6":
-  version: 3.0.6
-  resolution: "@sanity/client@npm:3.0.6"
+"@sanity/client@npm:3.1.0":
+  version: 3.1.0
+  resolution: "@sanity/client@npm:3.1.0"
   dependencies:
-    "@sanity/eventsource": ^2.23.0
+    "@sanity/eventsource": ^3.0.1
     "@sanity/generate-help-url": ^2.18.0
     get-it: ^6.0.0
     make-error: ^1.3.0
     object-assign: ^4.1.1
     rxjs: ^6.0.0
-  checksum: 2b2f6187983eaf4b892f535c046dab5d5d1461cfb8be568b630cc5d7c532bc4658a9abbd3e332973d2799c54dfae5125a94dd5d75c8a4d8cef01106120a6c406
+  checksum: d0c481ceea1a133368dba0884adfd7a470f4cbc94fddb27cb35ebd65c667c75148ed91212486ef7297b2a1c3004d152082f5ee61ea24ca29e4aac0b592b75a9f
   languageName: node
   linkType: hard
 
-"@sanity/eventsource@npm:^2.23.0":
-  version: 2.23.0
-  resolution: "@sanity/eventsource@npm:2.23.0"
+"@sanity/eventsource@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@sanity/eventsource@npm:3.0.1"
   dependencies:
-    "@rexxars/eventsource-polyfill": ^1.0.0
+    event-source-polyfill: ^1.0.25
     eventsource: ^1.0.6
-  checksum: 644cebd235f3978eca32c820c8f2bb353a6ac47663252c88d5584dfdcf2dbaba5bd36aff2c9834c07dc4ff48ba1367dcbb054077397f95f6d71a92d2112167de
+  checksum: d3601d59219cfee3392c316843ad63a576dc3885198da7c446ca27ae3f3866d8637e43a2aa6519ceaa5087f32ed1bfa2973eb07aa13751d9b843a1e61e777116
   languageName: node
   linkType: hard
 
@@ -5086,6 +5079,13 @@ __metadata:
   version: 1.8.1
   resolution: "etag@npm:1.8.1"
   checksum: 571aeb3dbe0f2bbd4e4fadbdb44f325fc75335cd5f6f6b6a091e6a06a9f25ed5392f0863c5442acb0646787446e816f13cbfc6edce5b07658541dff573cab1ff
+  languageName: node
+  linkType: hard
+
+"event-source-polyfill@npm:^1.0.25":
+  version: 1.0.25
+  resolution: "event-source-polyfill@npm:1.0.25"
+  checksum: ed30428cc80eadfd693d267ba4a72dceaae938174cd116081ce38ad62bfd95f199430be7e8341e6f8f1e29489bbd5cfd4b3f6c8d6d463435623f7f91ae5f71b1
   languageName: node
   linkType: hard
 
