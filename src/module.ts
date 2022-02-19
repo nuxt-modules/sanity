@@ -1,8 +1,7 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin, isNuxt2 } from '@nuxt/kit'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin, isNuxt2, useLogger } from '@nuxt/kit'
 
 import chalk from 'chalk'
-import consola from 'consola'
 import * as fse from 'fs-extra'
 import { join, resolve } from 'pathe'
 import defu from 'defu'
@@ -35,20 +34,16 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
 
 export type ModuleOptions = SanityModuleOptions
 
+const logger = useLogger('@nuxtjs/sanity')
+
 function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
   if (!projectId) {
-    consola.warn(
-      `Make sure you specify a ${chalk.bold(
-        'projectId',
-      )} in your sanity config.`,
+    logger.warn(
+      `Make sure you specify a ${chalk.bold('projectId')} in your sanity config.`,
     )
     return false
   } else {
-    consola.info(
-      `Enabled ${chalk.bold('@nuxtjs/sanity')} for project ${chalk.bold(
-        projectId,
-      )} (${chalk.bold(dataset)}).`,
-    )
+    logger.info(`Sanity project ${chalk.bold(projectId)} (${chalk.bold(dataset)}).`)
     return true
   }
 }
@@ -94,11 +89,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     } catch {
       options.minimal = true
-      consola.info(
-        `Enabling minimal client as ${chalk.bold('@sanity/client')} cannot be resolved in your project dependencies.
-       Try running ${chalk.bold('yarn add @sanity/client')} or ${chalk.bold('npm install @sanity/client')}.
-       To disable this warning, set ${chalk.bold('sanity: { minimal: true }')} in your nuxt.config.js.`,
-      )
+      logger.info(`Enabling minimal client as ${chalk.bold('@sanity/client')} is not installed.`)
     }
 
     // Final resolved configuration
