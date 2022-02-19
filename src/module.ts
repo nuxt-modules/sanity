@@ -36,18 +36,6 @@ export type ModuleOptions = SanityModuleOptions
 
 const logger = useLogger('@nuxtjs/sanity')
 
-function validateConfig ({ projectId, dataset }: SanityModuleOptions) {
-  if (!projectId) {
-    logger.warn(
-      `Make sure you specify a ${chalk.bold('projectId')} in your sanity config.`,
-    )
-    return false
-  } else {
-    logger.info(`Sanity project ${chalk.bold(projectId)} (${chalk.bold(dataset)}).`)
-    return true
-  }
-}
-
 function getDefaultSanityConfig (jsonPath: string) {
   try {
     const { projectId, dataset } = fse.readJSONSync(jsonPath).api
@@ -74,14 +62,11 @@ export default defineNuxtModule<SanityModuleOptions>({
     withCredentials: false,
     additionalClients: {},
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
-    ...nuxt.options.publicRuntimeConfig.sanity
   }),
   async setup (options, nuxt) {
     if (!('useCdn' in options)) {
       options.useCdn = process.env.NODE_ENV === 'production' && !options.token
     }
-
-    if (!validateConfig(options)) return
 
     try {
       if (!options.minimal) {
@@ -93,7 +78,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     // Final resolved configuration
-    nuxt.options.publicRuntimeConfig.sanity = defu(nuxt.options.publicRuntimeConfig.sanity, {
+    nuxt.options.publicRuntimeConfig.sanity = options = defu(nuxt.options.publicRuntimeConfig.sanity, {
       useCdn: options.useCdn,
       projectId: options.projectId,
       dataset: options.dataset,
@@ -102,6 +87,12 @@ export default defineNuxtModule<SanityModuleOptions>({
       token: options.token,
       additionalClients: options.additionalClients,
     })
+
+    if (!options.projectId) {
+      logger.warn(`No Sanity project found. Make sure you specify a ${chalk.bold('projectId')} in your Sanity config.`)
+    } else {
+      logger.info(`Running with Sanity project ${chalk.bold(options.projectId)} (${chalk.bold(options.dataset)}).`)
+    }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir, '@nuxtjs/sanity')
