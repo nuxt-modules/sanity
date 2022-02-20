@@ -78,7 +78,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     // Final resolved configuration
-    nuxt.options.publicRuntimeConfig.sanity = options = defu(nuxt.options.publicRuntimeConfig.sanity, {
+    const { projectId, dataset } = nuxt.options.publicRuntimeConfig.sanity = defu(nuxt.options.publicRuntimeConfig.sanity, {
       useCdn: options.useCdn,
       projectId: options.projectId,
       dataset: options.dataset,
@@ -88,10 +88,10 @@ export default defineNuxtModule<SanityModuleOptions>({
       additionalClients: options.additionalClients,
     })
 
-    if (!options.projectId) {
+    if (!projectId) {
       logger.warn(`No Sanity project found. Make sure you specify a ${chalk.bold('projectId')} in your Sanity config.`)
     } else {
-      logger.info(`Running with Sanity project ${chalk.bold(options.projectId)} (${chalk.bold(options.dataset)}).`)
+      logger.info(`Running with Sanity project ${chalk.bold(projectId)} (${chalk.bold(dataset)}).`)
     }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
