@@ -1,3 +1,10 @@
+### [1.1.1](https://github.com/nuxt-community/sanity-module/compare/1.1.0...1.1.1) (2022-02-20)
+
+
+### Bug Fixes
+
+* don't overwrite provided options ([e0263e6](https://github.com/nuxt-community/sanity-module/commit/e0263e672c0f84a6fd06a928ad1602b251557f68))
+
 ## [1.1.0](https://github.com/nuxt-community/sanity-module/compare/1.0.0...1.1.0) (2022-02-20)
 
 
