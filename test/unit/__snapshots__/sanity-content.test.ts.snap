@@ -1,8 +1,44 @@
 // Vitest Snapshot v1
 
+exports[`SanityContent > should render adjacentLists blocks 1`] = `
+"<ul>
+  <li>item</li>
+  <li>item</li>
+  <li>item</li>
+</ul>
+<ol>
+  <li>item</li>
+  <li>item</li>
+  <li>item</li>
+</ol>"
+`;
+
 exports[`SanityContent > should render blockquote blocks 1`] = `"<blockquote>Build your next Vue.js application with confidence using <a href=\\"https://nuxtjs.org\\">NuxtJS</a>. An open source framework making web development simple and powerful.</blockquote>"`;
 
 exports[`SanityContent > should render customBlockTypes blocks 1`] = `"<p>An example of <i>custom</i> block types.</p>"`;
+
+exports[`SanityContent > should render evenMoreNestedList blocks 1`] = `
+"<ol>
+  <li>1. Top level</li>
+  <li>
+    <ol>
+      <li>a. Second level</li>
+      <li>
+        <ol>
+          <li>i. Third level</li>
+        </ol>
+      </li>
+      <li>b. Second level</li>
+    </ol>
+  </li>
+  <li>2. Top level</li>
+  <li>
+    <ol>
+      <li>a. Second level</li>
+    </ol>
+  </li>
+</ol>"
+`;
 
 exports[`SanityContent > should render exampleMarkDefs blocks 1`] = `
 "<ul>
@@ -26,10 +62,12 @@ exports[`SanityContent > should render nestedList blocks 1`] = `
 <ol>
   <li>test</li>
   <li>thing</li>
-  <ul>
-    <li>nested</li>
-    <li>list</li>
-  </ul>
+  <li>
+    <ul>
+      <li>nested</li>
+      <li>list</li>
+    </ul>
+  </li>
 </ol>"
 `;
 

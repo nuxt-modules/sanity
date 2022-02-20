@@ -100,7 +100,7 @@ const validAttrs = [
 ]
 
 function findSerializer (item: Block | undefined, serializers: Required<Serializers>): Serializer | undefined {
-  if (item?.listItem) {
+  if (item?.listItem && item._type !== 'list') {
     return serializers.listItem || 'li'
   }
 
@@ -141,25 +141,31 @@ function renderMarks (
 
 function walkList (blocks: Array<Block>, block: Block) {
   // Not a list item
-  if (!block.level) {
+  if (!block.listItem) {
     blocks.push(block)
     return blocks
   }
 
-  const { _type, children, level } = blocks[blocks.length - 1] || {}
-  if (_type === 'list' && children) {
-    if (level === block.level) {
-      children.push(block)
-    } else {
-      walkList(children, block)
-    }
-  } else {
+  const lastBlock = blocks[blocks.length - 1] || {}
+
+  // Start a new list
+  if (lastBlock._type !== 'list' || !lastBlock.children || (block.level === 1 && block.listItem !== lastBlock.listItem)) {
     blocks.push({
       _type: 'list',
-      children: [block],
+      listItem: block.listItem,
       level: block.level,
+      children: [block],
     })
+    return blocks
   }
+
+  // Add as child of previous list
+  if (block.level === lastBlock.level && block.listItem === lastBlock.listItem) {
+    lastBlock.children.push(block)
+    return blocks
+  }
+
+  walkList(lastBlock.children, block)
 
   return blocks
 }
@@ -229,10 +235,21 @@ const createListSerializer = (serializers: Required<Serializers>) => {
         type: Array as () => Array<PortableTextBlock | PortableTextListItemBlock>,
         default: () => [],
       },
+      level: {
+        type: Number,
+        default: 1,
+      },
     },
     setup (props) {
       return () => {
         const isOrdered = props.children[0]?.listItem === 'number'
+        if (props.level > 1) {
+          return h(serializers.listItem as string || 'li', [h(isOrdered ? 'ol' : 'ul', {}, isVue2
+            ? renderBlocks(props.children, serializers)
+            : {
+                default: () => renderBlocks(props.children, serializers),
+              })])
+        }
         return h(isOrdered ? 'ol' : 'ul', {}, isVue2
           ? renderBlocks(props.children, serializers)
           : {
