@@ -116,15 +116,12 @@ function renderStyle ({ style, listItem }: Block, serializers: Required<Serializ
 }
 
 function renderInSerializer (item: Block, serializers: Required<Serializers>) {
-  if (item._type !== 'block') return render(serializers, item)
-
   return render(serializers, item, () => (item.children || []).map((child) => {
     if (isSpan(child)) {
       return renderMarks(child.text, child.marks, serializers, item.markDefs)
     }
     return render(serializers, child, () => renderMarks(child.text, child.marks, serializers, item.markDefs))
-  }),
-  )
+  }))
 }
 
 function renderMarks (

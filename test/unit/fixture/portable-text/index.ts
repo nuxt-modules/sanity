@@ -1,5 +1,6 @@
 export * from './adjacent-list'
 export * from './blockquote'
+export * from './custom-components'
 export * from './custom-block-types'
 export * from './list'
 export * from './mark-defs'
