@@ -1,3 +1,17 @@
+## [1.1.0](https://github.com/nuxt-community/sanity-module/compare/1.0.0...1.1.0) (2022-02-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* If you were relying on the auto-disabling part of this module
+
+### Bug Fixes
+
+* add sanity options from runtimeconfig to module defaults ([#319](https://github.com/nuxt-community/sanity-module/issues/319)) ([a167ef2](https://github.com/nuxt-community/sanity-module/commit/a167ef2c3dde5440f2d3dd686b023807e8c50421))
+* don't disable module if no `projectId` is specified ([8a5b918](https://github.com/nuxt-community/sanity-module/commit/8a5b918e6927ba89ef13e23d17e2a85cfd94bd13))
+* render children of custom components ([44bfcab](https://github.com/nuxt-community/sanity-module/commit/44bfcabe12d2bc4b1ab8e4eefd90d1f498636a9d))
+* rework nested list handling ([0b18069](https://github.com/nuxt-community/sanity-module/commit/0b18069a78b21044f0d4c4ed114b99252605b9c6)), closes [#266](https://github.com/nuxt-community/sanity-module/issues/266)
+
 ## [1.0.0](https://github.com/nuxt-community/sanity-module/compare/0.10.0...1.0.0) (2022-02-17)
 
 
