@@ -29,18 +29,20 @@
 yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
 ```
 
-2. Add `@nuxtjs/sanity/module` to the `buildModules` section of `nuxt.config.js`
+2. Add `@nuxtjs/sanity` to the `modules` section of `nuxt.config.ts`
 
 ```js
 {
-  buildModules: [
-    '@nuxtjs/sanity/module',
+  modules: [
+    '@nuxtjs/sanity',
   ],
   sanity: {
     // module options
   }
 }
 ```
+
+**Note**: For Nuxt 2 support without Bridge, install `@nuxtjs/sanity@0.10.0` and follow the instructions at https://v0.sanity.nuxtjs.org.
 
 ## Development
 
