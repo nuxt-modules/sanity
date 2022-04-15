@@ -4,7 +4,7 @@ import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAuto
 import chalk from 'chalk'
 import * as fse from 'fs-extra'
 import { join, resolve } from 'pathe'
-import defu from 'defu'
+import { defu } from 'defu'
 import { genImport } from 'knitwork'
 
 import { name, version } from '../package.json'

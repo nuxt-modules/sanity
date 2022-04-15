@@ -1,4 +1,4 @@
-import defu from 'defu'
+import { defu } from 'defu'
 import { Component, defineComponent, h, VNode } from 'vue'
 import type {
   PortableTextBlock,
