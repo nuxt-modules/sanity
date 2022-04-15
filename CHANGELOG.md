@@ -1,3 +1,7 @@
+
+
+### [1.1.2](https://github.com/nuxt-community/sanity-module/compare/1.1.1...1.1.2) (2022-04-15)
+
 ### [1.1.1](https://github.com/nuxt-community/sanity-module/compare/1.1.0...1.1.1) (2022-02-20)
 
 
@@ -305,4 +309,3 @@
 ### Features
 
 * initial sanity module for Nuxt ([0b204ee](https://github.com/nuxt-community/sanity-module/commit/0b204ee8b1d8fac241602bf7ad8180bbb534265b))
-
