@@ -1,5 +1,7 @@
 
 
+## [1.2.0](https://github.com/nuxt-community/sanity-module/compare/1.1.2...1.2.0) (2022-04-20)
+
 ### [1.1.2](https://github.com/nuxt-community/sanity-module/compare/1.1.1...1.1.2) (2022-04-15)
 
 ### [1.1.1](https://github.com/nuxt-community/sanity-module/compare/1.1.0...1.1.1) (2022-02-20)
