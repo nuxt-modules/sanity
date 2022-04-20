@@ -1,10 +1,8 @@
 import { defu } from 'defu'
 import { objectHash } from 'ohash'
 
-import { useNuxtApp, useRuntimeConfig, AsyncDataOptions, useAsyncData, useLazyAsyncData } from '#app'
 import type { SanityClient, SanityConfiguration } from './client'
-
-import { createSanityClient } from '#imports'
+import { useNuxtApp, useRuntimeConfig, AsyncDataOptions, useAsyncData, useLazyAsyncData, createSanityClient } from '#imports'
 
 export interface SanityHelper {
   client: SanityClient

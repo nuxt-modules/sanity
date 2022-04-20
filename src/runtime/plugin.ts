@@ -1,6 +1,5 @@
-import { defineNuxtPlugin } from '#app'
 import type { SanityHelper } from './composables'
-import { useSanity } from '#imports'
+import { defineNuxtPlugin, useSanity } from '#imports'
 
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.provide('sanity', useSanity())
