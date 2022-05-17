@@ -73,19 +73,13 @@ export function createClient (config: SanityConfiguration) {
 
       const urlBase = `https://${projectId}.${host}/v${apiVersion}/data/query/${dataset}`
 
-      const response = usePostRequest
-        ? await fetch(urlBase, {
+      const { result } = usePostRequest
+        ? await $fetch<{ result: T }>(urlBase, {
           method: 'post',
-          body: JSON.stringify({ query, params }),
-          ...fetchOptions,
-          headers: {
-            ...fetchOptions.headers,
-            'Content-Type': 'application/json',
-          },
+          body: { query, params },
         })
-        : await fetch(`${urlBase}${qs}`, fetchOptions)
-      const { result } = await response.json()
-      return result as T
+        : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
+      return result
     },
   }
 }
