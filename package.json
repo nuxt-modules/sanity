@@ -40,7 +40,7 @@
     "lint": "eslint --fix --ext .js,.ts,.vue .",
     "prepublishOnly": "yarn test",
     "test": "yarn lint && yarn test:unit",
-    "test:unit": "vitest test/unit/*.test.*"
+    "test:unit": "vitest run test/unit/*.test.*"
   },
   "dependencies": {
     "@nuxt/kit": "^3.0.0-rc.3",

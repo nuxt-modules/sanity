@@ -3,18 +3,13 @@ name: Bug report
 about: Report a bug report to help us improve the module.
 title: ''
 labels: bug
-assignees: ''
+assignees: 'danielroe'
 
 ---
 
 ### Version
 module: <!-- ex: 5.9.0 -->
 nuxt: <!-- ex: 2.0.0 -->
-
-### Nuxt configuration
-#### [mode](https://nuxtjs.org/api/configuration-mode): <!--universal is the default -->
- - [ ] universal
- - [ ] spa
 
 ### Nuxt configuration
 <!--
@@ -28,7 +23,7 @@ nuxt: <!-- ex: 2.0.0 -->
 > :warning: without a minimal reproduction we wont be able to look into your issue
 
 **Link:** 
-[ ] https:///codesandbox.io/
+[ ] https://stackblitz.com/edit/nuxt-sanity
 [ ] GitHub repository
 
 #### What is expected?
