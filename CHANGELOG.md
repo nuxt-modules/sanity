@@ -1,5 +1,12 @@
 
 
+### [1.2.1](https://github.com/nuxt-community/sanity-module/compare/1.2.0...1.2.1) (2022-05-17)
+
+
+### Bug Fixes
+
+* include both public + private runtime config ([3a478ef](https://github.com/nuxt-community/sanity-module/commit/3a478ef5fe253304afb870612986ca649428a346))
+
 ## [1.2.0](https://github.com/nuxt-community/sanity-module/compare/1.1.2...1.2.0) (2022-04-20)
 
 ### [1.1.2](https://github.com/nuxt-community/sanity-module/compare/1.1.1...1.1.2) (2022-04-15)
