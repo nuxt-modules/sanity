@@ -35,7 +35,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
   nuxtApp._sanity = nuxtApp._sanity || {}
 
   const $config = useRuntimeConfig()
-  const { additionalClients = {}, ...options } = $config.sanity
+  const { additionalClients = {}, ...options } = defu($config.sanity, $config.public.sanity)
 
   if (!options.disableSmartCdn && nuxtApp.$preview) {
     options.useCdn = false

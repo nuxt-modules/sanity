@@ -78,7 +78,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     // Final resolved configuration
-    const { projectId, dataset } = nuxt.options.publicRuntimeConfig.sanity = defu(nuxt.options.publicRuntimeConfig.sanity, {
+    const { projectId, dataset } = nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, {
       useCdn: options.useCdn,
       projectId: options.projectId,
       dataset: options.dataset,

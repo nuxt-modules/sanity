@@ -3,6 +3,11 @@ export { createClient as createSanityClient } from '../../src/runtime/client'
 export const useNuxtApp = () => ({})
 export const useRuntimeConfig = () => ({
   sanity: {
-    projectId: 'test-project',
+    token: 'test',
+  },
+  public: {
+    sanity: {
+      projectId: 'test-project',
+    },
   },
 })
