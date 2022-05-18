@@ -6,10 +6,10 @@ describe('minimal sanity client', () => {
   let mockFetch
   beforeEach(() => {
     mockFetch = vi.fn(() =>
-      Promise.resolve({ json: () => Promise.resolve([1, 2]) }),
+      Promise.resolve([1, 2]),
     )
     // @ts-ignore
-    global.fetch = mockFetch
+    global.$fetch = mockFetch
   })
   afterEach(() => {
     vi.clearAllMocks()
