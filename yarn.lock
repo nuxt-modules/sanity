@@ -845,7 +845,7 @@ __metadata:
     "@nuxtjs/eslint-config-typescript": ^10.0.0
     "@portabletext/types": ^1.0.3
     "@release-it/conventional-changelog": ^5.0.0
-    "@sanity/client": ^3.3.0
+    "@sanity/client": ^3.3.1
     "@types/fs-extra": ^9.0.13
     "@vue/test-utils": ^2.0.0
     c8: ^7.11.3
@@ -1158,27 +1158,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sanity/client@npm:^3.3.0":
-  version: 3.3.0
-  resolution: "@sanity/client@npm:3.3.0"
+"@sanity/client@npm:^3.3.1":
+  version: 3.3.1
+  resolution: "@sanity/client@npm:3.3.1"
   dependencies:
-    "@sanity/eventsource": ^3.0.2
+    "@sanity/eventsource": ^4.0.0
     "@sanity/generate-help-url": ^3.0.0
     get-it: ^6.0.1
     make-error: ^1.3.0
     object-assign: ^4.1.1
     rxjs: ^6.0.0
-  checksum: d3a25bf6c85635b5a107f63eff9db8a12ec906e69131c1f778b449821b1fb1497081ab97a73c691254c69bacfe506ccb5905f6556ed57020e0f8805d0fa53667
+  checksum: ad60cfd2a08d081337a99e3fad0a1794542380e8b5ef741e4d51d75709938793e9027e50c49a28a6c7e0f41d1e7b5e1a030c3afeb588c2dcc360c5408a1a5985
   languageName: node
   linkType: hard
 
-"@sanity/eventsource@npm:^3.0.2":
-  version: 3.0.2
-  resolution: "@sanity/eventsource@npm:3.0.2"
+"@sanity/eventsource@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "@sanity/eventsource@npm:4.0.0"
   dependencies:
     event-source-polyfill: 1.0.25
-    eventsource: ^1.0.6
-  checksum: 9e6608bc6f0a7a269ef2b7ce09dfdde792323d0c83de69479a460f4e99b4d13bf576bf58deaa5e7773121f93731718cebf29986ecfaab9ea3034f8df342c17d7
+    eventsource: ^2.0.2
+  checksum: ae1f950ff126fd37cea5cbb2adaa952ab4a56221b2af5e284ebd113adc0754b4a8fdea9d6d7e0022058425a72b158342cb1f1a8d799b22f53f6d995065cbc141
   languageName: node
   linkType: hard
 
@@ -4802,12 +4802,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eventsource@npm:^1.0.6":
-  version: 1.1.1
-  resolution: "eventsource@npm:1.1.1"
-  dependencies:
-    original: ^1.0.0
-  checksum: 8de239626900726b4ef5d721ffd37df87c6cd734feb0f8abb85aeb73f1400bdb6afecb0ed412a8b92448bd31d9da79cc2efbfc79aa6efe597ba351cc2e94b01f
+"eventsource@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "eventsource@npm:2.0.2"
+  checksum: c0072d972753e10c705d9b2285b559184bf29d011bc208973dde9c8b6b8b7b6fdad4ef0846cecb249f7b1585e860fdf324cbd2ac854a76bc53649e797496e99a
   languageName: node
   linkType: hard
 
@@ -8362,15 +8360,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"original@npm:^1.0.0":
-  version: 1.0.2
-  resolution: "original@npm:1.0.2"
-  dependencies:
-    url-parse: ^1.4.3
-  checksum: 8dca9311dab50c8953366127cb86b7c07bf547d6aa6dc6873a75964b7563825351440557e5724d9c652c5e99043b8295624f106af077f84bccf19592e421beb9
-  languageName: node
-  linkType: hard
-
 "os-homedir@npm:^1.0.0":
   version: 1.0.2
   resolution: "os-homedir@npm:1.0.2"
@@ -11276,7 +11265,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"url-parse@npm:^1.1.9, url-parse@npm:^1.4.3":
+"url-parse@npm:^1.1.9":
   version: 1.5.10
   resolution: "url-parse@npm:1.5.10"
   dependencies:
