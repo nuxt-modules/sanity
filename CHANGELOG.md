@@ -1,5 +1,12 @@
 
 
+### [1.2.2](https://github.com/nuxt-community/sanity-module/compare/1.2.1...1.2.2) (2022-05-30)
+
+
+### Performance Improvements
+
+* use `$fetch` for minimal client ([7b7517e](https://github.com/nuxt-community/sanity-module/commit/7b7517e0fc1b29f98bb9c1d49d0c7ae137dda56a))
+
 ### [1.2.1](https://github.com/nuxt-community/sanity-module/compare/1.2.0...1.2.1) (2022-05-17)
 
 
