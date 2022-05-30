@@ -1,10 +1,12 @@
-static/sw.js
-
-# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
-.yarn/*
-!.yarn/patches
-!.yarn/releases
-!.yarn/plugins
-!.yarn/sdks
-!.yarn/versions
-.pnp.*
+node_modules
+*.iml
+.idea
+*.log*
+.nuxt
+.vscode
+.DS_Store
+coverage
+dist
+sw.*
+.env
+.output
