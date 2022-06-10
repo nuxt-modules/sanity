@@ -1,10 +1,16 @@
 import { defineNuxtConfig } from 'nuxt'
-import colors from 'tailwindcss/colors.js'
 
 export default defineNuxtConfig({
   extends: ['./node_modules/@docus/docs-theme'],
   github: {
-    repo: 'nuxtlabs/docus-starter',
+    owner: 'nuxt-community',
+    repo: 'sanity-module',
+    branch: 'main',
+  },
+  theme: {},
+  modules: ['@nuxthq/admin', '@docus/github', 'vue-plausible'],
+  plausible: {
+    url: 'sanity.nuxtjs.org',
   },
   tailwindcss: {
     config: {
