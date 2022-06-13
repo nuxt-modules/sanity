@@ -1,17 +1,20 @@
 {
-  "private": true,
+  "name": "nuxt-sanity-docs",
+  "description": "Access text, images, and other media with Nuxt and the Sanity headless CMS.",
+  "homepage": "https://sanity.nuxtjs.org",
   "scripts": {
-    "dev": "nuxt",
-    "generate": "nuxt generate"
+    "dev": "nuxi dev",
+    "build": "nuxi build",
+    "generate": "nuxi build",
+    "preview": "nuxi preview"
   },
   "devDependencies": {
-    "@nuxtjs/composition-api": "0.32.0",
-    "docus": "0.5.14",
-    "nuxt-edge": "latest",
-    "vue-plausible": "1.3.1"
+    "@docus/docs-theme": "npm:@docus/docs-theme-edge@latest",
+    "@docus/github": "npm:@docus/github-edge@latest",
+    "nuxt": "^3.0.0-rc.3",
+    "vue-plausible": "^1.3.1"
   },
   "resolutions": {
-    "vue": "2.6.14",
-    "vue-template-compiler": "2.6.14"
+    "@vercel/nft": "0.18.2"
   }
 }
