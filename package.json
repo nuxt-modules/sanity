@@ -38,8 +38,8 @@
     "prepare": "husky install",
     "build": "nuxt-module-build",
     "lint": "eslint --fix --ext .js,.ts,.vue .",
-    "prepublishOnly": "yarn test",
-    "test": "yarn lint && yarn test:unit",
+    "prepublishOnly": "pnpm test",
+    "test": "pnpm lint && pnpm test:unit",
     "test:unit": "vitest run test/unit/*.test.*"
   },
   "dependencies": {
@@ -79,7 +79,7 @@
       "@sanity/client"
     ]
   },
-  "packageManager": "yarn@3.2.2",
+  "packageManager": "pnpm@7.1.0",
   "volta": {
     "node": "16.17.0"
   }
