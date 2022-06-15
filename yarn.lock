@@ -631,19 +631,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/kit@npm:^3.0.0-rc.3":
-  version: 3.0.0-rc.3
-  resolution: "@nuxt/kit@npm:3.0.0-rc.3"
+"@nuxt/kit@npm:^3.0.0-rc.4":
+  version: 3.0.0-rc.4
+  resolution: "@nuxt/kit@npm:3.0.0-rc.4"
   dependencies:
-    "@nuxt/schema": ^3.0.0-rc.3
+    "@nuxt/schema": ^3.0.0-rc.4
     c12: ^0.2.7
     consola: ^2.15.3
     defu: ^6.0.0
-    globby: ^13.1.1
+    globby: ^13.1.2
     hash-sum: ^2.0.0
     ignore: ^5.2.0
     jiti: ^1.13.0
-    knitwork: ^0.1.1
+    knitwork: ^0.1.2
     lodash.template: ^4.5.0
     mlly: ^0.5.2
     pathe: ^0.3.0
@@ -651,9 +651,9 @@ __metadata:
     scule: ^0.2.1
     semver: ^7.3.7
     unctx: ^1.1.4
-    unimport: ^0.1.9
+    unimport: ^0.2.7
     untyped: ^0.4.4
-  checksum: 523249e8f5fbf14344907171d15326ad00b53a32641b26a7cf07dcf88409676d44ea056a864f8653f4ad0de6a0fb95facc6afc0958e455de9814abd3f60603a0
+  checksum: 66b5f2b7aede45047d439cdbf8e095df8310d683b27b05e716df4a6bc8ad896d0681dc9e33f8708d15d66feaf766fd8cd73a35d03853c08affb96a3c49604b73
   languageName: node
   linkType: hard
 
@@ -691,7 +691,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nuxt/schema@npm:^3.0.0-rc.1, @nuxt/schema@npm:^3.0.0-rc.3":
+"@nuxt/schema@npm:^3.0.0-rc.1":
   version: 3.0.0-rc.3
   resolution: "@nuxt/schema@npm:3.0.0-rc.3"
   dependencies:
@@ -856,7 +856,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nuxtjs/sanity@workspace:."
   dependencies:
-    "@nuxt/kit": ^3.0.0-rc.3
+    "@nuxt/kit": ^3.0.0-rc.4
     "@nuxt/module-builder": ^0.1.7
     "@nuxt/schema": ^3.0.0-rc.4
     "@nuxt/test-utils": "npm:@nuxt/test-utils-edge@latest"
@@ -5614,6 +5614,19 @@ __metadata:
     merge2: ^1.4.1
     slash: ^3.0.0
   checksum: b4be8885e0cfa018fc783792942d53926c35c50b3aefd3fdcfb9d22c627639dc26bd2327a40a0b74b074100ce95bb7187bfeae2f236856aa3de183af7a02aea6
+  languageName: node
+  linkType: hard
+
+"globby@npm:^13.1.2":
+  version: 13.1.2
+  resolution: "globby@npm:13.1.2"
+  dependencies:
+    dir-glob: ^3.0.1
+    fast-glob: ^3.2.11
+    ignore: ^5.2.0
+    merge2: ^1.4.1
+    slash: ^4.0.0
+  checksum: c148fcda0c981f00fb434bb94ca258f0a9d23cedbde6fb3f37098e1abde5b065019e2c63fe2aa2fad4daf2b54bf360b4d0423d85fb3a63d09ed75a2837d4de0f
   languageName: node
   linkType: hard
 
