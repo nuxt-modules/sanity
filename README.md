@@ -1,6 +1,6 @@
 [![@nuxtjs/supabase](./docs/public/cover.jpg)](https://sanity.nuxtjs.org)
 
-# @nuxtjs/sanity
+# Nuxt Sanity
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
