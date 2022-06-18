@@ -10,7 +10,7 @@ export default defineNuxtConfig({
   theme: {},
   modules: ['@nuxthq/admin', '@docus/github', 'vue-plausible'],
   plausible: {
-    url: 'sanity.nuxtjs.org',
+    domain: 'sanity.nuxtjs.org',
   },
   tailwindcss: {
     config: {
