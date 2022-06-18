@@ -1,4 +1,4 @@
-[![@nuxtjs/supabase](./docs/public/cover.jpg)](https://sanity.nuxtjs.org)
+[![@nuxtjs/sanity](./docs/public/cover.jpg)](https://sanity.nuxtjs.org)
 
 # Nuxt Sanity
 
