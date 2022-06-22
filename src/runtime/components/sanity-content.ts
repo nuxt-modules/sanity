@@ -186,7 +186,7 @@ function render (serializers: Required<Serializers>, item?: Block, children?: ()
 
   // Forgive me, TypeScript gods...
   if (isElement) {
-    return h(serializer, props, isVue2 ? children?.() : { default: () => children?.() })
+    return h(serializer, props, children?.())
   }
 
   return h(serializer, props, isVue2 ? children?.() : { default: () => children?.() })
