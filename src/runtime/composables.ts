@@ -1,8 +1,9 @@
 import { defu } from 'defu'
 import { objectHash } from 'ohash'
 
+import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { SanityClient, SanityConfiguration } from './client'
-import { useNuxtApp, useRuntimeConfig, AsyncDataOptions, useAsyncData, useLazyAsyncData, createSanityClient } from '#imports'
+import { useNuxtApp, useRuntimeConfig, useAsyncData, useLazyAsyncData, createSanityClient } from '#imports'
 
 export interface SanityHelper {
   client: SanityClient
@@ -54,13 +55,13 @@ interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
 }
 
-export const useSanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
+export const useSanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
   return useAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
 }
 
-export const useLazySanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
+export const useLazySanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
   return useLazyAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)

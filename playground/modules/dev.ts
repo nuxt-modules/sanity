@@ -9,13 +9,5 @@ export default defineNuxtModule({
   },
   setup (_options, nuxt) {
     nuxt.options.typescript.typeCheck = true
-    // resolve aliases in tsconfig
-    nuxt.hook('prepare:types', ({ tsConfig }) => {
-      tsConfig.compilerOptions.paths = Object.fromEntries(Object.entries(tsConfig.compilerOptions.paths).map(([alias, _paths]) => {
-        const paths = (_paths as string[])
-          .map(path => path.replace(/node_modules\/\.pnpm\/nuxt3?@[^/]+\/node_modules\/nuxt3?/, 'node_modules/nuxt'))
-        return [alias, paths]
-      }))
-    })
   },
 })
