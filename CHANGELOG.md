@@ -1,5 +1,12 @@
 
 
+### [1.2.3](https://github.com/nuxt-community/sanity-module/compare/1.2.2...1.2.3) (2022-06-22)
+
+
+### Bug Fixes
+
+* render element children directly ([2162f7e](https://github.com/nuxt-community/sanity-module/commit/2162f7e2105fa19e6591febe8a512368ab3c6c80)), closes [#422](https://github.com/nuxt-community/sanity-module/issues/422)
+
 ### [1.2.2](https://github.com/nuxt-community/sanity-module/compare/1.2.1...1.2.2) (2022-05-30)
 
 
