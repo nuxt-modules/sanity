@@ -6,8 +6,9 @@
 # “publish” is the directory to publish (relative to the root of your repo).
 
 [build]
-command = "npx pnpm@7 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@7 dev:prepare && npx pnpm@7 docs:generate"
-publish = "docs/dist"
+base = "docs"
+command = "npx pnpm@7 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@7 -w dev:prepare && npx pnpm@7 -w docs:generate"
+publish = "dist"
 
 [build.environment]
 NPM_FLAGS="--version"
