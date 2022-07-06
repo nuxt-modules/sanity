@@ -5,7 +5,7 @@ export default defineNuxtConfig({
   meta: {
     script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
   },
-  modules: [sanityModule, '~/modules/dev'],
+  modules: [sanityModule],
   sanity: {
     globalHelper: true,
     projectId: 'j1o4tmjp',
