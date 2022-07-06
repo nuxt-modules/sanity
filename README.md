@@ -49,8 +49,9 @@ yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
 ## Development
 
 1. Clone this repository
-2. Install dependencies using `yarn install`
-3. Start development server using `yarn dev`
+2. Install dependencies using `pnpm install`
+3. Stub module with `pnpm dev:prepare`
+3. Start development server using `pnpm dev`
 
 ## License
 
