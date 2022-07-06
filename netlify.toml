@@ -7,7 +7,7 @@
 
 [build]
 base    = "docs"
-command = "npx pnpm@7 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@7 generate"
+command = "npx pnpm@7 install --store-dir=.pnpm --frozen-lockfile && npx pnpm@7 -w dev:prepare && npx pnpm@7 generate"
 publish = "dist"
 
 [build.environment]
