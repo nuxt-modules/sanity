@@ -62,13 +62,13 @@ importers:
 
   docs:
     specifiers:
-      '@docus/docs-theme': npm:@docus/docs-theme-edge@latest
-      '@docus/github': npm:@docus/github-edge@latest
+      '@docus/docs-theme': npm:@docus/docs-theme-edge@3.0.0-077f840
+      '@docus/github': npm:@docus/github-edge@1.2.6-077f840
       nuxt: ^3.0.0-rc.4
       vue-plausible: ^1.3.1
     devDependencies:
-      '@docus/docs-theme': /@docus/docs-theme-edge/3.0.0-b99961f
-      '@docus/github': /@docus/github-edge/1.2.6-b99961f
+      '@docus/docs-theme': /@docus/docs-theme-edge/3.0.0-077f840
+      '@docus/github': /@docus/github-edge/1.2.6-077f840
       nuxt: 3.0.0-rc.4
       vue-plausible: 1.3.1
 
@@ -460,8 +460,8 @@ packages:
       postcss-selector-parser: 6.0.10
     dev: true
 
-  /@docus/base-edge/3.0.0-b99961f:
-    resolution: {integrity: sha512-KZcoG4XgBa7YTkwDRRrDkIL+UTWFqJH+Ax1LwwkT6oAmZTdr3ZskinpRa94UP674FmBb695ojEQlkw1e66YUNg==}
+  /@docus/base-edge/3.0.0-077f840:
+    resolution: {integrity: sha512-6iob8iJg85iDBQNDk8wLs3halJ9de2jI4jaPbm2po5Ep54J/BjfbCBDsG6Tx+jDL7hmiRZM1k5oeUo68kuP0dw==}
     dependencies:
       '@nuxt/content': /@nuxt/content-edge/2.1.0-27617262.93813f9
       '@nuxthq/admin': /@nuxthq/admin-edge/0.0.1-27556623.cee307a
@@ -487,10 +487,10 @@ packages:
       - webpack
     dev: true
 
-  /@docus/docs-theme-edge/3.0.0-b99961f:
-    resolution: {integrity: sha512-FhEmvI9nDJF/G7rz7XrGjwEW0H7XcF8fKmJ/HLk+/9Wsuj7X7raG/LQplPYp6s4zZPwbUbgRKiGKx2MZVQEKNA==}
+  /@docus/docs-theme-edge/3.0.0-077f840:
+    resolution: {integrity: sha512-GKXnbdwDqrqjD5/BVmS/WmoL8BB+E0swkszAKQQEdghFpmiPwaihSwV1VlZwXWufrdXYE/xwWNasDEVjIArY/w==}
     dependencies:
-      '@docus/base': /@docus/base-edge/3.0.0-b99961f
+      '@docus/base': /@docus/base-edge/3.0.0-077f840
       '@iconify/vue': 3.2.1
       '@nuxtjs/color-mode': 3.1.4
       '@nuxtjs/tailwindcss': 5.1.3
@@ -519,8 +519,8 @@ packages:
       - webpack
     dev: true
 
-  /@docus/github-edge/1.2.6-b99961f:
-    resolution: {integrity: sha512-CvCVbKSXeCCEZpaI2wZRbCbucc/BJyq1py87fzwlhqhBT0/EJtZ9AdHMsmmDJpHuiXxz9gauw+WgPp2Do+VnvA==}
+  /@docus/github-edge/1.2.6-077f840:
+    resolution: {integrity: sha512-dewHddgV9eWvIwfvWMbnv9NO1qs0+XQOzS1gYCvwhIXRFloEl08tucTCe0kHDmLH4vN23joxkPXFUCu7JSsAhA==}
     dependencies:
       '@nuxt/kit': 3.0.0-rc.4
       '@octokit/graphql': 4.8.0
@@ -5401,15 +5401,6 @@ packages:
       tslib: 2.4.0
     dev: false
 
-  /follow-redirects/1.15.1:
-    resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-
   /follow-redirects/1.15.1_debug@2.6.9:
     resolution: {integrity: sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==}
     engines: {node: '>=4.0'}
@@ -5420,7 +5411,6 @@ packages:
         optional: true
     dependencies:
       debug: 2.6.9
-    dev: false
 
   /foreground-child/2.0.0:
     resolution: {integrity: sha512-dCIq9FpEcyQyXKCkyzmlPTFNgrCzPudOe+mhvJU5zAtlBnGVy2yKxtfsxK2tQBThwq225jcvBjpw1Gr40uzZCA==}
@@ -5693,7 +5683,7 @@ packages:
       create-error-class: 3.0.2
       debug: 2.6.9
       decompress-response: 6.0.0
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@2.6.9
       form-urlencoded: 2.0.9
       into-stream: 3.1.0
       is-plain-object: 2.0.4
@@ -6320,7 +6310,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.1
+      follow-redirects: 1.15.1_debug@2.6.9
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
