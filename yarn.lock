@@ -881,7 +881,7 @@ __metadata:
     nuxt: "npm:nuxt3@latest"
     ohash: ^0.1.4
     pathe: ^0.3.2
-    release-it: ^15.1.4
+    release-it: ^15.2.0
     vitest: ^0.20.2
   languageName: unknown
   linkType: soft
@@ -1255,6 +1255,13 @@ __metadata:
   version: 4.6.0
   resolution: "@sindresorhus/is@npm:4.6.0"
   checksum: 83839f13da2c29d55c97abc3bc2c55b250d33a0447554997a85c539e058e57b8da092da396e252b11ec24a0279a0bed1f537fa26302209327060643e327f81d2
+  languageName: node
+  linkType: hard
+
+"@sindresorhus/is@npm:^5.2.0":
+  version: 5.3.0
+  resolution: "@sindresorhus/is@npm:5.3.0"
+  checksum: b31cebabcdece3d5322de2a4dbc8c0f004e04147a00f2606787bcaf5655ad4b1954f6727fc6914c524009b2b9a2cc01c42835b55f651ce69fd2a0083b60bb852
   languageName: node
   linkType: hard
 
@@ -4880,6 +4887,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"form-data-encoder@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "form-data-encoder@npm:2.0.1"
+  checksum: 66a8dd84d7fcbab5fdaec9382f29e26a12b625d491ddfd267c7c7b0bf5b41b142c51826d4b89155fa975c09ea32b67000b6d01074410d57d6a7adee7405754c0
+  languageName: node
+  linkType: hard
+
 "form-data@npm:4.0.0":
   version: 4.0.0
   resolution: "form-data@npm:4.0.0"
@@ -5424,7 +5438,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"got@npm:12.1.0, got@npm:^12.1.0":
+"got@npm:12.2.0":
+  version: 12.2.0
+  resolution: "got@npm:12.2.0"
+  dependencies:
+    "@sindresorhus/is": ^5.2.0
+    "@szmarczak/http-timer": ^5.0.1
+    "@types/cacheable-request": ^6.0.2
+    "@types/responselike": ^1.0.0
+    cacheable-lookup: ^6.0.4
+    cacheable-request: ^7.0.2
+    decompress-response: ^6.0.0
+    form-data-encoder: ^2.0.1
+    get-stream: ^6.0.1
+    http2-wrapper: ^2.1.10
+    lowercase-keys: ^3.0.0
+    p-cancelable: ^3.0.0
+    responselike: ^2.0.0
+  checksum: 5d34509f57db4355baea5798032a22ab0ec002de55043e160d27d4569cd593b37527cdd47eca16da5e9276627888910449a670902478e4be996bd750e63c3826
+  languageName: node
+  linkType: hard
+
+"got@npm:^12.1.0":
   version: 12.1.0
   resolution: "got@npm:12.1.0"
   dependencies:
@@ -9298,9 +9333,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"release-it@npm:^15.1.4":
-  version: 15.1.4
-  resolution: "release-it@npm:15.1.4"
+"release-it@npm:^15.2.0":
+  version: 15.2.0
+  resolution: "release-it@npm:15.2.0"
   dependencies:
     "@iarna/toml": 2.2.5
     "@octokit/rest": 19.0.3
@@ -9311,7 +9346,7 @@ __metadata:
     form-data: 4.0.0
     git-url-parse: 12.0.0
     globby: 13.1.2
-    got: 12.1.0
+    got: 12.2.0
     inquirer: 9.0.2
     is-ci: 3.0.1
     lodash: 4.17.21
@@ -9331,7 +9366,7 @@ __metadata:
     yargs-parser: 21.0.1
   bin:
     release-it: bin/release-it.js
-  checksum: e888d59414f8098e6e7053e52cf20650d9015312e00330268f9779c5fa1a4c086b7d4a41d4370ae26d95c7184efddfccb89ef9f60a62582c730f76df3046e008
+  checksum: 08c3faf99416fa2ff3001015ed0bd427273444230eb446ac5ae12d5a0026662c44cd031f2835dbca094c5b94fed29f736f336e8b64e6e3f13f3b3d0371d516c6
   languageName: node
   linkType: hard
 
