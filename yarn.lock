@@ -889,7 +889,7 @@ __metadata:
     ohash: ^0.1.5
     pathe: ^0.3.4
     release-it: ^15.3.0
-    vitest: ^0.20.3
+    vitest: ^0.21.1
   languageName: unknown
   linkType: soft
 
@@ -1323,10 +1323,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/chai@npm:*, @types/chai@npm:^4.3.1":
+"@types/chai@npm:*":
   version: 4.3.1
   resolution: "@types/chai@npm:4.3.1"
   checksum: 2ee246b76c469cd620a7a1876a73bc597074361b67d547b4bd96a0c1adb43597ede2d8589ab626192e14349d83cbb646cc11e2c179eeeb43ff11596de94d82c4
+  languageName: node
+  linkType: hard
+
+"@types/chai@npm:^4.3.3":
+  version: 4.3.3
+  resolution: "@types/chai@npm:4.3.3"
+  checksum: 20cd094753e137cfc35939cae7f0ed78ecda7861e5c94704efab6979b9121a63807e9b631bdcf3a2792d6c6dba44050b13387262f9e63ebb040741c01c345f0a
   languageName: node
   linkType: hard
 
@@ -11218,11 +11225,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vitest@npm:^0.20.3":
-  version: 0.20.3
-  resolution: "vitest@npm:0.20.3"
+"vitest@npm:^0.21.1":
+  version: 0.21.1
+  resolution: "vitest@npm:0.21.1"
   dependencies:
-    "@types/chai": ^4.3.1
+    "@types/chai": ^4.3.3
     "@types/chai-subset": ^1.3.3
     "@types/node": "*"
     chai: ^4.3.6
@@ -11253,7 +11260,7 @@ __metadata:
       optional: true
   bin:
     vitest: vitest.mjs
-  checksum: 1478030f2e34ee91274a544b7d2e2d447969ce37d6452bfbc8e21fe42ec6fb94c496a09b822d7c8d667cee243b6630c871640d4a8b4434e1a25b858dad3548ed
+  checksum: 27c8cd0a1e2443e1311b1ed236d66caad77dcea2c4b49364475688d89d6f8dba2074b1a2da8e7ca529ded15bd5314ff4b36119a0010a33d2dcd34333d4043bd5
   languageName: node
   linkType: hard
 
