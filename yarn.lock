@@ -734,6 +734,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nuxt/schema@npm:^3.0.0-rc.8":
+  version: 3.0.0-rc.8
+  resolution: "@nuxt/schema@npm:3.0.0-rc.8"
+  dependencies:
+    c12: ^0.2.9
+    create-require: ^1.1.1
+    defu: ^6.0.0
+    jiti: ^1.14.0
+    pathe: ^0.3.4
+    postcss-import-resolver: ^2.0.0
+    scule: ^0.3.2
+    std-env: ^3.1.1
+    ufo: ^0.8.5
+    unimport: ^0.6.7
+  checksum: 6f8411e358a9e000ee4ed7589aaa8ad1b516fa460e753916850acd3e120acae4d361538d04378f65747eaea94933311e5b33a71f6031c7c26572141d6795c280
+  languageName: node
+  linkType: hard
+
 "@nuxt/telemetry@npm:^2.1.3":
   version: 2.1.3
   resolution: "@nuxt/telemetry@npm:2.1.3"
@@ -867,7 +885,7 @@ __metadata:
   dependencies:
     "@nuxt/kit": ^3.0.0-rc.5
     "@nuxt/module-builder": ^0.1.7
-    "@nuxt/schema": ^3.0.0-rc.5
+    "@nuxt/schema": ^3.0.0-rc.8
     "@nuxt/test-utils": "npm:@nuxt/test-utils-edge@latest"
     "@nuxtjs/eslint-config-typescript": ^10.0.0
     "@portabletext/types": ^1.0.3
@@ -2432,6 +2450,21 @@ __metadata:
     pathe: ^0.3.2
     rc9: ^1.2.2
   checksum: d0bca1dc012a717833f4a10da2d4610b9d43ca1f5172a46f98cbd852fc713150a62615bb0f93f041143c37ef34942b9b0dc196fe8ed4afa0ee9f07d581089c85
+  languageName: node
+  linkType: hard
+
+"c12@npm:^0.2.9":
+  version: 0.2.9
+  resolution: "c12@npm:0.2.9"
+  dependencies:
+    defu: ^6.0.0
+    dotenv: ^16.0.1
+    gittar: ^0.1.1
+    jiti: ^1.14.0
+    mlly: ^0.5.7
+    pathe: ^0.3.3
+    rc9: ^1.2.2
+  checksum: c58caa19638ba2f539ef6004cb83a3bc6ef947b4857ffc2d0a318b82d377c12a39feceb63acbf6809fe50c4948a5b9a08904856f5e742b8496fe8c94cf1fa8a6
   languageName: node
   linkType: hard
 
@@ -7529,6 +7562,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"mlly@npm:^0.5.7":
+  version: 0.5.13
+  resolution: "mlly@npm:0.5.13"
+  dependencies:
+    acorn: ^8.8.0
+    pathe: ^0.3.4
+    pkg-types: ^0.3.3
+    ufo: ^0.8.5
+  checksum: b3b256f334b83d70715b19fb97b9cf9a1010fbe06e1cb1e74c7855cecf08ce8c251f51345f41ee55a8ccad14426b48758458c798714de5a6487aa77a546417cf
+  languageName: node
+  linkType: hard
+
 "modify-values@npm:^1.0.0":
   version: 1.0.1
   resolution: "modify-values@npm:1.0.1"
@@ -8477,6 +8522,13 @@ __metadata:
   version: 0.3.2
   resolution: "pathe@npm:0.3.2"
   checksum: a3fdfe2875b074d5dd20f32d89d0d2ded2341423cdccfaec820bc994ea9d76badba2de6fd522fcf580dc5e5b3adb238d3b71855001d428c5554fb61223001eed
+  languageName: node
+  linkType: hard
+
+"pathe@npm:^0.3.3":
+  version: 0.3.5
+  resolution: "pathe@npm:0.3.5"
+  checksum: 734f54de80dae59a1cc6e62eb09bbd8f88062d118a01b8a428423c168160cee44d6a09c415ff1d7c410ee4a767a76206c13da6af289e11f6eb1a040382a28edd
   languageName: node
   linkType: hard
 
@@ -9737,6 +9789,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"scule@npm:^0.3.2":
+  version: 0.3.2
+  resolution: "scule@npm:0.3.2"
+  checksum: cac6c0e66e474fcac8b0a581cd206055a4984b9da04f4cfef8883689c045a2ac0b70bda6851fe714e5f22998fab365fa0f4ad218bdddd41c15a55c0b43f3be47
+  languageName: node
+  linkType: hard
+
 "selfsigned@npm:^2.0.1":
   version: 2.0.1
   resolution: "selfsigned@npm:2.0.1"
@@ -10889,6 +10948,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unimport@npm:^0.6.7":
+  version: 0.6.7
+  resolution: "unimport@npm:0.6.7"
+  dependencies:
+    "@rollup/pluginutils": ^4.2.1
+    escape-string-regexp: ^5.0.0
+    fast-glob: ^3.2.11
+    local-pkg: ^0.4.2
+    magic-string: ^0.26.2
+    mlly: ^0.5.7
+    pathe: ^0.3.3
+    scule: ^0.3.2
+    strip-literal: ^0.4.0
+    unplugin: ^0.9.0
+  checksum: 2a46aa1cc72b97b69cd4d5c144020457066c3e6f44903e4782669bc0413b8507bf990481a0d6f5e0534c7e39a07405afbd9f2ebb416dcd1c00f98c90a5867a3b
+  languageName: node
+  linkType: hard
+
 "unique-filename@npm:^1.1.1":
   version: 1.1.1
   resolution: "unique-filename@npm:1.1.1"
@@ -10992,6 +11069,32 @@ __metadata:
     webpack:
       optional: true
   checksum: a9d30a9bfec8e8bae7a83d224b1fc16b4eef663efcc22fa5f5e54b90acda7feef4fbc912bdaf78b28e5085324effc1556a155ecac4c914b8ffa3f7a45b5b2b22
+  languageName: node
+  linkType: hard
+
+"unplugin@npm:^0.9.0":
+  version: 0.9.2
+  resolution: "unplugin@npm:0.9.2"
+  dependencies:
+    acorn: ^8.8.0
+    chokidar: ^3.5.3
+    webpack-sources: ^3.2.3
+    webpack-virtual-modules: ^0.4.4
+  peerDependencies:
+    esbuild: ">=0.13"
+    rollup: ^2.50.0
+    vite: ^2.3.0 || ^3.0.0-0
+    webpack: 4 || 5
+  peerDependenciesMeta:
+    esbuild:
+      optional: true
+    rollup:
+      optional: true
+    vite:
+      optional: true
+    webpack:
+      optional: true
+  checksum: 203dd4df964982bb7e0c48fb7cdfd0c114a74f647205750a9c1102efd354647109e120968b9f6db57ba413b88afd6b335731378a2ecc947e7411c61c2c082fbb
   languageName: node
   linkType: hard
 
