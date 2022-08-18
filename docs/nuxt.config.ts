@@ -1,7 +1,7 @@
 import { defineNuxtConfig } from 'nuxt'
 
 export default defineNuxtConfig({
-  extends: ['./node_modules/@docus/docs-theme'],
+  extends: ['@docus/docs-theme'],
   github: {
     owner: 'nuxt-community',
     repo: 'sanity-module',

@@ -18,40 +18,24 @@ jobs:
         node: [16]
 
     steps:
+      - uses: actions/checkout@v3
+      - run: corepack enable
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
+          cache: "pnpm"
 
-      - name: checkout
-        uses: actions/checkout@v3
+      - name: 📦 Install dependencies
+        run: pnpm install --frozen-lockfile
 
-      - name: Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
+      - name: 🚧 Set up project
+        run: pnpm dev:prepare
 
-      - uses: actions/cache@v3
-        id: yarn-cache
-        with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            C:\Users\runneradmin\AppData\Local\ms-playwright
-            ~/Library/Caches/ms-playwright
-            ~/.cache/ms-playwright
-          key: ${{ runner.os }}-${{ matrix.node }}-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-
+      - name: 🛠 Build project
+        run: pnpm build
 
-      - name: Install dependencies
-        run: yarn
+      - name: 🧪 Test project
+        run: pnpm test -- --coverage
 
-      - name: Build project
-        run: yarn dev:prepare
-
-      - name: Build project
-        run: yarn build
-
-      - name: Test
-        run: yarn test
-
-      - name: Coverage
+      - name: 🟩 Coverage
         uses: codecov/codecov-action@v3

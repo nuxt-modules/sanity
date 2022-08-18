@@ -6,6 +6,9 @@
 # “publish” is the directory to publish (relative to the root of your repo).
 
 [build]
-  base    = "docs"
-  command = "yarn && yarn generate"
-  publish = "dist"
+base = "docs"
+command = "npx pnpm@7.9.0 install --frozen-lockfile --shamefully-hoist && npx pnpm@7.9.0 -w dev:prepare && npx pnpm@7.9.0 generate"
+publish = "dist"
+
+[build.environment]
+NPM_FLAGS="--version"
