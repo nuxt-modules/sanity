@@ -63,9 +63,9 @@ yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
 [npm-version-href]: https://npmjs.com/package/@nuxtjs/sanity
 [npm-downloads-src]: https://img.shields.io/npm/dm/@nuxtjs/sanity.svg
 [npm-downloads-href]: https://npmjs.com/package/@nuxtjs/sanity
-[github-actions-ci-src]: https://github.com/nuxt-community/sanity-module/workflows/ci/badge.svg
-[github-actions-ci-href]: https://github.com/nuxt-community/sanity-module/actions?query=workflow%3Aci
-[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-community/sanity-module.svg
-[codecov-href]: https://codecov.io/gh/nuxt-community/sanity-module
+[github-actions-ci-src]: https://github.com/nuxt-modules/sanity/workflows/ci/badge.svg
+[github-actions-ci-href]: https://github.com/nuxt-modules/sanity/actions?query=workflow%3Aci
+[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/sanity.svg
+[codecov-href]: https://codecov.io/gh/nuxt-modules/sanity
 [license-src]: https://img.shields.io/npm/l/@nuxtjs/sanity.svg
 [license-href]: https://npmjs.com/package/@nuxtjs/sanity
