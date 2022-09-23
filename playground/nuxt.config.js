@@ -1,8 +1,8 @@
-import { defineNuxtConfig } from 'nuxt'
-
 export default defineNuxtConfig({
-  meta: {
-    script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
+  app: {
+    head: {
+      script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
+    },
   },
   modules: ['@nuxtjs/sanity'],
   sanity: {
