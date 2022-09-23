@@ -1,11 +1,11 @@
 import { fileURLToPath } from 'url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addAutoImport, isNuxt3, addPlugin, isNuxt2, useLogger } from '@nuxt/kit'
+import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addImports, isNuxt3, addPlugin, isNuxt2, useLogger } from '@nuxt/kit'
 
 import chalk from 'chalk'
 import * as fse from 'fs-extra'
 import { join, resolve } from 'pathe'
 import { defu } from 'defu'
-import { genImport } from 'knitwork'
+import { genExport } from 'knitwork'
 
 import { name, version } from '../package.json'
 
@@ -100,12 +100,9 @@ export default defineNuxtModule<SanityModuleOptions>({
     addTemplate({
       filename: 'sanity-client.mjs',
       getContents: () =>
-        [
-          options.minimal
-            ? genImport(join(runtimeDir, 'client'), ['createClient'])
-            : genImport('@sanity/client', 'createClient'),
-          'export { createClient }',
-        ].join('\n'),
+        options.minimal
+          ? genExport(join(runtimeDir, 'client'), ['createClient'])
+          : genExport('@sanity/client', [{ name: 'default', as: 'createClient' }]),
     })
 
     if (options.globalHelper) {
@@ -117,13 +114,43 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
-    addAutoImport([
+    addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'useSanity', as: 'useSanity', from: join(runtimeDir, 'composables') },
       { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables') },
       isNuxt3() && { name: 'useSanityQuery', as: 'useSanityQuery', from: join(runtimeDir, 'composables') },
     ].filter(Boolean))
+
+    nuxt.hook('prepare:types', ({ tsConfig }) => {
+      tsConfig.compilerOptions.paths['#sanity-client'] = [join(runtimeDir, 'client')]
+    })
+
+    nuxt.hook('nitro:config', (config) => {
+      if (config.imports === false) return
+
+      config.virtual['#sanity-client'] =
+        options.minimal
+          ? genExport(join(runtimeDir, 'client'), ['createClient'])
+          : genExport('@sanity/client', [{ name: 'default', as: 'createClient' }])
+
+      config.imports = defu(config.imports, {
+        presets: [
+          {
+            from: '#sanity-client',
+            imports: [{ name: 'createClient', as: 'createSanityClient' }],
+          },
+          {
+            from: join(runtimeDir, 'nitro-imports'),
+            imports: ['useSanity'],
+          },
+          {
+            from: join(runtimeDir, 'groq'),
+            imports: ['groq'],
+          },
+        ],
+      })
+    })
 
     await addComponentsDir({
       path: join(runtimeDir, 'components'),
