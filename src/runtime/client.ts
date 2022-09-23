@@ -1,3 +1,5 @@
+import { $fetch } from 'ohmyfetch'
+
 /**
  * Adapted from https://github.com/rexxars/picosanity
  */
