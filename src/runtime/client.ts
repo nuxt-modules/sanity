@@ -44,11 +44,7 @@ export function createClient (config: SanityConfiguration) {
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
     headers: {
-      ...(token
-        ? {
-            Authorization: `Bearer ${token}`,
-          }
-        : {}),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accept: 'application/json',
       ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
