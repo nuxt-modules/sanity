@@ -1,5 +1,17 @@
 
 
+## [1.3.0](https://github.com/nuxt-modules/sanity/compare/1.2.3...1.3.0) (2022-09-23)
+
+
+### Features
+
+* enable `groq`, `useSanity` and `createSanityClient` in server routes ([#510](https://github.com/nuxt-modules/sanity/issues/510)) ([fdf8353](https://github.com/nuxt-modules/sanity/commit/fdf83530e6bb827f78a60a050c1cf79e883d0456))
+
+
+### Bug Fixes
+
+* use fresh client independent of isomorphic fetch ([#509](https://github.com/nuxt-modules/sanity/issues/509)) ([52f0bd3](https://github.com/nuxt-modules/sanity/commit/52f0bd36bbf9a56bd129579bbba0b0e8692b848f))
+
 ### [1.2.3](https://github.com/nuxt-modules/sanity/compare/1.2.2...1.2.3) (2022-06-22)
 
 
