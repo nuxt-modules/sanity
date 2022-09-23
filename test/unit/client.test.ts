@@ -1,16 +1,15 @@
-import { beforeEach, afterEach, describe, it, vi, expect } from 'vitest'
+import { afterEach, describe, it, vi, expect } from 'vitest'
+import { $fetch } from 'ohmyfetch'
 import { getQuery, createClient } from '../../src/runtime/client'
 import { request as largeRequest } from './fixture/large-request.json'
 
+vi.mock('ohmyfetch', () => ({
+  $fetch: vi.fn(() =>
+    Promise.resolve({ result: [1, 2] }),
+  ),
+}))
+
 describe('minimal sanity client', () => {
-  let mockFetch
-  beforeEach(() => {
-    mockFetch = vi.fn(() =>
-      Promise.resolve([1, 2]),
-    )
-    // @ts-ignore
-    global.$fetch = mockFetch
-  })
   afterEach(() => {
     vi.clearAllMocks()
   })
@@ -47,7 +46,7 @@ describe('minimal sanity client', () => {
     })
     client.fetch('*[_type == "article"')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       'https://sample-project.api.sanity.io/v1/data/query/undefined?query=*%5B_type%20%3D%3D%20%22article%22',
       expect.not.objectContaining({ method: 'post' }),
     )
@@ -60,7 +59,7 @@ describe('minimal sanity client', () => {
     })
     client.fetch(largeRequest)
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       'https://sample-project.api.sanity.io/v1/data/query/undefined',
       expect.objectContaining({ method: 'post' }),
     )
@@ -90,7 +89,7 @@ describe('minimal sanity client', () => {
     })
     await client.fetch('*[_type == "article"]')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
       defaultOptions,
     )
@@ -104,7 +103,7 @@ describe('minimal sanity client', () => {
     })
     await client.fetch('*[_type == "article"]')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.apicdn.sanity.io`),
       defaultOptions,
     )
@@ -120,7 +119,7 @@ describe('minimal sanity client', () => {
     })
     await client.fetch('*[_type == "article"]')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
       {
         credentials: 'include',
@@ -141,7 +140,7 @@ describe('minimal sanity client', () => {
     })
     await client.fetch('*[_type == "article"]')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io`),
       {
         credentials: 'omit',
@@ -162,7 +161,7 @@ describe('minimal sanity client', () => {
     })
     await client.fetch('*[_type == "article"]')
 
-    expect(mockFetch).toBeCalledWith(
+    expect($fetch).toBeCalledWith(
       expect.stringContaining(`https://${project}.api.sanity.io/v2021-03-25`),
       {
         credentials: 'omit',
