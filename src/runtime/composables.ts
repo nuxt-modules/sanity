@@ -13,7 +13,7 @@ export interface SanityHelper {
 }
 
 const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
-  const config = options
+  const config = { ...options }
   let client = createSanityClient(config)
 
   return {
@@ -55,13 +55,13 @@ interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
 }
 
-export const useSanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
+export const useSanityQuery = <T = unknown> (query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
   return useAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
 }
 
-export const useLazySanityQuery = <T = unknown>(query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
+export const useLazySanityQuery = <T = unknown> (query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
   return useLazyAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
