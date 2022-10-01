@@ -17,7 +17,7 @@ importers:
       '@sanity/client': ^3.4.1
       '@types/fs-extra': ^9.0.13
       '@vitest/coverage-c8': ^0.23.4
-      '@vue/test-utils': ^2.0.2
+      '@vue/test-utils': ^2.1.0
       c8: ^7.12.0
       chalk: ^5.0.1
       defu: ^6.1.0
@@ -53,7 +53,7 @@ importers:
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
       '@vitest/coverage-c8': 0.23.4_happy-dom@6.0.4
-      '@vue/test-utils': 2.0.2_vue@3.2.40
+      '@vue/test-utils': 2.1.0_vue@3.2.40
       c8: 7.12.0
       eslint: 8.24.0
       happy-dom: 6.0.4
@@ -479,7 +479,7 @@ packages:
   /@docus/base-edge/3.0.0-b99961f:
     resolution: {integrity: sha512-KZcoG4XgBa7YTkwDRRrDkIL+UTWFqJH+Ax1LwwkT6oAmZTdr3ZskinpRa94UP674FmBb695ojEQlkw1e66YUNg==}
     dependencies:
-      '@nuxt/content': /@nuxt/content-edge/2.1.1-27740916.0cfc71c
+      '@nuxt/content': /@nuxt/content-edge/2.1.1-27741112.451b000
       '@nuxthq/admin': /@nuxthq/admin-edge/0.0.1-27627055.9933660
       '@vueuse/core': 8.9.3
       '@vueuse/nuxt': 8.9.3
@@ -779,8 +779,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@nuxt/content-edge/2.1.1-27740916.0cfc71c:
-    resolution: {integrity: sha512-gIISbnlq71hZoyUBeAq2f9OI9ZKXW/3TZ2D0cfIyy180bFZ62zSDR6qI106xB5A7Brpo693YlgWEl1Uyv/moww==}
+  /@nuxt/content-edge/2.1.1-27741112.451b000:
+    resolution: {integrity: sha512-lRc/LuOx8LsxHIDiHthm8aHNyhO1flrLIv+US2DfMs67AJ8qYlZ0FDSqx1KCM6CGcklplSmXa3v5UdkrdgaHJA==}
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
       consola: 2.15.3
@@ -2713,8 +2713,8 @@ packages:
     resolution: {integrity: sha512-0PLQ6RUtZM0vO3teRfzGi4ltLUO5aO+kLgwh4Um3THSR03rpQWLTuRCkuO5A41ITzwdWeKdPHtSARuPkoo5pCQ==}
     dev: true
 
-  /@vue/test-utils/2.0.2_vue@3.2.40:
-    resolution: {integrity: sha512-E2P4oXSaWDqTZNbmKZFVLrNN/siVN78YkEqs7pHryWerrlZR9bBFLWdJwRoguX45Ru6HxIflzKl4vQvwRMwm5g==}
+  /@vue/test-utils/2.1.0_vue@3.2.40:
+    resolution: {integrity: sha512-U4AxAD/tKJ3ajxYew1gkfEotpr96DE/gLXpbl+nPbsNRqGBfQZZA7YhwGoQNDPgon56v+IGZDrYq7pe3GDl9aw==}
     peerDependencies:
       vue: ^3.0.1
     dependencies:
@@ -6095,6 +6095,7 @@ packages:
         optional: true
     dependencies:
       debug: 2.6.9
+    dev: false
 
   /foreground-child/2.0.0:
     resolution: {integrity: sha512-dCIq9FpEcyQyXKCkyzmlPTFNgrCzPudOe+mhvJU5zAtlBnGVy2yKxtfsxK2tQBThwq225jcvBjpw1Gr40uzZCA==}
@@ -6343,7 +6344,7 @@ packages:
       create-error-class: 3.0.2
       debug: 2.6.9
       decompress-response: 6.0.0
-      follow-redirects: 1.15.1_debug@2.6.9
+      follow-redirects: 1.15.1
       form-urlencoded: 2.0.9
       into-stream: 3.1.0
       is-plain-object: 2.0.4
