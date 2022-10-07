@@ -16,10 +16,10 @@ importers:
       '@release-it/conventional-changelog': ^5.1.0
       '@sanity/client': ^3.4.1
       '@types/fs-extra': ^9.0.13
-      '@vitest/coverage-c8': ^0.23.4
+      '@vitest/coverage-c8': ^0.24.0
       '@vue/test-utils': ^2.1.0
       c8: ^7.12.0
-      chalk: ^5.0.1
+      chalk: ^5.1.0
       defu: ^6.1.0
       eslint: ^8.24.0
       fs-extra: ^10.1.0
@@ -31,14 +31,14 @@ importers:
       nuxt: ^3.0.0-rc.11
       ohash: ^0.1.5
       pathe: ^0.3.8
-      release-it: ^15.4.3
+      release-it: ^15.5.0
       typescript: ^4.8.4
-      vitest: ^0.23.4
+      vitest: ^0.24.0
       vue: ^3.2.40
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
       '@portabletext/types': 1.0.3
-      chalk: 5.0.1
+      chalk: 5.1.0
       defu: 6.1.0
       fs-extra: 10.1.0
       knitwork: 0.1.2
@@ -52,7 +52,7 @@ importers:
       '@release-it/conventional-changelog': 5.1.0_release-it@15.5.0
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
-      '@vitest/coverage-c8': 0.23.4_happy-dom@6.0.4
+      '@vitest/coverage-c8': 0.24.0_happy-dom@6.0.4
       '@vue/test-utils': 2.1.0_vue@3.2.40
       c8: 7.12.0
       eslint: 8.24.0
@@ -63,7 +63,7 @@ importers:
       nuxt: 3.0.0-rc.11_ypn2ylkkyfa5i233caldtndbqa
       release-it: 15.5.0
       typescript: 4.8.4
-      vitest: 0.23.4_happy-dom@6.0.4
+      vitest: 0.24.0_happy-dom@6.0.4
       vue: 3.2.40
 
   docs:
@@ -80,10 +80,10 @@ importers:
 
   playground:
     specifiers:
-      '@nuxtjs/sanity': link:..
+      '@nuxtjs/sanity': link:.
       nuxt: ^3.0.0-rc.11
     dependencies:
-      '@nuxtjs/sanity': link:..
+      '@nuxtjs/sanity': 'link:'
       nuxt: 3.0.0-rc.11
 
   playground/cms:
@@ -479,7 +479,7 @@ packages:
   /@docus/base-edge/3.0.0-b99961f:
     resolution: {integrity: sha512-KZcoG4XgBa7YTkwDRRrDkIL+UTWFqJH+Ax1LwwkT6oAmZTdr3ZskinpRa94UP674FmBb695ojEQlkw1e66YUNg==}
     dependencies:
-      '@nuxt/content': /@nuxt/content-edge/2.1.1-27749525.428cf8f
+      '@nuxt/content': /@nuxt/content-edge/2.1.1-27752263.7afd857
       '@nuxthq/admin': /@nuxthq/admin-edge/0.0.1-27627055.9933660
       '@vueuse/core': 8.9.3
       '@vueuse/nuxt': 8.9.3
@@ -779,8 +779,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@nuxt/content-edge/2.1.1-27749525.428cf8f:
-    resolution: {integrity: sha512-dOJU7kpWLKvd4U6TMn61R2nsSsw6OxHQTTkqOEPXCkU4TRBhnY/gdwul10CgxclbrCGaQ+MnP8E6lHAzXGGNJg==}
+  /@nuxt/content-edge/2.1.1-27752263.7afd857:
+    resolution: {integrity: sha512-zfmCreHMrOXGi8avrLGSGaSHk3GnP6iWSW+TWg5Tr91aqsiz8puGCvCdrGOB/lZwmn95FeTWKFv+eidKrnE5Yw==}
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
       consola: 2.15.3
@@ -790,8 +790,8 @@ packages:
       html-tags: 3.2.0
       json5: 2.2.1
       knitwork: 0.1.2
-      listhen: 0.2.15
-      mdast-util-to-hast: 12.2.2
+      listhen: 0.3.4
+      mdast-util-to-hast: 12.2.4
       mdurl: 1.0.1
       ohash: 0.1.5
       pathe: 0.3.8
@@ -816,7 +816,7 @@ packages:
       unist-util-position: 4.0.3
       unist-util-visit: 4.1.1
       unstorage: 0.5.6
-      ws: 8.8.1
+      ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
       - esbuild
@@ -963,7 +963,7 @@ packages:
     hasBin: true
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
-      chalk: 5.0.1
+      chalk: 5.1.0
       ci-info: 3.3.2
       consola: 2.15.3
       create-require: 1.1.1
@@ -1196,7 +1196,7 @@ packages:
       '@nuxt/postcss8': 1.1.3
       '@types/tailwindcss': 3.1.0
       autoprefixer: 10.4.11_postcss@8.4.16
-      chalk: 5.0.1
+      chalk: 5.1.0
       clear-module: 4.1.2
       consola: 2.15.3
       defu: 6.1.0
@@ -2178,10 +2178,6 @@ packages:
       '@types/unist': 2.0.6
     dev: true
 
-  /@types/mdurl/1.0.2:
-    resolution: {integrity: sha512-eC4U9MlIcu2q0KQmXszyn5Akca/0jrQmwDRgpAMJai7qBWq4amIQhZyNau4VYGtCeALvW1/NtjzJJ567aZxfKA==}
-    dev: true
-
   /@types/minimatch/3.0.5:
     resolution: {integrity: sha512-Klz949h02Gz2uZCMGwDUSDS1YBlTdDDgbWHi+81l29tQALUtvz4rAYi5uoVhE5Lagoq6DeqAUlbrHvW/mXDgdQ==}
     dev: false
@@ -2492,11 +2488,11 @@ packages:
       vite: 3.1.3
       vue: 3.2.39
 
-  /@vitest/coverage-c8/0.23.4_happy-dom@6.0.4:
-    resolution: {integrity: sha512-jmD00a5DQH9gu9K+YdvVhcMuv2CzHvU4gCnySS40Ec5hKlXtlCzRfNHl00VnhfuBeaQUmaQYe60BLT413HyDdg==}
+  /@vitest/coverage-c8/0.24.0_happy-dom@6.0.4:
+    resolution: {integrity: sha512-Ho5256BOrLnsJgEgE368ED17cr8rOAXrxvwpZ+XZUA4yAcMBxGAX08cCeG4dibmNVD2NE9Hcpd2foMZsTge3wA==}
     dependencies:
       c8: 7.12.0
-      vitest: 0.23.4_happy-dom@6.0.4
+      vitest: 0.24.0_happy-dom@6.0.4
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@vitest/browser'
@@ -3169,7 +3165,7 @@ packages:
     dependencies:
       ansi-align: 3.0.1
       camelcase: 7.0.0
-      chalk: 5.0.1
+      chalk: 5.1.0
       cli-boxes: 3.0.0
       string-width: 5.1.2
       type-fest: 2.18.0
@@ -3395,6 +3391,11 @@ packages:
 
   /chalk/5.0.1:
     resolution: {integrity: sha512-Fo07WOYGqMfCWHOzSXOt2CxDbC6skS/jO9ynEcmpANMoPrD+W1r1K6Vx7iNm+AQmETU1Xr2t+n8nzkV9t6xh3w==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+    dev: true
+
+  /chalk/5.1.0:
+    resolution: {integrity: sha512-56zD4khRTBoIyzUYAFgDDaPhUMN/fC/rySe6aZGqbj/VWiU2eI3l6ZLOtYGFZAV5v02mwPjtpzlrOveJiz5eZQ==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
 
   /character-entities-html4/2.1.0:
@@ -7071,7 +7072,7 @@ packages:
     engines: {node: '>=12.0.0'}
     dependencies:
       ansi-escapes: 5.0.0
-      chalk: 5.0.1
+      chalk: 5.1.0
       cli-cursor: 4.0.0
       cli-width: 4.0.0
       external-editor: 3.1.0
@@ -7601,7 +7602,7 @@ packages:
       whatwg-encoding: 2.0.0
       whatwg-mimetype: 3.0.0
       whatwg-url: 11.0.0
-      ws: 8.8.1
+      ws: 8.9.0
       xml-name-validator: 4.0.0
     transitivePeerDependencies:
       - bufferutil
@@ -7994,7 +7995,7 @@ packages:
     resolution: {integrity: sha512-l0x2DvrW294C9uDCoQe1VSU4gf529FkSZ6leBl4TiqZH/e+0R7hSfHQBNut2mNygDgHwvYHfFLn6Oxb3VWj2rA==}
     engines: {node: '>=12'}
     dependencies:
-      chalk: 5.0.1
+      chalk: 5.1.0
       is-unicode-supported: 1.2.0
 
   /log-update/4.0.0:
@@ -8181,15 +8182,13 @@ packages:
       - supports-color
     dev: true
 
-  /mdast-util-to-hast/12.2.2:
-    resolution: {integrity: sha512-lVkUttV9wqmdXFtEBXKcepvU/zfwbhjbkM5rxrquLW55dS1DfOrnAXCk5mg1be1sfY/WfMmayGy1NsbK1GLCYQ==}
+  /mdast-util-to-hast/12.2.4:
+    resolution: {integrity: sha512-a21xoxSef1l8VhHxS1Dnyioz6grrJkoaCUgGzMD/7dWHvboYX3VW53esRUfB5tgTyz4Yos1n25SPcj35dJqmAg==}
     dependencies:
       '@types/hast': 2.3.4
       '@types/mdast': 3.0.10
-      '@types/mdurl': 1.0.2
       mdast-util-definitions: 5.1.1
-      mdurl: 1.0.1
-      micromark-util-sanitize-uri: 1.0.0
+      micromark-util-sanitize-uri: 1.1.0
       trim-lines: 3.0.1
       unist-builder: 3.0.0
       unist-util-generated: 2.0.0
@@ -8295,7 +8294,7 @@ packages:
     resolution: {integrity: sha512-i3dmvU0htawfWED8aHMMAzAVp/F0Z+0bPh3YrbTPPL1v4YAlCZpy5rBO5p0LPYiZo0zFVkoYh7vDU7yQSiCMjg==}
     dependencies:
       micromark-util-character: 1.1.0
-      micromark-util-sanitize-uri: 1.0.0
+      micromark-util-sanitize-uri: 1.1.0
       micromark-util-symbol: 1.0.1
       micromark-util-types: 1.0.2
       uvu: 0.5.6
@@ -8308,7 +8307,7 @@ packages:
       micromark-factory-space: 1.0.0
       micromark-util-character: 1.1.0
       micromark-util-normalize-identifier: 1.0.0
-      micromark-util-sanitize-uri: 1.0.0
+      micromark-util-sanitize-uri: 1.1.0
       micromark-util-symbol: 1.0.1
       micromark-util-types: 1.0.2
       uvu: 0.5.6
@@ -8470,8 +8469,8 @@ packages:
       micromark-util-types: 1.0.2
     dev: true
 
-  /micromark-util-sanitize-uri/1.0.0:
-    resolution: {integrity: sha512-cCxvBKlmac4rxCGx6ejlIviRaMKZc0fWm5HdCHEeDWRSkn44l6NdYVRyU+0nT1XC72EQJMZV8IPHF+jTr56lAg==}
+  /micromark-util-sanitize-uri/1.1.0:
+    resolution: {integrity: sha512-RoxtuSCX6sUNtxhbmsEFQfWzs8VN7cTctmBPvYivo98xb/kDEoTCtJQX5wyzIYEmk/lvNFTat4hL8oW0KndFpg==}
     dependencies:
       micromark-util-character: 1.1.0
       micromark-util-encode: 1.0.1
@@ -8510,7 +8509,7 @@ packages:
       micromark-util-encode: 1.0.1
       micromark-util-normalize-identifier: 1.0.0
       micromark-util-resolve-all: 1.0.0
-      micromark-util-sanitize-uri: 1.0.0
+      micromark-util-sanitize-uri: 1.1.0
       micromark-util-subtokenize: 1.0.2
       micromark-util-symbol: 1.0.1
       micromark-util-types: 1.0.2
@@ -8791,7 +8790,7 @@ packages:
       '@vercel/nft': 0.22.1
       archiver: 5.3.1
       c12: 0.2.13
-      chalk: 5.0.1
+      chalk: 5.1.0
       chokidar: 3.5.3
       consola: 2.15.3
       cookie-es: 0.5.0
@@ -9254,7 +9253,7 @@ packages:
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dependencies:
       bl: 5.0.0
-      chalk: 5.0.1
+      chalk: 5.1.0
       cli-cursor: 4.0.0
       cli-spinners: 2.7.0
       is-interactive: 2.0.0
@@ -10747,7 +10746,7 @@ packages:
     dependencies:
       '@types/hast': 2.3.4
       '@types/mdast': 3.0.10
-      mdast-util-to-hast: 12.2.2
+      mdast-util-to-hast: 12.2.4
       unified: 10.1.2
     dev: true
 
@@ -11876,8 +11875,8 @@ packages:
     resolution: {integrity: sha512-lBN9zLN/oAf68o3zNXYrdCt1kP8WsiGW8Oo2ka41b2IM5JL/S1CTyX1rW0mb/zSuJun0ZUrDxx4sqvYS2FWzPA==}
     dev: false
 
-  /tinybench/2.1.5:
-    resolution: {integrity: sha512-ak+PZZEuH3mw6CCFOgf5S90YH0MARnZNhxjhjguAmoJimEMAJuNip/rJRd6/wyylHItomVpKTzZk9zrhTrQCoQ==}
+  /tinybench/2.3.0:
+    resolution: {integrity: sha512-zs1gMVBwyyG2QbVchYIbnabRhMOCGvrwZz/q+SV+LIMa9q5YDQZi2kkI6ZRqV2Bz7ba1uvrc7ieUoE4KWnGeKg==}
     dev: true
 
   /tinypool/0.3.0:
@@ -12082,7 +12081,7 @@ packages:
       '@rollup/plugin-node-resolve': 13.3.0_rollup@2.75.6
       '@rollup/plugin-replace': 3.1.0_rollup@2.75.6
       '@rollup/pluginutils': 4.2.1
-      chalk: 5.0.1
+      chalk: 5.1.0
       consola: 2.15.3
       defu: 5.0.1
       esbuild: 0.14.43
@@ -12400,7 +12399,7 @@ packages:
       mri: 1.2.0
       ohmyfetch: 0.4.19
       ufo: 0.8.5
-      ws: 8.8.1
+      ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -12419,7 +12418,7 @@ packages:
       mri: 1.2.0
       ohmyfetch: 0.4.19
       ufo: 0.8.5
-      ws: 8.8.1
+      ws: 8.9.0
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -12454,7 +12453,7 @@ packages:
     engines: {node: '>=14.16'}
     dependencies:
       boxen: 7.0.0
-      chalk: 5.0.1
+      chalk: 5.1.0
       configstore: 6.0.0
       has-yarn: 3.0.0
       import-lazy: 4.0.0
@@ -12716,8 +12715,8 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitest/0.23.4_happy-dom@6.0.4:
-    resolution: {integrity: sha512-iukBNWqQAv8EKDBUNntspLp9SfpaVFbmzmM0sNcnTxASQZMzRw3PsM6DMlsHiI+I6GeO5/sYDg3ecpC+SNFLrQ==}
+  /vitest/0.24.0_happy-dom@6.0.4:
+    resolution: {integrity: sha512-k5j3FPTor+MJx2x0pDW2gtVk+s9VC6nSHT3SoqOIk9Je5fFpPgict+Xy2eAVXUogvSixs45Ya1oZk+oK93BO0w==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
@@ -12746,7 +12745,7 @@ packages:
       happy-dom: 6.0.4
       local-pkg: 0.4.2
       strip-literal: 0.4.2
-      tinybench: 2.1.5
+      tinybench: 2.3.0
       tinypool: 0.3.0
       tinyspy: 1.0.2
       vite: 3.1.3
@@ -13053,8 +13052,8 @@ packages:
         optional: true
     dev: true
 
-  /ws/8.8.1:
-    resolution: {integrity: sha512-bGy2JzvzkPowEJV++hF07hAD6niYSr0JzBNo/J29WsB57A2r7Wlc1UFcTR9IzrPvuNVO4B8LGqF8qcpsVOhJCA==}
+  /ws/8.9.0:
+    resolution: {integrity: sha512-Ja7nszREasGaYUYCI2k4lCKIRTt+y7XuqVoHR44YpI49TtryyqbqvDMn5eqfW7e6HzTukDRIsXqzVHScqRcafg==}
     engines: {node: '>=10.0.0'}
     peerDependencies:
       bufferutil: ^4.0.1
