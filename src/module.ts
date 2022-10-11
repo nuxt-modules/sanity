@@ -123,16 +123,22 @@ export default defineNuxtModule<SanityModuleOptions>({
     ].filter(Boolean))
 
     nuxt.hook('prepare:types', ({ tsConfig }) => {
+      tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [join(runtimeDir, 'client')]
     })
 
     nuxt.hook('nitro:config', (config) => {
       if (config.imports === false) return
 
+      config.virtual ||= {}
       config.virtual['#sanity-client'] =
         options.minimal
           ? genExport(join(runtimeDir, 'client'), ['createClient'])
           : genExport('@sanity/client', [{ name: 'default', as: 'createClient' }])
+
+      config.externals ||= {}
+      config.externals.inline ||= []
+      config.externals.inline.push(runtimeDir)
 
       config.imports = defu(config.imports, {
         presets: [
