@@ -1,5 +1,12 @@
 
 
+### [1.3.1](https://github.com/nuxt-modules/sanity/compare/1.3.0...1.3.1) (2022-10-11)
+
+
+### Bug Fixes
+
+* transpile nitro auto-imports ([d77b5df](https://github.com/nuxt-modules/sanity/commit/d77b5dfb8c9842157a56131a377a2c6a15b9f93d))
+
 ## [1.3.0](https://github.com/nuxt-modules/sanity/compare/1.2.3...1.3.0) (2022-09-23)
 
 
