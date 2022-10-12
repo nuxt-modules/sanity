@@ -63,6 +63,7 @@ const validAttrs = [
   'charset',
   'checked',
   'cite',
+  'class',
   'cols',
   'colspan',
   'command',
