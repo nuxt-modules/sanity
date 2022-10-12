@@ -111,7 +111,7 @@ function renderStyle (item: Block, serializers: Required<Serializers>, children?
   const { style, listItem } = item
   const serializer = serializers.styles[style]
   const isElement = typeof serializer === 'string'
-  const props = Object.fromEntries(Object.entries(item).filter(([key]) => key !== '_type' && key !== 'markDefs').map(([key, value]) => {
+  const props = Object.fromEntries(Object.entries(item).filter(([key]) => key !== '_type' && key !== 'markDefs' && key !== 'children').map(([key, value]) => {
     if (key === '_key')
       return ['key', value || null]
     if (!isElement || validAttrs.includes(key))
