@@ -111,15 +111,7 @@ function findSerializer (item: Block | undefined, serializers: Required<Serializ
 function renderStyle (item: Block, serializers: Required<Serializers>, children?: () => Children) {
   const serializer = item.style && serializers.styles[item.style]
   const isElement = typeof serializer === 'string'
-  const props = Object.fromEntries(
-    Object.entries(item)
-      .filter(([key]) => key !== '_type' && key !== 'markDefs' && key !== 'children')
-      .map(([key, value]) => {
-        if (key === '_key') return ['key', value || null]
-        if (!isElement || validAttrs.includes(key)) return [key, value]
-        return []
-      }),
-  )
+  const props = extractProps(item, isElement)
 
   if (!item.listItem && item.style && serializer) {
     return h(serializer as any, props, isVue2 ? children?.() : { default: children })
@@ -189,13 +181,7 @@ function render (serializers: Required<Serializers>, item?: Block, children?: ()
   }
 
   const isElement = typeof serializer === 'string'
-  const props = Object.fromEntries(Object.entries(item).filter(([key]) => key !== '_type').map(
-    ([key, value]) => {
-      if (key === '_key') return ['key', value || null]
-      if (!isElement || validAttrs.includes(key)) return [key, value]
-      return []
-    },
-  ))
+  const props = extractProps(item, isElement)
 
   // Forgive me, TypeScript gods...
   if (isElement) {
@@ -205,11 +191,25 @@ function render (serializers: Required<Serializers>, item?: Block, children?: ()
   return h(serializer, props, isVue2 ? children?.() : { default: () => children?.() })
 }
 
+function extractProps (item: Block, isElement: boolean) {
+  return Object.fromEntries(
+    Object.entries(item)
+      .filter(([key]) => key !== '_type' && key !== 'markDefs')
+      .map(
+        ([key, value]) => {
+          if (key === '_key') return ['key', value || null]
+          if (!isElement || validAttrs.includes(key)) return [key, value]
+          return []
+        },
+      ),
+  )
+}
+
 function renderBlocks (blocks: Array<Block>, serializers: Required<Serializers>) {
   return blocks.map((block) => {
     const node = renderStyle(block, serializers, () => renderInSerializer(block, serializers))
     if (process.env.NODE_ENV === 'development' && (!node || (Array.isArray(node) && !node.length))) {
-    // eslint-disable-next-line no-console
+      // eslint-disable-next-line no-console
       console.warn(`No serializer found for block type "${block._type}".`, block)
     }
     return node
@@ -256,15 +256,13 @@ const createListSerializer = (serializers: Required<Serializers>) => {
         if (props.level > 1) {
           return h(serializers.listItem as string || 'li', [h(isOrdered ? 'ol' : 'ul', {}, isVue2
             ? renderBlocks(props.children, serializers)
-            : {
-                default: () => renderBlocks(props.children, serializers),
-              })])
+            : { default: () => renderBlocks(props.children, serializers) },
+          )])
         }
         return h(isOrdered ? 'ol' : 'ul', {}, isVue2
           ? renderBlocks(props.children, serializers)
-          : {
-              default: () => renderBlocks(props.children, serializers),
-            })
+          : { default: () => renderBlocks(props.children, serializers) },
+        )
       }
     },
   })
