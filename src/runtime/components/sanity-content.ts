@@ -109,18 +109,19 @@ function findSerializer (item: Block | undefined, serializers: Required<Serializ
 }
 
 function renderStyle (item: Block, serializers: Required<Serializers>, children?: () => Children) {
-  const { style, listItem } = item
-  const serializer = serializers.styles[style]
+  const serializer = item.style && serializers.styles[item.style]
   const isElement = typeof serializer === 'string'
-  const props = Object.fromEntries(Object.entries(item).filter(([key]) => key !== '_type' && key !== 'markDefs' && key !== 'children').map(([key, value]) => {
-    if (key === '_key')
-      return ['key', value || null]
-    if (!isElement || validAttrs.includes(key))
-      return [key, value]
-    return []
-  }))
+  const props = Object.fromEntries(
+    Object.entries(item)
+      .filter(([key]) => key !== '_type' && key !== 'markDefs' && key !== 'children')
+      .map(([key, value]) => {
+        if (key === '_key') return ['key', value || null]
+        if (!isElement || validAttrs.includes(key)) return [key, value]
+        return []
+      }),
+  )
 
-  if (!listItem && style && serializer) {
+  if (!item.listItem && item.style && serializer) {
     return h(serializer as any, props, isVue2 ? children?.() : { default: children })
   }
 
