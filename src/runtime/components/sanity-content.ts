@@ -107,9 +107,20 @@ function findSerializer (item: Block | undefined, serializers: Required<Serializ
   return item?._type ? serializers.types[item._type] || serializers.marks[item._type] : undefined
 }
 
-function renderStyle ({ style, listItem }: Block, serializers: Required<Serializers>, children?: () => Children) {
-  if (!listItem && style && serializers.styles[style]) {
-    return h(serializers.styles[style] as any, null, isVue2 ? children?.() : { default: children })
+function renderStyle (item: Block, serializers: Required<Serializers>, children?: () => Children) {
+  const { style, listItem } = item
+  const serializer = serializers.styles[style]
+  const isElement = typeof serializer === 'string'
+  const props = Object.fromEntries(Object.entries(item).filter(([key]) => key !== '_type' && key !== 'markDefs').map(([key, value]) => {
+    if (key === '_key')
+      return ['key', value || null]
+    if (!isElement || validAttrs.includes(key))
+      return [key, value]
+    return []
+  }))
+
+  if (!listItem && style && serializer) {
+    return h(serializer as any, props, isVue2 ? children?.() : { default: children })
   }
 
   return children?.()
