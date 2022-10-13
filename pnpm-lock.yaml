@@ -12,7 +12,7 @@ importers:
       '@nuxt/schema': ^3.0.0-rc.11
       '@nuxt/test-utils': ^3.0.0-rc.11
       '@nuxtjs/eslint-config-typescript': ^11.0.0
-      '@portabletext/types': ^1.0.3
+      '@portabletext/types': ^2.0.0
       '@release-it/conventional-changelog': ^5.1.1
       '@sanity/client': ^3.4.1
       '@types/fs-extra': ^9.0.13
@@ -37,7 +37,7 @@ importers:
       vue: ^3.2.40
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
-      '@portabletext/types': 1.0.3
+      '@portabletext/types': 2.0.0
       chalk: 5.1.0
       defu: 6.1.0
       fs-extra: 10.1.0
@@ -479,7 +479,7 @@ packages:
   /@docus/base-edge/3.0.0-b99961f:
     resolution: {integrity: sha512-KZcoG4XgBa7YTkwDRRrDkIL+UTWFqJH+Ax1LwwkT6oAmZTdr3ZskinpRa94UP674FmBb695ojEQlkw1e66YUNg==}
     dependencies:
-      '@nuxt/content': /@nuxt/content-edge/2.1.1-27759708.558add0
+      '@nuxt/content': /@nuxt/content-edge/2.1.1-27761248.4a2937c
       '@nuxthq/admin': /@nuxthq/admin-edge/0.0.1-27627055.9933660
       '@vueuse/core': 8.9.3
       '@vueuse/nuxt': 8.9.3
@@ -775,8 +775,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@nuxt/content-edge/2.1.1-27759708.558add0:
-    resolution: {integrity: sha512-9BQdYUkfWn72NM5ES17Z4ah4z5RJAwRlLm0++PtqqkxDj54+8NFPipClVWda3MY2HoOSx7Pk4f2CQwElJovhYA==}
+  /@nuxt/content-edge/2.1.1-27761248.4a2937c:
+    resolution: {integrity: sha512-D2UNp8qwCnncZ7y5EWUb3T2bbmFyV5pdnQOnZepoAMpuZ9SCDOOrMethgzBo7gcpr0xbbM9hPbd6DNumJwp73A==}
     dependencies:
       '@nuxt/kit': 3.0.0-rc.11
       consola: 2.15.3
@@ -1485,6 +1485,11 @@ packages:
   /@portabletext/types/1.0.3:
     resolution: {integrity: sha512-SDDsdury2SaTI2D5Ea6o+Y39SSZMYHRMWJHxkxYl3yzFP0n/0EknOhoXcoaV+bxGr2dTTqZi2TOEj+uWYuavSw==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
+
+  /@portabletext/types/2.0.0:
+    resolution: {integrity: sha512-AjbCPt9x9U0XFwLuVnIxweBrDAlKKcPJRVkpckjMk77VKEQoYvX2dITf5QtQf1TlLIx8zHJFtMcLmiqDJiGuLg==}
+    engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
     dev: false
 
   /@reach/auto-id/0.13.2_sfoxds7t5ydpegc3knd667wn6m:
