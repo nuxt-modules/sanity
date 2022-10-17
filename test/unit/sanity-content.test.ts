@@ -39,6 +39,9 @@ describe('SanityContent', () => {
                 loader: () => Promise.resolve(CustomBlockComponent),
               }),
             },
+            styles: {
+              customStyle1: CustomBlockComponent,
+            },
           }),
         },
       })

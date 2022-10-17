@@ -8,6 +8,7 @@ export * from './mark-defs'
 export * from './nested-list'
 export * from './nested-list-2'
 export * from './strong'
+export * from './text-with-props'
 
 export const link = {
   _type: 'link',
