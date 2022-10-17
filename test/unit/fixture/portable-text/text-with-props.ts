@@ -48,4 +48,19 @@ export const textWithProps = [
     ],
     style: 'blockquote',
   },
+  {
+    _key: 'e5833f6c5d88',
+    _type: 'block',
+    children: [
+      {
+        _key: '0ea0635ddc510',
+        _type: 'span',
+        marks: [],
+        text: 'What we do',
+      },
+    ],
+    markDefs: [],
+    style: 'h1',
+    delay: 0.5,
+  },
 ]
