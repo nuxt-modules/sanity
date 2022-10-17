@@ -1,5 +1,12 @@
 
 
+### [1.3.2](https://github.com/nuxt-modules/sanity/compare/1.3.1...1.3.2) (2022-10-17)
+
+
+### Bug Fixes
+
+* pass props down to styles ([#522](https://github.com/nuxt-modules/sanity/issues/522)) ([93c48f4](https://github.com/nuxt-modules/sanity/commit/93c48f4f4a15fa1815324a1f1d60276e0ff3762c))
+
 ### [1.3.1](https://github.com/nuxt-modules/sanity/compare/1.3.0...1.3.1) (2022-10-11)
 
 
