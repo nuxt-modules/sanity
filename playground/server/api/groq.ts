@@ -1,1 +1,1 @@
-export default () => groq`hey there!`
+export default defineEventHandler(() => groq`hey there!`)

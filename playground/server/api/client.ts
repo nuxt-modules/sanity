@@ -1,3 +1,1 @@
-export default () => {
-  return useSanity().config
-}
+export default defineEventHandler(() => useSanity().config)
