@@ -23,7 +23,7 @@ importers:
       defu: ^6.1.0
       eslint: ^8.25.0
       fs-extra: ^10.1.0
-      happy-dom: ^7.5.14
+      happy-dom: ^7.6.0
       husky: ^8.0.1
       knitwork: ^0.1.2
       lint-staged: ^13.0.3
@@ -52,18 +52,18 @@ importers:
       '@release-it/conventional-changelog': 5.1.1_release-it@15.5.0
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
-      '@vitest/coverage-c8': 0.24.3_happy-dom@7.5.14
+      '@vitest/coverage-c8': 0.24.3_happy-dom@7.6.0
       '@vue/test-utils': 2.1.0_vue@3.2.41
       c8: 7.12.0
       eslint: 8.25.0
-      happy-dom: 7.5.14
+      happy-dom: 7.6.0
       husky: 8.0.1
       lint-staged: 13.0.3
       nuxi: 3.0.0-rc.12
       nuxt: 3.0.0-rc.12_z4bbprzjrhnsfa24uvmcbu7f5q
       release-it: 15.5.0
       typescript: 4.8.4
-      vitest: 0.24.3_happy-dom@7.5.14
+      vitest: 0.24.3_happy-dom@7.6.0
       vue: 3.2.41
 
   docs:
@@ -474,7 +474,7 @@ packages:
   /@docus/base-edge/3.0.0-b99961f:
     resolution: {integrity: sha512-KZcoG4XgBa7YTkwDRRrDkIL+UTWFqJH+Ax1LwwkT6oAmZTdr3ZskinpRa94UP674FmBb695ojEQlkw1e66YUNg==}
     dependencies:
-      '@nuxt/content': /@nuxt/content-edge/2.2.0-27769557.42fffc9
+      '@nuxt/content': /@nuxt/content-edge/2.2.0-27772772.279721c
       '@nuxthq/admin': /@nuxthq/admin-edge/0.0.1-27627055.9933660
       '@vueuse/core': 8.9.3
       '@vueuse/nuxt': 8.9.3
@@ -756,8 +756,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@nuxt/content-edge/2.2.0-27769557.42fffc9:
-    resolution: {integrity: sha512-c9mynOdbuwTjuwNlxhI4Bwo0AW2QIu09awT6NNIxwgEtHgsTynD3vmNlBlKNGQfE0bKH6Ye+ZLLp6icFKMoqAg==}
+  /@nuxt/content-edge/2.2.0-27772772.279721c:
+    resolution: {integrity: sha512-9lqLJpn9ukG8mWo9/FAI4c+FVtPCgDFFGaerQKBeOxOSTCGI9sZtU+vuG6NfemKlog168jZdbUUMU6MqWXqCBQ==}
     dependencies:
       '@nuxt/kit': 3.0.0-rc.12
       consola: 2.15.3
@@ -780,7 +780,7 @@ packages:
       rehype-sort-attributes: 4.0.0
       remark-emoji: 3.0.2
       remark-gfm: 3.0.1
-      remark-mdc: 1.0.7
+      remark-mdc: 1.0.8
       remark-parse: 10.0.1
       remark-rehype: 10.1.0
       remark-squeeze-paragraphs: 5.0.1
@@ -886,7 +886,7 @@ packages:
       consola: 2.15.3
       create-require: 1.1.1
       defu: 6.1.0
-      destr: 1.1.1
+      destr: 1.2.0
       dotenv: 16.0.3
       fs-extra: 10.1.0
       git-url-parse: 13.1.0
@@ -2430,11 +2430,11 @@ packages:
       vite: 3.1.8
       vue: 3.2.41
 
-  /@vitest/coverage-c8/0.24.3_happy-dom@7.5.14:
+  /@vitest/coverage-c8/0.24.3_happy-dom@7.6.0:
     resolution: {integrity: sha512-tAmMyHxWYnAwGeJb7QgTuEX8aLasTg4X1/6INobXa/7wYGEJ28CACFO5iLn1HzFVPoLvhsS3luQjiflGjjSMRQ==}
     dependencies:
       c8: 7.12.0
-      vitest: 0.24.3_happy-dom@7.5.14
+      vitest: 0.24.3_happy-dom@7.6.0
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@vitest/browser'
@@ -6118,8 +6118,8 @@ packages:
       uglify-js: 3.17.3
     dev: true
 
-  /happy-dom/7.5.14:
-    resolution: {integrity: sha512-/MXcRnAQSgahOGBQOXr77hJrEpzwEAh9F7P6o7COlUp4o1QwLD/7qQPb55Po3MDeMYQfsEnXfQPT2YXAbKmn2Q==}
+  /happy-dom/7.6.0:
+    resolution: {integrity: sha512-QnNsiblZdyVDzW5ts6E7ub79JnabqHJeJgt+1WGNq9fSYqS/r/RzzTVXCZSDl6EVkipdwI48B4bgXAnMZPecIw==}
     dependencies:
       css.escape: 1.5.1
       he: 1.2.0
@@ -10207,8 +10207,8 @@ packages:
       unist-util-visit: 4.1.1
     dev: true
 
-  /remark-mdc/1.0.7:
-    resolution: {integrity: sha512-qKIvlYQz7mCZlzAf30sgLfZAxw9mQfVq4CoL1K3X4DK5V/ABYyFc6i4S3gbZjQJTv+DF1OMNJ0Zct+yGdGI0Xw==}
+  /remark-mdc/1.0.8:
+    resolution: {integrity: sha512-pg2KtOem9cZd0PHyPvlamDdk+eXeKAOGq5UzPIa0I7Mqi74lqqprAksjgtrKQpEaDULiLh6Yh48HPcAxdeL5Uw==}
     dependencies:
       flat: 5.0.2
       js-yaml: 4.1.0
@@ -12129,7 +12129,7 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vitest/0.24.3_happy-dom@7.5.14:
+  /vitest/0.24.3_happy-dom@7.6.0:
     resolution: {integrity: sha512-aM0auuPPgMSstWvr851hB74g/LKaKBzSxcG3da7ejfZbx08Y21JpZmbmDYrMTCGhVZKqTGwzcnLMwyfz2WzkhQ==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -12156,7 +12156,7 @@ packages:
       '@types/node': 18.7.6
       chai: 4.3.6
       debug: 4.3.4
-      happy-dom: 7.5.14
+      happy-dom: 7.6.0
       local-pkg: 0.4.2
       strip-literal: 0.4.2
       tinybench: 2.3.0
