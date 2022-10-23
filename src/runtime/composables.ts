@@ -1,5 +1,6 @@
 import { defu } from 'defu'
 import { objectHash } from 'ohash'
+import { reactive } from 'vue'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { SanityClient, SanityConfiguration } from './client'
@@ -55,14 +56,24 @@ interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
 }
 
-export const useSanityQuery = <T = unknown> (query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
+export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
-  return useAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
+  const params = _params ? reactive(_params) : undefined
+  if (params) {
+    options.watch = options.watch || []
+    options.watch.push(params)
+  }
+  return useAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options) as AsyncData<T, E | null | true>
 }
 
-export const useLazySanityQuery = <T = unknown> (query: string, params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}): AsyncData<T, Error | null | true> => {
+export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
   const { client, ..._options } = options
   const sanity = useSanity(client)
-  return useLazyAsyncData<T>('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options)
+  const params = _params ? reactive(_params) : undefined
+  if (params) {
+    options.watch = options.watch || []
+    options.watch.push(params)
+  }
+  return useLazyAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options) as AsyncData<T, E | null | true>
 }
