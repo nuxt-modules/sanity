@@ -56,24 +56,24 @@ interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
 }
 
-export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
-  const { client, ..._options } = options
+export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}) => {
+  const { client, ...options } = _options
   const sanity = useSanity(client)
   const params = _params ? reactive(_params) : undefined
   if (params) {
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options) as AsyncData<T, E | null | true>
+  return useAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
 }
 
-export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, options: UseSanityQueryOptions<T> = {}) => {
-  const { client, ..._options } = options
+export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}) => {
+  const { client, ...options } = _options
   const sanity = useSanity(client)
   const params = _params ? reactive(_params) : undefined
   if (params) {
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useLazyAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), _options) as AsyncData<T, E | null | true>
+  return useLazyAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
 }
