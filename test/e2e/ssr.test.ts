@@ -9,6 +9,9 @@ describe('module with default options', async () => {
     server: true,
     rootDir: fileURLToPath(new URL('../../playground', import.meta.url)),
     nuxtConfig: {
+      imports: {
+        autoImport: true,
+      },
       sanity: {
         projectId: 'j1o4tmjp',
       },

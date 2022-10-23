@@ -40,8 +40,9 @@
     "build": "nuxt-module-build",
     "lint": "eslint --fix --ext .js,.ts,.vue .",
     "prepublishOnly": "pnpm test",
-    "test": "pnpm lint && pnpm test:unit",
-    "test:unit": "vitest run test/unit/*.test.*"
+    "test": "pnpm lint && pnpm vitest run",
+    "test:unit": "vitest run test/unit/*.test.*",
+    "test:e2e": "vitest run test/e2e/*.test.*"
   },
   "dependencies": {
     "@nuxt/kit": "3.0.0-rc.12",
