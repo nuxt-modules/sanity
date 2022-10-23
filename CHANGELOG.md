@@ -1,5 +1,12 @@
 
 
+## [1.4.0](https://github.com/nuxt-modules/sanity/compare/1.3.2...1.4.0) (2022-10-23)
+
+
+### Features
+
+* support reactive params in `useSanityQuery` ([df85d36](https://github.com/nuxt-modules/sanity/commit/df85d36b0497d847b235b76495b1b6d72eb1216b)), closes [#530](https://github.com/nuxt-modules/sanity/issues/530)
+
 ### [1.3.2](https://github.com/nuxt-modules/sanity/compare/1.3.1...1.3.2) (2022-10-17)
 
 
