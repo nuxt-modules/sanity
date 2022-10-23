@@ -1,5 +1,12 @@
 
 
+### [1.4.1](https://github.com/nuxt-modules/sanity/compare/1.4.0...1.4.1) (2022-10-23)
+
+
+### Bug Fixes
+
+* set watch options correctly ([b3fbdbd](https://github.com/nuxt-modules/sanity/commit/b3fbdbdb854573d580a7b2536ea414182fe3014d))
+
 ## [1.4.0](https://github.com/nuxt-modules/sanity/compare/1.3.2...1.4.0) (2022-10-23)
 
 
