@@ -1,39 +1,17 @@
-import { defineNuxtConfig } from 'nuxt'
-
 export default defineNuxtConfig({
-  extends: ['@docus/docs-theme'],
-  github: {
-    owner: 'nuxt-community',
-    repo: 'sanity-module',
-    branch: 'main',
+  extends: '@nuxt-themes/docus',
+  build: {
+    transpile: [/-edge/, /@nuxt-themes/],
   },
-  theme: {},
-  modules: ['@nuxthq/admin', '@docus/github', 'vue-plausible'],
+  runtimeConfig: {
+    public: {},
+  },
+  imports: {
+    autoImport: true,
+  },
+  modules: ['nuxt-plausible'],
   plausible: {
     domain: 'sanity.nuxtjs.org',
-  },
-  tailwindcss: {
-    config: {
-      important: true,
-      theme: {
-        extend: {
-          colors: {
-            primary: {
-              50: '#FFF3F3',
-              100: '#FFE8E6',
-              200: '#FEC5C1',
-              300: '#FDA29C',
-              400: '#FC5C51',
-              500: '#FA1607',
-              600: '#E11406',
-              700: '#960D04',
-              800: '#710A03',
-              900: '#4B0702',
-            },
-          },
-        },
-      },
-    },
   },
   colorMode: {
     preference: 'dark',
