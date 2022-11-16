@@ -1,11 +1,5 @@
 export default defineNuxtConfig({
   extends: '@nuxt-themes/docus',
-  build: {
-    transpile: [/-edge/, /@nuxt-themes/],
-  },
-  runtimeConfig: {
-    public: {},
-  },
   imports: {
     autoImport: true,
   },
