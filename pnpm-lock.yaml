@@ -24,7 +24,7 @@ importers:
       defu: ^6.1.1
       eslint: 8.28.0
       fs-extra: ^10.1.0
-      happy-dom: 7.7.0
+      happy-dom: 7.7.2
       husky: 8.0.2
       knitwork: ^1.0.0
       lint-staged: 13.0.4
@@ -53,18 +53,18 @@ importers:
       '@release-it/conventional-changelog': 5.1.1_release-it@15.5.0
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
-      '@vitest/coverage-c8': 0.25.3_happy-dom@7.7.0
+      '@vitest/coverage-c8': 0.25.3_happy-dom@7.7.2
       '@vue/test-utils': 2.2.5_vue@3.2.45
       c8: 7.12.0
       eslint: 8.28.0
-      happy-dom: 7.7.0
+      happy-dom: 7.7.2
       husky: 8.0.2
       lint-staged: 13.0.4
       nuxi: 3.0.0
       nuxt: 3.0.0_hsf322ms6xhhd4b5ne6lb74y4a
       release-it: 15.5.0
       typescript: 4.9.3
-      vitest: 0.25.3_happy-dom@7.7.0
+      vitest: 0.25.3_happy-dom@7.7.2
       vue: 3.2.45
 
   docs:
@@ -1023,7 +1023,7 @@ packages:
       '@docsearch/js': 3.3.0
       '@fontsource/inter': 4.5.14
       '@iconify/vue': 4.0.0
-      '@nuxt/content': /@nuxt/content-edge/2.2.2-27832887.005741a
+      '@nuxt/content': /@nuxt/content-edge/2.2.2-27833120.4c37658
       '@nuxtjs/algolia': 1.1.4
       '@nuxtjs/color-mode': 3.1.8
       '@nuxtjs/tailwindcss': 6.1.3
@@ -1034,7 +1034,7 @@ packages:
       '@vueuse/core': 9.5.0
       '@vueuse/nuxt': 9.4.0_nuxt@3.0.0
       pinceau: 0.8.3
-      socket.io-client: 4.5.3
+      socket.io-client: 4.5.4
       vue-plausible: 1.3.2
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -1058,8 +1058,8 @@ packages:
       - webpack
     dev: true
 
-  /@nuxt/content-edge/2.2.2-27832887.005741a:
-    resolution: {integrity: sha512-bttWqS+vbfTW6/YPJRBg31U4v7fRXJoaTaIy56ZyOhO2RvVWph5UggqQ2fwbtRzKECOdVfN+r1aV/qPGeDXyvA==}
+  /@nuxt/content-edge/2.2.2-27833120.4c37658:
+    resolution: {integrity: sha512-wa4/Cc7zgfrtPh17q1J+863kamRDn1IjTQ0imC/bZEKSLY4RKP+dKyIw8zFTU4yLkOaUj+vorpvm2yxOsXbyqg==}
     dependencies:
       '@nuxt/kit': 3.0.0
       consola: 2.15.3
@@ -1468,7 +1468,7 @@ packages:
       defu: 6.1.1
       h3: 0.8.6
       postcss: 8.4.19
-      postcss-custom-properties: 12.1.10_postcss@8.4.19
+      postcss-custom-properties: 12.1.11_postcss@8.4.19
       postcss-nesting: 10.2.0_postcss@8.4.19
       tailwind-config-viewer: 1.7.2_tailwindcss@3.2.2
       tailwindcss: 3.2.2
@@ -2834,11 +2834,11 @@ packages:
       vite: 3.2.4
       vue: 3.2.45
 
-  /@vitest/coverage-c8/0.25.3_happy-dom@7.7.0:
+  /@vitest/coverage-c8/0.25.3_happy-dom@7.7.2:
     resolution: {integrity: sha512-+tmrB3E7pZTSM+aWKzLk0FpyyaQOoRQf0594hHp+E3Kk0tiFONiEFYf7+9a1Z+C2ffU/0w6KvyBjpNPdashMrg==}
     dependencies:
       c8: 7.12.0
-      vitest: 0.25.3_happy-dom@7.7.0
+      vitest: 0.25.3_happy-dom@7.7.2
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@vitest/browser'
@@ -6695,8 +6695,8 @@ packages:
       uglify-js: 3.17.4
     dev: true
 
-  /happy-dom/7.7.0:
-    resolution: {integrity: sha512-U10JXl5qSaHswXT5kyE7lvSDoyK48GyPGpe74qI9KT29frt1AlS+jnwy77RUJIknx+4b52DK1NllXTgHH8k20w==}
+  /happy-dom/7.7.2:
+    resolution: {integrity: sha512-xJhDLvS7jCie2sgU00HzyNFfdRSUOxm/ndE1gT++aNDo4ffXtn6/WI/Vf3IooDEC770AQ3J8fJvnakPZFEsLpg==}
     dependencies:
       css.escape: 1.5.1
       he: 1.2.0
@@ -9935,22 +9935,22 @@ packages:
       postcss: 8.4.19
       postcss-value-parser: 4.2.0
 
-  /postcss-custom-properties/12.1.10_postcss@8.4.19:
-    resolution: {integrity: sha512-U3BHdgrYhCrwTVcByFHs9EOBoqcKq4Lf3kXwbTi4hhq0qWhl/pDWq2THbv/ICX/Fl9KqeHBb8OVrTf2OaYF07A==}
-    engines: {node: ^12 || ^14 || >=16}
-    peerDependencies:
-      postcss: ^8.2
-    dependencies:
-      postcss: 8.4.19
-      postcss-value-parser: 4.2.0
-    dev: true
-
   /postcss-custom-properties/12.1.11:
     resolution: {integrity: sha512-0IDJYhgU8xDv1KY6+VgUwuQkVtmYzRwu+dMjnmdMafXYv86SWqfxkc7qdDvWS38vsjaEtv8e0vGOUQrAiMBLpQ==}
     engines: {node: ^12 || ^14 || >=16}
     peerDependencies:
       postcss: ^8.2
     dependencies:
+      postcss-value-parser: 4.2.0
+    dev: true
+
+  /postcss-custom-properties/12.1.11_postcss@8.4.19:
+    resolution: {integrity: sha512-0IDJYhgU8xDv1KY6+VgUwuQkVtmYzRwu+dMjnmdMafXYv86SWqfxkc7qdDvWS38vsjaEtv8e0vGOUQrAiMBLpQ==}
+    engines: {node: ^12 || ^14 || >=16}
+    peerDependencies:
+      postcss: ^8.2
+    dependencies:
+      postcss: 8.4.19
       postcss-value-parser: 4.2.0
     dev: true
 
@@ -11612,20 +11612,6 @@ packages:
       tslib: 2.4.0
     dev: true
 
-  /socket.io-client/4.5.3:
-    resolution: {integrity: sha512-I/hqDYpQ6JKwtJOf5ikM+Qz+YujZPMEl6qBLhxiP0nX+TfXKhW4KZZG8lamrD6Y5ngjmYHreESVasVCgi5Kl3A==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@socket.io/component-emitter': 3.1.0
-      debug: 4.3.4
-      engine.io-client: 6.2.3
-      socket.io-parser: 4.2.1
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: true
-
   /socket.io-client/4.5.4:
     resolution: {integrity: sha512-ZpKteoA06RzkD32IbqILZ+Cnst4xewU7ZYK12aS1mzHftFFjpoMz69IuhP/nL25pJfao/amoPI527KnuhFm01g==}
     engines: {node: '>=10.0.0'}
@@ -13019,7 +13005,7 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.25.3_happy-dom@7.7.0:
+  /vitest/0.25.3_happy-dom@7.7.2:
     resolution: {integrity: sha512-/UzHfXIKsELZhL7OaM2xFlRF8HRZgAHtPctacvNK8H4vOcbJJAMEgbWNGSAK7Y9b1NBe5SeM7VTuz2RsTHFJJA==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
@@ -13048,7 +13034,7 @@ packages:
       acorn-walk: 8.2.0
       chai: 4.3.6
       debug: 4.3.4
-      happy-dom: 7.7.0
+      happy-dom: 7.7.2
       local-pkg: 0.4.2
       source-map: 0.6.1
       strip-literal: 0.4.2
