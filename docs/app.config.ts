@@ -6,7 +6,7 @@ export default defineAppConfig({
     description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.',
     socials: { twitter: 'nuxt_js', github: 'nuxt-modules/sanity' },
     debug: false,
-    github: { root: 'docs/content', edit: true, releases: true },
+    // github: { root: 'docs/content', edit: true, releases: true },
     cover: { src: '/cover.jpg', alt: 'A screenshot of the Nuxt Sanity module.' },
     header: { title: false, logo: true },
     footer: {
