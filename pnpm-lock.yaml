@@ -17,7 +17,7 @@ importers:
       '@release-it/conventional-changelog': 5.1.1
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
-      '@vitest/coverage-c8': 0.25.3
+      '@vitest/coverage-c8': 0.25.7
       '@vue/test-utils': 2.2.6
       c8: 7.12.0
       chalk: ^5.1.2
@@ -34,7 +34,7 @@ importers:
       pathe: ^1.0.0
       release-it: 15.5.1
       typescript: 4.9.4
-      vitest: 0.25.3
+      vitest: 0.25.7
       vue: 3.2.45
     dependencies:
       '@nuxt/kit': 3.0.0
@@ -53,7 +53,7 @@ importers:
       '@release-it/conventional-changelog': 5.1.1_release-it@15.5.1
       '@sanity/client': 3.4.1
       '@types/fs-extra': 9.0.13
-      '@vitest/coverage-c8': 0.25.3_happy-dom@8.1.0
+      '@vitest/coverage-c8': 0.25.7_happy-dom@8.1.0
       '@vue/test-utils': 2.2.6_vue@3.2.45
       c8: 7.12.0
       eslint: 8.29.0
@@ -64,7 +64,7 @@ importers:
       nuxt: 3.0.0_ha6vam6werchizxrnqvarmz2zu
       release-it: 15.5.1
       typescript: 4.9.4
-      vitest: 0.25.3_happy-dom@8.1.0
+      vitest: 0.25.7_happy-dom@8.1.0
       vue: 3.2.45
 
   docs:
@@ -2882,11 +2882,11 @@ packages:
       vite: 3.2.4
       vue: 3.2.45
 
-  /@vitest/coverage-c8/0.25.3_happy-dom@8.1.0:
-    resolution: {integrity: sha512-+tmrB3E7pZTSM+aWKzLk0FpyyaQOoRQf0594hHp+E3Kk0tiFONiEFYf7+9a1Z+C2ffU/0w6KvyBjpNPdashMrg==}
+  /@vitest/coverage-c8/0.25.7_happy-dom@8.1.0:
+    resolution: {integrity: sha512-TEoYjW4YIDXKCMmLqduIGpIq2JmlhE3M0Q68apjNM0ljrJyEvYpaDI5b7OyfXbAJjhmZvIlfEZfZnmhbExHLHg==}
     dependencies:
       c8: 7.12.0
-      vitest: 0.25.3_happy-dom@8.1.0
+      vitest: 0.25.7_happy-dom@8.1.0
     transitivePeerDependencies:
       - '@edge-runtime/vm'
       - '@vitest/browser'
@@ -11543,12 +11543,6 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
-  /strip-literal/0.4.2:
-    resolution: {integrity: sha512-pv48ybn4iE1O9RLgCAN0iU4Xv7RlBTiit6DKmMiErbs9x1wH6vXBs45tWc0H5wUIF6TLTrKweqkmYF/iraQKNw==}
-    dependencies:
-      acorn: 8.8.1
-    dev: true
-
   /strip-literal/1.0.0:
     resolution: {integrity: sha512-5o4LsH1lzBzO9UFH63AJ2ad2/S2AVx6NtjOcaz+VTT2h1RiRvbipW72z8M/lxEhcPHDBQwpDrnTF7sXy/7OwCQ==}
     dependencies:
@@ -12619,8 +12613,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vitest/0.25.3_happy-dom@8.1.0:
-    resolution: {integrity: sha512-/UzHfXIKsELZhL7OaM2xFlRF8HRZgAHtPctacvNK8H4vOcbJJAMEgbWNGSAK7Y9b1NBe5SeM7VTuz2RsTHFJJA==}
+  /vitest/0.25.7_happy-dom@8.1.0:
+    resolution: {integrity: sha512-lJ+Ue+v8kHl2JzjaKHJ9u5Yo/loU7zrWK2/Whn8OKQjtq5G7nkeWfXuq3elZaC8xKdkdIuWiiIicaNBG1F5yzg==}
     engines: {node: '>=v14.16.0'}
     hasBin: true
     peerDependencies:
@@ -12651,7 +12645,7 @@ packages:
       happy-dom: 8.1.0
       local-pkg: 0.4.2
       source-map: 0.6.1
-      strip-literal: 0.4.2
+      strip-literal: 1.0.0
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
