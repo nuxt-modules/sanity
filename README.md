@@ -4,9 +4,9 @@
 
 [![npm version][npm-version-src]][npm-version-href]
 [![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![Github Actions CI][github-actions-ci-src]][github-actions-ci-href]
 [![Codecov][codecov-src]][codecov-href]
 [![License][license-src]][license-href]
+[![Volta][volta-src]][volta-href]
 
 > [Sanity](https://sanity.io/) integration for [Nuxt](https://nuxtjs.org)
 
@@ -58,14 +58,13 @@ yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
 [MIT License](./LICENSE)
 
 <!-- Badges -->
-
-[npm-version-src]: https://img.shields.io/npm/v/@nuxtjs/sanity/latest.svg
+[npm-version-src]: https://img.shields.io/npm/v/@nuxtjs/sanity/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
 [npm-version-href]: https://npmjs.com/package/@nuxtjs/sanity
-[npm-downloads-src]: https://img.shields.io/npm/dm/@nuxtjs/sanity.svg
+[npm-downloads-src]: https://img.shields.io/npm/dm/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [npm-downloads-href]: https://npmjs.com/package/@nuxtjs/sanity
-[github-actions-ci-src]: https://github.com/nuxt-modules/sanity/workflows/ci/badge.svg
-[github-actions-ci-href]: https://github.com/nuxt-modules/sanity/actions?query=workflow%3Aci
-[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/sanity.svg
+[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [codecov-href]: https://codecov.io/gh/nuxt-modules/sanity
-[license-src]: https://img.shields.io/npm/l/@nuxtjs/sanity.svg
+[license-src]: https://img.shields.io/npm/l/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [license-href]: https://npmjs.com/package/@nuxtjs/sanity
+[volta-src]: https://user-images.githubusercontent.com/904724/209143798-32345f6c-3cf8-4e06-9659-f4ace4a6acde.svg
+[volta-href]: https://volta.net/nuxt-modules/sanity?utm_source=readme_nuxt_sanity
