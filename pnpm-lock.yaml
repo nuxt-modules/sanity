@@ -69,11 +69,11 @@ importers:
 
   docs:
     specifiers:
-      '@nuxt-themes/docus': 1.4.4
+      '@nuxt-themes/docus': 1.4.5
       nuxt: 3.0.0
       nuxt-plausible: latest
     devDependencies:
-      '@nuxt-themes/docus': 1.4.4_nuxt@3.0.0
+      '@nuxt-themes/docus': 1.4.5_nuxt@3.0.0
       nuxt: 3.0.0
       nuxt-plausible: 0.1.2
 
@@ -149,14 +149,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@babel/generator/7.20.5:
-    resolution: {integrity: sha512-jl7JY2Ykn9S0yj4DQP82sYvPU+T3g0HFcWTqDLqiuA9tGRNIj9VfbtXGAYTTkyNEnQk1jkMGOdYka8aG/lulCA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/types': 7.20.5
-      '@jridgewell/gen-mapping': 0.3.2
-      jsesc: 2.5.2
-
   /@babel/generator/7.20.7:
     resolution: {integrity: sha512-7wqMOJq8doJMZmP4ApXTzLxSr7+oO2jroJURrVEp6XShrQUObV8Tq/D0NCcoYg2uHqUrjzO0zwBjoYzelxK+sw==}
     engines: {node: '>=6.9.0'}
@@ -209,14 +201,14 @@ packages:
     resolution: {integrity: sha512-WAwHBINyrpqywkUH0nTnNgI5ina5TFn85HKS0pbPDfxFfhyR/aNQEn4hGi1P1JyT//I0t4OgXUlofzWILRvS5w==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/template': 7.18.10
-      '@babel/types': 7.20.5
+      '@babel/template': 7.20.7
+      '@babel/types': 7.20.7
 
   /@babel/helper-hoist-variables/7.18.6:
     resolution: {integrity: sha512-UlJQPkFqFULIcyW5sbzgbkxn2FKRgwWiRexcuaR8RNJRy8+LLveqPjwZV/bwrLZCN0eUHD/x8D0heK1ozuoo6Q==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.20.5
+      '@babel/types': 7.20.7
 
   /@babel/helper-member-expression-to-functions/7.18.9:
     resolution: {integrity: sha512-RxifAh2ZoVU67PyKIO4AMi1wTenGfMR/O/ae0CCRqwgBAt5v7xjdtRw7UoSbsreKrQn5t7r89eruK/9JjYHuDg==}
@@ -228,7 +220,7 @@ packages:
     resolution: {integrity: sha512-0NFvs3VkuSYbFi1x2Vd6tKrywq+z/cLeYC/RJNFrIX/30Bf5aiGYbtvGXolEktzJH8o5E5KJ3tT+nkxuuZFVlA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.20.5
+      '@babel/types': 7.20.7
 
   /@babel/helper-module-transforms/7.20.11:
     resolution: {integrity: sha512-uRy78kN4psmji1s2QtbtcCSaj/LILFDp0f/ymhpQH5QY3nljUZCaNWz9X1dEj/8MBdBEFECs7yRhKn8i7NjZgg==}
@@ -277,7 +269,7 @@ packages:
     resolution: {integrity: sha512-bde1etTx6ZyTmobl9LLMMQsaizFVZrquTEHOqKeQESMKo4PlObf+8+JA25ZsIpZhT/WEd39+vOdLXAFG/nELpA==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/types': 7.20.5
+      '@babel/types': 7.20.7
 
   /@babel/helper-string-parser/7.19.4:
     resolution: {integrity: sha512-nHtDoQcuqFmwYNYPz3Rah5ph2p8PFeFCsZk9A/48dPc/rGocJ5J3hAAZ7pb76VWX3fZKu+uEr/FhH5jLx7umrw==}
@@ -408,14 +400,6 @@ packages:
     resolution: {integrity: sha512-hK/X+m1il3w1tYS4H8LDaGCEdiT47SVqEXY8RiEAgou26BystipSU8ZL6EvBR6t5l7lTv0ilBiChXWblKJ5iUA==}
     engines: {node: '>=6.9.0'}
 
-  /@babel/template/7.18.10:
-    resolution: {integrity: sha512-TI+rCtooWHr3QJ27kJxfjutghu44DLnasDMwpDqCXVTal9RLp3RSYNh4NdBrRP2cQAoG9A8juOQl6P6oZG4JxA==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/code-frame': 7.18.6
-      '@babel/parser': 7.20.5
-      '@babel/types': 7.20.5
-
   /@babel/template/7.20.7:
     resolution: {integrity: sha512-8SegXApWe6VoNw0r9JHpSteLKTpTiLZ4rMlGIm9JQ18KiCtyQiAMEazujAHrUS5flrcqYZa75ukev3P6QmUwUw==}
     engines: {node: '>=6.9.0'}
@@ -429,13 +413,13 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@babel/code-frame': 7.18.6
-      '@babel/generator': 7.20.5
+      '@babel/generator': 7.20.7
       '@babel/helper-environment-visitor': 7.18.9
       '@babel/helper-function-name': 7.19.0
       '@babel/helper-hoist-variables': 7.18.6
       '@babel/helper-split-export-declaration': 7.18.6
-      '@babel/parser': 7.20.5
-      '@babel/types': 7.20.5
+      '@babel/parser': 7.20.7
+      '@babel/types': 7.20.7
       debug: 4.3.4_supports-color@5.5.0
       globals: 11.12.0
     transitivePeerDependencies:
@@ -914,8 +898,8 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@nuxt-themes/docus/1.4.4_nuxt@3.0.0:
-    resolution: {integrity: sha512-hVbFWD/2qotFVBQtau2eeR2g74k9lLdKZBU+voB2GTo6TbtC1SfVEUlh/KeSbR3DqvfIO1pNQnSTJFGvc4vMdg==}
+  /@nuxt-themes/docus/1.4.5_nuxt@3.0.0:
+    resolution: {integrity: sha512-qievU7VeETu6CvwYQ7wDRLbNblNugghGesWKz/NXWhtxjxShJlUr1cp6SOtK0/RRMRX5HYE/hDKSz6yqMcR6Ew==}
     dependencies:
       '@nuxt-themes/elements': 0.4.4
       '@nuxt-themes/tokens': 1.5.3
@@ -5971,6 +5955,18 @@ packages:
         optional: true
     dependencies:
       debug: 2.6.9
+    dev: false
+
+  /follow-redirects/1.15.2_debug@4.3.4:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+    dependencies:
+      debug: 4.3.4
 
   /for-each/0.3.3:
     resolution: {integrity: sha512-jqYfLp7mo9vIyQf8ykW2v7A+2N4QjeCeI5+Dz9XraiO1ign81wjiH7Fb9vSOWvQfNtmSa4H2RoQTrrXivdUZmw==}
@@ -6212,7 +6208,7 @@ packages:
       create-error-class: 3.0.2
       debug: 2.6.9
       decompress-response: 6.0.0
-      follow-redirects: 1.15.2_debug@2.6.9
+      follow-redirects: 1.15.2_debug@4.3.4
       form-urlencoded: 2.0.9
       into-stream: 3.1.0
       is-plain-object: 2.0.4
@@ -6238,7 +6234,7 @@ packages:
       create-error-class: 3.0.2
       debug: 4.3.4
       decompress-response: 6.0.0
-      follow-redirects: 1.15.2_debug@2.6.9
+      follow-redirects: 1.15.2_debug@4.3.4
       form-urlencoded: 2.0.9
       into-stream: 3.1.0
       is-plain-object: 5.0.0
@@ -6845,7 +6841,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2_debug@2.6.9
+      follow-redirects: 1.15.2_debug@4.3.4
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
