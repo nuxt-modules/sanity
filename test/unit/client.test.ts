@@ -3,7 +3,7 @@ import { $fetch } from 'ofetch'
 import { getQuery, createClient } from '../../src/runtime/client'
 import { request as largeRequest } from './fixture/large-request.json'
 
-vi.mock('ohmyfetch', () => ({
+vi.mock('ofetch', () => ({
   $fetch: vi.fn(() =>
     Promise.resolve({ result: [1, 2] }),
   ),
