@@ -1,5 +1,5 @@
 import { afterEach, describe, it, vi, expect } from 'vitest'
-import { $fetch } from 'ohmyfetch'
+import { $fetch } from 'ofetch'
 import { getQuery, createClient } from '../../src/runtime/client'
 import { request as largeRequest } from './fixture/large-request.json'
 

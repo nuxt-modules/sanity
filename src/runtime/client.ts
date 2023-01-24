@@ -1,4 +1,4 @@
-import { $fetch } from 'ohmyfetch'
+import { $fetch } from 'ofetch'
 
 /**
  * Adapted from https://github.com/rexxars/picosanity
