@@ -1,5 +1,17 @@
 
 
+## [1.6.0](https://github.com/nuxt-modules/sanity/compare/1.5.0...1.6.0) (2023-01-24)
+
+
+### Features
+
+* **docs:** upgrade to latest Docus ([#590](https://github.com/nuxt-modules/sanity/issues/590)) ([798b0f8](https://github.com/nuxt-modules/sanity/commit/798b0f83a4f46afb386b6998f7e20fddea2a1122))
+
+
+### Bug Fixes
+
+* declare `ofetch` dependency ([6edba44](https://github.com/nuxt-modules/sanity/commit/6edba44d60b4d94b6ea8266de658b2e64d2269f9))
+
 ## [1.5.0](https://github.com/nuxt-modules/sanity/compare/1.4.1...1.5.0) (2022-11-16)
 
 ### [1.4.1](https://github.com/nuxt-modules/sanity/compare/1.4.0...1.4.1) (2022-10-23)
