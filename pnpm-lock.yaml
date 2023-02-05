@@ -18,7 +18,7 @@ importers:
       '@sanity/client': 4.0.1
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.4
-      '@vue/test-utils': 2.2.8
+      '@vue/test-utils': 2.2.10
       c8: 7.12.0
       chalk: ^5.2.0
       defu: ^6.1.2
@@ -56,7 +56,7 @@ importers:
       '@sanity/client': 4.0.1
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.4_happy-dom@8.2.6
-      '@vue/test-utils': 2.2.8_vue@3.2.45
+      '@vue/test-utils': 2.2.10_vue@3.2.45
       c8: 7.12.0
       eslint: 8.33.0
       happy-dom: 8.2.6
@@ -2998,14 +2998,15 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vue/test-utils/2.2.8_vue@3.2.45:
-    resolution: {integrity: sha512-/R8DKzp41Ip/RqTt1jvOVi5gxby3EwNWiYHNYsG9FAjEvt0gzDvYN55lCKzX7IdnI5zVIOo5tHtts0SLT+JrWw==}
+  /@vue/test-utils/2.2.10_vue@3.2.45:
+    resolution: {integrity: sha512-UPY+VdWST5vYZ/Qhl+sLuJAv596e6kTbrOPgdGY82qd9kGN/MfjzLT5KXlmpChkiCbPP3abZ8XT25u1n5h+mRg==}
     peerDependencies:
-      '@vue/compiler-dom': ^3.0.1
       vue: ^3.0.1
     dependencies:
       js-beautify: 1.14.6
       vue: 3.2.45
+    optionalDependencies:
+      '@vue/compiler-dom': 3.2.45
     dev: true
 
   /@vueuse/core/9.12.0:
