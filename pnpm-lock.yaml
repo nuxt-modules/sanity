@@ -15,7 +15,7 @@ importers:
       '@nuxtjs/eslint-config-typescript': 12.0.0
       '@portabletext/types': ^2.0.0
       '@release-it/conventional-changelog': 5.1.1
-      '@sanity/client': 5.2.1
+      '@sanity/client': 5.2.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.5
       '@vue/test-utils': 2.2.10
@@ -53,7 +53,7 @@ importers:
       '@nuxt/test-utils': 3.1.1_vue@3.2.45
       '@nuxtjs/eslint-config-typescript': 12.0.0_7kw3g6rralp5ps6mg3uyzz6azm
       '@release-it/conventional-changelog': 5.1.1_release-it@15.6.0
-      '@sanity/client': 5.2.1
+      '@sanity/client': 5.2.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.5_happy-dom@8.6.0
       '@vue/test-utils': 2.2.10_vue@3.2.45
@@ -2072,6 +2072,17 @@ packages:
       rxjs: 7.8.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client/5.2.2:
+    resolution: {integrity: sha512-AhOLSIZI0IO6/vDYYQekhAokqiAmDW2bVvNx3xW8T2hpJLRKHsw98Y+iOcX4dnH6y1Y7IO6upgb76D35xa2Szg==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 4.0.0
+      get-it: 8.0.9
+      rxjs: 7.8.0
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color/2.2.2:
     resolution: {integrity: sha512-ksIqx1pCH5HTfLTykj1HT1P2wfgYxwyoOnBRssJYLV0YZe3YP+WWe483JKTDPfOVM4qyz/lUZ3If3L7x/BNyew==}
@@ -2240,7 +2251,7 @@ packages:
   /@sanity/types/3.4.0:
     resolution: {integrity: sha512-d3vul0wZqVYHmqqtVYDgcUDe4tUdFGnronpM17652wWDk1HuQjskq94Gv49rGDuXi2k41ZlmvW7Y9HDJDu3n2Q==}
     dependencies:
-      '@sanity/client': 5.2.1
+      '@sanity/client': 5.2.2
       '@types/react': 18.0.28
     transitivePeerDependencies:
       - supports-color
@@ -5568,15 +5579,6 @@ packages:
       tslib: 2.4.1
     dev: false
 
-  /follow-redirects/1.15.2:
-    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
-    engines: {node: '>=4.0'}
-    peerDependencies:
-      debug: '*'
-    peerDependenciesMeta:
-      debug:
-        optional: true
-
   /follow-redirects/1.15.2_debug@4.3.4:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -6397,7 +6399,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2
+      follow-redirects: 1.15.2_debug@4.3.4
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
