@@ -18,7 +18,7 @@ importers:
       '@sanity/client': 5.2.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.5
-      '@vue/test-utils': 2.2.10
+      '@vue/test-utils': 2.3.0
       c8: 7.13.0
       chalk: ^5.2.0
       defu: ^6.1.2
@@ -56,7 +56,7 @@ importers:
       '@sanity/client': 5.2.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.28.5_happy-dom@8.6.0
-      '@vue/test-utils': 2.2.10_vue@3.2.45
+      '@vue/test-utils': 2.3.0_vue@3.2.45
       c8: 7.13.0
       eslint: 8.34.0
       happy-dom: 8.6.0
@@ -3000,8 +3000,8 @@ packages:
   /@vue/shared/3.2.45:
     resolution: {integrity: sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==}
 
-  /@vue/test-utils/2.2.10_vue@3.2.45:
-    resolution: {integrity: sha512-UPY+VdWST5vYZ/Qhl+sLuJAv596e6kTbrOPgdGY82qd9kGN/MfjzLT5KXlmpChkiCbPP3abZ8XT25u1n5h+mRg==}
+  /@vue/test-utils/2.3.0_vue@3.2.45:
+    resolution: {integrity: sha512-S8/9Z+B4VSsTUNtZtzS7J1TfxJbf10n+gcH9X8cASbG0Tp7qD6vqs/sUNlmpzk6i7+pP00ptauJp9rygyW89Ww==}
     peerDependencies:
       vue: ^3.0.1
     dependencies:
@@ -3009,6 +3009,7 @@ packages:
       vue: 3.2.45
     optionalDependencies:
       '@vue/compiler-dom': 3.2.45
+      '@vue/server-renderer': 3.2.45_vue@3.2.45
     dev: true
 
   /@vueuse/core/9.12.0:
@@ -5579,6 +5580,15 @@ packages:
       tslib: 2.4.1
     dev: false
 
+  /follow-redirects/1.15.2:
+    resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
+    engines: {node: '>=4.0'}
+    peerDependencies:
+      debug: '*'
+    peerDependenciesMeta:
+      debug:
+        optional: true
+
   /follow-redirects/1.15.2_debug@4.3.4:
     resolution: {integrity: sha512-VQLG33o04KaQ8uYi2tVNbdrWp1QWxNNea+nmIB4EVM28v0hmP17z7aG1+wAkNzVq4KeXTq3221ye5qTJP91JwA==}
     engines: {node: '>=4.0'}
@@ -6399,7 +6409,7 @@ packages:
     engines: {node: '>=8.0.0'}
     dependencies:
       eventemitter3: 4.0.7
-      follow-redirects: 1.15.2_debug@4.3.4
+      follow-redirects: 1.15.2
       requires-port: 1.0.0
     transitivePeerDependencies:
       - debug
