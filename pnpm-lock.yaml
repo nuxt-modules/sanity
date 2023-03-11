@@ -71,11 +71,11 @@ importers:
 
   docs:
     specifiers:
-      '@nuxt-themes/docus': 1.9.6
+      '@nuxt-themes/docus': 1.9.9
       nuxt: 3.1.1
       nuxt-plausible: latest
     devDependencies:
-      '@nuxt-themes/docus': 1.9.6_nuxt@3.1.1
+      '@nuxt-themes/docus': 1.9.9_nuxt@3.1.1
       nuxt: 3.1.1
       nuxt-plausible: 0.1.2
 
@@ -1521,14 +1521,14 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nuxt-themes/docus/1.9.6_nuxt@3.1.1:
-    resolution: {integrity: sha512-ZMZbKgBo9RLX0NNcNTmG+irwCdSRkJao2JNk22gRawZqrGEgRKAGoHzzi9GI1uC1AclD22xXkwXqj/zXCp+MrQ==}
+  /@nuxt-themes/docus/1.9.9_nuxt@3.1.1:
+    resolution: {integrity: sha512-JIrG8dlJOUCu4HQ4IlYr04xryFs7ePKzAvA4cb0VPKP4+ukNEuJwGV3JPFprV3uac9jtPr/HawuoLm/TV5rgtw==}
     dependencies:
       '@nuxt-themes/elements': 0.9.0
       '@nuxt-themes/tokens': 1.9.0
-      '@nuxt-themes/typography': 0.9.1
+      '@nuxt-themes/typography': 0.10.0
       '@nuxt/content': 2.5.2
-      '@nuxthq/studio': 0.8.2
+      '@nuxthq/studio': 0.8.5
       '@vueuse/nuxt': 9.13.0_nuxt@3.1.1
     transitivePeerDependencies:
       - '@vue/composition-api'
@@ -1572,11 +1572,11 @@ packages:
       - vue
     dev: true
 
-  /@nuxt-themes/typography/0.9.1:
-    resolution: {integrity: sha512-J6uBewdVAJveDFuZrt5o9zgXAIJrLMsocN+AbPItKiO1X9gkNMHOEc/FCSRYWqGpXK03bxsDLiHOc7t4V18B7A==}
+  /@nuxt-themes/typography/0.10.0:
+    resolution: {integrity: sha512-paC+s9205Ww6YLg2i2CgGnmfkZZzSbmxJyrWjb3KuI5eaJlIJ/EPUjfsUw15tOsFiM8your+akuH4f20UDKg1w==}
     dependencies:
       '@nuxtjs/color-mode': 3.2.0
-      nuxt-config-schema: 0.4.4
+      nuxt-config-schema: 0.4.5
       nuxt-icon: 0.3.2
       pinceau: 0.18.8
       ufo: 1.1.1
@@ -1961,8 +1961,8 @@ packages:
       - vti
       - vue-tsc
 
-  /@nuxthq/studio/0.8.2:
-    resolution: {integrity: sha512-XQA6j3udN0B7R0vD9KNvCGdCI1Uv6UPHoO8mMWnse73yd8KuUxAeYXibgzMJF2xKndVlUR4Sv2Gzmb9MKpLbJQ==}
+  /@nuxthq/studio/0.8.5:
+    resolution: {integrity: sha512-sWLFjikyL4ZNoxPeBKYgZtWI1AQY70RYFbhIax0+bT7+HMB6qfk3gOWkz9EyfD4h8rj7hHBqhtTq7efzQJXwLw==}
     dependencies:
       '@nuxt/kit': 3.2.3
       defu: 6.1.2
@@ -9031,20 +9031,6 @@ packages:
       scule: 1.0.0
       typescript: 4.9.5
       vue-component-meta: 1.0.24_typescript@4.9.5
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
-    dev: true
-
-  /nuxt-config-schema/0.4.4:
-    resolution: {integrity: sha512-5NnyyH2qSgraQo6kcW/8SWqBZ/pEY/PwyepODPWYYv4ZZ8BiqC850OTmyO2oTBL4O+Xg4fR7hAwSB4g5pIMpSg==}
-    dependencies:
-      '@nuxt/kit': 3.1.1
-      changelogen: 0.4.1
-      defu: 6.1.2
-      jiti: 1.17.1
-      pathe: 1.1.0
-      untyped: 1.2.2
     transitivePeerDependencies:
       - rollup
       - supports-color
