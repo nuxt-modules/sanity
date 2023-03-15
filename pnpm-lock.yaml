@@ -15,7 +15,7 @@ importers:
       '@nuxtjs/eslint-config-typescript': 12.0.0
       '@portabletext/types': ^2.0.0
       '@release-it/conventional-changelog': 5.1.1
-      '@sanity/client': 5.2.2
+      '@sanity/client': 5.3.0
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.29.2
       '@vue/test-utils': 2.3.1
@@ -53,7 +53,7 @@ importers:
       '@nuxt/test-utils': 3.1.1_vue@3.2.45
       '@nuxtjs/eslint-config-typescript': 12.0.0_vgl77cfdswitgr47lm5swmv43m
       '@release-it/conventional-changelog': 5.1.1_release-it@15.8.0
-      '@sanity/client': 5.2.2
+      '@sanity/client': 5.3.0
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.29.2_vitest@0.29.2
       '@vue/test-utils': 2.3.1_vue@3.2.45
@@ -2536,6 +2536,17 @@ packages:
       rxjs: 7.8.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client/5.3.0:
+    resolution: {integrity: sha512-GUu33gDy5Lx9FNyRGeRNrn2ZYNNthn3Qj2y4GPtb3MkdUtdWHKXmCi3S7nqusTshwS0Uz/w+wX9/h5Nbq9iofg==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 4.0.0
+      get-it: 8.0.9
+      rxjs: 7.8.0
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color/2.2.3:
     resolution: {integrity: sha512-b4e6JAHHa/tKpAnLOAHaJyNEHO1l/g2oecN22FWkhTAuKCINPNhPeoeUn5rK5ngKzbXrvynBd/h2849lld3FRg==}
@@ -2704,7 +2715,7 @@ packages:
   /@sanity/types/3.6.0:
     resolution: {integrity: sha512-oYZBKLdQK9mPonNq023FtbzeiQa3EqXs9X4nul5yH63hDF9qghAop9W9ODohr5V15Gf4oEEBcM9F7pp+vtawzg==}
     dependencies:
-      '@sanity/client': 5.2.2
+      '@sanity/client': 5.3.0
       '@types/react': 18.0.28
     transitivePeerDependencies:
       - supports-color
