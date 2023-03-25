@@ -15,7 +15,7 @@ importers:
       '@nuxtjs/eslint-config-typescript': 12.0.0
       '@portabletext/types': ^2.0.0
       '@release-it/conventional-changelog': 5.1.1
-      '@sanity/client': 5.3.0
+      '@sanity/client': 5.3.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.29.7
       '@vue/test-utils': 2.3.2
@@ -53,7 +53,7 @@ importers:
       '@nuxt/test-utils': 3.3.1_vue@3.2.47
       '@nuxtjs/eslint-config-typescript': 12.0.0_j4766f7ecgqbon3u7zlxn5zszu
       '@release-it/conventional-changelog': 5.1.1_release-it@15.9.1
-      '@sanity/client': 5.3.0
+      '@sanity/client': 5.3.2
       '@types/fs-extra': 11.0.1
       '@vitest/coverage-c8': 0.29.7_vitest@0.29.7
       '@vue/test-utils': 2.3.2_vue@3.2.47
@@ -2451,6 +2451,17 @@ packages:
       rxjs: 7.8.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client/5.3.2:
+    resolution: {integrity: sha512-6FqAyoXJmzJMU9i6LRIqBRUs5c08zaYksy4bNdqGP+ixBW6peebGKs4sgR1vtUIIT1YapPmEWELAEqqiIlnzfA==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 5.0.0
+      get-it: 8.0.9
+      rxjs: 7.8.0
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color/2.2.3:
     resolution: {integrity: sha512-b4e6JAHHa/tKpAnLOAHaJyNEHO1l/g2oecN22FWkhTAuKCINPNhPeoeUn5rK5ngKzbXrvynBd/h2849lld3FRg==}
@@ -2473,6 +2484,15 @@ packages:
     resolution: {integrity: sha512-W0AD141JILOySJ177j2+HTr5k4tWNyXjGsr0dDXJzpqlwZ09J/uPHI73hMe5XtoFumPa9Bj6jy8uu2qdZX84NQ==}
     dependencies:
       event-source-polyfill: 1.0.25
+      eventsource: 2.0.2
+    dev: false
+
+  /@sanity/eventsource/5.0.0:
+    resolution: {integrity: sha512-0ewT+BDzfiamHwitUfRcwsl/RREHjWv6VNZvQ8Q4OnnNKXfEEGXbWmqzof0okOTkp4XELgyliht4Qj28o9AU2g==}
+    dependencies:
+      '@types/event-source-polyfill': 1.0.1
+      '@types/eventsource': 1.1.11
+      event-source-polyfill: 1.0.31
       eventsource: 2.0.2
 
   /@sanity/export/3.7.1:
@@ -2619,7 +2639,7 @@ packages:
   /@sanity/types/3.7.1:
     resolution: {integrity: sha512-iU3eUKJHJc8gpFUTEe/eIoJA+J6SUJrGDzdyxviJ0MoG8Z0EWwyZ3ps1HCzrfFJTnTRouhK3o5R7Wrar/uml5g==}
     dependencies:
-      '@sanity/client': 5.3.0
+      '@sanity/client': 5.3.2
       '@types/react': 18.0.28
     transitivePeerDependencies:
       - supports-color
@@ -2790,6 +2810,12 @@ packages:
 
   /@types/estree/1.0.0:
     resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
+
+  /@types/event-source-polyfill/1.0.1:
+    resolution: {integrity: sha512-dls8b0lUgJ/miRApF0efboQ9QZnAm7ofTO6P1ILu8bRPxUFKDxVwFf8+TeuuErmNui6blpltyr7+eV72dbQXlQ==}
+
+  /@types/eventsource/1.1.11:
+    resolution: {integrity: sha512-L7wLDZlWm5mROzv87W0ofIYeQP5K2UhoFnnUyEWLKM6UBb0ZNRgAqp98qE5DkgfBXdWfc2kYmw9KZm4NLjRbsw==}
 
   /@types/fs-extra/11.0.1:
     resolution: {integrity: sha512-MxObHvNl4A69ofaTRU8DFqvgzzv8s9yRtaPPm5gud9HDNvpB3GPQFvNuTWAI59B9huVGV5jXYJwbCsmBsOGYWA==}
@@ -5833,6 +5859,10 @@ packages:
 
   /event-source-polyfill/1.0.25:
     resolution: {integrity: sha512-hQxu6sN1Eq4JjoI7ITdQeGGUN193A2ra83qC0Ltm9I2UJVAten3OFVN6k5RX4YWeCS0BoC8xg/5czOCIHVosQg==}
+    dev: false
+
+  /event-source-polyfill/1.0.31:
+    resolution: {integrity: sha512-4IJSItgS/41IxN5UVAVuAyczwZF7ZIEsM1XAoUzIHA6A+xzusEZUutdXz2Nr+MQPLxfTiCvqE79/C8HT8fKFvA==}
 
   /eventemitter3/4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
