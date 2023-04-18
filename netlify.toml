@@ -7,7 +7,7 @@
 
 [build]
 base = "docs"
-command = "npx pnpm@7.9.0 install --frozen-lockfile --shamefully-hoist && npx pnpm@7.9.0 -w dev:prepare && npx pnpm@7.9.0 generate"
+command = "pnpm install --frozen-lockfile --shamefully-hoist && pnpm -w dev:prepare && pnpm generate"
 publish = "dist"
 
 [build.environment]
