@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   imports: {
     autoImport: true,
   },
-  modules: ['nuxt-plausible'],
+  modules: ['@nuxtjs/plausible'],
   plausible: {
     domain: 'sanity.nuxtjs.org',
   },

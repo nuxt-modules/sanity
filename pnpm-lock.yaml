@@ -99,12 +99,12 @@ importers:
       '@nuxt-themes/docus':
         specifier: 1.10.1
         version: 1.10.1(nuxt@3.4.1)(postcss@8.4.21)(rollup@3.20.2)(vue@3.2.47)
+      '@nuxtjs/plausible':
+        specifier: latest
+        version: 0.2.0(rollup@3.20.2)
       nuxt:
         specifier: 3.4.1
         version: 3.4.1(@types/node@18.11.18)(eslint@8.38.0)(rollup@3.20.2)(typescript@5.0.4)
-      nuxt-plausible:
-        specifier: latest
-        version: 0.1.2(rollup@3.20.2)
 
   playground:
     dependencies:
@@ -1709,6 +1709,18 @@ packages:
       - '@typescript-eslint/parser'
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
+      - supports-color
+    dev: true
+
+  /@nuxtjs/plausible@0.2.0(rollup@3.20.2):
+    resolution: {integrity: sha512-mke+eW94PCca7zK0kNpNA9ULat5JCrBP2JUCmas6ZKpskU3+IaBv2OzWYzWJb/SsungfV9a/dukKbjAJeBTzhQ==}
+    dependencies:
+      '@nuxt/kit': 3.4.1(rollup@3.20.2)
+      defu: 6.1.2
+      pathe: 1.1.0
+      plausible-tracker: 0.3.8
+    transitivePeerDependencies:
+      - rollup
       - supports-color
     dev: true
 
@@ -7493,19 +7505,6 @@ packages:
       - rollup
       - supports-color
       - vue
-    dev: true
-
-  /nuxt-plausible@0.1.2(rollup@3.20.2):
-    resolution: {integrity: sha512-w3Flmonlb73L/IpPkkNfSuUgahXtmp/xyp33MWdqaxMUgwRAdXNZy+YNJyFUPZObp/yruZquisoMy0WLKfcCJQ==}
-    deprecated: Moved to @nuxtjs/plausible. Please use this package instead.
-    dependencies:
-      '@nuxt/kit': 3.4.1(rollup@3.20.2)
-      defu: 6.1.2
-      pathe: 1.1.0
-      plausible-tracker: 0.3.8
-    transitivePeerDependencies:
-      - rollup
-      - supports-color
     dev: true
 
   /nuxt@3.4.1(@types/node@18.11.18)(eslint@8.38.0)(rollup@3.20.2)(typescript@5.0.4):
