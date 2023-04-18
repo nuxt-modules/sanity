@@ -102,7 +102,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       getContents: () =>
         options.minimal
           ? genExport(join(runtimeDir, 'client'), ['createClient'])
-          : genExport('@sanity/client', [{ name: 'default', as: 'createClient' }]),
+          : genExport('@sanity/client', [{ name: 'createClient' }]),
     })
 
     if (options.globalHelper) {
@@ -134,7 +134,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       config.virtual['#sanity-client'] =
         options.minimal
           ? genExport(join(runtimeDir, 'client'), ['createClient'])
-          : genExport('@sanity/client', [{ name: 'default', as: 'createClient' }])
+          : genExport('@sanity/client', [{ name: 'createClient' }])
 
       config.externals ||= {}
       config.externals.inline ||= []
