@@ -50,8 +50,8 @@ importers:
         specifier: 12.0.0
         version: 12.0.0(eslint@8.39.0)(typescript@5.0.4)
       '@sanity/client':
-        specifier: 5.4.2
-        version: 5.4.2
+        specifier: 6.0.1
+        version: 6.0.1
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -2134,6 +2134,18 @@ packages:
       rxjs: 7.8.0
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client@6.0.1:
+    resolution: {integrity: sha512-q2Mi79ttJxoUjZG3LGlfIFoYfMUxra9tRaPbfmQRVJQ2I/TiVGvuE6yt38fgox796wpeZvYeuYH8L7Ms79IXYg==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 5.0.0
+      get-it: 8.1.1
+      rxjs: 7.8.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: true
 
   /@sanity/color@2.2.3:
     resolution: {integrity: sha512-b4e6JAHHa/tKpAnLOAHaJyNEHO1l/g2oecN22FWkhTAuKCINPNhPeoeUn5rK5ngKzbXrvynBd/h2849lld3FRg==}
