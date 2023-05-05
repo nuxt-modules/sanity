@@ -73,6 +73,7 @@ export function createClient (config: SanityConfiguration) {
 
       const { result } = usePostRequest
         ? await $fetch<{ result: T }>(urlBase, {
+          ...fetchOptions,
           method: 'post',
           body: { query, params },
         })
