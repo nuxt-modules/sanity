@@ -1,5 +1,5 @@
 import { defu } from 'defu'
-import { objectHash } from 'ohash'
+import { hash } from 'ohash'
 import { reactive } from 'vue'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
@@ -64,7 +64,7 @@ export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?:
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
+  return useAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
 }
 
 export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}) => {
@@ -75,5 +75,5 @@ export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _para
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useLazyAsyncData('sanity-' + objectHash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
+  return useLazyAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch(query, params), options) as AsyncData<T, E | null | true>
 }
