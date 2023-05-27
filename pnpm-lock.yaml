@@ -38,8 +38,8 @@ importers:
         version: 1.1.0
     devDependencies:
       '@nuxt/module-builder':
-        specifier: 0.3.1
-        version: 0.3.1
+        specifier: 0.4.0
+        version: 0.4.0(@nuxt/kit@3.4.3)(nuxi@3.4.3)
       '@nuxt/schema':
         specifier: 3.4.3
         version: 3.4.3(rollup@3.21.5)
@@ -1400,13 +1400,18 @@ packages:
       - rollup
       - supports-color
 
-  /@nuxt/module-builder@0.3.1:
-    resolution: {integrity: sha512-qH/F3SgIE4mobpAfJ6D9c6IqIrhEsiPM+aSdckyJgRGUbyU8urKqPR0d3DkGanN9mWy5Nk6Fwqon6jNKz97SRA==}
+  /@nuxt/module-builder@0.4.0(@nuxt/kit@3.4.3)(nuxi@3.4.3):
+    resolution: {integrity: sha512-B+UAYgFV1Hkc2ZcD7GaiKZ3SNHhyxFlXzZoBWTc9ulE0Z/+rq6RTa9fNm13BZyGhVhDCl5FN/wF/yYa1O/D2iw==}
     hasBin: true
+    peerDependencies:
+      '@nuxt/kit': ^3.5.0
+      nuxi: ^3.5.0
     dependencies:
+      '@nuxt/kit': 3.4.3(rollup@3.21.5)
       consola: 3.1.0
-      mlly: 1.2.0
+      mlly: 1.3.0
       mri: 1.2.0
+      nuxi: 3.4.3
       pathe: 1.1.0
       unbuild: 1.2.1
     transitivePeerDependencies:
@@ -1517,18 +1522,18 @@ packages:
       h3: 1.6.4
       knitwork: 1.0.0
       magic-string: 0.30.0
-      mlly: 1.2.0
+      mlly: 1.3.0
       ohash: 1.1.2
       pathe: 1.1.0
       perfect-debounce: 0.1.3
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       postcss: 8.4.23
       postcss-import: 15.1.0(postcss@8.4.23)
       postcss-url: 10.1.3(postcss@8.4.23)
       rollup-plugin-visualizer: 5.9.0(rollup@3.21.5)
       std-env: 3.3.2
       strip-literal: 1.0.1
-      ufo: 1.1.1
+      ufo: 1.1.2
       unplugin: 1.3.1
       vite: 4.3.4(@types/node@18.11.18)
       vite-node: 0.30.1(@types/node@18.11.18)
@@ -3292,7 +3297,7 @@ packages:
       dotenv: 16.0.3
       giget: 1.1.2
       jiti: 1.18.2
-      mlly: 1.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
       pkg-types: 1.0.2
       rc9: 2.1.0
@@ -3308,11 +3313,11 @@ packages:
       dotenv: 16.0.3
       giget: 1.1.2
       jiti: 1.18.2
-      mlly: 1.2.0
+      mlly: 1.3.0
       ohash: 1.1.2
       pathe: 1.1.0
       perfect-debounce: 0.1.3
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       rc9: 2.1.0
     transitivePeerDependencies:
       - supports-color
@@ -3451,7 +3456,7 @@ packages:
       execa: 6.1.0
       mri: 1.2.0
       node-fetch-native: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       semver: 7.5.0
     transitivePeerDependencies:
@@ -4958,9 +4963,9 @@ packages:
     resolution: {integrity: sha512-MAU9ci3XdpqOX1aoIoyL2DMzW97P8LYeJxIUkfXhOfsrkH4KLHFaYDwKN0B2l6tqedVJWiTIJtWmxmZfa05vOQ==}
     dependencies:
       enhanced-resolve: 5.12.0
-      mlly: 1.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
-      ufo: 1.1.1
+      ufo: 1.1.2
 
   /fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -5498,7 +5503,7 @@ packages:
       destr: 1.2.2
       iron-webcrypto: 0.6.0
       radix3: 1.0.1
-      ufo: 1.1.1
+      ufo: 1.1.2
       uncrypto: 0.1.2
 
   /happy-dom@9.10.9:
@@ -6427,7 +6432,7 @@ packages:
       http-shutdown: 1.2.2
       ip-regex: 5.0.0
       node-forge: 1.3.1
-      ufo: 1.1.1
+      ufo: 1.1.2
 
   /listr2@5.0.7:
     resolution: {integrity: sha512-MD+qXHPmtivrHIDRwPYdfNkrzqDiuaKU/rfBcec3WMyMF3xylQj3jMq344OtvQxz7zaCFViRAeqlr2AFhPvXHw==}
@@ -7182,7 +7187,7 @@ packages:
       fs-extra: 11.1.1
       globby: 13.1.4
       jiti: 1.18.2
-      mlly: 1.2.0
+      mlly: 1.3.0
       mri: 1.2.0
       pathe: 1.1.0
       typescript: 5.0.4
@@ -7193,8 +7198,16 @@ packages:
     dependencies:
       acorn: 8.8.2
       pathe: 1.1.0
-      pkg-types: 1.0.2
-      ufo: 1.1.1
+      pkg-types: 1.0.3
+      ufo: 1.1.2
+
+  /mlly@1.3.0:
+    resolution: {integrity: sha512-HT5mcgIQKkOrZecOjOX3DJorTikWXwsBfpcr/MGBkhfWcjiqvnaL/9ppxvIUXfjT6xt4DVIAsN9fMUz1ev4bIw==}
+    dependencies:
+      acorn: 8.8.2
+      pathe: 1.1.0
+      pkg-types: 1.0.3
+      ufo: 1.1.2
 
   /module-alias@2.2.2:
     resolution: {integrity: sha512-A/78XjoX2EmNvppVWEhM2oGk3x4lLxnkEA4jTbaK97QKSDjkIoOsKQlfylt/d3kKKi596Qy3NP5XrXJ6fZIC9Q==}
@@ -7287,14 +7300,14 @@ packages:
       knitwork: 1.0.0
       listhen: 1.0.4
       mime: 3.0.0
-      mlly: 1.2.0
+      mlly: 1.3.0
       mri: 1.2.0
       node-fetch-native: 1.1.0
       ofetch: 1.0.1
       ohash: 1.1.2
       pathe: 1.1.0
       perfect-debounce: 0.1.3
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       pretty-bytes: 6.1.0
       radix3: 1.0.1
       rollup: 3.21.5
@@ -7305,7 +7318,7 @@ packages:
       serve-static: 1.15.0
       source-map-support: 0.5.21
       std-env: 3.3.2
-      ufo: 1.1.1
+      ufo: 1.1.2
       unenv: 1.4.1
       unimport: 3.0.6(rollup@3.21.5)
       unstorage: 1.5.0
@@ -8018,7 +8031,14 @@ packages:
     resolution: {integrity: sha512-hM58GKXOcj8WTqUXnsQyJYXdeAPbythQgEF3nTcEo+nkD49chjQ9IKm/QJy9xf6JakXptz86h7ecP2024rrLaQ==}
     dependencies:
       jsonc-parser: 3.2.0
-      mlly: 1.2.0
+      mlly: 1.3.0
+      pathe: 1.1.0
+
+  /pkg-types@1.0.3:
+    resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==}
+    dependencies:
+      jsonc-parser: 3.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
 
   /plausible-tracker@0.3.8:
@@ -9950,6 +9970,9 @@ packages:
   /ufo@1.1.1:
     resolution: {integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==}
 
+  /ufo@1.1.2:
+    resolution: {integrity: sha512-TrY6DsjTQQgyS3E3dBaOXf0TpPD8u9FVrVYmKVegJuFw51n/YB9XPt+U6ydzFG5ZIN7+DIjPbNmXoBj9esYhgQ==}
+
   /unbox-primitive@1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
     dependencies:
@@ -9978,10 +10001,10 @@ packages:
       jiti: 1.18.2
       magic-string: 0.30.0
       mkdist: 1.2.0(typescript@5.0.4)
-      mlly: 1.2.0
+      mlly: 1.3.0
       mri: 1.2.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       pretty-bytes: 6.1.0
       rollup: 3.21.5
       rollup-plugin-dts: 5.3.0(rollup@3.21.5)(typescript@5.0.4)
@@ -10040,9 +10063,9 @@ packages:
       fast-glob: 3.2.12
       local-pkg: 0.4.3
       magic-string: 0.30.0
-      mlly: 1.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
-      pkg-types: 1.0.2
+      pkg-types: 1.0.3
       scule: 1.0.0
       strip-literal: 1.0.1
       unplugin: 1.3.1
@@ -10172,7 +10195,7 @@ packages:
       mri: 1.2.0
       node-fetch-native: 1.1.0
       ofetch: 1.0.1
-      ufo: 1.1.1
+      ufo: 1.1.2
     transitivePeerDependencies:
       - supports-color
 
@@ -10353,7 +10376,7 @@ packages:
     dependencies:
       cac: 6.7.14
       debug: 4.3.4(supports-color@5.5.0)
-      mlly: 1.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
       picocolors: 1.0.0
       vite: 4.3.4(@types/node@18.11.18)
@@ -10373,7 +10396,7 @@ packages:
     dependencies:
       cac: 6.7.14
       debug: 4.3.4(supports-color@5.5.0)
-      mlly: 1.2.0
+      mlly: 1.3.0
       pathe: 1.1.0
       picocolors: 1.0.0
       vite: 4.3.4(@types/node@18.11.18)
@@ -10572,7 +10595,7 @@ packages:
   /vue-bundle-renderer@1.0.3:
     resolution: {integrity: sha512-EfjX+5TTUl70bki9hPuVp+54JiZOvFIfoWBcfXsSwLzKEiDYyHNi5iX8srnqLIv3YRnvxgbntdcG1WPq0MvffQ==}
     dependencies:
-      ufo: 1.1.1
+      ufo: 1.1.2
 
   /vue-component-meta@1.2.0(typescript@5.0.4):
     resolution: {integrity: sha512-z+/pL4txu5qCULbGHFn6vOlSR1V5gFDGWkD64Z2yLlKtYr0Wlb9oOfWTaXxpSl7R+EiX7JusbTlek0szSYeH1g==}
