@@ -31,6 +31,9 @@ jobs:
       - name: 🚧 Set up project
         run: pnpm dev:prepare
 
+      - name: 💪 Test types
+        run: pnpm test:types
+
       - name: 🛠 Build project
         run: pnpm build
 
