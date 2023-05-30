@@ -82,7 +82,7 @@ describe('SanityImage prop validation', () => {
     ['w', [false]],
   ]
 
-  let mockError
+  let mockError: Console['warn']
 
   beforeEach(() => {
     mockError = vi.fn()

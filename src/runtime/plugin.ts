@@ -10,14 +10,14 @@ interface PluginInjection {
 }
 
 declare module '#app' {
-  interface NuxtApp extends PluginInjection { }
+  interface NuxtApp extends PluginInjection {}
 }
 
 declare module '@vue/runtime-core' {
-  interface ComponentCustomProperties extends PluginInjection { }
+  interface ComponentCustomProperties extends PluginInjection {}
 }
 
-// @ts-ignore
+// @ts-expect-error vue 2 types
 declare module 'vue/types/vue' {
-  interface Vue extends PluginInjection { }
+  interface Vue extends PluginInjection {}
 }

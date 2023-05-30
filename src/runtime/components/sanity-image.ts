@@ -27,7 +27,7 @@ const props = {
      */
   blur: {
     type: [Number, String],
-    validator: value => Number(value) >= 0 && Number(value) <= 100,
+    validator: (value: number | string) => Number(value) >= 0 && Number(value) <= 100,
   },
   /**
        * Use with fit=crop to specify how cropping is performed:
@@ -38,7 +38,7 @@ const props = {
        */
   crop: {
     type: String,
-    validator: value =>
+    validator: (value: string) =>
       [
         'top',
         'bottom',
@@ -58,7 +58,7 @@ const props = {
      */
   dpr: {
     type: [Number, String],
-    validator: value => [1, 2, 3].includes(Number(value)),
+    validator: (value: unknown) => [1, 2, 3].includes(Number(value)),
   },
   /**
        * Affects how the image is handled when you specify target dimensions.
@@ -72,7 +72,7 @@ const props = {
        */
   fit: {
     type: String,
-    validator: value =>
+    validator: (value: string) =>
       ['clip', 'crop', 'fill', 'fillmax', 'max', 'scale', 'min'].includes(
         value,
       ),
@@ -82,28 +82,28 @@ const props = {
      */
   flip: {
     type: String,
-    validator: value => ['h', 'v', 'hv'].includes(value),
+    validator: (value: string) => ['h', 'v', 'hv'].includes(value),
   },
   /**
      * Convert image to jpg, pjpg, png, or webp.
      */
   fm: {
     type: String,
-    validator: value => ['jpg', 'pjpg', 'png', 'webp'].includes(value),
+    validator: (value: string) => ['jpg', 'pjpg', 'png', 'webp'].includes(value),
   },
   /**
      * Focal Point X. Specify a center point to focus on when cropping the image. Values from 0.0 to 1.0 in fractions of the image dimensions. (See crop)
      */
   fpX: {
     type: [Number, String],
-    validator: value => Number(value) <= 1.0 && Number(value) >= 0,
+    validator: (value: unknown) => Number(value) <= 1.0 && Number(value) >= 0,
   },
   /**
      * Focal Point Y. Specify a center point to focus on when cropping the image. Values from 0.0 to 1.0 in fractions of the image dimensions. (See crop)
      */
   fpY: {
     type: [Number, String],
-    validator: value => Number(value) <= 1.0 && Number(value) >= 0,
+    validator: (value: unknown) => Number(value) <= 1.0 && Number(value) >= 0,
   },
   /**
      * Height of the image in pixels. Scales the image to be that tall.
@@ -134,14 +134,14 @@ const props = {
      */
   or: {
     type: [Number, String],
-    validator: value => [0, 90, 180, 270].includes(Number(value)),
+    validator: (value: unknown) => [0, 90, 180, 270].includes(Number(value)),
   },
   /**
      * Quality 0-100. Specify the compression quality (where applicable).
      */
   q: {
     type: [Number, String],
-    validator: value => Number(value) >= 0 && Number(value) <= 100,
+    validator: (value: unknown) => Number(value) >= 0 && Number(value) <= 100,
   },
   /**
      * Crop the image according to the provided coordinates (in pixel units of the source image).
@@ -156,7 +156,7 @@ const props = {
      */
   sharpen: {
     type: [Number, String],
-    validator: value => Number(value) >= 0 && Number(value) <= 100,
+    validator: (value: unknown) => Number(value) >= 0 && Number(value) <= 100,
   },
   /**
      * Width of the image in pixels. Scales the image to be that wide.
@@ -176,7 +176,7 @@ export default defineComponent({
       const queryParams = keys
         .map((prop) => {
           const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
-          return props[prop] ? `${urlFormat}=${props[prop]}` : undefined
+          return props[prop as keyof typeof props] ? `${urlFormat}=${props[prop as keyof typeof props]}` : undefined
         })
         .filter(Boolean)
         .join('&')
