@@ -121,7 +121,7 @@ function renderStyle (item: Block, serializers: Required<Serializers>, children?
 }
 
 function renderInSerializer (item: Block, serializers: Required<Serializers>) {
-  return render(serializers, item, () => (item.children || []).map((child) => {
+  return render(serializers, item, () => (item.children || []).map((child: ArbitraryTypedObject | PortableTextSpan) => {
     if (isSpan(child)) {
       return renderMarks(child.text, child.marks, serializers, item.markDefs)
     }

@@ -132,7 +132,6 @@ describe('minimal sanity client', () => {
   })
 
   it('uses compression on server', async () => {
-    // @ts-ignore
     process.server = true
     const client = createClient({
       projectId: 'sample-project',
@@ -153,7 +152,6 @@ describe('minimal sanity client', () => {
   })
 
   it('uses versioned api', async () => {
-    // @ts-ignore
     process.server = true
     const client = createClient({
       projectId: 'sample-project',
