@@ -54,8 +54,8 @@ importers:
         specifier: 12.0.0
         version: 12.0.0(eslint@8.42.0)(typescript@5.1.3)
       '@sanity/client':
-        specifier: 6.1.2
-        version: 6.1.2
+        specifier: 6.1.3
+        version: 6.1.3
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -1868,6 +1868,17 @@ packages:
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client@6.1.3:
+    resolution: {integrity: sha512-asO/AvN+/D1Ljd6UNPWlo/toeO6SmZdsxyl+fJdLfI9by4svp/K3hD4Qy2DXXmwOfGYqGSH7etv2lnRhu+C5YA==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 5.0.0
+      get-it: 8.1.1
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color@2.2.5:
     resolution: {integrity: sha512-tTi22KoKuER3sldXYl4c1Dq2zU7tMLDkljFiaUKVkBbu4PBvRGCFw75kXZnD2b4Bsp6vin+7sI+AKdCKRhfRuw==}
@@ -2031,7 +2042,7 @@ packages:
   /@sanity/types@3.12.0:
     resolution: {integrity: sha512-/OjguYRSzlrUzz2Nx5GOCBLzg3DaHTjkoi6esOO2G/SN7IHEZps1Imb12yy6aKMKtGOEZN1c8rmRVowb8Fo9yw==}
     dependencies:
-      '@sanity/client': 6.1.2
+      '@sanity/client': 6.1.3
       '@types/react': 18.2.11
     transitivePeerDependencies:
       - supports-color
