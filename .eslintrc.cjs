@@ -1,5 +1,5 @@
 module.exports = {
-  extends: ['@nuxtjs/eslint-config-typescript'],
+  extends: ['@nuxt/eslint-config'],
   rules: {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',

@@ -1,6 +1,9 @@
 <template>
   <div>
-    <SanityContent :blocks="blocks" :serializers="serializers" />
+    <SanityContent
+      :blocks="blocks"
+      :serializers="serializers"
+    />
   </div>
 </template>
 
