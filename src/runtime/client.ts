@@ -16,6 +16,7 @@ export interface SanityConfiguration {
   apiVersion: string
   withCredentials?: boolean
   token?: string
+  perspective?: 'raw'|'published'|'previewDrafts'
 }
 
 const enc = encodeURIComponent
@@ -40,6 +41,7 @@ export function createClient (config: SanityConfiguration) {
     apiVersion = '1',
     withCredentials,
     token,
+    perspective = 'raw',
   } = config
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
@@ -59,6 +61,7 @@ export function createClient (config: SanityConfiguration) {
         apiVersion,
         withCredentials,
         token,
+        perspective,
       }),
     /**
      * Perform a fetch using GROQ syntax.
