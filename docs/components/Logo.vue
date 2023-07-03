@@ -1,8 +1,5 @@
 <template>
   <svg
-    class="w-auto h-8 text-[#18181B] dark:text-white"
-    width="245"
-    height="40"
     viewBox="0 0 245 40"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
