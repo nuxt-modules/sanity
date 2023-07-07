@@ -102,8 +102,8 @@ importers:
   docs:
     devDependencies:
       '@nuxt-themes/docus':
-        specifier: 1.13.0
-        version: 1.13.0(nuxt@3.6.1)(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4)
+        specifier: 1.13.1
+        version: 1.13.1(nuxt@3.6.1)(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4)
       '@nuxtjs/plausible':
         specifier: latest
         version: 0.2.1(rollup@3.25.1)
@@ -1411,14 +1411,14 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.15.0
 
-  /@nuxt-themes/docus@1.13.0(nuxt@3.6.1)(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4):
-    resolution: {integrity: sha512-baEsGZnMrbAfT4ChTTuAxsSQUr+AooDrpG9WfbykuE+lxCTUhjfodtzUy1lPFPp5CZXm+TcSeN9P5ZK5l+JJDA==}
+  /@nuxt-themes/docus@1.13.1(nuxt@3.6.1)(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4):
+    resolution: {integrity: sha512-8mS8tQK0KKB1QNBwUUXub2Gb0xIJt5djZv6HsD4jf+4XUp1wLwMqFuNKGvbL8+Rc6G6nc9A93BbsOTCSPubcSA==}
     dependencies:
       '@nuxt-themes/elements': 0.9.4(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4)
       '@nuxt-themes/tokens': 1.9.1(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4)
       '@nuxt-themes/typography': 0.11.0(postcss@8.4.24)(rollup@3.25.1)(vue@3.3.4)
       '@nuxt/content': 2.7.0(rollup@3.25.1)
-      '@nuxthq/studio': 0.13.2(rollup@3.25.1)
+      '@nuxthq/studio': 0.13.3(rollup@3.25.1)
       '@vueuse/nuxt': 10.2.1(nuxt@3.6.1)(rollup@3.25.1)(vue@3.3.4)
     transitivePeerDependencies:
       - '@azure/app-configuration'
@@ -1743,14 +1743,14 @@ packages:
       - vti
       - vue-tsc
 
-  /@nuxthq/studio@0.13.2(rollup@3.25.1):
-    resolution: {integrity: sha512-lSjMDSq0yxX3I3O8EVJWoU+kA9iEwUuTS1sZfyha625FhiU2qDIGGkc7gEeA1ubBNeZmJMXTl2hIauxOVTSfgQ==}
+  /@nuxthq/studio@0.13.3(rollup@3.25.1):
+    resolution: {integrity: sha512-wehkz6xLIi+ncwCxDy83siUzOkKZKnew1OxDGN7OGQ4Ak1FOJhW2S6HmXmtztE5vAcn2sKaBK0AGljmqWR+Esw==}
     dependencies:
       '@nuxt/kit': 3.6.1(rollup@3.25.1)
       defu: 6.1.2
       nuxt-component-meta: 0.5.2(rollup@3.25.1)
       nuxt-config-schema: 0.4.6(rollup@3.25.1)
-      socket.io-client: 4.6.1
+      socket.io-client: 4.7.1
       ufo: 1.1.2
     transitivePeerDependencies:
       - bufferutil
@@ -4411,20 +4411,6 @@ packages:
     dependencies:
       once: 1.4.0
 
-  /engine.io-client@6.4.0:
-    resolution: {integrity: sha512-GyKPDyoEha+XZ7iEqam49vz6auPnNJ9ZBfy89f+rMMas8AuiMWOZ9PVzu8xb9ZC6rafUqiGHSCfu22ih66E+1g==}
-    dependencies:
-      '@socket.io/component-emitter': 3.1.0
-      debug: 4.3.4(supports-color@5.5.0)
-      engine.io-parser: 5.0.6
-      ws: 8.11.0
-      xmlhttprequest-ssl: 2.0.0
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: true
-
   /engine.io-client@6.5.1:
     resolution: {integrity: sha512-hE5wKXH8Ru4L19MbM1GgYV/2Qo54JSMh1rlJbfpa40bEWkCKNo3ol2eOtGmowcr+ysgbI7+SGL+by42Q3pt/Ng==}
     dependencies:
@@ -4437,11 +4423,6 @@ packages:
       - bufferutil
       - supports-color
       - utf-8-validate
-    dev: true
-
-  /engine.io-parser@5.0.6:
-    resolution: {integrity: sha512-tjuoZDMAdEhVnSFleYPCtdL2GXwVTGtNjoeJd9IhIG3C1xs9uwxqRNEu5WpnDZCaozwVlK/nuQhpodhXSIMaxw==}
-    engines: {node: '>=10.0.0'}
     dev: true
 
   /engine.io-parser@5.1.0:
@@ -9029,20 +9010,6 @@ packages:
       tslib: 2.5.3
     dev: true
 
-  /socket.io-client@4.6.1:
-    resolution: {integrity: sha512-5UswCV6hpaRsNg5kkEHVcbBIXEYoVbMQaHJBXJCyEQ+CiFPV1NIOY0XOFWG4XR4GZcB8Kn6AsRs/9cy9TbqVMQ==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@socket.io/component-emitter': 3.1.0
-      debug: 4.3.4(supports-color@5.5.0)
-      engine.io-client: 6.4.0
-      socket.io-parser: 4.2.3
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-    dev: true
-
   /socket.io-client@4.7.1:
     resolution: {integrity: sha512-Qk3Xj8ekbnzKu3faejo4wk2MzXA029XppiXtTF/PkbTg+fcwaTw1PlDrTrrrU4mKoYC4dvlApOnSeyLCKwek2w==}
     engines: {node: '>=10.0.0'}
@@ -9055,16 +9022,6 @@ packages:
       - bufferutil
       - supports-color
       - utf-8-validate
-    dev: true
-
-  /socket.io-parser@4.2.3:
-    resolution: {integrity: sha512-JMafRntWVO2DCJimKsRTh/wnqVvO4hrfwOqtO7f+uzwsQMuxO6VwImtYxaQ+ieoyshWOTJyV0fA21lccEXRPpQ==}
-    engines: {node: '>=10.0.0'}
-    dependencies:
-      '@socket.io/component-emitter': 3.1.0
-      debug: 4.3.4(supports-color@5.5.0)
-    transitivePeerDependencies:
-      - supports-color
     dev: true
 
   /socket.io-parser@4.2.4:
