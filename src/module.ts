@@ -69,7 +69,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     if (options.perspective === 'previewDrafts' && !options.useCdn) {
-        logger.info("To use perspective: previewDrafts, useCdn must be set to true")
+      logger.info("To use perspective: previewDrafts, useCdn must be set to true")
     }
 
     try {
