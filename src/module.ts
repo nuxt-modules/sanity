@@ -68,8 +68,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       options.useCdn = process.env.NODE_ENV === 'production' && !options.token
     }
 
-    if (options.perspective === 'previewDrafts' && !options.useCdn) {
-        logger.info("To use perspective: previewDrafts, useCdn must be set to true")
+    if (options.perspective === 'previewDrafts') {
+        options.useCdn = true
     }
 
     try {
