@@ -35,7 +35,6 @@ export const getByteSize = (query: string) =>
 
 export function createClient (config: SanityConfiguration) {
   const {
-    useCdn,
     projectId,
     dataset,
     apiVersion = '1',
@@ -43,6 +42,12 @@ export function createClient (config: SanityConfiguration) {
     token,
     perspective = 'raw',
   } = config
+
+  let useCdn = config.useCdn
+  if (perspective === 'previewDrafts' && !useCdn) {
+    useCdn = true
+  }
+
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
     headers: {
