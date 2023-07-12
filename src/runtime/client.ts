@@ -43,9 +43,7 @@ export function createClient (config: SanityConfiguration) {
     perspective = 'raw',
   } = config
 
-  let useCdn = config.useCdn
-  if (perspective === 'previewDrafts' && !useCdn) {
-    useCdn = true
+  const useCdn = perspective === 'previewDrafts' || config.useCdn
   }
 
   const fetchOptions: RequestInit = {
