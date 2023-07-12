@@ -44,7 +44,6 @@ export function createClient (config: SanityConfiguration) {
   } = config
 
   const useCdn = perspective === 'previewDrafts' || config.useCdn
-  }
 
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
