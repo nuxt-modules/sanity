@@ -16,7 +16,7 @@ export interface SanityConfiguration {
   apiVersion: string
   withCredentials?: boolean
   token?: string
-  perspective?: 'raw'|'published'|'previewDrafts'
+  perspective?: 'raw' | 'published' | 'previewDrafts'
 }
 
 const enc = encodeURIComponent
