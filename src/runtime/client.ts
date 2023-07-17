@@ -16,6 +16,7 @@ export interface SanityConfiguration {
   apiVersion: string
   withCredentials?: boolean
   token?: string
+  perspective?: 'raw' | 'published' | 'previewDrafts'
 }
 
 const enc = encodeURIComponent
@@ -34,13 +35,16 @@ export const getByteSize = (query: string) =>
 
 export function createClient (config: SanityConfiguration) {
   const {
-    useCdn,
     projectId,
     dataset,
     apiVersion = '1',
     withCredentials,
     token,
+    perspective = 'raw',
   } = config
+
+  const useCdn = perspective === 'previewDrafts' || config.useCdn
+
   const fetchOptions: RequestInit = {
     credentials: withCredentials ? 'include' : 'omit',
     headers: {
@@ -59,6 +63,7 @@ export function createClient (config: SanityConfiguration) {
         apiVersion,
         withCredentials,
         token,
+        perspective,
       }),
     /**
      * Perform a fetch using GROQ syntax.
@@ -75,7 +80,7 @@ export function createClient (config: SanityConfiguration) {
         ? await $fetch<{ result: T }>(urlBase, {
           ...fetchOptions,
           method: 'post',
-          body: { query, params },
+          body: { query, params, perspective },
         })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result

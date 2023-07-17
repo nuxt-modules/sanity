@@ -86,6 +86,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       apiVersion: options.apiVersion,
       withCredentials: options.withCredentials,
       token: options.token,
+      perspective: options.perspective || 'raw',
       additionalClients: options.additionalClients,
     })
 
