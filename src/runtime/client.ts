@@ -80,7 +80,7 @@ export function createClient (config: SanityConfiguration) {
         ? await $fetch<{ result: T }>(urlBase, {
           ...fetchOptions,
           method: 'post',
-          body: { query, params },
+          body: { query, params, perspective },
         })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result
