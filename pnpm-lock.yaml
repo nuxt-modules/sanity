@@ -54,8 +54,8 @@ importers:
         specifier: 3.6.5
         version: 3.6.5(rollup@3.26.3)(vitest@0.33.0)(vue@3.3.4)
       '@sanity/client':
-        specifier: 6.1.7
-        version: 6.1.7
+        specifier: 6.2.0
+        version: 6.2.0
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -1836,6 +1836,17 @@ packages:
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client@6.2.0:
+    resolution: {integrity: sha512-tgU2p+KlhzXDZ2UNLFUuUNNMmdLfKM8YKuH8VlAE1X615f+UKhbCI2c16ijrHPReM80gpuTYbNrjRqtocY7MOg==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 5.0.0
+      get-it: 8.3.1
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color@2.2.5:
     resolution: {integrity: sha512-tTi22KoKuER3sldXYl4c1Dq2zU7tMLDkljFiaUKVkBbu4PBvRGCFw75kXZnD2b4Bsp6vin+7sI+AKdCKRhfRuw==}
@@ -1999,7 +2010,7 @@ packages:
   /@sanity/types@3.14.4:
     resolution: {integrity: sha512-0fC3EgPjxRn8ugwRKXZWvjhcHKU1na59GjbS2ME5U2wCqRBNwCYs5fT8SQh19EGHi/NoiTs/mlfcL19B4XF25Q==}
     dependencies:
-      '@sanity/client': 6.1.7
+      '@sanity/client': 6.2.0
       '@types/react': 18.2.17
     transitivePeerDependencies:
       - supports-color
@@ -4858,6 +4869,24 @@ packages:
 
   /get-it@8.1.1:
     resolution: {integrity: sha512-83P2+3V/3E+KSdlHnGlOr4vCrlV8wDsT580AyJkMtkK/8LtZc0TOCI9bjQXH1sgYnmQTzCoPoPaOAE+a8JZqLQ==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      debug: 4.3.4(supports-color@5.5.0)
+      decompress-response: 7.0.0
+      follow-redirects: 1.15.2(debug@4.3.4)
+      into-stream: 6.0.0
+      is-plain-object: 5.0.0
+      is-retry-allowed: 2.2.0
+      is-stream: 2.0.1
+      parse-headers: 2.0.5
+      progress-stream: 2.0.0
+      tunnel-agent: 0.6.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /get-it@8.3.1:
+    resolution: {integrity: sha512-fi5wQakZVHWRy3zP0env52PHXP9Zl/p8Q2Ow8z9SmwpYgfCaA90hCSW2twC5/cpV5M1wB6tSmLqldVMP1tS1qw==}
     engines: {node: '>=14.0.0'}
     dependencies:
       debug: 4.3.4(supports-color@5.5.0)
