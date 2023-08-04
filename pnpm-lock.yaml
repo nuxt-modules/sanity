@@ -54,8 +54,8 @@ importers:
         specifier: 3.6.5
         version: 3.6.5(rollup@3.26.3)(vitest@0.33.0)(vue@3.3.4)
       '@sanity/client':
-        specifier: 6.2.0
-        version: 6.2.0
+        specifier: 6.4.0
+        version: 6.4.0
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -1837,6 +1837,17 @@ packages:
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /@sanity/client@6.4.0:
+    resolution: {integrity: sha512-nmu9/gtKPruR6CROvKAqvK/vYfEMMi/La8k/w/leQpRtKySivOIsWX+BT7S5xvK+9wBn0Q8dj9L64no3SEa5vg==}
+    engines: {node: '>=14.18'}
+    dependencies:
+      '@sanity/eventsource': 5.0.0
+      get-it: 8.3.1
+      rxjs: 7.8.1
+    transitivePeerDependencies:
+      - supports-color
 
   /@sanity/color@2.2.5:
     resolution: {integrity: sha512-tTi22KoKuER3sldXYl4c1Dq2zU7tMLDkljFiaUKVkBbu4PBvRGCFw75kXZnD2b4Bsp6vin+7sI+AKdCKRhfRuw==}
@@ -2000,7 +2011,7 @@ packages:
   /@sanity/types@3.14.5:
     resolution: {integrity: sha512-uQ/SGdzxD8i08PAqIoNTGMfzRZT1JZ6GVB78KfvGt3fwA6C5cz7E6LVZKX9Q+vcqZuc7DTBBH92fcLkM3k8RwQ==}
     dependencies:
-      '@sanity/client': 6.2.0
+      '@sanity/client': 6.4.0
       '@types/react': 18.2.18
     transitivePeerDependencies:
       - supports-color
