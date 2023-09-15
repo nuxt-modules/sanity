@@ -54,8 +54,8 @@ importers:
         specifier: 3.6.5
         version: 3.6.5(rollup@3.28.0)(vitest@0.34.2)(vue@3.3.4)
       '@sanity/client':
-        specifier: 6.4.11
-        version: 6.4.11
+        specifier: 6.4.12
+        version: 6.4.12
       '@types/fs-extra':
         specifier: 11.0.1
         version: 11.0.1
@@ -2802,7 +2802,7 @@ packages:
       chalk: 4.1.2
       esbuild: 0.18.20
       esbuild-register: 3.4.2(esbuild@0.18.20)
-      get-it: 8.4.2
+      get-it: 8.4.3
       golden-fleece: 1.0.9
       pkg-dir: 5.0.0
     transitivePeerDependencies:
@@ -2814,14 +2814,14 @@ packages:
     engines: {node: '>=14.18'}
     dependencies:
       '@sanity/eventsource': 5.0.0
-      get-it: 8.4.2
+      get-it: 8.4.3
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@sanity/client@6.4.11:
-    resolution: {integrity: sha512-A8s5odg9b8ioamKDdfrfsp5rHsE8J+BOpknw6eRtIHF5BBkNGAYdS78NdS1m3R+llHotdpyS/X2+la4YgzU5/w==}
+  /@sanity/client@6.4.12:
+    resolution: {integrity: sha512-TuseXC5z0CORO7wKMmhNTiKy/8vjWsN7/PTMy53MUBshlMYE2xPad2QFw1zr+n/7qvNNc/CQ6Y2wVnaXU9PHVg==}
     engines: {node: '>=14.18'}
     dependencies:
       '@sanity/eventsource': 5.0.0
@@ -2854,7 +2854,7 @@ packages:
     dependencies:
       archiver: 5.3.1
       debug: 3.2.7
-      get-it: 8.4.2
+      get-it: 8.4.3
       lodash: 4.17.21
       mississippi: 4.0.0
       p-queue: 2.4.2
@@ -2891,7 +2891,7 @@ packages:
       '@sanity/uuid': 3.0.2
       debug: 3.2.7
       file-url: 2.0.2
-      get-it: 8.4.2
+      get-it: 8.4.3
       get-uri: 2.0.4
       globby: 10.0.2
       gunzip-maybe: 1.4.2
@@ -2992,7 +2992,7 @@ packages:
   /@sanity/types@3.15.1:
     resolution: {integrity: sha512-B24SrVAJfCiF8q+JeTUtUqGjuX9YQj+ytdPcDNVbduIMeQeOmS6keumTvXZ7OS8OK0pgsffP5kUE00KWHgbPxg==}
     dependencies:
-      '@sanity/client': 6.4.11
+      '@sanity/client': 6.4.12
       '@types/react': 18.2.21
     transitivePeerDependencies:
       - supports-color
@@ -6145,6 +6145,7 @@ packages:
   /has-flag@3.0.0:
     resolution: {integrity: sha512-sKJf1+ceQBr4SMkvQnBDNDtf4TXpVhVGateu0t918bl30FnbE2m4vNLX+VWe/dpjlb+HugGYzW7uQXH98HPEYw==}
     engines: {node: '>=4'}
+    requiresBuild: true
 
   /has-flag@4.0.0:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
@@ -10025,6 +10026,7 @@ packages:
   /supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
     engines: {node: '>=4'}
+    requiresBuild: true
     dependencies:
       has-flag: 3.0.0
 
