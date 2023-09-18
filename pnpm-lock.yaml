@@ -2475,7 +2475,7 @@ packages:
       destr: 2.0.1
       json5: 2.2.3
       knitwork: 1.0.0
-      listhen: 1.4.7
+      listhen: 1.5.3
       mdurl: 1.0.1
       micromark: 4.0.0
       micromark-util-sanitize-uri: 2.0.0
@@ -2872,7 +2872,6 @@ packages:
     dependencies:
       is-glob: 4.0.3
       micromatch: 4.0.5
-      napi-wasm: 1.1.0
     bundledDependencies:
       - napi-wasm
 
@@ -3143,17 +3142,6 @@ packages:
       get-it: 8.4.3
       golden-fleece: 1.0.9
       pkg-dir: 5.0.0
-    transitivePeerDependencies:
-      - supports-color
-    dev: false
-
-  /@sanity/client@6.4.11:
-    resolution: {integrity: sha512-A8s5odg9b8ioamKDdfrfsp5rHsE8J+BOpknw6eRtIHF5BBkNGAYdS78NdS1m3R+llHotdpyS/X2+la4YgzU5/w==}
-    engines: {node: '>=14.18'}
-    dependencies:
-      '@sanity/eventsource': 5.0.0
-      get-it: 8.4.3
-      rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -3821,25 +3809,11 @@ packages:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
     dev: true
 
-  /@unhead/dom@1.5.3:
-    resolution: {integrity: sha512-0a9aO34lzy40jT3DycpyaQCMbksveKajkhEACxcs2VdG04tndRK0s3UzdvJFV8nnTfRZAI+y3yEIjTLWswgFWQ==}
-    dependencies:
-      '@unhead/schema': 1.5.3
-      '@unhead/shared': 1.5.3
-    dev: true
-
   /@unhead/dom@1.7.4:
     resolution: {integrity: sha512-xanQMtGmgikqTvDtuyJy6GXgqvUXOdrdnIyqAabpeS8goD8udxo0stzjtbT8ERbMQibzPGSGcN+Ux+MKoWzrjQ==}
     dependencies:
       '@unhead/schema': 1.7.4
       '@unhead/shared': 1.7.4
-
-  /@unhead/schema@1.5.3:
-    resolution: {integrity: sha512-UpvxfEn+2CJAO6Ytr/Mnps67/zm4ezWjP5JrisjTx8NqWQtIsuvkdp81GpTGVYGHuaPe9c/SqtlsL9aL9oUv8Q==}
-    dependencies:
-      hookable: 5.5.3
-      zhead: 2.0.10
-    dev: true
 
   /@unhead/schema@1.7.4:
     resolution: {integrity: sha512-wUL4CK0NSEm3KH4kYsiqVYQw5xBk1hpBi5tiNj0BTZgpQVrRufICdK5EHA9Fh7OIAR6tOTWwTvsf5+nK0BgQDA==}
@@ -3847,41 +3821,16 @@ packages:
       hookable: 5.5.3
       zhead: 2.1.1
 
-  /@unhead/shared@1.5.3:
-    resolution: {integrity: sha512-JMRHlOmKTOlC949u3LTZIObwB9vRPLwLqbI5SRp9Cb1hheizTaHHsj7R7UfYpXzrbfNrx6wvnOosb5RF6Urikw==}
-    dependencies:
-      '@unhead/schema': 1.5.3
-    dev: true
-
   /@unhead/shared@1.7.4:
     resolution: {integrity: sha512-YUNA2UxAuDPnDps41BQ8aEIY5hdyvruSB1Vs3AALhRo07MxMivSq5DjNKfYr/JvRN6593RtfI1NHnP9x5M57xA==}
     dependencies:
       '@unhead/schema': 1.7.4
-
-  /@unhead/ssr@1.5.3:
-    resolution: {integrity: sha512-zgSQzh33Q/1wtTM15hEYwkWVxJA8ENt++bM6acjQvx8vdaDTgNlD6ZokRBmKDvZ0dj9rNZDmQD34IFsJhuaW+A==}
-    dependencies:
-      '@unhead/schema': 1.5.3
-      '@unhead/shared': 1.5.3
-    dev: true
 
   /@unhead/ssr@1.7.4:
     resolution: {integrity: sha512-2QqaHdC48XJGP9Pd0F2fblPv9/6G4IU04iZ5qLRAs6MFFmFEzrdvoooFlcwdcoH/WDGRnpYBmo+Us2nzQz1MMQ==}
     dependencies:
       '@unhead/schema': 1.7.4
       '@unhead/shared': 1.7.4
-
-  /@unhead/vue@1.5.3(vue@3.3.4):
-    resolution: {integrity: sha512-9xo7/ArTE+sunIK5RomfQWOPJYw3Vbvs/aJ1/vzaSQandqrgzSX8THiaZ+ZveefdJUqBXlq8tuTIf9ggzrW5Ww==}
-    peerDependencies:
-      vue: '>=2.7 || >=3'
-    dependencies:
-      '@unhead/schema': 1.5.3
-      '@unhead/shared': 1.5.3
-      hookable: 5.5.3
-      unhead: 1.5.3
-      vue: 3.3.4
-    dev: true
 
   /@unhead/vue@1.7.4(vue@3.3.4):
     resolution: {integrity: sha512-ZfgzOhg1Bxo9xwp3upawqerw4134hc9Lhz6t005ixcBwPX+39Wpgc9dC3lf+owFQEVuWkf8F+eAwK2sghVBK4A==}
@@ -4294,10 +4243,10 @@ packages:
     peerDependencies:
       vue: '>=2.7 || >=3'
     dependencies:
-      '@unhead/dom': 1.5.3
-      '@unhead/schema': 1.5.3
-      '@unhead/ssr': 1.5.3
-      '@unhead/vue': 1.5.3(vue@3.3.4)
+      '@unhead/dom': 1.7.4
+      '@unhead/schema': 1.7.4
+      '@unhead/ssr': 1.7.4
+      '@unhead/vue': 1.7.4(vue@3.3.4)
       vue: 3.3.4
     dev: true
 
@@ -4808,7 +4757,7 @@ packages:
       defu: 6.1.2
       dotenv: 16.3.1
       giget: 1.1.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mlly: 1.4.2
       ohash: 1.1.3
       pathe: 1.1.1
@@ -4986,11 +4935,6 @@ packages:
   /ci-info@3.8.0:
     resolution: {integrity: sha512-eXTggHWSooYhq49F2opQhuHWgzucfF2YgODK4e1566GQs5BIfP30B0oenwBJHfWxAs2fyPB1s7Mg949zLf61Yw==}
     engines: {node: '>=8'}
-
-  /citty@0.1.3:
-    resolution: {integrity: sha512-tb6zTEb2BDSrzFedqFYFUKUuKNaxVJWCm7o02K4kADGkBDyyiz7D40rDMpguczdZyAN3aetd5fhpB01HkreNyg==}
-    dependencies:
-      consola: 3.2.3
 
   /citty@0.1.4:
     resolution: {integrity: sha512-Q3bK1huLxzQrvj7hImJ7Z1vKYJRPQCDnd0EjXfHMidcjecGOMuLrmuQmtWmFkuKLcMThlGh1yCKG8IEc6VeNXQ==}
@@ -6404,9 +6348,6 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /get-port-please@3.1.0:
-    resolution: {integrity: sha512-r/qtQh/rku1cnqnEFgnY7CFsy+EXUuWjw4938fk7yfGVMJfEkpJBOTMtkiP4QcXMfXICpuaBJELrifWK+mtvXw==}
-
   /get-port-please@3.1.1:
     resolution: {integrity: sha512-3UBAyM3u4ZBVYDsxOQfJDxEa6XTbpBDrOjp4mf7ExFRt5BKs/QywQQiJsh2B+hxcZLSapWqCRvElUe8DnKcFHA==}
 
@@ -7244,10 +7185,6 @@ packages:
       '@pkgjs/parseargs': 0.11.0
     dev: true
 
-  /jiti@1.19.3:
-    resolution: {integrity: sha512-5eEbBDQT/jF1xg6l36P+mWGGoH9Spuy0PCdSr2dtWRDGC6ph/w9ZCL4lmESW8f8F7MwT3XKescfP0wnZWAKL9w==}
-    hasBin: true
-
   /jiti@1.20.0:
     resolution: {integrity: sha512-3TV69ZbrvV6U5DfQimop50jE9Dl6J8O1ja1dvBbMba/sZ3YBEQqJ2VZRoQPVnhlzjNtU1vaXRZVrVjU4qtm8yA==}
     hasBin: true
@@ -7446,27 +7383,6 @@ packages:
       - enquirer
       - supports-color
     dev: true
-
-  /listhen@1.4.7:
-    resolution: {integrity: sha512-CCwyvkwJzoUfKb9jYOYEIJMK+waOkKDW1EuABIocwK3caZtqrq6t/Bo51WpN7gpeF8yusoiZf3xeJNyoque3aw==}
-    hasBin: true
-    dependencies:
-      '@parcel/watcher': 2.3.0
-      '@parcel/watcher-wasm': 2.3.0
-      citty: 0.1.3
-      clipboardy: 3.0.0
-      consola: 3.2.3
-      defu: 6.1.2
-      get-port-please: 3.1.0
-      h3: 1.8.1
-      http-shutdown: 1.2.2
-      jiti: 1.19.3
-      mlly: 1.4.2
-      node-forge: 1.3.1
-      pathe: 1.1.1
-      ufo: 1.3.0
-      untun: 0.1.2
-      uqr: 0.1.2
 
   /listhen@1.5.3:
     resolution: {integrity: sha512-5SitrZRCH4XXHvKSAqwaLURfQ6ZS/BCv+kpPkage5PhSnQPlz5HIVROCEIcMw8YvIF8NhDUAj/HAI/OovJGEpQ==}
@@ -8474,12 +8390,12 @@ packages:
       typescript:
         optional: true
     dependencies:
-      citty: 0.1.3
+      citty: 0.1.4
       defu: 6.1.2
       esbuild: 0.18.20
       fs-extra: 11.1.1
       globby: 13.2.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mlly: 1.4.2
       mri: 1.2.0
       pathe: 1.1.1
@@ -8536,9 +8452,6 @@ packages:
     engines: {node: ^14 || ^16 || >=18}
     hasBin: true
 
-  /napi-wasm@1.1.0:
-    resolution: {integrity: sha512-lHwIAJbmLSjF9VDRm9GoVOy9AGp3aIvkjv+Kvz9h16QR3uSVYH78PNQUnT2U4X53mhlnV2M7wrhibQ3GHicDmg==}
-
   /natural-compare@1.4.0:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
 
@@ -8569,7 +8482,7 @@ packages:
       c12: 1.4.2
       chalk: 5.3.0
       chokidar: 3.5.3
-      citty: 0.1.3
+      citty: 0.1.4
       consola: 3.2.3
       cookie-es: 1.0.0
       defu: 6.1.2
@@ -8782,7 +8695,7 @@ packages:
     dependencies:
       '@nuxt/kit': 3.7.3(rollup@3.29.0)
       defu: 6.1.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       pathe: 1.1.1
       untyped: 1.4.0
     transitivePeerDependencies:
@@ -10316,7 +10229,7 @@ packages:
       '@sanity/bifur-client': 0.3.1
       '@sanity/block-tools': 3.15.1
       '@sanity/cli': 3.15.1
-      '@sanity/client': 6.4.11
+      '@sanity/client': 6.4.12
       '@sanity/color': 2.2.5
       '@sanity/diff': 3.15.1
       '@sanity/eventsource': 5.0.0
@@ -10824,7 +10737,7 @@ packages:
       consola: 3.2.3
       fast-glob: 3.3.1
       glob: 10.3.4
-      jiti: 1.19.3
+      jiti: 1.20.0
       json5: 2.2.3
       jsonc-parser: 3.2.0
       lodash.template: 4.5.0
@@ -11178,7 +11091,7 @@ packages:
       esbuild: 0.17.19
       globby: 13.2.2
       hookable: 5.5.3
-      jiti: 1.19.3
+      jiti: 1.20.0
       magic-string: 0.30.3
       mkdist: 1.3.0(typescript@5.2.2)
       mlly: 1.4.2
@@ -11212,13 +11125,13 @@ packages:
       '@rollup/plugin-replace': 5.0.2(rollup@3.29.0)
       '@rollup/pluginutils': 5.0.4(rollup@3.29.0)
       chalk: 5.3.0
-      citty: 0.1.3
+      citty: 0.1.4
       consola: 3.2.3
       defu: 6.1.2
       esbuild: 0.19.2
       globby: 13.2.2
       hookable: 5.5.3
-      jiti: 1.19.3
+      jiti: 1.20.0
       magic-string: 0.30.3
       mkdist: 1.3.0(typescript@5.2.2)
       mlly: 1.4.2
@@ -11260,15 +11173,6 @@ packages:
       mime: 3.0.0
       node-fetch-native: 1.4.0
       pathe: 1.1.1
-
-  /unhead@1.5.3:
-    resolution: {integrity: sha512-4hkVcX74zs+bv5s6ubIGd/iLgAN4D58u+z2wYbczPwUVFUxKyElTqT+9VjNX3T1SikKbOSl1pFyNKqBc+342lw==}
-    dependencies:
-      '@unhead/dom': 1.5.3
-      '@unhead/schema': 1.5.3
-      '@unhead/shared': 1.5.3
-      hookable: 5.5.3
-    dev: true
 
   /unhead@1.7.4:
     resolution: {integrity: sha512-oOv+9aQS85DQUd0f1uJBtb2uG3SKwCURSTuUWp9WKKzANCb1TjW2dWp5TFmJH5ILF6urXi4uUQfjK+SawzBJAA==}
@@ -11526,7 +11430,7 @@ packages:
       destr: 2.0.1
       h3: 1.8.1
       ioredis: 5.3.2
-      listhen: 1.4.7
+      listhen: 1.5.3
       lru-cache: 10.0.1
       mri: 1.2.0
       node-fetch-native: 1.4.0
@@ -11539,7 +11443,7 @@ packages:
     resolution: {integrity: sha512-wLAMWvxfqyTiBODA1lg3IXHQtjggYLeTK7RnSfqtOXixWJ3bAa2kK/HHmOOg19upteqO3muLvN6O/icbyQY33Q==}
     hasBin: true
     dependencies:
-      citty: 0.1.3
+      citty: 0.1.4
       consola: 3.2.3
       pathe: 1.1.1
 
@@ -11551,7 +11455,7 @@ packages:
       '@babel/standalone': 7.22.16
       '@babel/types': 7.22.15
       defu: 6.1.2
-      jiti: 1.19.3
+      jiti: 1.20.0
       mri: 1.2.0
       scule: 1.0.0
     transitivePeerDependencies:
@@ -12279,10 +12183,6 @@ packages:
   /yocto-queue@1.0.0:
     resolution: {integrity: sha512-9bnSc/HEW2uRy67wc+T8UwauLuPJVn28jb+GtJY16iiKWyvmYJRXVT4UamsAEGQfPohgr2q4Tq0sQbQlxTfi1g==}
     engines: {node: '>=12.20'}
-    dev: true
-
-  /zhead@2.0.10:
-    resolution: {integrity: sha512-irug8fXNKjqazkA27cFQs7C6/ZD3qNiEzLC56kDyzQART/Z9GMGfg8h2i6fb9c8ZWnIx/QgOgFJxK3A/CYHG0g==}
     dev: true
 
   /zhead@2.1.1:
