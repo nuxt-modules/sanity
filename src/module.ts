@@ -1,8 +1,8 @@
-import { fileURLToPath } from 'url'
+import { readFileSync } from 'node:fs'
+import { fileURLToPath } from 'node:url'
 import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addImports, isNuxt3, addPlugin, isNuxt2, useLogger } from '@nuxt/kit'
 
 import chalk from 'chalk'
-import * as fse from 'fs-extra'
 import { join, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
@@ -38,7 +38,7 @@ const logger = useLogger('@nuxtjs/sanity')
 
 function getDefaultSanityConfig (jsonPath: string) {
   try {
-    const { projectId, dataset } = fse.readJSONSync(jsonPath).api
+    const { projectId, dataset } = JSON.parse(readFileSync(jsonPath, 'utf-8').trim()).api
     return { projectId, dataset }
   } catch {
     return {}
