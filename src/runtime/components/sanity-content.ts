@@ -1,5 +1,6 @@
 import { defu } from 'defu'
-import { Component, defineComponent, h, VNode } from 'vue'
+import type { Component, VNode } from 'vue'
+import { defineComponent, h } from 'vue'
 import type {
   PortableTextBlock,
   ArbitraryTypedObject,
