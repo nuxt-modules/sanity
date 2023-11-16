@@ -37,6 +37,9 @@ jobs:
       - name: 🛠 Build project
         run: pnpm build
 
+      - name: 💪 Test built types
+        run: pnpm test:types
+
       - name: 🧪 Test project
         run: pnpm test -- --coverage
 
