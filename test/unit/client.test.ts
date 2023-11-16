@@ -131,28 +131,7 @@ describe('minimal sanity client', () => {
     )
   })
 
-  it('uses compression on server', async () => {
-    process.server = true
-    const client = createClient({
-      projectId: 'sample-project',
-      apiVersion: '1',
-    })
-    await client.fetch('*[_type == "article"]')
-
-    expect($fetch).toBeCalledWith(
-      expect.stringContaining(`https://${project}.api.sanity.io`),
-      {
-        credentials: 'omit',
-        headers: {
-          'accept-encoding': 'gzip, deflate',
-          Accept: 'application/json',
-        },
-      },
-    )
-  })
-
   it('uses versioned api', async () => {
-    process.server = true
     const client = createClient({
       projectId: 'sample-project',
       apiVersion: '2021-03-25',
@@ -164,7 +143,6 @@ describe('minimal sanity client', () => {
       {
         credentials: 'omit',
         headers: {
-          'accept-encoding': 'gzip, deflate',
           Accept: 'application/json',
         },
       },
