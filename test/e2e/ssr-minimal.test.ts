@@ -1,6 +1,6 @@
 /* @vitest-environment node */
 import { fileURLToPath } from 'node:url'
-import { setup } from '@nuxt/test-utils'
+import { setup } from '@nuxt/test-utils/e2e'
 import { describe } from 'vitest'
 import { ssrBehaviour } from './ssr.behaviour'
 
