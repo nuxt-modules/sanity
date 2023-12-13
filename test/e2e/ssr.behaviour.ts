@@ -1,4 +1,4 @@
-import { $fetch } from '@nuxt/test-utils'
+import { $fetch } from '@nuxt/test-utils/e2e'
 import { it, expect } from 'vitest'
 
 export const ssrBehaviour = () => {
