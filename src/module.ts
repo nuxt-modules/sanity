@@ -121,8 +121,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'useSanity', as: 'useSanity', from: join(runtimeDir, 'composables') },
       { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables') },
-      isNuxt3() && { name: 'useSanityQuery', as: 'useSanityQuery', from: join(runtimeDir, 'composables') },
-    ].filter(Boolean))
+      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: join(runtimeDir, 'composables') }] : [],
+    ])
 
     nuxt.hook('prepare:types', ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
