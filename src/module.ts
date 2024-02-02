@@ -1,17 +1,63 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import { defineNuxtModule, requireModule, addTemplate, addComponentsDir, addImports, isNuxt3, addPlugin, isNuxt2, useLogger } from '@nuxt/kit'
+import crypto from 'crypto'
+import {
+  addComponentsDir,
+  addImports,
+  addPlugin,
+  addServerHandler,
+  addTemplate,
+  defineNuxtModule,
+  isNuxt2,
+  isNuxt3,
+  tryResolveModule,
+  requireModule,
+  resolveModule,
+  useLogger,
+} from '@nuxt/kit'
 
 import chalk from 'chalk'
 import { join, resolve } from 'pathe'
 import { defu } from 'defu'
-import { genExport } from 'knitwork'
+import { genExport, genTypeExport } from 'knitwork'
 
 import { name, version } from '../package.json'
 
 import type { SanityConfiguration } from './runtime/client'
+import type { ClientConfig, StegaConfig } from '@sanity/client'
 
-export interface SanityModuleOptions extends Partial<SanityConfiguration> {
+export interface SanityModuleVisualEditingOptions {
+  /**
+   * Enable draft mode or configure draft endpoints
+   */
+  draftMode?:
+    | boolean
+    | {
+        enable?: string
+        disable?: string
+      }
+  /**
+   * Enable visual editing at app level or per component
+   * @default 'global'
+   */
+  mode?: 'global' | 'component'
+  /**
+   * Read token for server side queries
+   * @required
+   */
+  token?: string
+  /**
+   * The URL of the Sanity Studio
+   * @required
+   */
+  studioUrl?: string
+  /**
+   * Enable stega
+   * @required
+   */
+  stega?: boolean
+}
+export type SanityModuleOptions = Partial<SanityConfiguration | ClientConfig> & {
   /** Globally register a $sanity helper throughout your app */
   globalHelper?: boolean
   /**
@@ -29,7 +75,11 @@ export interface SanityModuleOptions extends Partial<SanityConfiguration> {
   /**
    * Configuration for any additional clients
    */
-  additionalClients?: Record<string, Partial<SanityConfiguration>>
+  additionalClients?: Record<string, Partial<SanityConfiguration | ClientConfig>>
+  /**
+   * Configuration for visual editing
+   */
+  visualEditing?: SanityModuleVisualEditingOptions
 }
 
 export type ModuleOptions = SanityModuleOptions
@@ -57,10 +107,12 @@ export default defineNuxtModule<SanityModuleOptions>({
     },
   },
   defaults: nuxt => ({
-    dataset: 'production',
-    apiVersion: '1',
-    withCredentials: false,
     additionalClients: {},
+    apiVersion: '1',
+    disableSmartCdn: false,
+    dataset: 'production',
+    perspective: 'raw',
+    withCredentials: false,
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
   }),
   async setup (options, nuxt) {
@@ -77,18 +129,80 @@ export default defineNuxtModule<SanityModuleOptions>({
       logger.info(`Enabling minimal client as ${chalk.bold('@sanity/client')} is not installed.`)
     }
 
+    if (options.visualEditing) {
+      try {
+        if (options.minimal) {
+          throw new Error('Minimal client is enabled.')
+        }
+        if (!options.visualEditing.token) {
+          throw new Error(`'token' is required.`)
+        }
+        if (!options.visualEditing.studioUrl) {
+          throw new Error(`'studioUrl' is required.`)
+        }
+        if (!(await tryResolveModule('@sanity/core-loader'))) {
+          throw new Error(
+            `${chalk.bold('@sanity/core-loader')} is not installed.`,
+          )
+        }
+        if (options.apiVersion === '1') {
+          throw new Error(
+            `The specified API Version must be ${chalk.bold(
+              '2021-03-25',
+            )} or later.`,
+          )
+        }
+      } catch (e) {
+        options.visualEditing = undefined
+        if (e instanceof Error) {
+          logger.warn(`Could not enable visual editing: ${e.message}`)
+        }
+      }
+    }
+
     // Final resolved configuration
-    nuxt.options.runtimeConfig.sanity = nuxt.options.runtimeConfig.sanity || {}
-    const { projectId, dataset } = nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, {
-      useCdn: options.useCdn,
-      projectId: options.projectId,
-      dataset: options.dataset,
-      apiVersion: options.apiVersion,
-      withCredentials: options.withCredentials,
-      token: options.token,
-      perspective: options.perspective || 'raw',
-      additionalClients: options.additionalClients,
-    })
+    const visualEditing = options.visualEditing && {
+      draftMode: (options.visualEditing.draftMode
+        ? defu(options.visualEditing.draftMode, {
+            enable: '/draft/enable',
+            disable: '/draft/disable',
+          })
+        : false) as { enable: string; disable: string } | false,
+      mode: options.visualEditing.mode || 'global',
+      studioUrl: options.visualEditing.studioUrl || '',
+    }
+
+    nuxt.options.runtimeConfig.sanity = {
+      ...(nuxt.options.runtimeConfig.sanity || {}),
+      visualEditing: options.visualEditing && {
+        ...visualEditing!,
+        draftModeId: visualEditing!.draftMode
+          ? crypto.randomBytes(16).toString('hex')
+          : '',
+        token: options.visualEditing.token || '',
+      },
+    }
+
+    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity =
+      defu(nuxt.options.runtimeConfig.public.sanity, {
+        additionalClients: options.additionalClients, // has default
+        apiVersion: options.apiVersion, // has default
+        dataset: options.dataset, // has default
+        disableSmartCdn: options.disableSmartCdn, // has default
+        perspective: options.perspective, // has default
+        projectId: options.projectId || '',
+        stega:
+          (options.visualEditing?.stega === true &&
+            ({
+              enabled: true,
+              studioUrl: options.visualEditing.studioUrl,
+            } as StegaConfig)) ||
+          {},
+        token: options.token || '',
+        useCdn: options.useCdn, // enforced
+        visualEditing: visualEditing,
+        withCredentials: options.withCredentials, // has default
+      }))
 
     if (!projectId) {
       logger.warn(`No Sanity project found. Make sure you specify a ${chalk.bold('projectId')} in your Sanity config.`)
@@ -97,14 +211,29 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
+    const typesDir = fileURLToPath(new URL('./types', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir, '@nuxtjs/sanity')
+    nuxt.options.build.transpile.push('@sanity/core-loader', '@sanity/preview-url-secret')
+
+    const clientSpecifier = options.minimal
+      ? join(runtimeDir, 'client')
+      : '@sanity/client'
 
     addTemplate({
       filename: 'sanity-client.mjs',
+      getContents: () => genExport(clientSpecifier, ['createClient']),
+    })
+    addTemplate({
+      filename: 'sanity-config.ts',
       getContents: () =>
-        options.minimal
-          ? genExport(join(runtimeDir, 'client'), ['createClient'])
-          : genExport('@sanity/client', [{ name: 'createClient' }]),
+        genTypeExport(clientSpecifier, [
+          {
+            name: options.minimal
+              ? 'SanityConfiguration'
+              : 'ClientConfig',
+            as: 'SanityConfiguration',
+          },
+        ]),
     })
 
     if (options.globalHelper) {
@@ -116,27 +245,43 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
+    const visualEditingDir = join(runtimeDir, 'visual-editing')
+    const composablesDir = options.visualEditing ? visualEditingDir : runtimeDir
+
+
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
-      { name: 'useSanity', as: 'useSanity', from: join(runtimeDir, 'composables') },
+      { name: 'useSanity', as: 'useSanity', from: join(composablesDir, 'composables') },
       { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables') },
-      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: join(runtimeDir, 'composables') }] : [],
+      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: join(composablesDir, 'composables') }] : [],
     ])
 
-    nuxt.hook('prepare:types', ({ tsConfig }) => {
+    const disabled = !isNuxt3() || !options.visualEditing
+    addImports([
+      { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: join(visualEditingDir, 'composables'), disabled },
+      { name: 'useSanityOverlays', as: 'useSanityOverlays', from: join(visualEditingDir, 'composables'), disabled },
+      { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: join(visualEditingDir, 'composables'), disabled },
+    ])
+
+    nuxt.hook('prepare:types', async ({ tsConfig }) => {
+      const clientPath = await resolveModule(clientSpecifier)
+
       tsConfig.compilerOptions ||= {}
-      tsConfig.compilerOptions.paths['#sanity-client'] = [join(runtimeDir, 'client')]
+      tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
+      tsConfig.compilerOptions.paths['#sanity-client/types'] = [
+        join(typesDir, 'client'),
+      ]
+      tsConfig.compilerOptions.paths['#sanity-composables'] = [
+        join(composablesDir, 'composables'),
+      ]
     })
 
     nuxt.hook('nitro:config', (config) => {
       if (config.imports === false) return
 
       config.virtual ||= {}
-      config.virtual['#sanity-client'] =
-        options.minimal
-          ? genExport(join(runtimeDir, 'client'), ['createClient'])
-          : genExport('@sanity/client', [{ name: 'createClient' }])
+      config.virtual['#sanity-client'] = genExport(clientSpecifier, ['createClient'])
 
       config.externals ||= {}
       config.externals.inline ||= []
@@ -164,5 +309,61 @@ export default defineNuxtModule<SanityModuleOptions>({
       path: join(runtimeDir, 'components'),
       extensions: ['js', 'ts', 'mjs'],
     })
+
+    if (options.visualEditing) {
+      // Plugin to check visual editing on app initialisation
+      addPlugin({
+        mode: 'server',
+        src: join(visualEditingDir, 'plugins', 'server'),
+      })
+
+      if (
+        options.visualEditing.mode === undefined ||
+        options.visualEditing.mode === 'global'
+      ) {
+        addPlugin({
+          mode: 'client',
+          src: join(visualEditingDir, 'plugins', 'client'),
+        })
+        logger.info(`Visual editing enabled globally.`)
+      } else {
+        logger.info(
+          `Call ${chalk.bold(
+            'useVisualEditing()',
+          )} in your application to enable visual editing.`,
+        )
+      }
+
+      if (options.visualEditing?.draftMode) {
+        const draftRoutes = defu(
+          options.visualEditing.draftMode === true
+            ? {}
+            : options.visualEditing.draftMode,
+          {
+            enable: '/draft/enable',
+            disable: '/draft/disable',
+          },
+        )
+
+        const draftRoutesDir = join(visualEditingDir, 'draft')
+
+        addServerHandler({
+          method: 'get',
+          route: draftRoutes.enable,
+          handler: join(draftRoutesDir, 'enable'),
+        })
+        addServerHandler({
+          method: 'get',
+          route: draftRoutes.disable,
+          handler: join(draftRoutesDir, 'disable'),
+        })
+
+        logger.info(
+          `Draft mode enabled. Added routes at: ${Object.values(draftRoutes)
+            .map(route => chalk.bold(route))
+            .join(', ')}.`,
+        )
+      }
+    }
   },
 })

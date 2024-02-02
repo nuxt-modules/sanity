@@ -7,7 +7,6 @@ import { $fetch } from 'ofetch'
 const apiHost = 'api.sanity.io'
 const cdnHost = 'apicdn.sanity.io'
 
-export type SanityClient = ReturnType<typeof createClient>
 
 export interface SanityConfiguration {
   useCdn?: boolean

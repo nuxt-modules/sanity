@@ -1,7 +1,7 @@
 import { defu } from 'defu'
 
-import type { SanityConfiguration } from './client'
-import type { SanityHelper } from './composables'
+import type { SanityConfiguration } from '#build/sanity-config'
+import type { SanityHelper } from '#sanity-composables'
 
 import { useRuntimeConfig } from '#imports'
 import { createClient } from '#sanity-client'
@@ -16,7 +16,7 @@ const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
   return {
     client,
     config,
-    fetch: (...args) => client.fetch(...args),
+    fetch: client.fetch,
     setToken (token) {
       config.token = token
       client = createClient(config)
@@ -29,10 +29,15 @@ export const useSanity = (client = 'default'): SanityHelper => {
     return clients[client]
   }
 
-  const { additionalClients = {}, ...options } = defu($config.sanity, $config.public.sanity)
+  const {
+    additionalClients = {},
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    visualEditing,
+    ...options
+  } = defu($config.sanity, $config.public.sanity)
 
   if (client === 'default') {
-    clients.default = createSanityHelper(options)
+    clients.default = createSanityHelper(options as SanityConfiguration) // @todo casting
     return clients.default
   }
 
