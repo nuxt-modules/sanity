@@ -51,8 +51,8 @@ importers:
         specifier: 3.9.0
         version: 3.9.0(@vue/test-utils@2.4.4)(h3@1.9.0)(happy-dom@13.3.8)(rollup@3.29.4)(vite@5.0.10)(vitest@1.2.2)(vue-router@4.2.5)(vue@3.4.3)
       '@sanity/client':
-        specifier: 6.11.2
-        version: 6.11.2
+        specifier: 6.13.3
+        version: 6.13.3
       '@vitest/coverage-v8':
         specifier: 1.2.2
         version: 1.2.2(vitest@1.2.2)
@@ -2677,7 +2677,7 @@ packages:
       chalk: 4.1.2
       esbuild: 0.19.11
       esbuild-register: 3.5.0(esbuild@0.19.11)
-      get-it: 8.4.4
+      get-it: 8.4.5
       golden-fleece: 1.0.9
       node-machine-id: 1.1.12
       pkg-dir: 5.0.0
@@ -2691,19 +2691,19 @@ packages:
     dependencies:
       '@sanity/eventsource': 5.0.1
       '@vercel/stega': 0.1.0
-      get-it: 8.4.4
+      get-it: 8.4.5
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
     dev: false
 
-  /@sanity/client@6.11.2:
-    resolution: {integrity: sha512-loJF1MxnRgFL/vq7EPg/zhttzAy8Ka71Ip0zge1ksmzUt3PeEN27ZCnkYj8O7Mt1x9qALbdj+owXWqcNEF/lIA==}
+  /@sanity/client@6.13.3:
+    resolution: {integrity: sha512-oOkce0xovPe0cwiEQeNPlrZugG69GHB+Dn16IlcnlyOp2GEsTD+Hgk29Z/cOhLbxqxGv9URpd0iuR9cTyEM4AQ==}
     engines: {node: '>=14.18'}
     dependencies:
       '@sanity/eventsource': 5.0.1
       '@vercel/stega': 0.1.0
-      get-it: 8.4.5
+      get-it: 8.4.6
       rxjs: 7.8.1
     transitivePeerDependencies:
       - supports-color
@@ -2738,7 +2738,7 @@ packages:
     dependencies:
       archiver: 5.3.2
       debug: 3.2.7
-      get-it: 8.4.4
+      get-it: 8.4.5
       lodash: 4.17.21
       mississippi: 4.0.0
       p-queue: 2.4.2
@@ -2785,7 +2785,7 @@ packages:
       '@sanity/uuid': 3.0.2
       debug: 3.2.7
       file-url: 2.0.2
-      get-it: 8.4.4
+      get-it: 8.4.5
       get-uri: 2.0.4
       globby: 10.0.2
       gunzip-maybe: 1.4.2
@@ -2933,7 +2933,7 @@ packages:
   /@sanity/types@3.23.4:
     resolution: {integrity: sha512-v3EN73ECxlwHAScOhQhSnnfpZf62LX8vN62V3m6tY7+Umnc9XwKUoTtKiMQUKJy4XuZgarot3kM4/6GfB9Y3Mg==}
     dependencies:
-      '@sanity/client': 6.11.2
+      '@sanity/client': 6.13.3
       '@types/react': 18.2.55
     transitivePeerDependencies:
       - supports-color
@@ -5963,6 +5963,24 @@ packages:
 
   /get-it@8.4.5:
     resolution: {integrity: sha512-hOoAwSfJXy86QJPEsZFDtBsFBagyTAlYwLJkKZJN5q7ppXRQjq0Wies4d14icDSpVs7QVm4Wtt0XQzjxXlUdgg==}
+    engines: {node: '>=14.0.0'}
+    dependencies:
+      debug: 4.3.4
+      decompress-response: 7.0.0
+      follow-redirects: 1.15.4(debug@4.3.4)
+      into-stream: 6.0.0
+      is-plain-object: 5.0.0
+      is-retry-allowed: 2.2.0
+      is-stream: 2.0.1
+      parse-headers: 2.0.5
+      progress-stream: 2.0.0
+      tunnel-agent: 0.6.0
+    transitivePeerDependencies:
+      - supports-color
+    dev: false
+
+  /get-it@8.4.6:
+    resolution: {integrity: sha512-omefjdbyRb2rRt0tnrZlbeWx9oZJm66o88K8JlYn13xELn+0+d6mJZOQHrJAdC3vxeJ4t/NHa4wh7Wlh+nvEJA==}
     engines: {node: '>=14.0.0'}
     dependencies:
       debug: 4.3.4
