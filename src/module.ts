@@ -1,6 +1,6 @@
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
-import crypto from 'crypto'
+import crypto from 'node:crypto'
 import {
   addComponentsDir,
   addImports,
@@ -215,9 +215,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     nuxt.options.build.transpile.push(runtimeDir, '@nuxtjs/sanity')
     nuxt.options.build.transpile.push('@sanity/core-loader', '@sanity/preview-url-secret')
 
-    const clientSpecifier = options.minimal
-      ? join(runtimeDir, 'client')
-      : '@sanity/client'
+    const clientSpecifier = options.minimal ? join(runtimeDir, 'client') : '@sanity/client'
 
     addTemplate({
       filename: 'sanity-client.mjs',
@@ -228,9 +226,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       getContents: () =>
         genTypeExport(clientSpecifier, [
           {
-            name: options.minimal
-              ? 'SanityConfiguration'
-              : 'ClientConfig',
+            name: options.minimal ? 'SanityConfiguration' : 'ClientConfig',
             as: 'SanityConfiguration',
           },
         ]),
@@ -248,7 +244,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     const visualEditingDir = join(runtimeDir, 'visual-editing')
     const composablesDir = options.visualEditing ? visualEditingDir : runtimeDir
 
-
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
@@ -257,16 +252,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: join(composablesDir, 'composables') }] : [],
     ])
 
-    const disabled = !isNuxt3() || !options.visualEditing
-    addImports([
-      { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: join(visualEditingDir, 'composables'), disabled },
-      { name: 'useSanityOverlays', as: 'useSanityOverlays', from: join(visualEditingDir, 'composables'), disabled },
-      { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: join(visualEditingDir, 'composables'), disabled },
-    ])
-
+    const clientPath = await resolveModule(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
-      const clientPath = await resolveModule(clientSpecifier)
-
       tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
       tsConfig.compilerOptions.paths['#sanity-client/types'] = [
@@ -311,6 +298,15 @@ export default defineNuxtModule<SanityModuleOptions>({
     })
 
     if (options.visualEditing) {
+      // Add auto-imports for visual editing
+      if (isNuxt3()) {
+        addImports([
+          { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: join(visualEditingDir, 'composables') },
+          { name: 'useSanityOverlays', as: 'useSanityOverlays', from: join(visualEditingDir, 'composables') },
+          { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: join(visualEditingDir, 'composables') },
+        ])
+      }
+
       // Plugin to check visual editing on app initialisation
       addPlugin({
         mode: 'server',
