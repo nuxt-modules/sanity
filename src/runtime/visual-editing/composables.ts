@@ -15,7 +15,7 @@ import type {
   ContentSourceMap,
   QueryParams,
 } from '@sanity/client'
-import { enableOverlays } from '@sanity/overlays'
+import { enableVisualEditing } from '@sanity/visual-editing'
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { SanityConfiguration } from '#build/sanity-config'
 import type { SanityClient } from '#sanity-client/types'
@@ -28,11 +28,11 @@ import {
 
 export interface SanityVisualEditingConfiguration {
   draftMode:
-    | boolean
-    | {
-        enable?: string
-        disable?: string
-      }
+  | boolean
+  | {
+    enable?: string
+    disable?: string
+  }
   mode: 'global' | 'component'
   token?: string
   studioUrl: string
@@ -117,7 +117,7 @@ const createSanityHelper = (
   options: SanityHelperConfiguration,
 ): SanityHelper => {
   const config = { ...options }
-  const { visualEditing, ...clientConfig } = config;
+  const { visualEditing, ...clientConfig } = config
   let client = createSanityClient(clientConfig)
 
   const visualEditingEnabled =
@@ -134,7 +134,7 @@ const createSanityHelper = (
     // @ts-expect-error
     fetch: (...args) => client.fetch(...args),
     queryStore,
-    setToken(token) {
+    setToken (token) {
       config.token = token
       client = createSanityClient(clientConfig)
       if (queryStore && visualEditing) {
@@ -172,7 +172,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
   return nuxtApp._sanity[client]
 }
 
-export const useSanityQuery = <T = unknown, E = Error>(
+export const useSanityQuery = <T = unknown, E = Error> (
   query: string,
   _params?: QueryParams,
   _options: UseSanityQueryOptions<SanityQueryResponse<T | null>> = {},
@@ -290,7 +290,7 @@ export const useSanityQuery = <T = unknown, E = Error>(
   }) as AsyncSanityData<T | null, E>
 }
 
-export function useSanityLiveMode({ client = 'default' }: { client?: string }) {
+export function useSanityLiveMode ({ client = 'default' }: { client?: string }) {
   let disable = () => {}
 
   if (import.meta.client) {
@@ -307,12 +307,12 @@ export function useSanityLiveMode({ client = 'default' }: { client?: string }) {
   return disable
 }
 
-export function useSanityOverlays() {
+export function useSanityOverlays () {
   let disable = () => {}
 
   if (import.meta.client) {
     const router = useRouter()
-    disable = enableOverlays({
+    disable = enableVisualEditing({
       history: {
         subscribe: navigate => {
           router.isReady().then(() => {
@@ -345,7 +345,7 @@ export function useSanityOverlays() {
   return disable
 }
 
-export function useSanityVisualEditing(
+export function useSanityVisualEditing (
   options: { client?: string } | Array<{ client?: string }> = {},
 ) {
   const _options = Array.isArray(options) ? options : [options]
