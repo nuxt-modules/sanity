@@ -31,11 +31,11 @@ export interface SanityModuleVisualEditingOptions {
    * Enable draft mode or configure draft endpoints
    */
   draftMode?:
-    | boolean
-    | {
-        enable?: string
-        disable?: string
-      }
+  | boolean
+  | {
+    enable?: string
+    disable?: string
+  }
   /**
    * Enable visual editing at app level or per component
    * @default 'global'
@@ -141,16 +141,10 @@ export default defineNuxtModule<SanityModuleOptions>({
           throw new Error(`'studioUrl' is required.`)
         }
         if (!(await tryResolveModule('@sanity/core-loader'))) {
-          throw new Error(
-            `${chalk.bold('@sanity/core-loader')} is not installed.`,
-          )
+          throw new Error(`${chalk.bold('@sanity/core-loader')} is not installed.`)
         }
         if (options.apiVersion === '1') {
-          throw new Error(
-            `The specified API Version must be ${chalk.bold(
-              '2021-03-25',
-            )} or later.`,
-          )
+          throw new Error(`The specified API Version must be ${chalk.bold('2021-03-25')} or later.`)
         }
       } catch (e) {
         options.visualEditing = undefined
@@ -164,24 +158,20 @@ export default defineNuxtModule<SanityModuleOptions>({
     const visualEditing = options.visualEditing && {
       draftMode: (options.visualEditing.draftMode
         ? defu(options.visualEditing.draftMode, {
-            enable: '/draft/enable',
-            disable: '/draft/disable',
-          })
+          enable: '/draft/enable',
+          disable: '/draft/disable',
+        })
         : false) as { enable: string; disable: string } | false,
       mode: options.visualEditing.mode || 'global',
       studioUrl: options.visualEditing.studioUrl || '',
     }
 
-    nuxt.options.runtimeConfig.sanity = {
-      ...(nuxt.options.runtimeConfig.sanity || {}),
+    nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, {
       visualEditing: options.visualEditing && {
-        ...visualEditing!,
-        draftModeId: visualEditing!.draftMode
-          ? crypto.randomBytes(16).toString('hex')
-          : '',
+        draftModeId: visualEditing!.draftMode ? crypto.randomBytes(16).toString('hex') : '',
         token: options.visualEditing.token || '',
       },
-    }
+    })
 
     const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity =
       defu(nuxt.options.runtimeConfig.public.sanity, {
@@ -255,10 +245,8 @@ export default defineNuxtModule<SanityModuleOptions>({
     const clientPath = await resolveModule(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
+      tsConfig.compilerOptions.paths['#sanity-client/types'] = [join(typesDir, 'client')]
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
-      tsConfig.compilerOptions.paths['#sanity-client/types'] = [
-        join(typesDir, 'client'),
-      ]
       tsConfig.compilerOptions.paths['#sanity-composables'] = [
         join(composablesDir, 'composables'),
       ]
@@ -331,15 +319,10 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
 
       if (options.visualEditing?.draftMode) {
-        const draftRoutes = defu(
-          options.visualEditing.draftMode === true
-            ? {}
-            : options.visualEditing.draftMode,
-          {
-            enable: '/draft/enable',
-            disable: '/draft/disable',
-          },
-        )
+        const draftRoutes = defu(options.visualEditing.draftMode, {
+          enable: '/draft/enable',
+          disable: '/draft/disable',
+        })
 
         const draftRoutesDir = join(visualEditingDir, 'draft')
 
