@@ -1,30 +1,19 @@
 import { defu } from 'defu'
 import { hash } from 'ohash'
-import { type Ref, reactive } from 'vue'
-import {
-  createQueryStore as createCoreQueryStore,
-  type QueryStore,
-  type QueryStoreState,
-} from '@sanity/core-loader'
-import {
-  defineEncodeDataAttribute,
-  type EncodeDataAttributeFunction,
-} from '@sanity/core-loader/encode-data-attribute'
-import type {
-  ClientPerspective,
-  ContentSourceMap,
-  QueryParams,
-} from '@sanity/client'
+import { reactive } from 'vue'
+import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
+import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
 import { enableVisualEditing } from '@sanity/visual-editing'
+
+import type { Ref } from 'vue'
+import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
+import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
+import type { ClientPerspective, ContentSourceMap, QueryParams } from '@sanity/client'
+
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
-import type { SanityConfiguration } from '#build/sanity-config'
-import type { SanityClient } from '#sanity-client/types'
-import {
-  createSanityClient,
-  useNuxtApp,
-  useRuntimeConfig,
-  useAsyncData,
-} from '#imports'
+import type { ClientConfig, SanityClient } from '../client'
+
+import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
   draftMode:
@@ -39,7 +28,7 @@ export interface SanityVisualEditingConfiguration {
   draftModeId?: string
 }
 
-export interface SanityHelperConfiguration extends SanityConfiguration {
+export interface SanityHelperConfiguration extends ClientConfig {
   visualEditing?: SanityVisualEditingConfiguration
 }
 
@@ -162,7 +151,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
     nuxtApp._sanity.default = createSanityHelper({
       ...options,
       visualEditing: visualEditing || undefined,
-    } as SanityConfiguration) // @todo casting
+    } as ClientConfig) // @todo casting
     return nuxtApp._sanity.default
   }
 

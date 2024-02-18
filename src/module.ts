@@ -19,12 +19,12 @@ import {
 import chalk from 'chalk'
 import { join, resolve } from 'pathe'
 import { defu } from 'defu'
-import { genExport, genTypeExport } from 'knitwork'
+import { genExport } from 'knitwork'
 
 import { name, version } from '../package.json'
 
-import type { SanityConfiguration } from './runtime/client'
-import type { ClientConfig, StegaConfig } from '@sanity/client'
+import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
+import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
 
 export interface SanityModuleVisualEditingOptions {
   /**
@@ -57,7 +57,7 @@ export interface SanityModuleVisualEditingOptions {
    */
   stega?: boolean
 }
-export type SanityModuleOptions = Partial<SanityConfiguration | ClientConfig> & {
+export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConfig> & {
   /** Globally register a $sanity helper throughout your app */
   globalHelper?: boolean
   /**
@@ -75,7 +75,7 @@ export type SanityModuleOptions = Partial<SanityConfiguration | ClientConfig> & 
   /**
    * Configuration for any additional clients
    */
-  additionalClients?: Record<string, Partial<SanityConfiguration | ClientConfig>>
+  additionalClients?: Record<string, Partial<MinimalClientConfig | SanityClientConfig>>
   /**
    * Configuration for visual editing
    */
@@ -201,25 +201,14 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
-    const typesDir = fileURLToPath(new URL('./types', import.meta.url))
     nuxt.options.build.transpile.push(runtimeDir, '@nuxtjs/sanity')
     nuxt.options.build.transpile.push('@sanity/core-loader', '@sanity/preview-url-secret')
 
-    const clientSpecifier = options.minimal ? join(runtimeDir, 'client') : '@sanity/client'
+    const clientSpecifier = options.minimal ? join(runtimeDir, 'minimal-client') : '@sanity/client'
 
     addTemplate({
       filename: 'sanity-client.mjs',
       getContents: () => genExport(clientSpecifier, ['createClient']),
-    })
-    addTemplate({
-      filename: 'sanity-config.ts',
-      getContents: () =>
-        genTypeExport(clientSpecifier, [
-          {
-            name: options.minimal ? 'SanityConfiguration' : 'ClientConfig',
-            as: 'SanityConfiguration',
-          },
-        ]),
     })
 
     if (options.globalHelper) {
@@ -245,7 +234,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     const clientPath = await resolveModule(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
-      tsConfig.compilerOptions.paths['#sanity-client/types'] = [join(typesDir, 'client')]
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
       tsConfig.compilerOptions.paths['#sanity-composables'] = [
         join(composablesDir, 'composables'),
@@ -311,11 +299,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         })
         logger.info(`Visual editing enabled globally.`)
       } else {
-        logger.info(
-          `Call ${chalk.bold(
-            'useVisualEditing()',
-          )} in your application to enable visual editing.`,
-        )
+        logger.info(`Call ${chalk.bold('useVisualEditing()')} in your application to enable visual editing.`)
       }
 
       if (options.visualEditing?.draftMode) {

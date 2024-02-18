@@ -3,8 +3,7 @@ import { hash } from 'ohash'
 import { reactive } from 'vue'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
-import type { SanityClient } from '#sanity-client/types'
-import type { SanityConfiguration } from '#build/sanity-config'
+import type { SanityClient, ClientConfig } from './client'
 import {
   useNuxtApp,
   useRuntimeConfig,
@@ -15,12 +14,12 @@ import {
 
 export interface SanityHelper {
   client: SanityClient
-  config: SanityConfiguration
+  config: ClientConfig
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
 }
 
-const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
+const createSanityHelper = (options: ClientConfig): SanityHelper => {
   const config = { ...options }
   let client = createSanityClient(config)
 
@@ -52,7 +51,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
   }
 
   if (client === 'default') {
-    nuxtApp._sanity.default = createSanityHelper(options as SanityConfiguration) // @todo casting
+    nuxtApp._sanity.default = createSanityHelper(options as ClientConfig) // @todo casting
     return nuxtApp._sanity.default
   }
 

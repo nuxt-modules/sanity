@@ -1,15 +1,16 @@
 import { defu } from 'defu'
 
-import type { SanityConfiguration } from '#build/sanity-config'
 import type { SanityHelper } from '#sanity-composables'
 
 import { useRuntimeConfig } from '#imports'
-import { createClient } from '#sanity-client'
+
+import type { ClientConfig } from './client'
+import { createClient } from './client'
 
 const clients: Record<string, SanityHelper> = {}
 const $config = useRuntimeConfig()
 
-const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
+const createSanityHelper = (options: ClientConfig): SanityHelper => {
   const config = { ...options }
   let client = createClient(config)
 
@@ -37,7 +38,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
   } = defu($config.sanity, $config.public.sanity)
 
   if (client === 'default') {
-    clients.default = createSanityHelper(options as SanityConfiguration) // @todo casting
+    clients.default = createSanityHelper(options as ClientConfig) // @todo casting
     return clients.default
   }
 
