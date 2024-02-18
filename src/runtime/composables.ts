@@ -4,13 +4,7 @@ import { reactive } from 'vue'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { SanityClient, ClientConfig } from './client'
-import {
-  useNuxtApp,
-  useRuntimeConfig,
-  useAsyncData,
-  useLazyAsyncData,
-  createSanityClient,
-} from '#imports'
+import { useNuxtApp, useRuntimeConfig, useAsyncData, useLazyAsyncData, createSanityClient } from '#imports'
 
 export interface SanityHelper {
   client: SanityClient
