@@ -12,10 +12,10 @@ export default defineNuxtPlugin(() => {
 
   const { visualEditing } = $config.sanity
 
-  if (visualEditing?.draftMode) {
-    const draftModeCookie = useCookie('__sanity_draft')
-    enabled.value = draftModeCookie.value === visualEditing.draftModeId
-  } else if (typeof visualEditing === 'object' && !visualEditing.draftMode) {
+  if (visualEditing?.previewMode) {
+    const previewModeCookie = useCookie('__sanity_preview')
+    enabled.value = previewModeCookie.value === visualEditing.previewModeId
+  } else if (typeof visualEditing === 'object' && !visualEditing.previewMode) {
     enabled.value = true
   }
 })

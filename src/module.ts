@@ -28,9 +28,9 @@ import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/cl
 
 export interface SanityModuleVisualEditingOptions {
   /**
-   * Enable draft mode or configure draft endpoints
+   * Enable preview mode or configure preview endpoints
    */
-  draftMode?:
+  previewMode?:
   | boolean
   | {
     enable?: string
@@ -156,10 +156,10 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     // Final resolved configuration
     const visualEditing = options.visualEditing && {
-      draftMode: (options.visualEditing.draftMode
-        ? defu(options.visualEditing.draftMode, {
-          enable: '/draft/enable',
-          disable: '/draft/disable',
+      previewMode: (options.visualEditing.previewMode
+        ? defu(options.visualEditing.previewMode, {
+          enable: '/preview/enable',
+          disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
       mode: options.visualEditing.mode || 'global',
@@ -168,7 +168,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, {
       visualEditing: options.visualEditing && {
-        draftModeId: visualEditing!.draftMode ? crypto.randomBytes(16).toString('hex') : '',
+        previewModeId: visualEditing!.previewMode ? crypto.randomBytes(16).toString('hex') : '',
         token: options.visualEditing.token || '',
       },
     })
@@ -301,27 +301,27 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
-      if (options.visualEditing?.draftMode) {
-        const draftRoutes = defu(options.visualEditing.draftMode, {
-          enable: '/draft/enable',
-          disable: '/draft/disable',
+      if (options.visualEditing?.previewMode) {
+        const previewRoutes = defu(options.visualEditing.previewMode, {
+          enable: '/preview/enable',
+          disable: '/preview/disable',
         })
 
-        const draftRoutesDir = join(visualEditingDir, 'draft')
+        const previewRoutesDir = join(visualEditingDir, 'preview')
 
         addServerHandler({
           method: 'get',
-          route: draftRoutes.enable,
-          handler: join(draftRoutesDir, 'enable'),
+          route: previewRoutes.enable,
+          handler: join(previewRoutesDir, 'enable'),
         })
         addServerHandler({
           method: 'get',
-          route: draftRoutes.disable,
-          handler: join(draftRoutesDir, 'disable'),
+          route: previewRoutes.disable,
+          handler: join(previewRoutesDir, 'disable'),
         })
 
         logger.info(
-          `Draft mode enabled. Added routes at: ${Object.values(draftRoutes)
+          `Preview mode enabled. Added routes at: ${Object.values(previewRoutes)
             .map(route => chalk.bold(route))
             .join(', ')}.`,
         )

@@ -16,7 +16,7 @@ import type { ClientConfig, SanityClient } from '../client'
 import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
-  draftMode:
+  previewMode:
   | boolean
   | {
     enable?: string
@@ -25,7 +25,7 @@ export interface SanityVisualEditingConfiguration {
   mode: 'global' | 'component'
   token?: string
   studioUrl: string
-  draftModeId?: string
+  previewModeId?: string
 }
 
 export interface SanityHelperConfiguration extends ClientConfig {
@@ -124,7 +124,7 @@ const createSanityHelper = (
 
   const visualEditingEnabled =
     visualEditing &&
-    (!visualEditing.draftMode || useState('_sanity_visualEditing').value)
+    (!visualEditing.previewMode || useState('_sanity_visualEditing').value)
 
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)

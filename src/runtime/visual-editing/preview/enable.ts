@@ -21,7 +21,7 @@ export default defineEventHandler(async event => {
     })
   }
 
-  setCookie(event, '__sanity_draft', $config.sanity.visualEditing!.draftModeId, {
+  setCookie(event, '__sanity_preview', $config.sanity.visualEditing!.previewModeId, {
     httpOnly: true,
     sameSite: process.env.NODE_ENV !== 'development' ? 'none' : 'lax',
     secure: process.env.NODE_ENV !== 'development',

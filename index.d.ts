@@ -14,7 +14,7 @@ declare module 'nuxt/schema' {
     sanity: {
       visualEditing:
         | {
-            draftMode:
+            previewMode:
               | false
               | {
                   enable: string
@@ -22,7 +22,7 @@ declare module 'nuxt/schema' {
                 }
             mode: 'global' | 'component'
             studioUrl: string
-            draftModeId: string
+            previewModeId: string
             token: string
           }
         | undefined
@@ -42,7 +42,7 @@ declare module 'nuxt/schema' {
       useCdn: boolean
       visualEditing:
         | {
-            draftMode:
+            previewMode:
               | false
               | {
                   enable: string
