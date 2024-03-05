@@ -1,5 +1,5 @@
 // @ts-ignore
-import { defineNuxtPlugin, useSanityVisualEditing } from '#imports'
+import { defineNuxtPlugin, useSanityVisualEditing, useSanityLiveMode } from '#imports'
 
 export default defineNuxtPlugin((nuxtApp) => {
   useSanityVisualEditing()
