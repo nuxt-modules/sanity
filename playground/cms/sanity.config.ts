@@ -1,18 +1,18 @@
-import { deskTool } from 'sanity/desk'
+import { structureTool } from 'sanity/structure'
 import { presentationTool } from 'sanity/presentation'
-import { createConfig } from 'sanity'
+import { defineConfig } from 'sanity'
 import { visionTool } from '@sanity/vision'
 import { schemaTypes } from './schemas'
 import { debugSecrets } from '@sanity/preview-url-secret/sanity-plugin-debug-secrets'
 
-export default createConfig({
+export default defineConfig({
   name: 'default',
 
   projectId: 'j1o4tmjp',
   dataset: 'production',
 
   plugins: [
-    deskTool(),
+    structureTool(),
     visionTool(),
     presentationTool({
       previewUrl: {

@@ -278,7 +278,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       if (isNuxt3()) {
         addImports([
           { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: join(visualEditingDir, 'composables') },
-          { name: 'useSanityOverlays', as: 'useSanityOverlays', from: join(visualEditingDir, 'composables') },
           { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: join(visualEditingDir, 'composables') },
         ])
       }
@@ -299,7 +298,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         })
         logger.info(`Visual editing enabled globally.`)
       } else {
-        logger.info(`Call ${chalk.bold('useVisualEditing()')} in your application to enable visual editing.`)
+        logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
       if (options.visualEditing?.draftMode) {

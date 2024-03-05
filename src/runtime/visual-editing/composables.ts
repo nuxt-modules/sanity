@@ -3,7 +3,7 @@ import { hash } from 'ohash'
 import { reactive } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
-import { enableVisualEditing } from '@sanity/visual-editing'
+import { enableVisualEditing, type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
 
 import type { Ref } from 'vue'
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
@@ -38,6 +38,19 @@ export interface SanityHelper {
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
   queryStore?: QueryStore
+}
+
+export interface VisualEditingProps
+  extends Omit<VisualEditingOptions, 'history' | 'refresh'> {
+  /**
+   * The refresh API allows smarter refresh logic than the default `location.reload()` behavior.
+   * You can call the refreshDefault argument to trigger the default refresh behavior so you don't have to reimplement it.
+   * @alpha until it's shipped in `sanity/presentation`
+   */
+  refresh?: (
+    payload: HistoryRefresh,
+    refreshDefault: () => false | Promise<void>,
+  ) => false | Promise<void>
 }
 
 type AsyncDataRequestStatus = 'idle' | 'pending' | 'success' | 'error'
@@ -279,7 +292,9 @@ export const useSanityQuery = <T = unknown, E = Error> (
   }) as AsyncSanityData<T | null, E>
 }
 
-export function useSanityLiveMode ({ client = 'default' }: { client?: string }) {
+export function useSanityLiveMode (options?: { client?: string }) {
+  const { client = 'default' } = options || {}
+
   let disable = () => {}
 
   if (import.meta.client) {
@@ -296,12 +311,39 @@ export function useSanityLiveMode ({ client = 'default' }: { client?: string }) 
   return disable
 }
 
-export function useSanityOverlays () {
+export function useSanityVisualEditing (
+  options: VisualEditingProps = {},
+) {
+  const { zIndex, refresh } = options
+
   let disable = () => {}
 
   if (import.meta.client) {
     const router = useRouter()
     disable = enableVisualEditing({
+      zIndex,
+      // It is unlikely this API will be used as much by Nuxt users, as
+      // implementing fully fledged visual editing is more straightforward
+      // compared with other frameworks
+      refresh: (payload) => {
+        function refreshDefault() {
+          if (payload.source === 'mutation' && payload.livePreviewEnabled) {
+            // If live mode is enabled, the loader should handle updates via
+            // `useQuery`, so we can ignore it here
+            return false
+          }
+          return new Promise<void>((resolve) => {
+            // Nuxt’s data fetching happens on both client and server, therefore
+            // the default refresh mechanism is necessarily more of a brute
+            // force solution. It would be preferable to use something like
+            // `refreshNuxtData` here if we could use it to trigger a refetch of
+            // data using the server Sanity client instance
+            reloadNuxtApp({ ttl: 1000 })
+            resolve()
+          })
+        }
+        return refresh ? refresh(payload, refreshDefault) : refreshDefault()
+      },
       history: {
         subscribe: navigate => {
           router.isReady().then(() => {
@@ -327,21 +369,8 @@ export function useSanityOverlays () {
     })
   }
 
-  onScopeDispose(() => {
-    disable()
-  })
+  onScopeDispose(disable)
 
   return disable
 }
 
-export function useSanityVisualEditing (
-  options: { client?: string } | Array<{ client?: string }> = {},
-) {
-  const _options = Array.isArray(options) ? options : [options]
-
-  useSanityOverlays()
-
-  _options.forEach(option => {
-    useSanityLiveMode(option)
-  })
-}
