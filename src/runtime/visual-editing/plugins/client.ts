@@ -1,7 +1,9 @@
 // @ts-ignore
 import { defineNuxtPlugin, useSanityVisualEditing } from '#imports'
 
-export default defineNuxtPlugin(() => {
+export default defineNuxtPlugin((nuxtApp) => {
   useSanityVisualEditing()
-  useSanityLiveMode()
+  if(nuxtApp.$config.public.sanity.visualEditing?.mode !== 'basic') {
+    useSanityLiveMode()
+  }
 })

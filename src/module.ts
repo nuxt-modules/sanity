@@ -38,9 +38,9 @@ export interface SanityModuleVisualEditingOptions {
   }
   /**
    * Enable visual editing at app level or per component
-   * @default 'global'
+   * @default 'loaders'
    */
-  mode?: 'global' | 'component'
+  mode?: 'loaders' | 'basic' | 'manual'
   /**
    * Read token for server side queries
    * @required
@@ -162,7 +162,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
-      mode: options.visualEditing.mode || 'global',
+      mode: options.visualEditing.mode || 'loaders',
       studioUrl: options.visualEditing.studioUrl || '',
     }
 
@@ -289,8 +289,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
 
       if (
-        options.visualEditing.mode === undefined ||
-        options.visualEditing.mode === 'global'
+        options.visualEditing.mode !== 'manual'
       ) {
         addPlugin({
           mode: 'client',
