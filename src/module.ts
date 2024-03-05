@@ -38,9 +38,9 @@ export interface SanityModuleVisualEditingOptions {
   }
   /**
    * Enable visual editing at app level or per component
-   * @default 'loaders'
+   * @default 'normal'
    */
-  mode?: 'loaders' | 'basic' | 'manual'
+  mode?: 'normal' | 'basic' | 'manual'
   /**
    * Read token for server side queries
    * @required
@@ -162,7 +162,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
-      mode: options.visualEditing.mode || 'loaders',
+      mode: options.visualEditing.mode || 'normal',
       studioUrl: options.visualEditing.studioUrl || '',
     }
 

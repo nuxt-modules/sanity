@@ -22,7 +22,7 @@ export interface SanityVisualEditingConfiguration {
     enable?: string
     disable?: string
   }
-  mode: 'loaders' | 'basic' | 'manual'
+  mode: 'normal' | 'basic' | 'manual'
   token?: string
   studioUrl: string
   previewModeId?: string

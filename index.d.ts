@@ -20,7 +20,7 @@ declare module 'nuxt/schema' {
                   enable: string
                   disable: string
                 }
-            mode: 'loaders' | 'basic' | 'manual'
+            mode: 'normal' | 'basic' | 'manual'
             studioUrl: string
             previewModeId: string
             token: string
@@ -48,7 +48,7 @@ declare module 'nuxt/schema' {
                   enable: string
                   disable: string
                 }
-            mode: 'loaders' | 'basic' | 'manual'
+            mode: 'normal' | 'basic' | 'manual'
             studioUrl: string
           }
         | nullish
