@@ -72,14 +72,8 @@ interface _AsyncSanityData<DataT, ErrorT> {
   sourceMap: Ref<ContentSourceMap | null>
   encodeDataAttribute: Ref<EncodeDataAttributeFunction | Noop>
   pending: Ref<boolean>
-  refresh: (opts?: AsyncDataExecuteOptions) => Promise<{
-    data: DataT
-    sourceMap?: ContentSourceMap | null
-  }>
-  execute: (opts?: AsyncDataExecuteOptions) => Promise<{
-    data: DataT
-    sourceMap?: ContentSourceMap | null
-  }>
+  refresh: (opts?: AsyncDataExecuteOptions) => Promise<void>
+  execute: (opts?: AsyncDataExecuteOptions) => Promise<void>
   error: Ref<ErrorT | null>
   status: Ref<AsyncDataRequestStatus>
 }
@@ -208,9 +202,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
     result = useAsyncData<SanityQueryResponse<T | null>, E>(
       queryKey,
       async () => {
-        const data = await sanity.fetch<T>(query, params || {}, {
-          perspective,
-        })
+        const data = await sanity.fetch<T>(query, params || {}, { perspective })
         return { data }
       },
       options,
@@ -250,19 +242,19 @@ export const useSanityQuery = <T = unknown, E = Error> (
               resultSourceMap: 'withKeyArraySelector',
             })
           return sourceMap ? { data, sourceMap } : { data }
-        } else {
-          return new Promise<{
-            data: T | null
-            sourceMap: ContentSourceMap | undefined
-          }>(resolve => {
-            setupFetcher(newSnapshot => {
-              resolve({
-                data: newSnapshot.data || null,
-                sourceMap: newSnapshot.sourceMap,
-              })
+        }
+
+        return new Promise<{
+          data: T | null
+          sourceMap: ContentSourceMap | undefined
+        }>(resolve => {
+          setupFetcher(newSnapshot => {
+            resolve({
+              data: newSnapshot.data || null,
+              sourceMap: newSnapshot.sourceMap,
             })
           })
-        }
+        })
       },
       options,
     ) as AsyncData<SanityQueryResponse<T | null>, E>
@@ -321,7 +313,7 @@ export function useSanityVisualEditing (
       // implementing fully fledged visual editing is more straightforward
       // compared with other frameworks
       refresh: (payload) => {
-        function refreshDefault() {
+        function refreshDefault () {
           if (payload.source === 'mutation' && payload.livePreviewEnabled) {
             // If live mode is enabled, the loader should handle updates via
             // `useQuery`, so we can ignore it here
