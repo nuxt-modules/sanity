@@ -37,6 +37,12 @@ jobs:
       - name: 🛠 Build project
         run: pnpm build
 
+      - name: 🛝 Build playground
+        run: pnpm dev:build
+
+      - name: 🎨 Build studio
+        run: pnpm studio:build
+
       - name: 💪 Test built types
         run: pnpm test:types
 
