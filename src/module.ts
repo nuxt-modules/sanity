@@ -32,7 +32,7 @@ export type SanityVisualEditingRefreshHandler = (
     payload: HistoryRefresh,
     refreshDefault: () => false | Promise<void>,
 ) => false | Promise<void>
-  
+
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
 
 export interface SanityModuleVisualEditingOptions {
@@ -230,32 +230,29 @@ export default defineNuxtModule<SanityModuleOptions>({
     })
 
     if (options.globalHelper) {
-      addPlugin({ src: join(runtimeDir, 'plugin') })
+      addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
       if (isNuxt2()) {
         nuxt.hook('prepare:types', ({ references }) => {
-          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugin' })
+          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugins/global-helper' })
         })
       }
     }
 
-    const visualEditingDir = join(runtimeDir, 'visual-editing')
-    const composablesDir = options.visualEditing ? visualEditingDir : runtimeDir
+    const composablesFile = options.visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
 
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
-      { name: 'useSanity', as: 'useSanity', from: join(composablesDir, 'composables') },
-      { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables') },
-      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: join(composablesDir, 'composables') }] : [],
+      { name: 'useSanity', as: 'useSanity', from: composablesFile },
+      { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
+      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: composablesFile }] : [],
     ])
 
     const clientPath = await resolveModule(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
-      tsConfig.compilerOptions.paths['#sanity-composables'] = [
-        join(composablesDir, 'composables'),
-      ]
+      tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesFile]
     })
 
     nuxt.hook('nitro:config', (config) => {
@@ -275,7 +272,7 @@ export default defineNuxtModule<SanityModuleOptions>({
             imports: [{ name: 'createClient', as: 'createSanityClient' }],
           },
           {
-            from: join(runtimeDir, 'nitro-imports'),
+            from: join(runtimeDir, 'server/utils/index'),
             imports: ['useSanity'],
           },
           {
@@ -295,15 +292,15 @@ export default defineNuxtModule<SanityModuleOptions>({
       // Add auto-imports for visual editing
       if (isNuxt3()) {
         addImports([
-          { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: join(visualEditingDir, 'composables') },
-          { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: join(visualEditingDir, 'composables') },
+          { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: composablesFile },
+          { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: composablesFile },
         ])
       }
 
       // Plugin to check visual editing on app initialisation
       addPlugin({
         mode: 'server',
-        src: join(visualEditingDir, 'plugins', 'server'),
+        src: join(runtimeDir, 'plugins', 'visual-editing.server'),
       })
 
       if (
@@ -311,7 +308,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       ) {
         addPlugin({
           mode: 'client',
-          src: join(visualEditingDir, 'plugins', 'client'),
+          src: join(runtimeDir, 'plugins', 'visual-editing.client'),
         })
         logger.info(`Visual editing enabled globally.`)
       } else {
@@ -324,7 +321,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           disable: '/preview/disable',
         })
 
-        const previewRoutesDir = join(visualEditingDir, 'preview')
+        const previewRoutesDir = join(runtimeDir, 'server/routes/preview')
 
         addServerHandler({
           method: 'get',
