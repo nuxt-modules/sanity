@@ -1,9 +1,4 @@
-import {
-  defineNuxtPlugin,
-  useRuntimeConfig,
-  useState,
-  useCookie,
-} from '#imports'
+import { defineNuxtPlugin, useRuntimeConfig, useState, useCookie } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const enabled = useState('_sanity_visualEditing', () => false)

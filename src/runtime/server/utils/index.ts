@@ -4,8 +4,8 @@ import type { SanityHelper } from '#sanity-composables'
 
 import { useRuntimeConfig } from '#imports'
 
-import type { ClientConfig } from './client'
-import { createClient } from './client'
+import type { ClientConfig } from '../../client'
+import { createClient } from '../../client'
 
 const clients: Record<string, SanityHelper> = {}
 const $config = useRuntimeConfig()
