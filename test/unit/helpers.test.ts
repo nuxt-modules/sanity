@@ -1,5 +1,5 @@
 import { expect, describe, it } from 'vitest'
-import { getByteSize } from '../../src/runtime/client'
+import { getByteSize } from '../../src/runtime/minimal-client'
 
 const behaviour = async () => {
   const variable = 'description'

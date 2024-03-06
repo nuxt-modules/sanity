@@ -4,13 +4,14 @@
   >
     <h2>Project ID: {{ $sanity.config.projectId }}</h2>
     <NuxtLink
-      v-for="{ title, poster, slug } in movies"
+      v-for="({ title, poster, slug }, i) in movies"
       :key="title"
       :to="`/movie/${slug}`"
       class="flex w-64 h-48 relative justify-start"
     >
       <div
         class="py-2 px-4 left-0 bottom-0 mb-4 flex-grow absolute bg-gray-100 rounded shadow-md font-semibold text-gray-800"
+        :data-sanity="encodeDataAttribute?.([i, 'title'])"
       >
         {{ title }}
       </div>
@@ -38,7 +39,5 @@ interface QueryResult {
   slug: string
 }
 
-const sanity = useSanity()
-
-const { data: movies } = await useAsyncData<QueryResult[]>('movies', () => sanity.fetch(query))
+const { data: movies, encodeDataAttribute } = await useSanityQuery<QueryResult[]>(query)
 </script>

@@ -3,23 +3,24 @@ import { hash } from 'ohash'
 import { reactive } from 'vue'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
-import type { SanityClient, SanityConfiguration } from './client'
+import type { SanityClient, ClientConfig } from './client'
 import { useNuxtApp, useRuntimeConfig, useAsyncData, useLazyAsyncData, createSanityClient } from '#imports'
 
 export interface SanityHelper {
   client: SanityClient
-  config: SanityConfiguration
+  config: ClientConfig
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
 }
 
-const createSanityHelper = (options: SanityConfiguration): SanityHelper => {
+const createSanityHelper = (options: ClientConfig): SanityHelper => {
   const config = { ...options }
   let client = createSanityClient(config)
 
   return {
     client,
     config,
+    // @ts-expect-error
     fetch: (...args) => client.fetch(...args),
     setToken (token) {
       config.token = token
@@ -44,7 +45,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
   }
 
   if (client === 'default') {
-    nuxtApp._sanity.default = createSanityHelper(options)
+    nuxtApp._sanity.default = createSanityHelper(options as ClientConfig) // @todo casting
     return nuxtApp._sanity.default
   }
 
@@ -64,7 +65,7 @@ export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?:
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch<T>(query, params), options) as AsyncData<T | null, E>
+  return useAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch<T>(query, params || {}), options) as AsyncData<T | null, E>
 }
 
 export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
@@ -75,5 +76,5 @@ export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _para
     options.watch = options.watch || []
     options.watch.push(params)
   }
-  return useLazyAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch<T>(query, params), options) as AsyncData<T | null, E>
+  return useLazyAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch<T>(query, params || {}), options) as AsyncData<T | null, E>
 }
