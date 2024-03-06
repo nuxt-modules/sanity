@@ -43,7 +43,7 @@
     "prepublishOnly": "pnpm test",
     "release": "bumpp && npm publish",
     "test": "pnpm lint && pnpm vitest run",
-    "test:types": "vue-tsc --noEmit",
+    "test:types": "vue-tsc --noEmit && cd src/runtime/server && pnpm vue-tsc --noEmit",
     "test:unit": "vitest run test/unit/*.test.*",
     "test:e2e": "vitest run test/e2e/*.test.*"
   },
