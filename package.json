@@ -37,7 +37,7 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "studio:build": "pnpm --filter nuxt-sanity-cms build",
     "docs:generate": "nuxi generate docs",
-    "prepare": "husky install",
+    "prepare": "simple-git-hooks",
     "build": "nuxt-module-build build",
     "lint": "eslint --fix --ext .js,.ts,.vue .",
     "prepublishOnly": "pnpm test",
@@ -71,10 +71,10 @@
     "bumpp": "9.4.0",
     "eslint": "8.57.0",
     "happy-dom": "13.6.2",
-    "husky": "9.0.11",
     "lint-staged": "15.2.2",
     "nuxi": "3.10.1",
     "nuxt": "3.10.3",
+    "simple-git-hooks": "^2.10.0",
     "typescript": "5.4.2",
     "vitest": "1.3.1",
     "vitest-environment-nuxt": "1.0.0",
@@ -84,6 +84,9 @@
   "resolutions": {
     "@nuxt/schema": "3.10.3",
     "@nuxtjs/sanity": "link:."
+  },
+  "simple-git-hooks": {
+    "pre-commit": "npx lint-staged"
   },
   "publishConfig": {
     "access": "public"
