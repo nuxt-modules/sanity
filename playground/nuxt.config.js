@@ -14,8 +14,6 @@ export default defineNuxtConfig({
       another: {},
     },
     visualEditing: {
-      stega: true,
-      previewMode: true,
       token: process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN,
       studioUrl: 'http://localhost:3333',
     },

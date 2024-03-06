@@ -10,7 +10,6 @@ import {
   defineNuxtModule,
   isNuxt2,
   isNuxt3,
-  tryResolveModule,
   requireModule,
   resolveModule,
   useLogger,
@@ -25,6 +24,16 @@ import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
+import { type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
+
+export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
+
+export type SanityVisualEditingRefreshHandler = (
+    payload: HistoryRefresh,
+    refreshDefault: () => false | Promise<void>,
+) => false | Promise<void>
+  
+export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
 
 export interface SanityModuleVisualEditingOptions {
   /**
@@ -38,9 +47,9 @@ export interface SanityModuleVisualEditingOptions {
   }
   /**
    * Enable visual editing at app level or per component
-   * @default 'normal'
+   * @default 'live-visual-editing'
    */
-  mode?: 'normal' | 'basic' | 'manual'
+  mode?: SanityVisualEditingMode
   /**
    * Read token for server side queries
    * @required
@@ -48,14 +57,24 @@ export interface SanityModuleVisualEditingOptions {
   token?: string
   /**
    * The URL of the Sanity Studio
-   * @required
    */
   studioUrl?: string
   /**
    * Enable stega
-   * @required
+   * @default false
    */
   stega?: boolean
+  /**
+   * An optional function for overriding the default handling of refresh events
+   * received from the studio. This is generally not need needed if the `mode`
+   * option is set to `live-visual-editing`.
+   */
+  refresh?: SanityVisualEditingRefreshHandler
+  /**
+   * The CSS z-index on the root node that renders overlays
+   * @default 9999999
+   */
+  zIndex?: SanityVisualEditingZIndex
 }
 export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConfig> & {
   /** Globally register a $sanity helper throughout your app */
@@ -140,9 +159,6 @@ export default defineNuxtModule<SanityModuleOptions>({
         if (!options.visualEditing.studioUrl) {
           throw new Error(`'studioUrl' is required.`)
         }
-        if (!(await tryResolveModule('@sanity/core-loader'))) {
-          throw new Error(`${chalk.bold('@sanity/core-loader')} is not installed.`)
-        }
         if (options.apiVersion === '1') {
           throw new Error(`The specified API Version must be ${chalk.bold('2021-03-25')} or later.`)
         }
@@ -156,14 +172,16 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     // Final resolved configuration
     const visualEditing = options.visualEditing && {
-      previewMode: (options.visualEditing.previewMode
+      previewMode: (options.visualEditing.previewMode !== false
         ? defu(options.visualEditing.previewMode, {
           enable: '/preview/enable',
           disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
-      mode: options.visualEditing.mode || 'normal',
+      mode: options.visualEditing.mode || 'live-visual-editing',
       studioUrl: options.visualEditing.studioUrl || '',
+      refresh: options.visualEditing.refresh,
+      zIndex: options.visualEditing.zIndex,
     }
 
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, {
@@ -182,7 +200,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         perspective: options.perspective, // has default
         projectId: options.projectId || '',
         stega:
-          (options.visualEditing?.stega === true &&
+          (options.visualEditing && options.visualEditing?.stega !== false &&
             ({
               enabled: true,
               studioUrl: options.visualEditing.studioUrl,
@@ -289,7 +307,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
 
       if (
-        options.visualEditing.mode !== 'manual'
+        options.visualEditing.mode !== 'custom'
       ) {
         addPlugin({
           mode: 'client',
@@ -300,7 +318,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
-      if (options.visualEditing?.previewMode) {
+      if (options.visualEditing?.previewMode !== false) {
         const previewRoutes = defu(options.visualEditing.previewMode, {
           enable: '/preview/enable',
           disable: '/preview/disable',

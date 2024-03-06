@@ -3,7 +3,7 @@ import { hash } from 'ohash'
 import { reactive } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
-import { enableVisualEditing, type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
+import { enableVisualEditing } from '@sanity/visual-editing'
 
 import type { Ref } from 'vue'
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
@@ -12,6 +12,7 @@ import type { ClientPerspective, ContentSourceMap, QueryParams } from '@sanity/c
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
+import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
 import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData } from '#imports'
 
@@ -22,10 +23,12 @@ export interface SanityVisualEditingConfiguration {
     enable?: string
     disable?: string
   }
-  mode: 'normal' | 'basic' | 'manual'
+  mode: SanityVisualEditingMode,
   token?: string
   studioUrl: string
   previewModeId?: string
+  refresh?: SanityVisualEditingRefreshHandler
+  zIndex?: SanityVisualEditingZIndex
 }
 
 export interface SanityHelperConfiguration extends ClientConfig {
@@ -40,17 +43,9 @@ export interface SanityHelper {
   queryStore?: QueryStore
 }
 
-export interface VisualEditingProps
-  extends Omit<VisualEditingOptions, 'history' | 'refresh'> {
-  /**
-   * The refresh API allows smarter refresh logic than the default `location.reload()` behavior.
-   * You can call the refreshDefault argument to trigger the default refresh behavior so you don't have to reimplement it.
-   * @alpha until it's shipped in `sanity/presentation`
-   */
-  refresh?: (
-    payload: HistoryRefresh,
-    refreshDefault: () => false | Promise<void>,
-  ) => false | Promise<void>
+export interface VisualEditingProps {
+  refresh?: SanityVisualEditingRefreshHandler
+  zIndex?: SanityVisualEditingZIndex
 }
 
 type AsyncDataRequestStatus = 'idle' | 'pending' | 'success' | 'error'

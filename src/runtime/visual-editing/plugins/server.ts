@@ -9,7 +9,6 @@ export default defineNuxtPlugin(() => {
   const enabled = useState('_sanity_visualEditing', () => false)
 
   const $config = useRuntimeConfig()
-
   const { visualEditing } = $config.sanity
 
   if (visualEditing?.previewMode) {

@@ -1,5 +1,10 @@
 import type { ClientPerspective, StegaConfig } from '@sanity/client'
 import type { SanityHelper } from '#sanity-composables'
+import type {
+  SanityVisualEditingMode,
+  SanityVisualEditingRefreshHandler,
+  SanityVisualEditingZIndex,
+} from './src/module'
 
 type nullish = null | undefined | void
 
@@ -20,10 +25,11 @@ declare module 'nuxt/schema' {
                   enable: string
                   disable: string
                 }
-            mode: 'normal' | 'basic' | 'manual'
+            mode: SanityVisualEditingMode
             studioUrl: string
             previewModeId: string
             token: string
+            
           }
         | undefined
     }
@@ -48,8 +54,10 @@ declare module 'nuxt/schema' {
                   enable: string
                   disable: string
                 }
-            mode: 'normal' | 'basic' | 'manual'
+            mode: SanityVisualEditingMode,
             studioUrl: string
+            refresh: SanityVisualEditingRefreshHandler,
+            zIndex: SanityVisualEditingZIndex
           }
         | nullish
     }

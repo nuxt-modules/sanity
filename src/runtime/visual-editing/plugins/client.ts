@@ -1,9 +1,21 @@
 // @ts-ignore
-import { defineNuxtPlugin, useSanityVisualEditing, useSanityLiveMode } from '#imports'
+import { defineNuxtPlugin, useSanityVisualEditing, useSanityLiveMode } from '#imports';
 
-export default defineNuxtPlugin((nuxtApp) => {
-  useSanityVisualEditing()
-  if(nuxtApp.$config.public.sanity.visualEditing?.mode !== 'basic') {
-    useSanityLiveMode()
+export default defineNuxtPlugin(() => {
+  const $config = useRuntimeConfig();
+  const { visualEditing } = $config.public.sanity;
+
+  if (
+    visualEditing?.mode === 'live-visual-editing' ||
+    visualEditing?.mode === 'visual-editing'
+  ) {
+    useSanityVisualEditing({
+      refresh: visualEditing?.refresh,
+      zIndex: visualEditing?.zIndex,
+    });
   }
-})
+
+  if (visualEditing?.mode === 'live-visual-editing') {
+    useSanityLiveMode();
+  }
+});
