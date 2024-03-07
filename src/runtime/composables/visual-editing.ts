@@ -1,6 +1,6 @@
 import { defu } from 'defu'
 import { hash } from 'ohash'
-import { reactive } from 'vue'
+import { onScopeDispose, reactive, ref } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
 import { enableVisualEditing } from '@sanity/visual-editing'
@@ -14,7 +14,7 @@ import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
 import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
-import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData } from '#imports'
+import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useState, useRouter, reloadNuxtApp } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
   previewMode:

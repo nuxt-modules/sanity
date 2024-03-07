@@ -1,5 +1,7 @@
-import { defineEventHandler, setCookie, sendRedirect } from 'h3'
+import { createError, defineEventHandler, getRequestURL, setCookie, sendRedirect } from 'h3'
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
+
+import { useSanity, useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async event => {
   const $config = useRuntimeConfig()

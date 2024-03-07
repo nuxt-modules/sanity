@@ -1,5 +1,5 @@
 // @ts-expect-error need correct typing of #imports
-import { defineNuxtPlugin, useSanityVisualEditing, useSanityLiveMode } from '#imports'
+import { defineNuxtPlugin, useRuntimeConfig, useSanityVisualEditing, useSanityLiveMode } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const $config = useRuntimeConfig();
