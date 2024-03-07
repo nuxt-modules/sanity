@@ -47,12 +47,15 @@ export function createClient (config: ClientConfig) {
   const useCdn = perspective !== 'previewDrafts' && config.useCdn
 
   const fetchOptions: RequestInit = {
-    credentials: withCredentials ? 'include' : 'omit',
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accept: 'application/json',
       ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
+  }
+
+  if (import.meta.client) {
+    fetchOptions.credentials = withCredentials ? 'include' : 'omit'
   }
 
   return {
