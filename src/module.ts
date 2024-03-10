@@ -290,8 +290,22 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.visualEditing) {
       // Optimise dependencies of visual editing
+      nuxt.options.build.transpile.push('async-cache-dedupe')
+      nuxt.options.vite.resolve = defu(nuxt.options.vite.resolve, {
+        dedupe: ['@sanity/client'],
+      })
       nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
-        include: ['async-cache-dedupe', 'react/jsx-runtime', 'parse-headers', 'debug', 'react-dom/client', 'react-is', 'react', 'react-dom'],
+        include: [
+          '@nuxtjs/sanity > @sanity/core-loader > async-cache-dedupe',
+          '@nuxtjs/sanity > @sanity/visual-editing > @sanity/visual-editing > react-is',
+          '@nuxtjs/sanity > @sanity/visual-editing > react',
+          '@nuxtjs/sanity > @sanity/visual-editing > react/jsx-runtime',
+          '@nuxtjs/sanity > @sanity/visual-editing > react-dom',
+          '@nuxtjs/sanity > @sanity/visual-editing > react-dom/client',
+          '@sanity/client > get-it > debug',
+          '@sanity/client > get-it > parse-headers',
+          '@sanity/client',
+        ],
       })
       // Add auto-imports for visual editing
       if (isNuxt3()) {
