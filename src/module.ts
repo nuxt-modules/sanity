@@ -29,8 +29,8 @@ import { type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-e
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
 export type SanityVisualEditingRefreshHandler = (
-    payload: HistoryRefresh,
-    refreshDefault: () => false | Promise<void>,
+  payload: HistoryRefresh,
+  refreshDefault: () => false | Promise<void>,
 ) => false | Promise<void>
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
@@ -289,6 +289,10 @@ export default defineNuxtModule<SanityModuleOptions>({
     })
 
     if (options.visualEditing) {
+      // Optimise dependencies of visual editing
+      nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
+        include: ['async-cache-dedupe', 'react/jsx-runtime', 'parse-headers', 'debug', 'react-dom/client', 'react-is', 'react', 'react-dom'],
+      })
       // Add auto-imports for visual editing
       if (isNuxt3()) {
         addImports([
