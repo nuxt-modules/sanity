@@ -72,8 +72,8 @@ interface _AsyncSanityData<DataT, ErrorT> {
   sourceMap: Ref<ContentSourceMap | null>
   encodeDataAttribute: Ref<EncodeDataAttributeFunction | Noop>
   pending: Ref<boolean>
-  refresh: (opts?: AsyncDataExecuteOptions) => Promise<void>
-  execute: (opts?: AsyncDataExecuteOptions) => Promise<void>
+  refresh: (opts?: AsyncDataExecuteOptions) => Promise<SanityQueryResponse<DataT | null>>
+  execute: (opts?: AsyncDataExecuteOptions) => Promise<SanityQueryResponse<DataT | null>>
   error: Ref<ErrorT | null>
   status: Ref<AsyncDataRequestStatus>
 }

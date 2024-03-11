@@ -56,7 +56,7 @@ declare module 'nuxt/schema' {
                 }
             mode: SanityVisualEditingMode,
             studioUrl: string
-            refresh: SanityVisualEditingRefreshHandler,
+            refresh: SanityVisualEditingRefreshHandler | undefined,
             zIndex: SanityVisualEditingZIndex
           }
         | nullish
