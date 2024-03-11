@@ -41,6 +41,10 @@ export interface SanityHelper {
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
   queryStore?: QueryStore
+  visualEditing?: {
+    isPreviewing: Ref<boolean>
+    inFrame: () => boolean | undefined
+  }
 }
 
 export interface VisualEditingProps {
@@ -111,9 +115,11 @@ const createSanityHelper = (
   const { visualEditing, ...clientConfig } = config
   let client = createSanityClient(clientConfig)
 
+  const visualEditingState = useState<boolean>('_sanity_visualEditing')
+
   const visualEditingEnabled =
     visualEditing &&
-    (!visualEditing.previewMode || useState('_sanity_visualEditing').value)
+    (!visualEditing.previewMode || visualEditingState.value)
 
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)
@@ -131,6 +137,14 @@ const createSanityHelper = (
       if (queryStore && visualEditing) {
         queryStore = createQueryStore(visualEditing, client)
       }
+    },
+    visualEditing: {
+      isPreviewing: visualEditingState,
+      inFrame: () => {
+        // Return undefined if on server
+        if (import.meta.server) return undefined;
+        return !!(window.self !== window.top || window.opener)
+      },
     },
   }
 }
@@ -360,4 +374,3 @@ export function useSanityVisualEditing (
 
   return disable
 }
-
