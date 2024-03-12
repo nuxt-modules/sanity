@@ -319,7 +319,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         addImports([
           { name: 'useSanityLiveMode', from: composablesFile },
           { name: 'useSanityVisualEditing', from: composablesFile },
-          { name: 'useSanityVisualEditingState', from: composablesFile }
+          { name: 'useSanityVisualEditingState', from: composablesFile },
         ])
       }
 
