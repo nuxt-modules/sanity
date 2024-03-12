@@ -346,21 +346,19 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
 
       if (visualEditing?.previewMode !== false) {
-        const previewRoutes = visualEditing.previewMode
-
         addServerHandler({
           method: 'get',
-          route: previewRoutes.enable,
+          route: visualEditing.previewMode.enable,
           handler: join(runtimeDir, 'server/routes/preview/enable'),
         })
         addServerHandler({
           method: 'get',
-          route: previewRoutes.disable,
+          route: visualEditing.previewMode.disable,
           handler: join(runtimeDir, 'server/routes/preview/disable'),
         })
 
         logger.info(
-          `Preview mode enabled. Added routes at: ${Object.values(previewRoutes)
+          `Preview mode enabled. Added routes at: ${Object.values(visualEditing.previewMode)
             .map(route => chalk.bold(route))
             .join(', ')}.`,
         )
