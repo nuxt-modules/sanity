@@ -14,7 +14,8 @@ import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
 import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
-import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useState, useRouter, reloadNuxtApp } from '#imports'
+import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, reloadNuxtApp } from '#imports'
+import { useSanityVisualEditingState } from '../composables/_internal'
 
 export interface SanityVisualEditingConfiguration {
   previewMode:
@@ -115,7 +116,7 @@ const createSanityHelper = (
   const { visualEditing, ...clientConfig } = config
   let client = createSanityClient(clientConfig)
 
-  const visualEditingState = useState<boolean>('_sanity_visualEditing')
+  const visualEditingState = useSanityVisualEditingState()
 
   const visualEditingEnabled =
     visualEditing &&
