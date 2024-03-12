@@ -14,12 +14,9 @@ const route = useRoute()
 const sanity = useSanity()
 
 const shouldShow = computed(() => {
-  // Cast type as `visualEditing` is conditionally added to the helper.
-  const visualEditing = ('visualEditing' in sanity && sanity.visualEditing) as
-    | { isPreviewing: boolean; inFrame: () => boolean }
-    | undefined
+  const visualEditing = ('visualEditing' in sanity && sanity.visualEditing)
 
   // Only show the banner if preview mode is enabled and we are not in Presentation.
-  return visualEditing?.isPreviewing && !visualEditing.inFrame()
+  return visualEditing && visualEditing?.isPreviewing && !visualEditing.inFrame
 })
 </script>
