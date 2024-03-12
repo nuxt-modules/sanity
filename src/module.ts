@@ -339,28 +339,24 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
-      const routesDir = join(runtimeDir, 'server/routes')
-
       addServerHandler({
         method: 'post',
         route: visualEditing.proxyEndpoint,
-        handler: join(routesDir, 'proxy'),
+        handler: join(runtimeDir, 'server/routes/proxy'),
       })
 
       if (visualEditing?.previewMode !== false) {
         const previewRoutes = visualEditing.previewMode
 
-        const previewRoutesDir = join(routesDir, 'preview')
-
         addServerHandler({
           method: 'get',
           route: previewRoutes.enable,
-          handler: join(previewRoutesDir, 'enable'),
+          handler: join(runtimeDir, 'server/routes/preview/enable'),
         })
         addServerHandler({
           method: 'get',
           route: previewRoutes.disable,
-          handler: join(previewRoutesDir, 'disable'),
+          handler: join(runtimeDir, 'server/routes/preview/disable'),
         })
 
         logger.info(
