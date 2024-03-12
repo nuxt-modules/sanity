@@ -44,7 +44,7 @@ export interface SanityHelper {
   queryStore?: QueryStore
   visualEditing?: {
     isPreviewing: Ref<boolean>
-    inFrame: () => boolean | undefined
+    inFrame: boolean | undefined
   }
 }
 
@@ -141,13 +141,15 @@ const createSanityHelper = (
     },
     visualEditing: {
       isPreviewing: visualEditingState,
-      inFrame: () => {
-        // Return undefined if on server
-        if (import.meta.server) return undefined;
-        return !!(window.self !== window.top || window.opener)
-      },
+      inFrame: isInFrame(),
     },
   }
+}
+
+const isInFrame = () => {
+  // Return undefined if on server
+  if (import.meta.server) return undefined
+  return !!(window.self !== window.top || window.opener)
 }
 
 export const useSanity = (client = 'default'): SanityHelper => {
