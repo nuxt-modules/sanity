@@ -51,6 +51,11 @@ export interface SanityModuleVisualEditingOptions {
    */
   mode?: SanityVisualEditingMode
   /**
+   * Set proxy endpoint for fetching preview data
+   * @default '/_sanity/fetch'
+   */
+  proxyEndpoint?: string
+  /**
    * Read token for server side queries
    * @required
    */
@@ -172,15 +177,16 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     // Final resolved configuration
     const visualEditing = options.visualEditing && {
+      mode: options.visualEditing.mode || 'live-visual-editing',
       previewMode: (options.visualEditing.previewMode !== false
         ? defu(options.visualEditing.previewMode, {
           enable: '/preview/enable',
           disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
-      mode: options.visualEditing.mode || 'live-visual-editing',
-      studioUrl: options.visualEditing.studioUrl || '',
+      proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
       refresh: options.visualEditing.refresh,
+      studioUrl: options.visualEditing.studioUrl || '',
       zIndex: options.visualEditing.zIndex,
     }
 
@@ -239,7 +245,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
-    const composablesFile = options.visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
+    const composablesFile = visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
 
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
@@ -289,7 +295,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       extensions: ['js', 'ts', 'mjs'],
     })
 
-    if (options.visualEditing) {
+    if (visualEditing) {
       // Optimise dependencies of visual editing
       nuxt.options.build.transpile.push('async-cache-dedupe')
       nuxt.options.vite.resolve = defu(nuxt.options.vite.resolve, {
@@ -311,8 +317,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       // Add auto-imports for visual editing
       if (isNuxt3()) {
         addImports([
-          { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: composablesFile },
-          { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: composablesFile },
+          { name: 'useSanityLiveMode', from: composablesFile },
+          { name: 'useSanityVisualEditing', from: composablesFile },
+          { name: 'useSanityVisualEditingState', from: composablesFile },
         ])
       }
 
@@ -322,9 +329,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         src: join(runtimeDir, 'plugins', 'visual-editing.server'),
       })
 
-      if (
-        options.visualEditing.mode !== 'custom'
-      ) {
+      if (visualEditing.mode !== 'custom') {
         addPlugin({
           mode: 'client',
           src: join(runtimeDir, 'plugins', 'visual-editing.client'),
@@ -334,27 +339,26 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
-      if (options.visualEditing?.previewMode !== false) {
-        const previewRoutes = defu(options.visualEditing.previewMode, {
-          enable: '/preview/enable',
-          disable: '/preview/disable',
-        })
+      addServerHandler({
+        method: 'post',
+        route: visualEditing.proxyEndpoint,
+        handler: join(runtimeDir, 'server/routes/proxy'),
+      })
 
-        const previewRoutesDir = join(runtimeDir, 'server/routes/preview')
-
+      if (visualEditing?.previewMode !== false) {
         addServerHandler({
           method: 'get',
-          route: previewRoutes.enable,
-          handler: join(previewRoutesDir, 'enable'),
+          route: visualEditing.previewMode.enable,
+          handler: join(runtimeDir, 'server/routes/preview/enable'),
         })
         addServerHandler({
           method: 'get',
-          route: previewRoutes.disable,
-          handler: join(previewRoutesDir, 'disable'),
+          route: visualEditing.previewMode.disable,
+          handler: join(runtimeDir, 'server/routes/preview/disable'),
         })
 
         logger.info(
-          `Preview mode enabled. Added routes at: ${Object.values(previewRoutes)
+          `Preview mode enabled. Added routes at: ${Object.values(visualEditing.previewMode)
             .map(route => chalk.bold(route))
             .join(', ')}.`,
         )

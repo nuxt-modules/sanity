@@ -8,26 +8,27 @@ import { enableVisualEditing } from '@sanity/visual-editing'
 import type { Ref } from 'vue'
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
-import type { ClientPerspective, ContentSourceMap, QueryParams } from '@sanity/client'
+import type { ClientPerspective, ContentSourceMap, QueryParams, UnfilteredResponseQueryOptions } from '@sanity/client'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
 import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
-import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useState, useRouter, reloadNuxtApp } from '#imports'
+import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, reloadNuxtApp } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
+  mode: SanityVisualEditingMode,
   previewMode:
   | boolean
   | {
     enable?: string
     disable?: string
   }
-  mode: SanityVisualEditingMode,
-  token?: string
-  studioUrl: string
   previewModeId?: string
+  proxyEndpoint: string
   refresh?: SanityVisualEditingRefreshHandler
+  studioUrl: string
+  token?: string
   zIndex?: SanityVisualEditingZIndex
 }
 
@@ -111,9 +112,8 @@ const createSanityHelper = (
   const { visualEditing, ...clientConfig } = config
   let client = createSanityClient(clientConfig)
 
-  const visualEditingEnabled =
-    visualEditing &&
-    (!visualEditing.previewMode || useState('_sanity_visualEditing').value)
+  const visualEditingState = useSanityVisualEditingState()
+  const visualEditingEnabled = visualEditing && (!visualEditing.previewMode || visualEditingState.enabled)
 
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)
@@ -134,6 +134,22 @@ const createSanityHelper = (
     },
   }
 }
+
+export const useSanityVisualEditingState = () => {
+  const enabled = useState('_sanity_visualEditing', () => false)
+
+  return reactive({
+    enabled,
+    inFrame: isInFrame(),
+  })
+}
+
+const isInFrame = () => {
+  // Return undefined if on server
+  if (import.meta.server) return undefined
+  return !!(window.self !== window.top || window.opener)
+}
+
 
 export const useSanity = (client = 'default'): SanityHelper => {
   const nuxtApp = useNuxtApp()
@@ -229,37 +245,42 @@ export const useSanityQuery = <T = unknown, E = Error> (
       })
     }
 
+    const proxyClient = {
+      fetch: <T>(
+      query: string,
+      params: QueryParams,
+      options: UnfilteredResponseQueryOptions,
+    ): Promise<{ result: T, resultSourceMap: ContentSourceMap }> =>
+      $fetch(sanity.config.visualEditing!.proxyEndpoint, {
+        method: 'POST',
+        body: { query, params, options },
+      }),
+    }
+
     result = useAsyncData<SanityQueryResponse<T | null>, E>(
       queryKey,
       async () => {
-        if (import.meta.server) {
-          const client =
-            sanity.queryStore!.unstable__serverClient.instance || sanity.client
-          const { result: data, resultSourceMap: sourceMap } =
-            await client.fetch<T>(query, params || {}, {
-              perspective,
-              filterResponse: false,
-              resultSourceMap: 'withKeyArraySelector',
-            })
-          return sourceMap ? { data, sourceMap } : { data }
-        }
+        const client = import.meta.server
+          // Used on initial render
+          ? (sanity.queryStore!.unstable__serverClient.instance || sanity.client)
+          // Used on subsequent page navigations, we need to proxy the request
+          // so we can fetch data using credentials
+          : proxyClient as SanityClient
 
-        return new Promise<{
-          data: T | null
-          sourceMap: ContentSourceMap | undefined
-        }>(resolve => {
-          setupFetcher(newSnapshot => {
-            resolve({
-              data: newSnapshot.data || null,
-              sourceMap: newSnapshot.sourceMap,
-            })
+        const { result: data, resultSourceMap: sourceMap } =
+          await client.fetch<T>(query, params || {}, {
+            perspective,
+            filterResponse: false,
+            resultSourceMap: 'withKeyArraySelector',
           })
-        })
+
+        return sourceMap ? { data, sourceMap } : { data }
       },
       options,
     ) as AsyncData<SanityQueryResponse<T | null>, E>
 
-    if (result.status.value === 'success' && import.meta.client) {
+    // On the client, setup the fetcher
+    if (import.meta.client) {
       setupFetcher()
     }
 
@@ -360,4 +381,3 @@ export function useSanityVisualEditing (
 
   return disable
 }
-

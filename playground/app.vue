@@ -1,0 +1,4 @@
+<template>
+  <PreviewModeBanner />
+  <NuxtPage />
+</template>
