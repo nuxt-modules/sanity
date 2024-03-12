@@ -1,5 +1,4 @@
 import { defu } from 'defu'
-import { $fetch } from 'ofetch'
 import { hash } from 'ohash'
 import { onScopeDispose, reactive, ref } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
