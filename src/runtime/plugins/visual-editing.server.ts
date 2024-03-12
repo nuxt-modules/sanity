@@ -1,5 +1,5 @@
-import { defineNuxtPlugin, useRuntimeConfig, useCookie } from '#imports'
-import { useSanityVisualEditingState } from '../composables/_internal'
+// @ts-expect-error useSanityVisualEditingState is conditionally added
+import { defineNuxtPlugin, useRuntimeConfig, useCookie, useSanityVisualEditingState } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const enabled = useSanityVisualEditingState()

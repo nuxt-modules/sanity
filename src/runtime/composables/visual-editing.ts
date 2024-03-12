@@ -16,7 +16,6 @@ import type { ClientConfig, SanityClient } from '../client'
 import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
 import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, reloadNuxtApp } from '#imports'
-import { useSanityVisualEditingState } from '../composables/_internal'
 
 export interface SanityVisualEditingConfiguration {
   mode: SanityVisualEditingMode,
@@ -44,10 +43,6 @@ export interface SanityHelper {
   fetch: SanityClient['fetch']
   setToken: (token: string) => void
   queryStore?: QueryStore
-  visualEditing?: {
-    isPreviewing: Ref<boolean>
-    inFrame: boolean | undefined
-  }
 }
 
 export interface VisualEditingProps {
@@ -119,10 +114,7 @@ const createSanityHelper = (
   let client = createSanityClient(clientConfig)
 
   const visualEditingState = useSanityVisualEditingState()
-
-  const visualEditingEnabled =
-    visualEditing &&
-    (!visualEditing.previewMode || visualEditingState.value)
+  const visualEditingEnabled = visualEditing && (!visualEditing.previewMode || visualEditingState.enabled)
 
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)
@@ -140,12 +132,17 @@ const createSanityHelper = (
       if (queryStore && visualEditing) {
         queryStore = createQueryStore(visualEditing, client)
       }
-    },
-    visualEditing: {
-      isPreviewing: visualEditingState,
-      inFrame: isInFrame(),
-    },
+    }
   }
+}
+
+export const useSanityVisualEditingState = () => {
+  const enabled = useState('_sanity_visualEditing', () => false)
+
+  return reactive({
+    enabled,
+    inFrame: isInFrame(),
+  })
 }
 
 const isInFrame = () => {
@@ -153,6 +150,7 @@ const isInFrame = () => {
   if (import.meta.server) return undefined
   return !!(window.self !== window.top || window.opener)
 }
+
 
 export const useSanity = (client = 'default'): SanityHelper => {
   const nuxtApp = useNuxtApp()

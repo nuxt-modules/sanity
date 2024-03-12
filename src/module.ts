@@ -317,8 +317,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       // Add auto-imports for visual editing
       if (isNuxt3()) {
         addImports([
-          { name: 'useSanityLiveMode', as: 'useSanityLiveMode', from: composablesFile },
-          { name: 'useSanityVisualEditing', as: 'useSanityVisualEditing', from: composablesFile },
+          { name: 'useSanityLiveMode', from: composablesFile },
+          { name: 'useSanityVisualEditing', from: composablesFile },
+          { name: 'useSanityVisualEditingState', from: composablesFile }
         ])
       }
 
