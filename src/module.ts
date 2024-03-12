@@ -186,6 +186,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, {
       visualEditing: options.visualEditing && {
+        ...visualEditing,
         previewModeId: visualEditing!.previewMode ? crypto.randomBytes(16).toString('hex') : '',
         token: options.visualEditing.token || '',
       },
