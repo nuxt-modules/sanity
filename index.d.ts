@@ -19,17 +19,17 @@ declare module 'nuxt/schema' {
     sanity: {
       visualEditing:
         | {
+            mode: SanityVisualEditingMode
             previewMode:
               | false
               | {
                   enable: string
                   disable: string
                 }
-            mode: SanityVisualEditingMode
-            studioUrl: string
             previewModeId: string
+            proxyEndpoint: string
+            studioUrl: string
             token: string
-            
           }
         | undefined
     }
@@ -48,15 +48,16 @@ declare module 'nuxt/schema' {
       useCdn: boolean
       visualEditing:
         | {
+            mode: SanityVisualEditingMode,
             previewMode:
               | false
               | {
                   enable: string
                   disable: string
                 }
-            mode: SanityVisualEditingMode,
-            studioUrl: string
+            proxyEndpoint: string
             refresh: SanityVisualEditingRefreshHandler | undefined,
+            studioUrl: string
             zIndex: SanityVisualEditingZIndex
           }
         | nullish

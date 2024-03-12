@@ -1,4 +1,5 @@
 import { defu } from 'defu'
+import { $fetch } from 'ofetch'
 import { hash } from 'ohash'
 import { onScopeDispose, reactive, ref } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
@@ -8,7 +9,7 @@ import { enableVisualEditing } from '@sanity/visual-editing'
 import type { Ref } from 'vue'
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
-import type { ClientPerspective, ContentSourceMap, QueryParams } from '@sanity/client'
+import type { ClientPerspective, ContentSourceMap, QueryParams, UnfilteredResponseQueryOptions } from '@sanity/client'
 
 import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
@@ -18,17 +19,18 @@ import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRout
 import { useSanityVisualEditingState } from '../composables/_internal'
 
 export interface SanityVisualEditingConfiguration {
+  mode: SanityVisualEditingMode,
   previewMode:
   | boolean
   | {
     enable?: string
     disable?: string
   }
-  mode: SanityVisualEditingMode,
-  token?: string
-  studioUrl: string
   previewModeId?: string
+  proxyEndpoint: string
   refresh?: SanityVisualEditingRefreshHandler
+  studioUrl: string
+  token?: string
   zIndex?: SanityVisualEditingZIndex
 }
 
@@ -246,37 +248,42 @@ export const useSanityQuery = <T = unknown, E = Error> (
       })
     }
 
+    const proxyClient = {
+      fetch: <T>(
+      query: string,
+      params: QueryParams,
+      options: UnfilteredResponseQueryOptions,
+    ): Promise<{ result: T, resultSourceMap: ContentSourceMap }> =>
+      $fetch(sanity.config.visualEditing!.proxyEndpoint, {
+        method: 'POST',
+        body: { query, params, options },
+      }),
+    }
+
     result = useAsyncData<SanityQueryResponse<T | null>, E>(
       queryKey,
       async () => {
-        if (import.meta.server) {
-          const client =
-            sanity.queryStore!.unstable__serverClient.instance || sanity.client
-          const { result: data, resultSourceMap: sourceMap } =
-            await client.fetch<T>(query, params || {}, {
-              perspective,
-              filterResponse: false,
-              resultSourceMap: 'withKeyArraySelector',
-            })
-          return sourceMap ? { data, sourceMap } : { data }
-        }
+        const client = import.meta.server
+          // Used on initial render
+          ? (sanity.queryStore!.unstable__serverClient.instance || sanity.client)
+          // Used on subsequent page navigations, we need to proxy the request
+          // so we can fetch data using credentials
+          : proxyClient as SanityClient
 
-        return new Promise<{
-          data: T | null
-          sourceMap: ContentSourceMap | undefined
-        }>(resolve => {
-          setupFetcher(newSnapshot => {
-            resolve({
-              data: newSnapshot.data || null,
-              sourceMap: newSnapshot.sourceMap,
-            })
+        const { result: data, resultSourceMap: sourceMap } =
+          await client.fetch<T>(query, params || {}, {
+            perspective,
+            filterResponse: false,
+            resultSourceMap: 'withKeyArraySelector',
           })
-        })
+
+        return sourceMap ? { data, sourceMap } : { data }
       },
       options,
     ) as AsyncData<SanityQueryResponse<T | null>, E>
 
-    if (result.status.value === 'success' && import.meta.client) {
+    // On the client, setup the fetcher
+    if (import.meta.client) {
       setupFetcher()
     }
 

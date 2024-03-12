@@ -51,6 +51,11 @@ export interface SanityModuleVisualEditingOptions {
    */
   mode?: SanityVisualEditingMode
   /**
+   * Set proxy endpoint for fetching preview data
+   * @default '/_sanity/fetch'
+   */
+  proxyEndpoint?: string
+  /**
    * Read token for server side queries
    * @required
    */
@@ -172,15 +177,16 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     // Final resolved configuration
     const visualEditing = options.visualEditing && {
+      mode: options.visualEditing.mode || 'live-visual-editing',
       previewMode: (options.visualEditing.previewMode !== false
         ? defu(options.visualEditing.previewMode, {
           enable: '/preview/enable',
           disable: '/preview/disable',
         })
         : false) as { enable: string; disable: string } | false,
-      mode: options.visualEditing.mode || 'live-visual-editing',
-      studioUrl: options.visualEditing.studioUrl || '',
+      proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
       refresh: options.visualEditing.refresh,
+      studioUrl: options.visualEditing.studioUrl || '',
       zIndex: options.visualEditing.zIndex,
     }
 
@@ -239,7 +245,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
-    const composablesFile = options.visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
+    const composablesFile = visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
 
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
@@ -289,7 +295,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       extensions: ['js', 'ts', 'mjs'],
     })
 
-    if (options.visualEditing) {
+    if (visualEditing) {
       // Optimise dependencies of visual editing
       nuxt.options.build.transpile.push('async-cache-dedupe')
       nuxt.options.vite.resolve = defu(nuxt.options.vite.resolve, {
@@ -322,9 +328,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         src: join(runtimeDir, 'plugins', 'visual-editing.server'),
       })
 
-      if (
-        options.visualEditing.mode !== 'custom'
-      ) {
+      if (visualEditing.mode !== 'custom') {
         addPlugin({
           mode: 'client',
           src: join(runtimeDir, 'plugins', 'visual-editing.client'),
@@ -334,13 +338,18 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
-      if (options.visualEditing?.previewMode !== false) {
-        const previewRoutes = defu(options.visualEditing.previewMode, {
-          enable: '/preview/enable',
-          disable: '/preview/disable',
-        })
+      const routesDir = join(runtimeDir, 'server/routes')
 
-        const previewRoutesDir = join(runtimeDir, 'server/routes/preview')
+      addServerHandler({
+        method: 'post',
+        route: visualEditing.proxyEndpoint,
+        handler: join(routesDir, 'proxy'),
+      })
+
+      if (visualEditing?.previewMode !== false) {
+        const previewRoutes = visualEditing.previewMode
+
+        const previewRoutesDir = join(routesDir, 'preview')
 
         addServerHandler({
           method: 'get',
