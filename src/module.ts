@@ -8,10 +8,9 @@ import {
   addServerHandler,
   addTemplate,
   defineNuxtModule,
+  resolvePath,
   isNuxt2,
   isNuxt3,
-  requireModule,
-  resolveModule,
   useLogger,
 } from '@nuxt/kit'
 
@@ -144,15 +143,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       options.useCdn = process.env.NODE_ENV === 'production' && !options.token
     }
 
-    try {
-      if (!options.minimal) {
-        options.minimal = !requireModule('@sanity/client')
-      }
-    } catch {
-      options.minimal = true
-      logger.info(`Enabling minimal client as ${chalk.bold('@sanity/client')} is not installed.`)
-    }
-
     if (options.visualEditing) {
       try {
         if (options.minimal) {
@@ -249,13 +239,13 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     addImports([
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
-      { name: 'groq', as: 'groq', from: join(runtimeDir, 'groq') },
-      { name: 'useSanity', as: 'useSanity', from: composablesFile },
-      { name: 'useLazySanityQuery', as: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
-      ...isNuxt3() ? [{ name: 'useSanityQuery', as: 'useSanityQuery', from: composablesFile }] : [],
+      { name: 'groq', from: join(runtimeDir, 'groq') },
+      { name: 'useSanity', from: composablesFile },
+      { name: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
+      ...isNuxt3() ? [{ name: 'useSanityQuery', from: composablesFile }] : [],
     ])
 
-    const clientPath = await resolveModule(clientSpecifier)
+    const clientPath = await resolvePath(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
