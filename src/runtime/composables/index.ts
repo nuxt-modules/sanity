@@ -42,6 +42,8 @@ export const useSanity = (client = 'default'): SanityHelper => {
 
   if (!options.disableSmartCdn && nuxtApp.$preview) {
     options.useCdn = false
+  } else if (!import.meta.dev && !options.useCdn && !options.token) {
+    options.useCdn = true
   }
 
   if (client === 'default') {

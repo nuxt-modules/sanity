@@ -139,10 +139,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
   }),
   async setup (options, nuxt) {
-    if (!('useCdn' in options)) {
-      options.useCdn = process.env.NODE_ENV === 'production' && !options.token
-    }
-
     if (options.visualEditing) {
       try {
         if (options.minimal) {
