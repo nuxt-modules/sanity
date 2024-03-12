@@ -131,7 +131,7 @@ const createSanityHelper = (
       if (queryStore && visualEditing) {
         queryStore = createQueryStore(visualEditing, client)
       }
-    }
+    },
   }
 }
 

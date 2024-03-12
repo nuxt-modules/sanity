@@ -6,8 +6,8 @@ export default defineEventHandler(async event => {
   const $config = useRuntimeConfig()
   const sanity = useSanity()
 
-  const { query, params = {}, options } = await readBody(event);
-  const previewModeCookie = getCookie(event, "__sanity_preview");
+  const { query, params = {}, options } = await readBody(event)
+  const previewModeCookie = getCookie(event, '__sanity_preview')
 
   const { visualEditing } = $config.sanity
 
@@ -22,6 +22,6 @@ export default defineEventHandler(async event => {
     token: visualEditing.token,
     useCdn: false,
   })
-  
+
   return await client.fetch(query, params, options)
 })
