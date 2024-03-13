@@ -14,7 +14,7 @@ import type { AsyncData, AsyncDataOptions } from 'nuxt/app'
 import type { ClientConfig, SanityClient } from '../client'
 import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, SanityVisualEditingZIndex } from '../../module'
 
-import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, reloadNuxtApp } from '#imports'
+import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, useState, reloadNuxtApp } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
   mode: SanityVisualEditingMode,
