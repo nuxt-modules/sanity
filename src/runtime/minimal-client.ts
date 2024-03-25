@@ -50,7 +50,7 @@ export function createClient (config: ClientConfig) {
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accept: 'application/json',
-      ...(process.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
+      ...(import.meta.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
   }
 

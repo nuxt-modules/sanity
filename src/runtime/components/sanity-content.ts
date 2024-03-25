@@ -209,7 +209,7 @@ function extractProps (item: Block, isElement: boolean) {
 function renderBlocks (blocks: Array<Block>, serializers: Required<Serializers>) {
   return blocks.map((block) => {
     const node = renderStyle(block, serializers, () => renderInSerializer(block, serializers))
-    if (process.env.NODE_ENV === 'development' && (!node || (Array.isArray(node) && !node.length))) {
+    if (import.meta.dev && (!node || (Array.isArray(node) && !node.length))) {
       // eslint-disable-next-line no-console
       console.warn(`No serializer found for block type "${block._type}".`, block)
     }
