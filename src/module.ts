@@ -1,6 +1,8 @@
-import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 import crypto from 'node:crypto'
+import { existsSync } from 'node:fs'
+import jiti from 'jiti'
+import { createRegExp, exactly } from 'magic-regexp'
 import {
   addComponentsDir,
   addImports,
@@ -15,7 +17,7 @@ import {
 } from '@nuxt/kit'
 
 import chalk from 'chalk'
-import { join, resolve } from 'pathe'
+import { dirname, join, relative, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
@@ -103,20 +105,17 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
    * Configuration for visual editing
    */
   visualEditing?: SanityModuleVisualEditingOptions
+  /**
+   * Path to Sanity config file to try to read `projectId` and `dataset` if they are not provided
+   *
+   * @default '~~/cms/sanity.config.ts'
+   */
+  configFile?: string
 }
 
 export type ModuleOptions = SanityModuleOptions
 
 const logger = useLogger('@nuxtjs/sanity')
-
-function getDefaultSanityConfig (jsonPath: string) {
-  try {
-    const { projectId, dataset } = JSON.parse(readFileSync(jsonPath, 'utf-8').trim()).api
-    return { projectId, dataset }
-  } catch {
-    return {}
-  }
-}
 
 const CONFIG_KEY = 'sanity' as const
 
@@ -129,16 +128,41 @@ export default defineNuxtModule<SanityModuleOptions>({
       bridge: true,
     },
   },
-  defaults: nuxt => ({
+  defaults: {
     additionalClients: {},
     apiVersion: '1',
     disableSmartCdn: false,
-    dataset: 'production',
     perspective: 'raw',
     withCredentials: false,
-    ...getDefaultSanityConfig(resolve(nuxt.options.rootDir, './sanity.json')),
-  }),
+    configFile: '~~/cms/sanity.config',
+  },
   async setup (options, nuxt) {
+    // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
+    if (!options.projectId || !options.dataset) {
+      // Register watcher on sanity.config.ts
+      const sanityConfigPath = await resolvePath(options.configFile!) || /* backwards compatibility */ resolve(nuxt.options.rootDir, './sanity.json')
+      const relativeSanityConfigPath = relative(nuxt.options.rootDir, sanityConfigPath)
+      if (!relativeSanityConfigPath.startsWith('..')) {
+        nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
+        console.log(nuxt.options.watch)
+      }
+      const load = jiti(dirname(import.meta.url), {
+        esmResolve: true,
+        interopDefault: true,
+        cache: false,
+        requireCache: false,
+      })
+      if (existsSync(sanityConfigPath)) {
+        const sanityConfig = await load(sanityConfigPath)
+        if (sanityConfig) {
+          options.projectId ||= sanityConfig.projectId
+          options.dataset ||= sanityConfig.dataset
+        }
+      }
+    }
+
+    options.dataset ||= 'production'
+
     if (options.visualEditing) {
       try {
         if (options.minimal) {
