@@ -16,7 +16,7 @@
 
 ## Features
 
-- Just bring your sanity.json - no additional configuration required
+- Just bring your `sanity.config.ts` - no additional configuration required
 - Ultra-lightweight Sanity client
 - Zero-config image/file components + portable text renderer
 - Supports GROQ syntax highlighting
