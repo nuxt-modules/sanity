@@ -144,7 +144,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       const relativeSanityConfigPath = relative(nuxt.options.rootDir, sanityConfigPath)
       if (!relativeSanityConfigPath.startsWith('..')) {
         nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
-        console.log(nuxt.options.watch)
       }
       const load = jiti(dirname(import.meta.url), {
         esmResolve: true,
