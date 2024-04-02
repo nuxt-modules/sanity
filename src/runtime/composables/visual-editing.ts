@@ -250,8 +250,8 @@ export const useSanityQuery = <T = unknown, E = Error> (
         query: string,
         params: QueryParams,
         options: UnfilteredResponseQueryOptions,
-      ): Promise<{ result: T, resultSourceMap: ContentSourceMap }> =>
-        $fetch(sanity.config.visualEditing!.proxyEndpoint, {
+      ) =>
+        $fetch<{ result: T, resultSourceMap: ContentSourceMap }>(sanity.config.visualEditing!.proxyEndpoint, {
           method: 'POST',
           body: { query, params, options },
         }),
