@@ -246,15 +246,15 @@ export const useSanityQuery = <T = unknown, E = Error> (
     }
 
     const proxyClient = {
-      fetch: <T>(
-      query: string,
-      params: QueryParams,
-      options: UnfilteredResponseQueryOptions,
-    ): Promise<{ result: T, resultSourceMap: ContentSourceMap }> =>
-      $fetch(sanity.config.visualEditing!.proxyEndpoint, {
-        method: 'POST',
-        body: { query, params, options },
-      }),
+      fetch: <T> (
+        query: string,
+        params: QueryParams,
+        options: UnfilteredResponseQueryOptions,
+      ): Promise<{ result: T, resultSourceMap: ContentSourceMap }> =>
+        $fetch(sanity.config.visualEditing!.proxyEndpoint, {
+          method: 'POST',
+          body: { query, params, options },
+        }),
     }
 
     result = useAsyncData<SanityQueryResponse<T | null>, E>(
@@ -287,7 +287,11 @@ export const useSanityQuery = <T = unknown, E = Error> (
     onScopeDispose(unsubscribe)
   }
 
-  return Object.assign(result, new Promise(resolve => {
+  return Object.assign(result, {
+    data,
+    sourceMap,
+    encodeDataAttribute,
+  }, new Promise(resolve => {
     result.then(value => {
       updateRefs(value.data.value.data, value.data.value.sourceMap)
       resolve({
