@@ -287,11 +287,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
     onScopeDispose(unsubscribe)
   }
 
-  return Object.assign(result, {
-    data,
-    sourceMap,
-    encodeDataAttribute,
-  }, new Promise(resolve => {
+  return Object.assign(new Promise(resolve => {
     result.then(value => {
       updateRefs(value.data.value.data, value.data.value.sourceMap)
       resolve({
@@ -301,7 +297,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
         encodeDataAttribute,
       })
     })
-  })) as AsyncSanityData<T | null, E>
+  }), { ...result, data, sourceMap, encodeDataAttribute }) as AsyncSanityData<T | null, E>
 }
 
 export function useSanityLiveMode (options?: { client?: string }) {
