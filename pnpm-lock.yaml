@@ -23,7 +23,7 @@ importers:
         version: 6.15.7
       '@sanity/core-loader':
         specifier: ^1.6.2
-        version: 1.6.2(@sanity/client@6.15.7)
+        version: 1.6.3(@sanity/client@6.15.7)
       '@sanity/preview-url-secret':
         specifier: ^1.6.5
         version: 1.6.5(@sanity/client@6.15.7)
@@ -4131,11 +4131,11 @@ packages:
     resolution: {integrity: sha512-JLIsloyyn0lhta/JivmYlxlcN7U3dpBNqtH7uAzM9/kPirFxWJ8LAVuF5vxK5JHwTNbgpVy6AmfIss/av7N96w==}
     engines: {node: '>=18.0.0'}
 
-  /@sanity/core-loader@1.6.2(@sanity/client@6.15.7):
-    resolution: {integrity: sha512-YWOaK0ffyrPdNcmF3S6tflvcbNirNMxQbTOuZFgV/Rw0Uc7lgtG3o/LgBPMLnWZH/hHbgTRoOPA6tfJf7+1Tvw==}
+  /@sanity/core-loader@1.6.3(@sanity/client@6.15.7):
+    resolution: {integrity: sha512-xE1V5DXLs36J3C3Hg4T62xsgDW6NRhd8TTIAkYFftB9311aOT541khrI+XA8WleAv3WshD35HfWnDJynPGubgA==}
     engines: {node: '>=18'}
     peerDependencies:
-      '@sanity/client': ^6.15.7
+      '@sanity/client': ^6.15.9
     dependencies:
       '@sanity/client': 6.15.7
       async-cache-dedupe: 2.1.0
