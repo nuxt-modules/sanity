@@ -29,7 +29,7 @@
 1. Add `@nuxtjs/sanity` dependency to your project
 
 ```bash
-yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
+npx nuxi@latest module add sanity
 ```
 
 2. Add `@nuxtjs/sanity` to the `modules` section of `nuxt.config.ts`
