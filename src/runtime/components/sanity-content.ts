@@ -115,6 +115,7 @@ function renderStyle(item: Block, serializers: Required<Serializers>, children?:
   const props = extractProps(item, isElement)
 
   if (!item.listItem && item.style && serializer) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return h(serializer as any, props, isVue2 ? children?.() : { default: children })
   }
 

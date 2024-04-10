@@ -1,4 +1,4 @@
-import type { ClientPerspective, StegaConfig } from '@sanity/client'
+import type { ClientConfig, ClientPerspective, StegaConfig } from '@sanity/client'
 import type {
   SanityVisualEditingMode,
   SanityVisualEditingRefreshHandler,
@@ -6,7 +6,7 @@ import type {
 } from './src/module'
 import type { SanityHelper } from '#sanity-composables'
 
-type nullish = null | undefined | void
+type nullish = null | undefined
 
 declare module '#app' {
   interface NuxtApp {
@@ -37,7 +37,7 @@ declare module 'nuxt/schema' {
 
   interface PublicRuntimeConfig {
     sanity: {
-      additionalClients: Record<string, any>
+      additionalClients: Record<string, ClientConfig>
       apiVersion: string
       dataset: string
       disableSmartCdn: boolean

@@ -122,7 +122,7 @@ const createSanityHelper = (
   return {
     client,
     config,
-    // @ts-expect-error
+    // @ts-expect-error untyped args
     fetch: (...args) => client.fetch(...args),
     queryStore,
     setToken(token) {
