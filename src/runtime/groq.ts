@@ -4,7 +4,7 @@
  *
  * based on https://github.com/sanity-io/sanity/tree/next/packages/groq
  */
-export const groq = String.raw || ((strings: TemplateStringsArray, ...keys: any[]) => {
+export const groq = String.raw || ((strings: TemplateStringsArray, ...keys: string[]) => {
   const lastIndex = strings.length - 1
   return (
     strings

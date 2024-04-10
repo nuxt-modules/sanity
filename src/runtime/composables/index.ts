@@ -59,7 +59,7 @@ interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
 }
 
-export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
+export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, unknown>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
   const { client, ...options } = _options
   const sanity = useSanity(client)
   const params = _params ? reactive(_params) : undefined
@@ -70,7 +70,7 @@ export const useSanityQuery = <T = unknown, E = Error> (query: string, _params?:
   return useAsyncData('sanity-' + hash(query + (params ? JSON.stringify(params) : '')), () => sanity.fetch<T>(query, params || {}), options) as AsyncData<T | null, E>
 }
 
-export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, any>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
+export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, unknown>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
   const { client, ...options } = _options
   const sanity = useSanity(client)
   const params = _params ? reactive(_params) : undefined
