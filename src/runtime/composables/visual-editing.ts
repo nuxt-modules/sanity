@@ -17,13 +17,13 @@ import type { SanityVisualEditingMode, SanityVisualEditingRefreshHandler, Sanity
 import { createSanityClient, useNuxtApp, useRuntimeConfig, useAsyncData, useRouter, useState, reloadNuxtApp } from '#imports'
 
 export interface SanityVisualEditingConfiguration {
-  mode: SanityVisualEditingMode,
+  mode: SanityVisualEditingMode
   previewMode:
-  | boolean
-  | {
-    enable?: string
-    disable?: string
-  }
+    | boolean
+    | {
+      enable?: string
+      disable?: string
+    }
   previewModeId?: string
   proxyEndpoint: string
   refresh?: SanityVisualEditingRefreshHandler
@@ -125,7 +125,7 @@ const createSanityHelper = (
     // @ts-expect-error
     fetch: (...args) => client.fetch(...args),
     queryStore,
-    setToken (token) {
+    setToken(token) {
       config.token = token
       client = createSanityClient(clientConfig)
       if (queryStore && visualEditing) {
@@ -149,7 +149,6 @@ const isInFrame = () => {
   if (import.meta.server) return undefined
   return !!(window.self !== window.top || window.opener)
 }
-
 
 export const useSanity = (client = 'default'): SanityHelper => {
   const nuxtApp = useNuxtApp()
@@ -196,8 +195,8 @@ export const useSanityQuery = <T = unknown, E = Error> (
     _perspective || sanity.queryStore ? 'previewDrafts' : 'published'
   ) as ClientPerspective
 
-  const queryKey =
-    'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
+  const queryKey
+    = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
   const data = ref<T | null>(null) as Ref<T | null> // Generic must be cast
   const sourceMap = ref<ContentSourceMap | null>(null)
@@ -223,7 +222,8 @@ export const useSanityQuery = <T = unknown, E = Error> (
       },
       options,
     ) as AsyncData<SanityQueryResponse<T | null>, E>
-  } else {
+  }
+  else {
     let unsubscribe = () => {}
 
     const setupFetcher = (
@@ -237,7 +237,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
         undefined,
       )
 
-      unsubscribe = fetcher.subscribe(newSnapshot => {
+      unsubscribe = fetcher.subscribe((newSnapshot) => {
         if (newSnapshot.data) {
           updateRefs(newSnapshot.data as unknown as T, newSnapshot.sourceMap)
           cb?.(newSnapshot)
@@ -267,8 +267,8 @@ export const useSanityQuery = <T = unknown, E = Error> (
           // so we can fetch data using credentials
           : proxyClient as SanityClient
 
-        const { result: data, resultSourceMap: sourceMap } =
-          await client.fetch<T>(query, params || {}, {
+        const { result: data, resultSourceMap: sourceMap }
+          = await client.fetch<T>(query, params || {}, {
             perspective,
             filterResponse: false,
             resultSourceMap: 'withKeyArraySelector',
@@ -287,8 +287,8 @@ export const useSanityQuery = <T = unknown, E = Error> (
     onScopeDispose(unsubscribe)
   }
 
-  return Object.assign(new Promise(resolve => {
-    result.then(value => {
+  return Object.assign(new Promise((resolve) => {
+    result.then((value) => {
       updateRefs(value.data.value.data, value.data.value.sourceMap)
       resolve({
         ...result,
@@ -300,7 +300,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
   }), { ...result, data, sourceMap, encodeDataAttribute }) as AsyncSanityData<T | null, E>
 }
 
-export function useSanityLiveMode (options?: { client?: string }) {
+export function useSanityLiveMode(options?: { client?: string }) {
   const { client = 'default' } = options || {}
 
   let disable = () => {}
@@ -319,7 +319,7 @@ export function useSanityLiveMode (options?: { client?: string }) {
   return disable
 }
 
-export function useSanityVisualEditing (
+export function useSanityVisualEditing(
   options: VisualEditingProps = {},
 ) {
   const { zIndex, refresh } = options
@@ -334,7 +334,7 @@ export function useSanityVisualEditing (
       // implementing fully fledged visual editing is more straightforward
       // compared with other frameworks
       refresh: (payload) => {
-        function refreshDefault () {
+        function refreshDefault() {
           if (payload.source === 'mutation' && payload.livePreviewEnabled) {
             // If live mode is enabled, the loader should handle updates via
             // `useQuery`, so we can ignore it here
@@ -353,23 +353,24 @@ export function useSanityVisualEditing (
         return refresh ? refresh(payload, refreshDefault) : refreshDefault()
       },
       history: {
-        subscribe: navigate => {
+        subscribe: (navigate) => {
           router.isReady().then(() => {
             navigate({
               type: 'replace',
               url: router.currentRoute.value.fullPath,
             })
           })
-          return router.afterEach(to => {
+          return router.afterEach((to) => {
             // There is no mechanism to determine navigation type in a Vue Router navigation guard, so just push
             // https://github.com/vuejs/vue-router/issues/1620
             navigate({ type: 'push', url: to.fullPath })
           })
         },
-        update: update => {
+        update: (update) => {
           if (update.type === 'push' || update.type === 'replace') {
             router[update.type](update.url)
-          } else if (update.type === 'pop') {
+          }
+          else if (update.type === 'pop') {
             router.back()
           }
         },

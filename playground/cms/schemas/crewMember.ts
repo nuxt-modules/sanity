@@ -37,7 +37,7 @@ export default {
       department: 'department',
       media: 'person.image',
     },
-    prepare (selection) {
+    prepare(selection) {
       const { name, job, department, media } = selection
       return {
         title: name,

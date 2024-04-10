@@ -2,7 +2,7 @@ import { createError, defineEventHandler, readBody, getCookie } from 'h3'
 
 import { useSanity, useRuntimeConfig } from '#imports'
 
-export default defineEventHandler(async event => {
+export default defineEventHandler(async (event) => {
   const $config = useRuntimeConfig()
   const sanity = useSanity()
 

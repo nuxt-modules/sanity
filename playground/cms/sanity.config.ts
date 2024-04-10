@@ -2,8 +2,8 @@ import { structureTool } from 'sanity/structure'
 import { presentationTool } from 'sanity/presentation'
 import { defineConfig } from 'sanity'
 import { visionTool } from '@sanity/vision'
-import { schemaTypes } from './schemas'
 import { debugSecrets } from '@sanity/preview-url-secret/sanity-plugin-debug-secrets'
+import { schemaTypes } from './schemas'
 
 export default defineConfig({
   name: 'default',

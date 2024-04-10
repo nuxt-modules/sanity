@@ -1,5 +1,5 @@
-import { defineNuxtPlugin, useRuntimeConfig, useCookie } from '#imports'
 import { useSanityVisualEditingState } from '../composables/visual-editing'
+import { defineNuxtPlugin, useRuntimeConfig, useCookie } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const visualEditingState = useSanityVisualEditingState()
@@ -14,7 +14,8 @@ export default defineNuxtPlugin(() => {
     const previewModeCookie = useCookie('__sanity_preview')
     visualEditingState.enabled = previewModeCookie.value === visualEditing.previewModeId
   // If preview mode is _not_ configured, just enable visual editing.
-  } else if (typeof visualEditing === 'object' && !visualEditing.previewMode) {
+  }
+  else if (typeof visualEditing === 'object' && !visualEditing.previewMode) {
     visualEditingState.enabled = true
   }
 })

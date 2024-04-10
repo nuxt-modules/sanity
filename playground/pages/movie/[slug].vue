@@ -60,8 +60,8 @@ interface QueryResult {
 }
 
 const route = useRoute()
-const { data: details, encodeDataAttribute } =
-  await useSanityQuery<QueryResult>(query, {
+const { data: details, encodeDataAttribute }
+  = await useSanityQuery<QueryResult>(query, {
     slug: route.params.slug,
   })
 </script>

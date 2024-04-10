@@ -20,7 +20,7 @@ export default defineComponent({
       default: false,
     },
   },
-  setup (props, { slots }) {
+  setup(props, { slots }) {
     const sanity = useSanity()
     const src = computed(() => {
       const parts = props.assetId.split('-').slice(1)

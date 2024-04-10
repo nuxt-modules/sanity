@@ -1,10 +1,10 @@
 import type { ClientPerspective, StegaConfig } from '@sanity/client'
-import type { SanityHelper } from '#sanity-composables'
 import type {
   SanityVisualEditingMode,
   SanityVisualEditingRefreshHandler,
   SanityVisualEditingZIndex,
 } from './src/module'
+import type { SanityHelper } from '#sanity-composables'
 
 type nullish = null | undefined | void
 
@@ -19,18 +19,18 @@ declare module 'nuxt/schema' {
     sanity: {
       visualEditing:
         | {
-            mode: SanityVisualEditingMode
-            previewMode:
-              | false
-              | {
-                  enable: string
-                  disable: string
-                }
-            previewModeId: string
-            proxyEndpoint: string
-            studioUrl: string
-            token: string
-          }
+          mode: SanityVisualEditingMode
+          previewMode:
+            | false
+            | {
+              enable: string
+              disable: string
+            }
+          previewModeId: string
+          proxyEndpoint: string
+          studioUrl: string
+          token: string
+        }
         | undefined
     }
   }
@@ -48,18 +48,18 @@ declare module 'nuxt/schema' {
       useCdn: boolean
       visualEditing:
         | {
-            mode: SanityVisualEditingMode,
-            previewMode:
-              | false
-              | {
-                  enable: string
-                  disable: string
-                }
-            proxyEndpoint: string
-            refresh: SanityVisualEditingRefreshHandler | undefined,
-            studioUrl: string
-            zIndex: SanityVisualEditingZIndex
-          }
+          mode: SanityVisualEditingMode
+          previewMode:
+            | false
+            | {
+              enable: string
+              disable: string
+            }
+          proxyEndpoint: string
+          refresh: SanityVisualEditingRefreshHandler | undefined
+          studioUrl: string
+          zIndex: SanityVisualEditingZIndex
+        }
         | nullish
     }
     withCredentials: boolean

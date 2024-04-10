@@ -21,11 +21,11 @@ import { dirname, join, relative, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
+import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
+import { type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
-import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
-import { type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
@@ -41,11 +41,11 @@ export interface SanityModuleVisualEditingOptions {
    * Enable preview mode or configure preview endpoints
    */
   previewMode?:
-  | boolean
-  | {
-    enable?: string
-    disable?: string
-  }
+    | boolean
+    | {
+      enable?: string
+      disable?: string
+    }
   /**
    * Enable visual editing at app level or per component
    * @default 'live-visual-editing'
@@ -137,7 +137,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     withCredentials: false,
     configFile: '~~/cms/sanity.config',
   },
-  async setup (options, nuxt) {
+  async setup(options, nuxt) {
     // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
     if (!options.projectId || !options.dataset) {
       // Register watcher on sanity.config.ts
@@ -177,7 +177,8 @@ export default defineNuxtModule<SanityModuleOptions>({
         if (options.apiVersion === '1') {
           throw new Error(`The specified API Version must be ${chalk.bold('2021-03-25')} or later.`)
         }
-      } catch (e) {
+      }
+      catch (e) {
         options.visualEditing = undefined
         if (e instanceof Error) {
           logger.warn(`Could not enable visual editing: ${e.message}`)
@@ -193,7 +194,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           enable: '/preview/enable',
           disable: '/preview/disable',
         })
-        : false) as { enable: string; disable: string } | false,
+        : false) as { enable: string, disable: string } | false,
       proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
       refresh: options.visualEditing.refresh,
       studioUrl: options.visualEditing.studioUrl || '',
@@ -208,8 +209,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       },
     })
 
-    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity =
-      defu(nuxt.options.runtimeConfig.public.sanity, {
+    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity
+      = defu(nuxt.options.runtimeConfig.public.sanity, {
         additionalClients: options.additionalClients, // has default
         apiVersion: options.apiVersion, // has default
         dataset: options.dataset, // has default
@@ -217,12 +218,12 @@ export default defineNuxtModule<SanityModuleOptions>({
         perspective: options.perspective, // has default
         projectId: options.projectId || '',
         stega:
-          (options.visualEditing && options.visualEditing?.stega !== false &&
-            ({
-              enabled: true,
-              studioUrl: options.visualEditing.studioUrl,
-            } as StegaConfig)) ||
-          {},
+          (options.visualEditing && options.visualEditing?.stega !== false
+          && ({
+            enabled: true,
+            studioUrl: options.visualEditing.studioUrl,
+          } as StegaConfig))
+          || {},
         token: options.token || '',
         useCdn: options.useCdn, // enforced
         visualEditing: visualEditing,
@@ -231,7 +232,8 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (!projectId) {
       logger.warn(`No Sanity project found. Make sure you specify a ${chalk.bold('projectId')} in your Sanity config.`)
-    } else {
+    }
+    else {
       logger.info(`Running with Sanity project ${chalk.bold(projectId)} (${chalk.bold(dataset)}).`)
     }
 
@@ -345,7 +347,8 @@ export default defineNuxtModule<SanityModuleOptions>({
           src: join(runtimeDir, 'plugins', 'visual-editing.client'),
         })
         logger.info(`Visual editing enabled globally.`)
-      } else {
+      }
+      else {
         logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
