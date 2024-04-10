@@ -22,7 +22,7 @@ export interface SanityConfiguration extends ClientConfig {}
 
 const enc = encodeURIComponent
 
-export function getQuery (query: string, params: Record<string, unknown> = {}) {
+export function getQuery(query: string, params: Record<string, unknown> = {}) {
   const baseQs = `?query=${enc(query)}`
   return Object.keys(params).reduce((current, param) => {
     return `${current}&${enc(`$${param}`)}=${enc(
@@ -34,7 +34,7 @@ export function getQuery (query: string, params: Record<string, unknown> = {}) {
 export const getByteSize = (query: string) =>
   encodeURI(query).split(/%..|./).length
 
-export function createClient (config: ClientConfig) {
+export function createClient(config: ClientConfig) {
   const {
     projectId,
     dataset,
@@ -72,7 +72,7 @@ export function createClient (config: ClientConfig) {
     /**
      * Perform a fetch using GROQ syntax.
      */
-    async fetch<T = unknown> (query: string, params?: Record<string, unknown>) {
+    async fetch<T = unknown>(query: string, params?: Record<string, unknown>) {
       const qs = getQuery(query, params)
       const usePostRequest = getByteSize(qs) > 9000
 

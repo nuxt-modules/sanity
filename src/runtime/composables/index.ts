@@ -20,9 +20,9 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
   return {
     client,
     config,
-    // @ts-expect-error
+    // @ts-expect-error untyped args
     fetch: (...args) => client.fetch(...args),
-    setToken (token) {
+    setToken(token) {
       config.token = token
       client = createSanityClient(config)
     },
@@ -42,7 +42,8 @@ export const useSanity = (client = 'default'): SanityHelper => {
 
   if (!options.disableSmartCdn && nuxtApp.$preview) {
     options.useCdn = false
-  } else if (!import.meta.dev && !options.useCdn && !options.token) {
+  }
+  else if (!import.meta.dev && !options.useCdn && !options.token) {
     options.useCdn = true
   }
 

@@ -1,11 +1,10 @@
 import { defu } from 'defu'
 
+import type { ClientConfig } from '../../client'
+import { createClient } from '../../client'
 import type { SanityHelper } from '#sanity-composables'
 
 import { useRuntimeConfig } from '#imports'
-
-import type { ClientConfig } from '../../client'
-import { createClient } from '../../client'
 
 const clients: Record<string, SanityHelper> = {}
 const $config = useRuntimeConfig()
@@ -18,7 +17,7 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
     client,
     config,
     fetch: client.fetch,
-    setToken (token) {
+    setToken(token) {
       config.token = token
       client = createClient(config)
     },
@@ -32,7 +31,7 @@ export const useSanity = (client = 'default'): SanityHelper => {
 
   const {
     additionalClients = {},
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
     visualEditing,
     ...options
   } = defu($config.sanity, $config.public.sanity)

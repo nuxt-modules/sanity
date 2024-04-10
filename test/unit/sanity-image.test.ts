@@ -86,7 +86,7 @@ describe('SanityImage prop validation', () => {
 
   beforeEach(() => {
     mockError = vi.fn()
-    // eslint-disable-next-line no-console
+
     console.warn = mockError
   })
 
