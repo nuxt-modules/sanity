@@ -315,14 +315,11 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
       nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
         include: [
-          '@nuxtjs/sanity > @sanity/core-loader > async-cache-dedupe',
           '@nuxtjs/sanity > @sanity/visual-editing > @sanity/visual-editing > react-is',
           '@nuxtjs/sanity > @sanity/visual-editing > react',
           '@nuxtjs/sanity > @sanity/visual-editing > react/jsx-runtime',
           '@nuxtjs/sanity > @sanity/visual-editing > react-dom',
           '@nuxtjs/sanity > @sanity/visual-editing > react-dom/client',
-          '@sanity/client > get-it > debug',
-          '@sanity/client > get-it > parse-headers',
           '@sanity/client',
         ],
       })
