@@ -29,7 +29,7 @@ importers:
         version: 1.6.5(@sanity/client@6.15.11)
       '@sanity/visual-editing':
         specifier: ^1.8.4
-        version: 1.8.4(@sanity/client@6.15.11)
+        version: 1.8.14(@sanity/client@6.15.11)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -4533,6 +4533,16 @@ packages:
       - styled-components
     dev: false
 
+  /@sanity/preview-url-secret@1.6.10(@sanity/client@6.15.11):
+    resolution: {integrity: sha512-ZQO+B+QCKpwOP3VEBIW7HpKaLxNjr8zCd3ue66l5Y0HZz6owd3lTp1SkCKW+qATdktNeNd1hgalGTMDKvS8CGw==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@sanity/client': ^6.15.19
+    dependencies:
+      '@sanity/client': 6.15.11
+      '@sanity/uuid': 3.0.2
+    dev: false
+
   /@sanity/preview-url-secret@1.6.5(@sanity/client@6.15.11):
     resolution: {integrity: sha512-zY57ZSKHIgiI/naW18Y7XvLwR1cPra2VIrcZQn2nBuL294fRpZkwBF+M62j6oroU5nKXGQt5P82VM1sXdqXdmw==}
     engines: {node: '>=18'}
@@ -4665,14 +4675,14 @@ packages:
       - react-is
     dev: true
 
-  /@sanity/visual-editing@1.8.4(@sanity/client@6.15.11):
-    resolution: {integrity: sha512-wqvm26KDFB/Ww0J9XT8caPDWTHhemOWySlF9w3TtDTg5iWVoT6iYjKxi0yVoA7xAEtB0SmDUek6wSZhRhXG1LA==}
+  /@sanity/visual-editing@1.8.14(@sanity/client@6.15.11):
+    resolution: {integrity: sha512-mB3/bUb6jVcNiHUd15SPiUS3gDFp6ebzTyKHjCw3tin281YYnaOJCI5HOaoNz6xDig3iLvOtbf+JYa2mvPwvZQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@remix-run/react': '>= 2'
-      '@sanity/client': ^6.15.7
+      '@sanity/client': ^6.15.19
       '@sveltejs/kit': '>= 2'
-      next: '>= 13'
+      next: '>= 13 || >=14.3.0-canary.0 <14.3.0'
       svelte: '>= 4'
     peerDependenciesMeta:
       '@remix-run/react':
@@ -4687,7 +4697,7 @@ packages:
         optional: true
     dependencies:
       '@sanity/client': 6.15.11
-      '@sanity/preview-url-secret': 1.6.5(@sanity/client@6.15.11)
+      '@sanity/preview-url-secret': 1.6.10(@sanity/client@6.15.11)
       '@vercel/stega': 0.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
