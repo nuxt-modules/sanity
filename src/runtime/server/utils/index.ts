@@ -16,7 +16,7 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
   return {
     client,
     config,
-    fetch: client.fetch,
+    fetch: (...args) => client.fetch(...args),
     setToken(token) {
       config.token = token
       client = createClient(config)
