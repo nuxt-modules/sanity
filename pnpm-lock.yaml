@@ -20,16 +20,16 @@ importers:
         version: 2.0.13
       '@sanity/client':
         specifier: ^6.15.7
-        version: 6.15.11
+        version: 6.15.20
       '@sanity/core-loader':
         specifier: ^1.6.2
-        version: 1.6.8(@sanity/client@6.15.11)
+        version: 1.6.8(@sanity/client@6.15.20)
       '@sanity/preview-url-secret':
         specifier: ^1.6.5
-        version: 1.6.5(@sanity/client@6.15.11)
+        version: 1.6.5(@sanity/client@6.15.20)
       '@sanity/visual-editing':
         specifier: ^1.8.4
-        version: 1.8.14(@sanity/client@6.15.11)
+        version: 1.8.14(@sanity/client@6.15.20)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -4309,16 +4309,15 @@ packages:
       - supports-color
     dev: false
 
-  /@sanity/client@6.15.11:
-    resolution: {integrity: sha512-+dAEEKy6LrugjbssVnmef1ZoXOodiEj+0jMzqpygHmw0+uuyeb0jCvAnDdguF1thY/n3H1x+N1edt0CvVrD7Qg==}
+  /@sanity/client@6.15.20:
+    resolution: {integrity: sha512-0RTrIxle2S/2FWnwVb/R16S6iqYTh8KPZc5JN6xgXYFwt5A6O/npZK3fA/F/2LJuRjTZXoqP0mQHFngsyKYRIQ==}
     engines: {node: '>=14.18'}
     dependencies:
-      '@sanity/eventsource': 5.0.1
-      '@vercel/stega': 0.1.0
-      get-it: 8.4.18
+      '@sanity/eventsource': 5.0.2
+      get-it: 8.4.27
       rxjs: 7.8.1
     transitivePeerDependencies:
-      - supports-color
+      - debug
     dev: false
 
   /@sanity/client@6.15.7:
@@ -4359,13 +4358,13 @@ packages:
     resolution: {integrity: sha512-JLIsloyyn0lhta/JivmYlxlcN7U3dpBNqtH7uAzM9/kPirFxWJ8LAVuF5vxK5JHwTNbgpVy6AmfIss/av7N96w==}
     engines: {node: '>=18.0.0'}
 
-  /@sanity/core-loader@1.6.8(@sanity/client@6.15.11):
+  /@sanity/core-loader@1.6.8(@sanity/client@6.15.20):
     resolution: {integrity: sha512-P6hvwh2PiFxAvZ+rb4sOk8tN5G7H4w5MtsSWzCrAaUbzbxQd8eQ74rrA89g7XWpH/oc1cLnSaQbenJKlOQI1PA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/client': ^6.15.19
     dependencies:
-      '@sanity/client': 6.15.11
+      '@sanity/client': 6.15.20
     dev: false
 
   /@sanity/diff-match-patch@3.1.1:
@@ -4385,6 +4384,15 @@ packages:
     dependencies:
       '@types/event-source-polyfill': 1.0.2
       '@types/eventsource': 1.1.12
+      event-source-polyfill: 1.0.31
+      eventsource: 2.0.2
+    dev: false
+
+  /@sanity/eventsource@5.0.2:
+    resolution: {integrity: sha512-/B9PMkUvAlUrpRq0y+NzXgRv5lYCLxZNsBJD2WXVnqZYOfByL9oQBV7KiTaARuObp5hcQYuPfOAVjgXe3hrixA==}
+    dependencies:
+      '@types/event-source-polyfill': 1.0.5
+      '@types/eventsource': 1.1.15
       event-source-polyfill: 1.0.31
       eventsource: 2.0.2
     dev: false
@@ -4539,23 +4547,23 @@ packages:
       - styled-components
     dev: false
 
-  /@sanity/preview-url-secret@1.6.10(@sanity/client@6.15.11):
+  /@sanity/preview-url-secret@1.6.10(@sanity/client@6.15.20):
     resolution: {integrity: sha512-ZQO+B+QCKpwOP3VEBIW7HpKaLxNjr8zCd3ue66l5Y0HZz6owd3lTp1SkCKW+qATdktNeNd1hgalGTMDKvS8CGw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/client': ^6.15.19
     dependencies:
-      '@sanity/client': 6.15.11
+      '@sanity/client': 6.15.20
       '@sanity/uuid': 3.0.2
     dev: false
 
-  /@sanity/preview-url-secret@1.6.5(@sanity/client@6.15.11):
+  /@sanity/preview-url-secret@1.6.5(@sanity/client@6.15.20):
     resolution: {integrity: sha512-zY57ZSKHIgiI/naW18Y7XvLwR1cPra2VIrcZQn2nBuL294fRpZkwBF+M62j6oroU5nKXGQt5P82VM1sXdqXdmw==}
     engines: {node: '>=18'}
     peerDependencies:
       '@sanity/client': ^6.15.7
     dependencies:
-      '@sanity/client': 6.15.11
+      '@sanity/client': 6.15.20
       '@sanity/uuid': 3.0.2
     dev: false
 
@@ -4703,7 +4711,7 @@ packages:
       - react-is
     dev: true
 
-  /@sanity/visual-editing@1.8.14(@sanity/client@6.15.11):
+  /@sanity/visual-editing@1.8.14(@sanity/client@6.15.20):
     resolution: {integrity: sha512-mB3/bUb6jVcNiHUd15SPiUS3gDFp6ebzTyKHjCw3tin281YYnaOJCI5HOaoNz6xDig3iLvOtbf+JYa2mvPwvZQ==}
     engines: {node: '>=18'}
     peerDependencies:
@@ -4724,8 +4732,8 @@ packages:
       svelte:
         optional: true
     dependencies:
-      '@sanity/client': 6.15.11
-      '@sanity/preview-url-secret': 1.6.10(@sanity/client@6.15.11)
+      '@sanity/client': 6.15.20
+      '@sanity/preview-url-secret': 1.6.10(@sanity/client@6.15.20)
       '@vercel/stega': 0.1.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -4939,8 +4947,16 @@ packages:
     resolution: {integrity: sha512-qE5zrFd73BRs5oSjVys6g/5GboqOMbzLRTUFPAhfULvvvbRAOXw9m4Wk+p1BtoZm4JgW7TljGGfVabBqvi3eig==}
     dev: false
 
+  /@types/event-source-polyfill@1.0.5:
+    resolution: {integrity: sha512-iaiDuDI2aIFft7XkcwMzDWLqo7LVDixd2sR6B4wxJut9xcp/Ev9bO4EFg4rm6S9QxATLBj5OPxdeocgmhjwKaw==}
+    dev: false
+
   /@types/eventsource@1.1.12:
     resolution: {integrity: sha512-KlVguyxdoO8VkAhOMwOemK+NhFAg0gOwJHgimrWJUgM6LrdVW2nLa+d47WVWQcs8feRn0eeP+5yUDmDfzLBjRA==}
+    dev: false
+
+  /@types/eventsource@1.1.15:
+    resolution: {integrity: sha512-XQmGcbnxUNa06HR3VBVkc9+A2Vpi9ZyLJcdS5dwaQQ/4ZMWFO+5c90FnMUpbtMZwB/FChoYHwuVg8TvkECacTA==}
     dev: false
 
   /@types/glob@7.2.0:
@@ -8413,22 +8429,19 @@ packages:
       - supports-color
     dev: false
 
-  /get-it@8.4.18:
-    resolution: {integrity: sha512-cOrL+qRSix45onwUNEO/ITrtuh2cvJT+vCFG2qahC/dFBC2z03LxLTwAZ33VPptoytBJN4Ht0AdnYCDBUm/M+Q==}
+  /get-it@8.4.27:
+    resolution: {integrity: sha512-3ferjw17+sUrDws9Q5JOvC2ecaEjXQlBTarRNe7JLtKhzsnc7AILYzgn0TD0NZNuaeb7rEcGLX7tGHsDISJyAg==}
     engines: {node: '>=14.0.0'}
     dependencies:
-      debug: 4.3.4
       decompress-response: 7.0.0
       follow-redirects: 1.15.6(debug@4.3.4)
       into-stream: 6.0.0
-      is-plain-object: 5.0.0
       is-retry-allowed: 2.2.0
       is-stream: 2.0.1
-      parse-headers: 2.0.5
       progress-stream: 2.0.0
       tunnel-agent: 0.6.0
     transitivePeerDependencies:
-      - supports-color
+      - debug
     dev: false
 
   /get-port-please@3.1.2:
