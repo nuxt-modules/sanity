@@ -16,6 +16,7 @@ export const ssrBehaviour = () => {
 
   it('auto-imports work in server routes', async () => {
     expect(await $fetch('/api/groq')).toContain('hey there')
+    expect(await $fetch('/api/fetch')).toEqual(expect.objectContaining({ slug: 'walle' }))
     expect(await $fetch('/api/client')).toEqual(expect.objectContaining({
       projectId: 'j1o4tmjp',
     }))
