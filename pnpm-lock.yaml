@@ -26,7 +26,7 @@ importers:
         version: 1.6.14(@sanity/client@6.15.20)
       '@sanity/preview-url-secret':
         specifier: ^1.6.5
-        version: 1.6.5(@sanity/client@6.15.20)
+        version: 1.6.13(@sanity/client@6.15.20)
       '@sanity/visual-editing':
         specifier: ^1.8.4
         version: 1.8.21(@sanity/client@6.15.20)
@@ -4599,16 +4599,6 @@ packages:
       '@sanity/client': ^6.18.2
     dependencies:
       '@sanity/client': 6.15.7
-      '@sanity/uuid': 3.0.2
-    dev: false
-
-  /@sanity/preview-url-secret@1.6.5(@sanity/client@6.15.20):
-    resolution: {integrity: sha512-zY57ZSKHIgiI/naW18Y7XvLwR1cPra2VIrcZQn2nBuL294fRpZkwBF+M62j6oroU5nKXGQt5P82VM1sXdqXdmw==}
-    engines: {node: '>=18'}
-    peerDependencies:
-      '@sanity/client': ^6.15.7
-    dependencies:
-      '@sanity/client': 6.15.20
       '@sanity/uuid': 3.0.2
     dev: false
 
