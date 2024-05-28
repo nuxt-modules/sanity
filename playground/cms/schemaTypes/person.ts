@@ -1,6 +1,7 @@
 import { MdPerson as icon } from 'react-icons/md'
+import { defineType } from 'sanity'
 
-export default {
+export default defineType({
   name: 'person',
   title: 'Person',
   type: 'document',
@@ -33,4 +34,4 @@ export default {
   preview: {
     select: { title: 'name', media: 'image' },
   },
-}
+})

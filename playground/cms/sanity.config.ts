@@ -3,7 +3,7 @@ import { presentationTool } from 'sanity/presentation'
 import { defineConfig } from 'sanity'
 import { visionTool } from '@sanity/vision'
 import { debugSecrets } from '@sanity/preview-url-secret/sanity-plugin-debug-secrets'
-import { schemaTypes } from './schemas'
+import { schemaTypes } from './schemaTypes'
 
 export default defineConfig({
   name: 'default',

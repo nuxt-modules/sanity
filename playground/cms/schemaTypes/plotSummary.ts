@@ -1,4 +1,6 @@
-export default {
+import { defineType } from 'sanity'
+
+export default defineType({
   name: 'plotSummary',
   title: 'Plot Summary',
   type: 'object',
@@ -19,4 +21,4 @@ export default {
       type: 'url',
     },
   ],
-}
+})

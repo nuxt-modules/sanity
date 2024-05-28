@@ -1,6 +1,7 @@
 import { MdLocalMovies as icon } from 'react-icons/md'
+import { defineType } from 'sanity'
 
-export default {
+export default defineType({
   name: 'movie',
   title: 'Movie',
   type: 'document',
@@ -83,4 +84,4 @@ export default {
       }
     },
   },
-}
+})
