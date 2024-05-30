@@ -87,7 +87,10 @@ export function createClient(config: ClientConfig) {
           body: { query, params },
           query: { perspective },
         })
-        : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
+        : await $fetch<{ result: T }>(`${urlBase}${qs}`, {
+          ...fetchOptions,
+          query: { perspective },
+        })
       return result
     },
   }
