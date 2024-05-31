@@ -52,6 +52,7 @@ export function createClient(config: ClientConfig) {
       Accept: 'application/json',
       ...(import.meta.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
+    query: { perspective },
   }
 
   if (import.meta.client) {
@@ -85,12 +86,8 @@ export function createClient(config: ClientConfig) {
           ...fetchOptions,
           method: 'post',
           body: { query, params },
-          query: { perspective },
         })
-        : await $fetch<{ result: T }>(`${urlBase}${qs}`, {
-          ...fetchOptions,
-          query: { perspective },
-        })
+        : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result
     },
   }
