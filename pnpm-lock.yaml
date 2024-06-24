@@ -29,7 +29,7 @@ importers:
         version: 1.6.17(@sanity/client@6.15.20)
       '@sanity/visual-editing':
         specifier: ^1.8.4
-        version: 1.8.21(@sanity/client@6.15.20)
+        version: 1.8.22(@sanity/client@6.15.20)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -4794,6 +4794,16 @@ packages:
       '@sanity/uuid': 3.0.2
     dev: false
 
+  /@sanity/preview-url-secret@1.6.17(@sanity/client@6.15.20):
+    resolution: {integrity: sha512-Gj0bnochUdyGJdcYdZMJ8up81aqp6dCy1ldE5Hx3tIktANc7LYie0KfZctexY1h+teBi50vKpk8uiVID/V2e2w==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@sanity/client': ^6.19.1
+    dependencies:
+      '@sanity/client': 6.15.20
+      '@sanity/uuid': 3.0.2
+    dev: false
+
   /@sanity/schema@3.36.2:
     resolution: {integrity: sha512-7nN8sXu4HP89nsMZOxgxtU2f2FvhOSrL4GHpGTWPscjSNZynbIYEtXiqKZflFSNZENDlfEz0eZbxSDwqKlOo6A==}
     dependencies:
@@ -4928,12 +4938,12 @@ packages:
       - react-is
     dev: true
 
-  /@sanity/visual-editing@1.8.21(@sanity/client@6.15.20):
-    resolution: {integrity: sha512-tX+BMRR6pCEnKItst8DlB5VAgV36vHNM8gM77ItyJCdV6HQNU9YSqiHlxtHb+duQYP41PvEk79/okBPu0pNexQ==}
+  /@sanity/visual-editing@1.8.22(@sanity/client@6.15.20):
+    resolution: {integrity: sha512-GeGP7HajEUKP6Myv1hjVkr6gpWJLWTPSqrsWRTYeiz5qHWjvedweQdTw2y82eTPE2Q7//HKO8+aAg/YGPlGwQQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@remix-run/react': '>= 2'
-      '@sanity/client': ^6.18.2
+      '@sanity/client': ^6.18.3
       '@sveltejs/kit': '>= 2'
       next: '>= 13 || >=14.3.0-canary.0 <14.3.0'
       svelte: '>= 4'
@@ -4954,7 +4964,6 @@ packages:
       '@vercel/stega': 0.1.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-      react-is: 18.3.1
       scroll-into-view-if-needed: 3.1.0
       valibot: 0.30.0
     dev: false
@@ -12837,6 +12846,7 @@ packages:
 
   /react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
+    dev: true
 
   /react-lifecycles-compat@3.0.4:
     resolution: {integrity: sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==}
