@@ -159,10 +159,12 @@ export const useSanity = (client = 'default'): SanityHelper => {
   nuxtApp._sanity = nuxtApp._sanity || {}
 
   const $config = useRuntimeConfig()
-  const { additionalClients = {}, visualEditing, ...options } = defu(
-    $config.sanity,
-    $config.public.sanity,
-  )
+  const { additionalClients = {}, visualEditing, ...options } = import.meta.client
+    ? $config.public.sanity
+    : defu(
+      $config.sanity,
+      $config.public.sanity,
+    )
 
   if (client === 'default') {
     nuxtApp._sanity.default = createSanityHelper({
