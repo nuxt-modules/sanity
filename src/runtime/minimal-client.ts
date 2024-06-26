@@ -1,3 +1,4 @@
+import type { FetchOptions } from 'ofetch'
 import { $fetch } from 'ofetch'
 
 /**
@@ -46,12 +47,13 @@ export function createClient(config: ClientConfig) {
 
   const useCdn = perspective !== 'previewDrafts' && config.useCdn
 
-  const fetchOptions: RequestInit = {
+  const fetchOptions: FetchOptions<'json'> = {
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accept: 'application/json',
       ...(import.meta.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
+    query: { perspective },
   }
 
   if (import.meta.client) {
@@ -85,7 +87,6 @@ export function createClient(config: ClientConfig) {
           ...fetchOptions,
           method: 'post',
           body: { query, params },
-          query: { perspective },
         })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result
