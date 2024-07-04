@@ -110,11 +110,14 @@ const createSanityHelper = (
 ): SanityHelper => {
   const config = { ...options }
   const { visualEditing, ...clientConfig } = config
-  let client = createSanityClient(clientConfig)
 
   const visualEditingState = useSanityVisualEditingState()
   const visualEditingEnabled = visualEditing && (!visualEditing.previewMode || visualEditingState.enabled)
 
+  // Enable stega only when visual editing is enabled
+  clientConfig.stega = visualEditingEnabled && clientConfig.stega
+
+  let client = createSanityClient(clientConfig)
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)
     : undefined
