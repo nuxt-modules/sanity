@@ -218,7 +218,9 @@ export default defineNuxtModule<SanityModuleOptions>({
         perspective: options.perspective, // has default
         projectId: options.projectId || '',
         stega:
-          (options.visualEditing && options.visualEditing?.stega !== false
+          (options.visualEditing
+          && options.visualEditing.stega !== false
+          && options.visualEditing.previewMode !== false
           && ({
             enabled: true,
             studioUrl: options.visualEditing.studioUrl,
