@@ -28,8 +28,8 @@ importers:
         specifier: ^1.6.5
         version: 1.6.18(@sanity/client@6.20.1)
       '@sanity/visual-editing':
-        specifier: ^1.8.4
-        version: 1.8.22(@sanity/client@6.20.1)
+        specifier: ^2.0.0
+        version: 2.1.6(@sanity/client@6.20.1)(react-dom@18.3.1)(react@18.3.1)
       chalk:
         specifier: ^5.3.0
         version: 5.3.0
@@ -5078,14 +5078,16 @@ packages:
       - react-is
     dev: true
 
-  /@sanity/visual-editing@1.8.22(@sanity/client@6.20.1):
-    resolution: {integrity: sha512-GeGP7HajEUKP6Myv1hjVkr6gpWJLWTPSqrsWRTYeiz5qHWjvedweQdTw2y82eTPE2Q7//HKO8+aAg/YGPlGwQQ==}
+  /@sanity/visual-editing@2.1.6(@sanity/client@6.20.1)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-4vGWZ/GJdwMzr+Fbxgs1bVh0l7YA3nqfhbPolytxlXamsB80kwETnVhR2nIoqrvTUZLHMBNreVMjMuLEdrYT0A==}
     engines: {node: '>=18'}
     peerDependencies:
       '@remix-run/react': '>= 2'
-      '@sanity/client': ^6.18.3
+      '@sanity/client': ^6.20.1
       '@sveltejs/kit': '>= 2'
-      next: '>= 13 || >=14.3.0-canary.0 <14.3.0'
+      next: '>= 13 || >=14.3.0-canary.0 <14.3.0 || >=15.0.0-rc'
+      react: ^18.3 || >=19.0.0-rc
+      react-dom: ^18.3 || >=19.0.0-rc
       svelte: '>= 4'
     peerDependenciesMeta:
       '@remix-run/react':
@@ -5105,7 +5107,7 @@ packages:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
       scroll-into-view-if-needed: 3.1.0
-      valibot: 0.30.0
+      valibot: 0.31.1
     dev: false
 
   /@shikijs/core@1.10.1:
@@ -14708,8 +14710,8 @@ packages:
       convert-source-map: 2.0.0
     dev: true
 
-  /valibot@0.30.0:
-    resolution: {integrity: sha512-5POBdbSkM+3nvJ6ZlyQHsggisfRtyT4tVTo1EIIShs6qCdXJnyWU5TJ68vr8iTg5zpOLjXLRiBqNx+9zwZz/rA==}
+  /valibot@0.31.1:
+    resolution: {integrity: sha512-2YYIhPrnVSz/gfT2/iXVTrSj92HwchCt9Cga/6hX4B26iCz9zkIsGTS0HjDYTZfTi1Un0X6aRvhBi1cfqs/i0Q==}
     dev: false
 
   /validate-npm-package-license@3.0.4:
