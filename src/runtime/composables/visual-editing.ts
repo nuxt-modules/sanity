@@ -110,11 +110,14 @@ const createSanityHelper = (
 ): SanityHelper => {
   const config = { ...options }
   const { visualEditing, ...clientConfig } = config
-  let client = createSanityClient(clientConfig)
 
   const visualEditingState = useSanityVisualEditingState()
   const visualEditingEnabled = visualEditing && (!visualEditing.previewMode || visualEditingState.enabled)
 
+  // Enable stega only when visual editing is enabled
+  clientConfig.stega = visualEditingEnabled && clientConfig.stega
+
+  let client = createSanityClient(clientConfig)
   let queryStore = visualEditingEnabled
     ? createQueryStore(visualEditing, client)
     : undefined
@@ -159,10 +162,12 @@ export const useSanity = (client = 'default'): SanityHelper => {
   nuxtApp._sanity = nuxtApp._sanity || {}
 
   const $config = useRuntimeConfig()
-  const { additionalClients = {}, visualEditing, ...options } = defu(
-    $config.sanity,
-    $config.public.sanity,
-  )
+  const { additionalClients = {}, visualEditing, ...options } = import.meta.client
+    ? $config.public.sanity
+    : defu(
+      $config.sanity,
+      $config.public.sanity,
+    )
 
   if (client === 'default') {
     nuxtApp._sanity.default = createSanityHelper({

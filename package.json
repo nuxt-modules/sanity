@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/sanity",
-  "version": "1.11.3",
+  "version": "1.11.4",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -56,7 +56,7 @@
     "@sanity/client": "^6.15.7",
     "@sanity/core-loader": "^1.6.2",
     "@sanity/preview-url-secret": "^1.6.5",
-    "@sanity/visual-editing": "^1.8.4",
+    "@sanity/visual-editing": "^2.0.0",
     "chalk": "^5.3.0",
     "defu": "^6.1.4",
     "jiti": "^1.21.0",
@@ -73,26 +73,26 @@
     "@nuxt/schema": "3.11.1",
     "@nuxt/test-utils": "3.12.0",
     "@vitest/coverage-v8": "1.4.0",
-    "@vue/runtime-core": "3.4.21",
-    "@vue/test-utils": "2.4.5",
-    "bumpp": "9.4.0",
-    "eslint": "9.0.0",
-    "h3": "1.11.1",
+    "@vue/runtime-core": "3.4.31",
+    "@vue/test-utils": "2.4.6",
+    "bumpp": "9.4.1",
+    "eslint": "9.6.0",
+    "h3": "1.12.0",
     "happy-dom": "14.3.10",
-    "lint-staged": "15.2.2",
+    "lint-staged": "15.2.7",
     "nuxi": "3.11.1",
     "nuxt": "3.11.1",
     "simple-git-hooks": "2.11.1",
     "typescript": "5.4.5",
     "vitest": "1.4.0",
     "vitest-environment-nuxt": "1.0.0",
-    "vue": "3.4.21",
-    "vue-router": "4.3.0",
-    "vue-tsc": "2.0.14"
+    "vue": "3.4.31",
+    "vue-router": "4.4.0",
+    "vue-tsc": "2.0.24"
   },
   "resolutions": {
-    "nuxt-component-meta": "0.6.3",
-    "@nuxtjs/sanity": "link:."
+    "@nuxtjs/sanity": "link:.",
+    "nuxt-component-meta": "0.6.3"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -105,5 +105,5 @@
       "@sanity/client"
     ]
   },
-  "packageManager": "pnpm@8.15.6"
+  "packageManager": "pnpm@9.5.0"
 }
