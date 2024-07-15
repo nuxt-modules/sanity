@@ -11,7 +11,6 @@ await setup({
     imports: {
       autoImport: true,
     },
-    // @ts-expect-error issue with types in non-hoisted repo
     sanity: {
       projectId: 'j1o4tmjp',
       minimal: true,

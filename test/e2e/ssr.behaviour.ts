@@ -15,9 +15,10 @@ export const ssrBehaviour = () => {
   })
 
   it('auto-imports work in server routes', async () => {
-    expect(await $fetch('/api/groq')).toContain('hey there')
-    expect(await $fetch('/api/fetch')).toEqual(expect.objectContaining({ slug: 'walle' }))
-    expect(await $fetch('/api/client')).toEqual(expect.objectContaining({
+    // TODO: investigate stack depth: https://github.com/unjs/nitro/issues/470
+    expect(await $fetch<string>('/api/groq')).toContain('hey there')
+    expect(await $fetch<string>('/api/fetch')).toEqual(expect.objectContaining({ slug: 'walle' }))
+    expect(await $fetch<Record<string, any>>('/api/client')).toEqual(expect.objectContaining({
       projectId: 'j1o4tmjp',
     }))
   })
