@@ -53,7 +53,6 @@ export function createClient(config: ClientConfig) {
       Accept: 'application/json',
       ...(import.meta.server ? { 'accept-encoding': 'gzip, deflate' } : {}),
     },
-    query: { perspective },
   }
 
   if (import.meta.client) {
@@ -75,7 +74,7 @@ export function createClient(config: ClientConfig) {
      * Perform a fetch using GROQ syntax.
      */
     async fetch<T = unknown>(query: string, params?: Record<string, unknown>) {
-      const qs = getQuery(query, params)
+      const qs = getQuery(query, params) + `&perspective=${perspective}`
       const usePostRequest = getByteSize(qs) > 9000
 
       const host = useCdn && !usePostRequest ? cdnHost : apiHost
@@ -85,6 +84,7 @@ export function createClient(config: ClientConfig) {
       const { result } = usePostRequest
         ? await $fetch<{ result: T }>(urlBase, {
           ...fetchOptions,
+          query: { perspective },
           method: 'post',
           body: { query, params },
         })

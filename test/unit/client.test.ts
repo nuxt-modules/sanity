@@ -47,7 +47,7 @@ describe('minimal sanity client', () => {
     client.fetch('*[_type == "article"')
 
     expect($fetch).toBeCalledWith(
-      'https://sample-project.api.sanity.io/v1/data/query/undefined?query=*%5B_type%20%3D%3D%20%22article%22',
+      'https://sample-project.api.sanity.io/v1/data/query/undefined?query=*%5B_type%20%3D%3D%20%22article%22&perspective=raw',
       expect.not.objectContaining({ method: 'post' }),
     )
   })
@@ -146,6 +146,38 @@ describe('minimal sanity client', () => {
           Accept: 'application/json',
         },
       },
+    )
+  })
+
+  it('appends perspective to the query with GET request', async () => {
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
+    const query = '*[_type == "article"]'
+    await client.fetch(query)
+
+    expect($fetch).toBeCalledWith(
+      `https://${project}.api.sanity.io/v1/data/query/undefined?query=${encodeURIComponent(query)}&perspective=raw`,
+      {
+        credentials: 'omit',
+        headers: {
+          Accept: 'application/json',
+        },
+      },
+    )
+  })
+
+  it('appends perspective to the query with POST request', () => {
+    const client = createClient({
+      projectId: 'sample-project',
+      apiVersion: '1',
+    })
+    client.fetch(largeRequest)
+
+    expect($fetch).toBeCalledWith(
+      'https://sample-project.api.sanity.io/v1/data/query/undefined',
+      expect.objectContaining({ method: 'post', query: { perspective: 'raw' } }),
     )
   })
 })
