@@ -1,4 +1,3 @@
-import type { FetchOptions } from 'ofetch'
 import { $fetch } from 'ofetch'
 
 /**
@@ -47,7 +46,7 @@ export function createClient(config: ClientConfig) {
 
   const useCdn = perspective !== 'previewDrafts' && config.useCdn
 
-  const fetchOptions: FetchOptions<'json'> = {
+  const fetchOptions: RequestInit = {
     headers: {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
       Accept: 'application/json',
