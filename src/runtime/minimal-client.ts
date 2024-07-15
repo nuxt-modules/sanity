@@ -84,9 +84,9 @@ export function createClient(config: ClientConfig) {
       const { result } = usePostRequest
         ? await $fetch<{ result: T }>(urlBase, {
           ...fetchOptions,
-          query: { perspective },
           method: 'post',
           body: { query, params },
+          query: { perspective },
         })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result
