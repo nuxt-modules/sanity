@@ -22,7 +22,7 @@ import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
-import { type HistoryRefresh, type VisualEditingOptions } from '@sanity/visual-editing'
+import type { HistoryRefresh, VisualEditingOptions } from '@sanity/visual-editing'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'

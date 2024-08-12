@@ -18,6 +18,7 @@ export interface ClientConfig {
 }
 
 /** @deprecated Prefer `ClientConfig` instead - this will be removed in a future version. */
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface SanityConfiguration extends ClientConfig {}
 
 const enc = encodeURIComponent
