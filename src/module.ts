@@ -331,6 +331,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           { name: 'useSanityLiveMode', from: composablesFile },
           { name: 'useSanityVisualEditing', from: composablesFile },
           { name: 'useSanityVisualEditingState', from: composablesFile },
+          { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
         ])
       }
 
