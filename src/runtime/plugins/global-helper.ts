@@ -14,7 +14,7 @@ declare module '#app' {
   interface NuxtApp extends PluginInjection {}
 }
 
-declare module '@vue/runtime-core' {
+declare module 'vue' {
   // eslint-disable-next-line @typescript-eslint/no-empty-object-type
   interface ComponentCustomProperties extends PluginInjection {}
 }
