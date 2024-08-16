@@ -1,4 +1,6 @@
-export default {
+import { defineType } from 'sanity'
+
+export default defineType({
   name: 'crewMember',
   title: 'Crew Member',
   type: 'object',
@@ -37,7 +39,7 @@ export default {
       department: 'department',
       media: 'person.image',
     },
-    prepare (selection) {
+    prepare(selection) {
       const { name, job, department, media } = selection
       return {
         title: name,
@@ -46,4 +48,4 @@ export default {
       }
     },
   },
-}
+})

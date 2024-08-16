@@ -7,10 +7,13 @@ export default defineNuxtConfig({
   modules: ['@nuxtjs/sanity'],
   sanity: {
     globalHelper: true,
-    projectId: 'j1o4tmjp',
-    dataset: 'production',
+    apiVersion: '2021-03-25',
     additionalClients: {
       another: {},
+    },
+    visualEditing: {
+      token: process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN,
+      studioUrl: 'http://localhost:3333',
     },
   },
 })

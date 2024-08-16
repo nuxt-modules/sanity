@@ -16,7 +16,7 @@
 
 ## Features
 
-- Just bring your sanity.json - no additional configuration required
+- Just bring your `sanity.config.ts` - no additional configuration required
 - Ultra-lightweight Sanity client
 - Zero-config image/file components + portable text renderer
 - Supports GROQ syntax highlighting
@@ -29,7 +29,7 @@
 1. Add `@nuxtjs/sanity` dependency to your project
 
 ```bash
-yarn add @nuxtjs/sanity # or npm install @nuxtjs/sanity
+npx nuxi@latest module add sanity
 ```
 
 2. Add `@nuxtjs/sanity` to the `modules` section of `nuxt.config.ts`

@@ -1,7 +1,9 @@
 <template>
   <div class="p-4">
     <template v-if="details">
-      <p><strong>Title</strong>: {{ details.title }}</p>
+      <p :data-sanity="encodeDataAttribute?.(['title'])">
+        <strong>Title</strong>: {{ details.title }}
+      </p>
       <p>
         <strong>Release date</strong>:
         {{
@@ -24,7 +26,9 @@
         project-id="j1o4tmjp"
         asset-id="image-e22a88d23751a84df81f03ef287ae85fc992fe12-780x1170-jpg"
       />
-      <SanityContent :blocks="details.overview" />
+      <div :data-sanity="encodeDataAttribute?.(['overview'])">
+        <SanityContent :blocks="details.overview" />
+      </div>
     </template>
     <template v-else>
       Loading ...
@@ -56,7 +60,8 @@ interface QueryResult {
 }
 
 const route = useRoute()
-const { data: details } = await useSanityQuery<QueryResult>(query, {
-  slug: route.params.slug,
-})
+const { data: details, encodeDataAttribute }
+  = await useSanityQuery<QueryResult>(query, {
+    slug: route.params.slug,
+  })
 </script>

@@ -101,7 +101,7 @@ const validAttrs = [
   'wrap',
 ]
 
-function findSerializer (item: Block | undefined, serializers: Required<Serializers>): Serializer | undefined {
+function findSerializer(item: Block | undefined, serializers: Required<Serializers>): Serializer | undefined {
   if (item?.listItem && item._type !== 'list') {
     return serializers.listItem || 'li'
   }
@@ -109,19 +109,20 @@ function findSerializer (item: Block | undefined, serializers: Required<Serializ
   return item?._type ? serializers.types[item._type] || serializers.marks[item._type] : undefined
 }
 
-function renderStyle (item: Block, serializers: Required<Serializers>, children?: () => Children) {
+function renderStyle(item: Block, serializers: Required<Serializers>, children?: () => Children) {
   const serializer = item.style && serializers.styles[item.style]
   const isElement = typeof serializer === 'string'
   const props = extractProps(item, isElement)
 
   if (!item.listItem && item.style && serializer) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     return h(serializer as any, props, isVue2 ? children?.() : { default: children })
   }
 
   return children?.()
 }
 
-function renderInSerializer (item: Block, serializers: Required<Serializers>) {
+function renderInSerializer(item: Block, serializers: Required<Serializers>) {
   return render(serializers, item, () => (item.children || []).map((child: ArbitraryTypedObject | PortableTextSpan) => {
     if (isSpan(child)) {
       return renderMarks(child.text, child.marks, serializers, item.markDefs)
@@ -130,7 +131,7 @@ function renderInSerializer (item: Block, serializers: Required<Serializers>) {
   }))
 }
 
-function renderMarks (
+function renderMarks(
   content: Children,
   [mark, ...marks]: PortableTextBlock['children'][number]['marks'] = [],
   serializers: Required<Serializers>,
@@ -142,7 +143,7 @@ function renderMarks (
   return render(serializers, definition, () => renderMarks(content, marks, serializers, markDefs))
 }
 
-function walkList (blocks: Array<Block>, block: Block) {
+function walkList(blocks: Array<Block>, block: Block) {
   // Not a list item
   if (!block.listItem) {
     blocks.push(block)
@@ -173,7 +174,7 @@ function walkList (blocks: Array<Block>, block: Block) {
   return blocks
 }
 
-function render (serializers: Required<Serializers>, item?: Block, children?: () => Children) {
+function render(serializers: Required<Serializers>, item?: Block, children?: () => Children) {
   const serializer = findSerializer(item, serializers)
   if (!serializer) return children?.()
 
@@ -192,7 +193,7 @@ function render (serializers: Required<Serializers>, item?: Block, children?: ()
   return h(serializer, props, isVue2 ? children?.() : { default: () => children?.() })
 }
 
-function extractProps (item: Block, isElement: boolean) {
+function extractProps(item: Block, isElement: boolean) {
   return Object.fromEntries(
     Object.entries(item)
       .filter(([key]) => key !== '_type' && key !== 'markDefs')
@@ -206,11 +207,10 @@ function extractProps (item: Block, isElement: boolean) {
   )
 }
 
-function renderBlocks (blocks: Array<Block>, serializers: Required<Serializers>) {
+function renderBlocks(blocks: Array<Block>, serializers: Required<Serializers>) {
   return blocks.map((block) => {
     const node = renderStyle(block, serializers, () => renderInSerializer(block, serializers))
-    if (process.env.NODE_ENV === 'development' && (!node || (Array.isArray(node) && !node.length))) {
-      // eslint-disable-next-line no-console
+    if (import.meta.dev && (!node || (Array.isArray(node) && !node.length))) {
       console.warn(`No serializer found for block type "${block._type}".`, block)
     }
     return node
@@ -229,7 +229,7 @@ export default defineComponent({
       default: () => ({} as Serializers),
     },
   },
-  setup (props) {
+  setup(props) {
     const serializers = defu(props.serializers, defaults) as Required<Serializers>
     serializers.types.list = serializers.types.list || createListSerializer(serializers)
 
@@ -251,7 +251,7 @@ const createListSerializer = (serializers: Required<Serializers>) => {
         default: 1,
       },
     },
-    setup (props) {
+    setup(props) {
       return () => {
         const isOrdered = props.children[0]?.listItem === 'number'
         if (props.level > 1) {

@@ -7,6 +7,8 @@
   "author": "Daniel Roe <daniel@roe.dev>",
   "license": "MIT",
   "scripts": {
+    "dev": "sanity dev",
+    "build": "sanity build",
     "start": "sanity start",
     "test": "sanity check"
   },
@@ -15,15 +17,15 @@
   ],
   "dependencies": {
     "prop-types": "15.8.1",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
-    "react-icons": "^4.12.0",
-    "sanity": "3.20.1",
-    "styled-components": "^6.1.1"
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-icons": "^5.2.1",
+    "sanity": "3.53.0",
+    "styled-components": "^6.1.12"
   },
   "devDependencies": {
-    "@sanity/vision": "3.20.1",
-    "@types/react": "18.2.41",
-    "@types/styled-components": "5.1.32"
+    "@sanity/vision": "3.53.0",
+    "@types/react": "18.3.3",
+    "@types/styled-components": "5.1.34"
   }
 }

@@ -1,6 +1,7 @@
 import { MdLocalPlay as icon } from 'react-icons/md'
+import { defineType } from 'sanity'
 
-export default {
+export default defineType({
   name: 'screening',
   title: 'Screening',
   type: 'document',
@@ -77,4 +78,4 @@ export default {
       media: 'movie.poster',
     },
   },
-}
+})

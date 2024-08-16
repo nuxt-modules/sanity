@@ -1,6 +1,7 @@
 import { MdLocalMovies as icon } from 'react-icons/md'
+import { defineType } from 'sanity'
 
-export default {
+export default defineType({
   name: 'movie',
   title: 'Movie',
   type: 'document',
@@ -69,7 +70,7 @@ export default {
       castName0: 'castMembers.0.person.name',
       castName1: 'castMembers.1.person.name',
     },
-    prepare (selection) {
+    prepare(selection) {
       const year = selection.date && selection.date.split('-')[0]
       const cast = [selection.castName0, selection.castName1]
         .filter(Boolean)
@@ -83,4 +84,4 @@ export default {
       }
     },
   },
-}
+})
