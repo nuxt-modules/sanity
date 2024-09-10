@@ -219,13 +219,13 @@ export default defineNuxtModule<SanityModuleOptions>({
         projectId: options.projectId || '',
         stega:
           (options.visualEditing
-          && options.visualEditing.stega !== false
-          && options.visualEditing.previewMode !== false
-          && ({
-            enabled: true,
-            studioUrl: options.visualEditing.studioUrl,
-          } as StegaConfig))
-          || {},
+            && options.visualEditing.stega !== false
+            && options.visualEditing.previewMode !== false
+            && ({
+              enabled: true,
+              studioUrl: options.visualEditing.studioUrl,
+            } as StegaConfig))
+            || {},
         token: options.token || '',
         useCdn: options.useCdn, // enforced
         visualEditing: visualEditing,
