@@ -219,6 +219,7 @@ function renderBlocks(blocks: Array<Block>, serializers: Required<Serializers>) 
 
 export default defineComponent({
   name: 'SanityContent',
+  inheritAttrs: false,
   props: {
     blocks: {
       type: Array as () => Array<PortableTextBlock>,
