@@ -63,7 +63,7 @@ npx nuxi@latest module add sanity
 [npm-version-href]: https://npmjs.com/package/@nuxtjs/sanity
 [npm-downloads-src]: https://img.shields.io/npm/dm/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [npm-downloads-href]: https://npm.chart.dev/@nuxtjs/sanity
-[codecov-src]: https:
+[codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [codecov-href]: https://codecov.io/gh/nuxt-modules/sanity
 [license-src]: https://img.shields.io/npm/l/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [license-href]: https://npmjs.com/package/@nuxtjs/sanity
