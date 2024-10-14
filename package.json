@@ -45,7 +45,7 @@
     "lint": "eslint --fix .",
     "prepublishOnly": "pnpm test",
     "release": "bumpp && npm publish",
-    "test": "pnpm lint && pnpm vitest run",
+    "test": "pnpm lint && pnpm vitest run --coverage",
     "test:types": "vue-tsc --noEmit",
     "test:unit": "vitest run test/unit/*.test.*",
     "test:e2e": "vitest run test/e2e/*.test.*"
