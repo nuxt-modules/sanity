@@ -1,11 +1,11 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2024-08-19',
+  modules: ['@nuxtjs/sanity'],
   app: {
     head: {
       script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
     },
   },
-  modules: ['@nuxtjs/sanity'],
+  compatibilityDate: '2024-08-19',
   sanity: {
     globalHelper: true,
     apiVersion: '2021-03-25',

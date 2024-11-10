@@ -51,15 +51,15 @@
     "test:e2e": "vitest run test/e2e/*.test.*"
   },
   "dependencies": {
-    "@nuxt/kit": "^3.13.2",
+    "@nuxt/kit": "^3.14.159",
     "@portabletext/types": "^2.0.13",
     "@sanity/client": "^6.21.3",
     "@sanity/core-loader": "^1.6.23",
-    "@sanity/preview-url-secret": "^1.6.21",
+    "@sanity/preview-url-secret": "^2.0.0",
     "@sanity/visual-editing": "^2.1.10",
     "chalk": "^5.3.0",
     "defu": "^6.1.4",
-    "jiti": "^1.21.6",
+    "jiti": "^2.0.0",
     "knitwork": "^1.1.0",
     "magic-regexp": "^0.8.0",
     "mlly": "^1.7.1",
@@ -68,30 +68,30 @@
     "pathe": "^1.1.2"
   },
   "devDependencies": {
-    "@nuxt/eslint-config": "0.6.0",
+    "@nuxt/eslint-config": "0.6.1",
     "@nuxt/module-builder": "0.8.4",
-    "@nuxt/schema": "3.13.2",
-    "@nuxt/test-utils": "3.14.3",
-    "@vitest/coverage-v8": "2.1.2",
+    "@nuxt/schema": "3.14.159",
+    "@nuxt/test-utils": "3.14.4",
+    "@vitest/coverage-v8": "2.1.4",
     "@vue/test-utils": "2.4.6",
-    "bumpp": "9.7.1",
-    "eslint": "9.11.1",
+    "bumpp": "9.8.1",
+    "eslint": "9.14.0",
     "h3": "1.13.0",
-    "happy-dom": "15.7.4",
+    "happy-dom": "15.11.0",
     "lint-staged": "15.2.10",
-    "nuxi": "3.14.0",
-    "nuxt": "3.13.2",
+    "nuxi": "3.15.0",
+    "nuxt": "3.14.159",
     "simple-git-hooks": "2.11.1",
     "typescript": "5.6.3",
-    "vitest": "2.1.2",
+    "vitest": "2.1.4",
     "vitest-environment-nuxt": "1.0.1",
     "vue": "3.5.12",
     "vue-router": "4.4.5",
-    "vue-tsc": "2.1.6"
+    "vue-tsc": "2.1.10"
   },
   "resolutions": {
     "@nuxtjs/sanity": "link:.",
-    "nuxt-component-meta": "0.8.2"
+    "nuxt-component-meta": "0.9.0"
   },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
@@ -104,5 +104,5 @@
       "@sanity/client"
     ]
   },
-  "packageManager": "pnpm@9.12.1"
+  "packageManager": "pnpm@9.12.3"
 }
