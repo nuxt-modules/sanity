@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'node:url'
 import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
-import jiti from 'jiti'
+import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
 import {
   addComponentsDir,
@@ -17,7 +17,7 @@ import {
 } from '@nuxt/kit'
 
 import chalk from 'chalk'
-import { dirname, join, relative, resolve } from 'pathe'
+import { join, relative, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
@@ -146,14 +146,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       if (!relativeSanityConfigPath.startsWith('..')) {
         nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
       }
-      const load = jiti(dirname(import.meta.url), {
-        esmResolve: true,
-        interopDefault: true,
-        cache: false,
-        requireCache: false,
-      })
+      const jiti = createJiti(import.meta.url)
       if (existsSync(sanityConfigPath)) {
-        const sanityConfig = await load(sanityConfigPath)
+        const sanityConfig = await jiti.import(sanityConfigPath, { default: true, try: true }) as { projectId?: string, dataset?: string }
         if (sanityConfig) {
           options.projectId ||= sanityConfig.projectId
           options.dataset ||= sanityConfig.dataset
