@@ -11,9 +11,8 @@ import {
   addTemplate,
   defineNuxtModule,
   resolvePath,
-  isNuxt2,
-  isNuxt3,
   useLogger,
+  isNuxtMajorVersion,
 } from '@nuxt/kit'
 
 import chalk from 'chalk'
@@ -247,7 +246,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.globalHelper) {
       addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
-      if (isNuxt2()) {
+      if (isNuxtMajorVersion(2)) {
         nuxt.hook('prepare:types', ({ references }) => {
           references.push({ types: '@nuxtjs/sanity/dist/runtime/plugins/global-helper' })
         })
@@ -261,7 +260,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'useSanity', from: composablesFile },
       { name: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
-      ...isNuxt3() ? [{ name: 'useSanityQuery', from: composablesFile }] : [],
+      ...isNuxtMajorVersion(3) ? [{ name: 'useSanityQuery', from: composablesFile }] : [],
     ])
 
     const clientPath = await resolvePath(clientSpecifier)
@@ -332,7 +331,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         ],
       })
       // Add auto-imports for visual editing
-      if (isNuxt3()) {
+      if (isNuxtMajorVersion(3)) {
         addImports([
           { name: 'useSanityLiveMode', from: composablesFile },
           { name: 'useSanityVisualEditing', from: composablesFile },
