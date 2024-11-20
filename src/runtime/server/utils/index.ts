@@ -7,7 +7,6 @@ import type { SanityHelper } from '#sanity-composables'
 import { useRuntimeConfig } from '#imports'
 
 const clients: Record<string, SanityHelper> = {}
-const $config = useRuntimeConfig()
 
 const createSanityHelper = (options: ClientConfig): SanityHelper => {
   const config = { ...options }
@@ -25,6 +24,7 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
 }
 
 export const useSanity = (client = 'default'): SanityHelper => {
+  const $config = useRuntimeConfig()
   if (client in clients) {
     return clients[client]
   }
