@@ -3,17 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import {
-  addComponentsDir,
-  addImports,
-  addPlugin,
-  addServerHandler,
-  addTemplate,
-  defineNuxtModule,
-  resolvePath,
-  useLogger,
-  isNuxtMajorVersion,
-} from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, isNuxtMajorVersion } from '@nuxt/kit'
 
 import chalk from 'chalk'
 import { join, relative, resolve } from 'pathe'
