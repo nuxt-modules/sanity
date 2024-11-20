@@ -272,6 +272,17 @@ export default defineNuxtModule<SanityModuleOptions>({
     })
 
     nuxt.hook('nitro:config', (config) => {
+      config.typescript = defu(config.typescript, {
+        tsConfig: {
+          compilerOptions: {
+            paths: {
+              ['#sanity-client']: [clientPath],
+              ['#sanity-composables']: [composablesFile],
+            },
+          },
+        },
+      })
+
       if (config.imports === false) return
 
       config.virtual ||= {}
