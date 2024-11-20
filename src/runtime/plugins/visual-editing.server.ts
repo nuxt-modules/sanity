@@ -1,3 +1,4 @@
+import defu from 'defu'
 import { useSanityVisualEditingState } from '../composables/visual-editing'
 import { defineNuxtPlugin, useRuntimeConfig, useCookie } from '#imports'
 
@@ -5,7 +6,7 @@ export default defineNuxtPlugin(() => {
   const visualEditingState = useSanityVisualEditingState()
 
   const $config = useRuntimeConfig()
-  const { visualEditing } = $config.sanity
+  const { visualEditing } = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
 
   // If preview mode is _configured_ (i.e. `visualEditing.previewMode` is set)
   // check the cookie value against `previewModeId` to determine if visual

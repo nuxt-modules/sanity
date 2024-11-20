@@ -29,12 +29,12 @@ export const useSanity = (client = 'default'): SanityHelper => {
     return clients[client]
   }
 
+  const sanityConfig = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
   const {
     additionalClients = {},
-
     visualEditing,
     ...options
-  } = defu($config.sanity, $config.public.sanity)
+  } = sanityConfig
 
   if (client === 'default') {
     clients.default = createSanityHelper(options as ClientConfig) // @todo casting

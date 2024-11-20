@@ -1,15 +1,16 @@
 import { createError, defineEventHandler, readBody, getCookie } from 'h3'
+import defu from 'defu'
 
 import { useSanity, useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
-  const $config = useRuntimeConfig()
+  const $config = useRuntimeConfig(event)
   const sanity = useSanity()
 
   const { query, params = {}, options } = await readBody(event)
   const previewModeCookie = getCookie(event, '__sanity_preview')
 
-  const { visualEditing } = $config.sanity
+  const { visualEditing } = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
 
   if (!visualEditing || previewModeCookie !== visualEditing.previewModeId) {
     throw createError({
