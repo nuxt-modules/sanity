@@ -1,4 +1,5 @@
 import { defu } from 'defu'
+import type { H3Event } from 'h3'
 
 import type { ClientConfig } from '../../client'
 import { createClient } from '../../client'
@@ -23,11 +24,16 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
   }
 }
 
-export const useSanity = (client = 'default'): SanityHelper => {
-  const $config = useRuntimeConfig()
+export function useSanity(event?: H3Event, client?: string): SanityHelper
+/** @deprecated prefer useSanity(event, client) */
+export function useSanity(client?: string): SanityHelper
+export function useSanity(_event?: H3Event | string, _client?: string): SanityHelper {
+  const client = (typeof _event === 'string' ? _event : _client) || 'default'
   if (client in clients) {
     return clients[client]
   }
+
+  const $config = useRuntimeConfig(typeof _event === 'string' ? undefined : _event)
 
   const sanityConfig = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
   const {
