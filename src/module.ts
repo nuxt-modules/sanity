@@ -194,7 +194,8 @@ export default defineNuxtModule<SanityModuleOptions>({
     })
 
     const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity
-      = defu(nuxt.options.runtimeConfig.public.sanity, {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      = defu(nuxt.options.runtimeConfig.public.sanity as any, {
         additionalClients: options.additionalClients, // has default
         apiVersion: options.apiVersion, // has default
         dataset: options.dataset, // has default
