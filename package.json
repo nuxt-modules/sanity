@@ -78,6 +78,7 @@
     "eslint": "9.16.0",
     "h3": "1.13.0",
     "happy-dom": "15.11.7",
+    "installed-check": "^9.3.0",
     "lint-staged": "15.2.10",
     "nuxi": "3.16.0",
     "nuxt": "3.14.1592",
@@ -104,5 +105,8 @@
       "@sanity/client"
     ]
   },
-  "packageManager": "pnpm@9.14.2"
+  "packageManager": "pnpm@9.14.2",
+  "engines": {
+    "node": "^18.20.4 || ^20.9.0 || ^22.0.0 || >=23.0.0"
+  }
 }
