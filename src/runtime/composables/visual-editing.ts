@@ -1,6 +1,6 @@
 import { defu } from 'defu'
 import { hash } from 'ohash'
-import { onScopeDispose, reactive, ref } from 'vue'
+import { onScopeDispose, reactive, ref, watch } from 'vue'
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
 import { enableVisualEditing } from '@sanity/visual-editing'
@@ -234,7 +234,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
 
       const fetcher = sanity.queryStore!.createFetcherStore<T, E>(
         query,
-        _params,
+        JSON.parse(JSON.stringify(params)),
         undefined,
       )
 
@@ -283,6 +283,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
     // On the client, setup the fetcher
     if (import.meta.client) {
       setupFetcher()
+      if (params) watch(params, () => setupFetcher())
     }
 
     onScopeDispose(unsubscribe)
