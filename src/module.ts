@@ -5,7 +5,7 @@ import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
 import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, isNuxtMajorVersion } from '@nuxt/kit'
 
-import chalk from 'chalk'
+import { colors } from 'consola/utils'
 import { join, relative, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
@@ -159,7 +159,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           throw new Error(`'studioUrl' is required.`)
         }
         if (options.apiVersion === '1') {
-          throw new Error(`The specified API Version must be ${chalk.bold('2021-03-25')} or later.`)
+          throw new Error(`The specified API Version must be ${colors.bold('2021-03-25')} or later.`)
         }
       }
       catch (e) {
@@ -218,10 +218,10 @@ export default defineNuxtModule<SanityModuleOptions>({
       }))
 
     if (!projectId) {
-      logger.warn(`No Sanity project found. Make sure you specify a ${chalk.bold('projectId')} in your Sanity config.`)
+      logger.warn(`No Sanity project found. Make sure you specify a ${colors.bold('projectId')} in your Sanity config.`)
     }
     else {
-      logger.info(`Running with Sanity project ${chalk.bold(projectId)} (${chalk.bold(dataset)}).`)
+      logger.info(`Running with Sanity project ${colors.bold(projectId)} (${colors.bold(dataset)}).`)
     }
 
     const runtimeDir = fileURLToPath(new URL('./runtime', import.meta.url))
@@ -347,7 +347,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Visual editing enabled globally.`)
       }
       else {
-        logger.info(`Call ${chalk.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
+        logger.info(`Call ${colors.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
       addServerHandler({
@@ -370,7 +370,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
         logger.info(
           `Preview mode enabled. Added routes at: ${Object.values(visualEditing.previewMode)
-            .map(route => chalk.bold(route))
+            .map(route => colors.bold(route))
             .join(', ')}.`,
         )
       }
