@@ -29,7 +29,7 @@ importers:
         version: 2.0.5(@sanity/client@6.24.1)
       '@sanity/visual-editing':
         specifier: ^2.8.0
-        version: 2.10.9(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.10.10(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       consola:
         specifier: ^3.2.3
         version: 3.2.3
@@ -2259,8 +2259,8 @@ packages:
       react: ^18 || ^19.0.0
       styled-components: ^6.1
 
-  '@sanity/visual-editing@2.10.9':
-    resolution: {integrity: sha512-AoTCxfJShXiH9i4ofnd0EB3ZGn9cuQCoqXz12ZyZCGcKim5/++1Twlo5DTdOWnT44xoetDfltg5SOn/hsQ589g==}
+  '@sanity/visual-editing@2.10.10':
+    resolution: {integrity: sha512-kR+TIb290n5mMii+NemBqg+atjw2lf23pN5ULO8V6f+0uQKZMwIaJLhH875BMCVWLdCkb4eDq4e3QGynUzJgbQ==}
     engines: {node: '>=18'}
     peerDependencies:
       '@remix-run/react': '>= 2'
@@ -6273,6 +6273,11 @@ packages:
     resolution: {integrity: sha512-gce9m0Pk/xYYMEojRI9bgvqQAkl6hm7ozQvqWPyQx+kULiatdHgkNM1QG4DQRx5N9BAzWSCJmt9mMV8/KsdgVg==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0 || ^19.0.0-rc
+
+  react-compiler-runtime@19.0.0-beta-201e55d-20241215:
+    resolution: {integrity: sha512-jBEo/UqVgiz6veJjhQMoNaGQLKUQwzMQpiYrA4XsGVOC2sElDF0oMjic5107LitP988yHrqDDZwZirS4OAEqyA==}
+    peerDependencies:
+      react: ^17.0.0 || ^18.0.0 || ^19.0.0
 
   react-compiler-runtime@19.0.0-beta-37ed2a7-20241206:
     resolution: {integrity: sha512-9e6rCpVylr9EnVocgYAjft7+2v01BDpajeHKRoO+oc9pKcAMTpstHtHvE/TSVbyf4FvzCGjfKcfHM9XGTXI6Tw==}
@@ -10730,7 +10735,7 @@ snapshots:
       - react-dom
       - react-is
 
-  '@sanity/visual-editing@2.10.9(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@sanity/visual-editing@2.10.10(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
       '@sanity/comlink': 2.0.2
       '@sanity/mutate': 0.11.0-canary.4(xstate@5.19.0)
@@ -10738,7 +10743,7 @@ snapshots:
       '@vercel/stega': 0.1.2
       get-random-values-esm: 1.0.2
       react: 18.3.1
-      react-compiler-runtime: 19.0.0-beta-37ed2a7-20241206(react@18.3.1)
+      react-compiler-runtime: 19.0.0-beta-201e55d-20241215(react@18.3.1)
       react-dom: 18.3.1(react@18.3.1)
       rxjs: 7.8.1
       scroll-into-view-if-needed: 3.1.0
@@ -15669,6 +15674,10 @@ snapshots:
   react-clientside-effect@1.2.7(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.26.0
+      react: 18.3.1
+
+  react-compiler-runtime@19.0.0-beta-201e55d-20241215(react@18.3.1):
+    dependencies:
       react: 18.3.1
 
   react-compiler-runtime@19.0.0-beta-37ed2a7-20241206(react@18.3.1):
