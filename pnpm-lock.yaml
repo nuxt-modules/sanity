@@ -23,13 +23,13 @@ importers:
         version: 6.24.1(debug@4.4.0)
       '@sanity/core-loader':
         specifier: ^1.7.12
-        version: 1.7.19
+        version: 1.7.21
       '@sanity/preview-url-secret':
         specifier: ^2.0.4
         version: 2.0.5(@sanity/client@6.24.1)
       '@sanity/visual-editing':
         specifier: ^2.8.0
-        version: 2.10.7(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        version: 2.10.9(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       consola:
         specifier: ^3.2.3
         version: 3.2.3
@@ -2131,8 +2131,12 @@ packages:
     resolution: {integrity: sha512-Sdl0qCHwtKxEZ7Xa2xjKYslosmPteWB3p81u84X8PdTocVqp036S6r3vgQJPHlcEiEaJgMjpEJkjUaR8Jx5BcA==}
     engines: {node: '>=18'}
 
-  '@sanity/core-loader@1.7.19':
-    resolution: {integrity: sha512-pQBZeXMz0/ZPudwyFrla6DW3CZmH0QrV4+srRmRc6H76aiOC3m9k9LlI+mB6oldHf/zM/47gFe/P+dh77NZAkQ==}
+  '@sanity/comlink@2.0.2':
+    resolution: {integrity: sha512-8FUwaBrfjsQYWuoS8t+krllLQH0/khd6PT9bQ5Ac7xgHQEnZCzOXSxx+ENL0daCIdpqCpIu7nYUA2qLUUpQqEg==}
+    engines: {node: '>=18'}
+
+  '@sanity/core-loader@1.7.21':
+    resolution: {integrity: sha512-DeZn2czD3uqSbZzeZD3UggtV49l9qMZx9f1n7QLgD5Fj+o3ZmUbYWIWE/5PGH95Jnpg80rDap6vuAvPyMp9sWQ==}
     engines: {node: '>=18'}
 
   '@sanity/diff-match-patch@3.1.1':
@@ -2255,8 +2259,8 @@ packages:
       react: ^18 || ^19.0.0
       styled-components: ^6.1
 
-  '@sanity/visual-editing@2.10.7':
-    resolution: {integrity: sha512-CvpISyKoAsnd9E7je8JKJm/9Ixw/xKCEa9UX1mBzc9TfQ/IsdSED8BqTE6IfXSnLnMYRMg6FtLupfH/D7ZJrxQ==}
+  '@sanity/visual-editing@2.10.9':
+    resolution: {integrity: sha512-AoTCxfJShXiH9i4ofnd0EB3ZGn9cuQCoqXz12ZyZCGcKim5/++1Twlo5DTdOWnT44xoetDfltg5SOn/hsQ589g==}
     engines: {node: '>=18'}
     peerDependencies:
       '@remix-run/react': '>= 2'
@@ -10432,10 +10436,16 @@ snapshots:
       uuid: 10.0.0
       xstate: 5.19.0
 
-  '@sanity/core-loader@1.7.19':
+  '@sanity/comlink@2.0.2':
+    dependencies:
+      rxjs: 7.8.1
+      uuid: 10.0.0
+      xstate: 5.19.0
+
+  '@sanity/core-loader@1.7.21':
     dependencies:
       '@sanity/client': 6.24.1(debug@4.4.0)
-      '@sanity/comlink': 2.0.1
+      '@sanity/comlink': 2.0.2
     transitivePeerDependencies:
       - debug
 
@@ -10717,9 +10727,9 @@ snapshots:
       - react-dom
       - react-is
 
-  '@sanity/visual-editing@2.10.7(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@sanity/visual-editing@2.10.9(@sanity/client@6.24.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@sanity/comlink': 2.0.1
+      '@sanity/comlink': 2.0.2
       '@sanity/mutate': 0.11.0-canary.4(xstate@5.19.0)
       '@sanity/preview-url-secret': 2.0.5(@sanity/client@6.24.1)
       '@vercel/stega': 0.1.2
