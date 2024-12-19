@@ -135,7 +135,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       if (!relativeSanityConfigPath.startsWith('..')) {
         nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
       }
-      const jiti = createJiti(import.meta.url)
+      const jiti = createJiti(import.meta.url, { jsx: true })
       if (existsSync(sanityConfigPath)) {
         const sanityConfig = await jiti.import(sanityConfigPath, { default: true, try: true }) as { projectId?: string, dataset?: string }
         if (sanityConfig) {
