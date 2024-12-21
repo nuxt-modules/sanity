@@ -175,9 +175,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       mode: options.visualEditing.mode || 'live-visual-editing',
       previewMode: (options.visualEditing.previewMode !== false
         ? defu(options.visualEditing.previewMode, {
-          enable: '/preview/enable',
-          disable: '/preview/disable',
-        })
+            enable: '/preview/enable',
+            disable: '/preview/disable',
+          })
         : false) as { enable: string, disable: string } | false,
       proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
       refresh: options.visualEditing.refresh,
