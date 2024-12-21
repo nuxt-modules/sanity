@@ -234,7 +234,7 @@ export const useSanityQuery = <T = unknown, E = Error> (
 
       const fetcher = sanity.queryStore!.createFetcherStore<T, E>(
         query,
-        JSON.parse(JSON.stringify(params)),
+        params ? JSON.parse(JSON.stringify(params)) : undefined,
         undefined,
       )
 
