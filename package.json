@@ -22,14 +22,11 @@
   "sideEffects": false,
   "type": "module",
   "exports": {
-    ".": {
-      "import": "./dist/module.mjs",
-      "require": "./dist/module.cjs"
-    },
+    ".": "./dist/module.mjs",
     "./package.json": "./package.json",
     "./runtime/*": "./dist/runtime/*"
   },
-  "types": "./dist/module.d.ts",
+  "types": "./dist/module.d.mts",
   "files": [
     "dist"
   ],
@@ -69,7 +66,7 @@
   },
   "devDependencies": {
     "@nuxt/eslint-config": "0.7.4",
-    "@nuxt/module-builder": "0.8.4",
+    "@nuxt/module-builder": "1.0.0-alpha.1",
     "@nuxt/schema": "3.14.1592",
     "@nuxt/test-utils": "3.15.1",
     "@vitest/coverage-v8": "2.1.8",
