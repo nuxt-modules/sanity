@@ -50,7 +50,7 @@ jobs:
         run: pnpm test
 
       - name: ⚙️ Check engine ranges
-        run: pnpm installed-check
+        run: pnpm installed-check --no-workspaces -d
 
       - name: 🟩 Coverage
         if: matrix.os != 'windows-latest'
