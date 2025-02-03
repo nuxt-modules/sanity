@@ -1,26 +1,26 @@
-import { useSanityVisualEditingState } from '../composables/visual-editing'
+import { useSanityVisualEditingState } from '../composables'
 // @ts-expect-error need correct typing of #imports
-import { defineNuxtPlugin, useRuntimeConfig, useSanityVisualEditing, useSanityLiveMode } from '#imports'
+import { defineNuxtPlugin, useRuntimeConfig, useSanityVisualEditing, useSanityLiveMode, sanityVisualEditingRefresh } from '#imports'
 
-export default defineNuxtPlugin(() => {
-  // The state value will be true if preview mode is enabled.
-  // If preview mode is not enabled, return early.
-  if (!useSanityVisualEditingState().enabled) return
-
+export default defineNuxtPlugin(async () => {
   const $config = useRuntimeConfig()
   const { visualEditing } = $config.public.sanity
 
+  const visualEditingState = useSanityVisualEditingState()
+
+  if (!visualEditing || !visualEditingState?.enabled) return
+
   if (
-    visualEditing?.mode === 'live-visual-editing'
-    || visualEditing?.mode === 'visual-editing'
+    visualEditing.mode === 'live-visual-editing'
+    || visualEditing.mode === 'visual-editing'
   ) {
     useSanityVisualEditing({
-      refresh: visualEditing?.refresh,
-      zIndex: visualEditing?.zIndex,
+      refresh: sanityVisualEditingRefresh,
+      zIndex: visualEditing.zIndex,
     })
   }
 
-  if (visualEditing?.mode === 'live-visual-editing') {
+  if (visualEditing.mode === 'live-visual-editing') {
     useSanityLiveMode()
   }
 })
