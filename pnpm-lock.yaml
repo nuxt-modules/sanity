@@ -22,12 +22,19 @@ importers:
         specifier: ^6.22.5
         version: 6.28.4(debug@4.4.0)
       '@sanity/core-loader':
+        specifier: ^1.7.31
+        version: 1.7.31(@sanity/types@3.72.0(@types/react@18.3.18))
+      '@sanity/presentation-comlink':
+        specifier: ^1.0.4
+        version: 1.0.4(@sanity/client@6.27.2(debug@4.4.0))(@sanity/types@3.72.0(@types/react@18.3.18)(debug@4.4.0))
         specifier: ^1.7.12
         version: 1.8.0(@sanity/types@3.81.0(@types/react@18.3.20))
       '@sanity/preview-url-secret':
         specifier: ^2.0.4
         version: 2.1.6(@sanity/client@6.28.4)
       '@sanity/visual-editing':
+        specifier: ^2.12.10
+        version: 2.12.10(@sanity/client@6.27.2)(@sanity/types@3.72.0(@types/react@18.3.18))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
         specifier: ^2.8.0
         version: 2.13.14(@emotion/is-prop-valid@1.2.2)(@sanity/client@6.28.4)(@sanity/types@3.81.0(@types/react@18.3.20))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.16(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       consola:
@@ -17093,6 +17100,10 @@ snapshots:
       react: 18.3.1
 
   react-compiler-runtime@19.0.0-beta-aeaed83-20250323(react@18.3.1):
+    dependencies:
+      react: 18.3.1
+
+  react-compiler-runtime@19.0.0-beta-714736e-20250131(react@18.3.1):
     dependencies:
       react: 18.3.1
 

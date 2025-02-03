@@ -3,7 +3,7 @@ import type { H3Event } from 'h3'
 
 import type { ClientConfig } from '../../client'
 import { createClient } from '../../client'
-import type { SanityHelper } from '#sanity-composables'
+import type { SanityHelper } from '../../../types'
 
 import { useRuntimeConfig } from '#imports'
 
@@ -38,6 +38,7 @@ export function useSanity(_event?: H3Event | string, _client?: string): SanityHe
   const sanityConfig = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
   const {
     additionalClients = {},
+    liveContent,
     visualEditing,
     ...options
   } = sanityConfig

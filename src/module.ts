@@ -11,10 +11,11 @@ import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
-import type { HistoryRefresh, VisualEditingOptions } from '@sanity/visual-editing'
+import type { HistoryRefresh } from '@sanity/visual-editing'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
+import type { SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './types'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
@@ -22,8 +23,6 @@ export type SanityVisualEditingRefreshHandler = (
   payload: HistoryRefresh,
   refreshDefault: () => false | Promise<void>,
 ) => false | Promise<void>
-
-export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
 
 export interface SanityModuleVisualEditingOptions {
   /**
@@ -91,6 +90,13 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
    */
   additionalClients?: Record<string, Partial<MinimalClientConfig | SanityClientConfig>>
   /**
+   * Configuration for Live Content API
+   */
+  liveContent?: {
+    browserToken?: string
+    serverToken?: string
+  }
+  /**
    * Configuration for visual editing
    */
   visualEditing?: SanityModuleVisualEditingOptions
@@ -147,6 +153,16 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     options.dataset ||= 'production'
 
+    /**
+     * Validate the live content configuration
+     */
+    if (options.liveContent && options.minimal) {
+      throw new Error('Live Content API is not supported by the minimal client.')
+    }
+
+    /**
+     * Validate the visual editing configuration
+     */
     if (options.visualEditing) {
       try {
         if (options.minimal) {
@@ -170,53 +186,76 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
-    // Final resolved configuration
-    const visualEditing = options.visualEditing && {
-      mode: options.visualEditing.mode || 'live-visual-editing',
-      previewMode: (options.visualEditing.previewMode !== false
-        ? defu(options.visualEditing.previewMode, {
-            enable: '/preview/enable',
-            disable: '/preview/disable',
-          })
-        : false) as { enable: string, disable: string } | false,
-      proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
-      refresh: options.visualEditing.refresh,
-      studioUrl: options.visualEditing.studioUrl || '',
-      zIndex: options.visualEditing.zIndex,
+    /**
+     * Setup the base runtime configurations
+     */
+    const runtimeConfig: SanityRuntimeConfig = {}
+    const publicRuntimeConfig: SanityPublicRuntimeConfig = {
+      additionalClients: options.additionalClients || {},
+      apiVersion: options.apiVersion || '1',
+      dataset: options.dataset,
+      disableSmartCdn: options.disableSmartCdn ?? false,
+      perspective: options.perspective || 'raw',
+      projectId: options.projectId || '',
+      stega: (options.visualEditing && options.visualEditing.stega !== false && ({
+        enabled: true,
+        studioUrl: options.visualEditing.studioUrl,
+      } as StegaConfig)) || {},
+      token: options.token || '',
+      useCdn: options.useCdn ?? true,
+      withCredentials: options.withCredentials ?? false,
     }
 
-    nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, {
-      visualEditing: options.visualEditing && {
-        ...visualEditing,
-        previewModeId: visualEditing!.previewMode ? crypto.randomBytes(16).toString('hex') : '',
+    /**
+     * Augment runtime configs with visual editing configuration, if present
+     */
+    if (options.visualEditing) {
+      const previewMode = (options.visualEditing.previewMode !== false
+        ? defu(options.visualEditing.previewMode, {
+          enable: '/preview/enable',
+          disable: '/preview/disable',
+        })
+        : false) as { enable: string, disable: string } | false
+
+      runtimeConfig.visualEditing = {
+        previewModeId: previewMode ? crypto.randomBytes(16).toString('hex') : '',
         token: options.visualEditing.token || '',
-      },
-    })
+      }
 
-    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      = defu(nuxt.options.runtimeConfig.public.sanity as any, {
-        additionalClients: options.additionalClients, // has default
-        apiVersion: options.apiVersion, // has default
-        dataset: options.dataset, // has default
-        disableSmartCdn: options.disableSmartCdn, // has default
-        perspective: options.perspective, // has default
-        projectId: options.projectId || '',
-        stega:
-          (options.visualEditing
-            && options.visualEditing.stega !== false
-            && options.visualEditing.previewMode !== false
-            && ({
-              enabled: true,
-              studioUrl: options.visualEditing.studioUrl,
-            } as StegaConfig))
-            || {},
-        token: options.token || '',
-        useCdn: options.useCdn, // enforced
-        visualEditing: visualEditing,
-        withCredentials: options.withCredentials, // has default
-      }))
+      publicRuntimeConfig.visualEditing = {
+        mode: options.visualEditing.mode || 'live-visual-editing',
+        previewMode,
+        previewModeId: '',
+        proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
+        studioUrl: options.visualEditing.studioUrl || '',
+        token: '',
+        zIndex: options.visualEditing.zIndex,
+      }
+    }
 
+    /**
+     * Augment runtime configs with live content configuration, if present
+     */
+    if (options.liveContent) {
+      runtimeConfig.liveContent = {
+        serverToken: options.liveContent.serverToken || '',
+      }
+
+      publicRuntimeConfig.liveContent = {
+        browserToken: options.liveContent.browserToken || '',
+        serverToken: '',
+      }
+    }
+
+    /**
+     * Merge with existing runtime configs
+     */
+    nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, runtimeConfig)
+    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity = defu(publicRuntimeConfig))
+
+    /**
+     * Validate that a project ID has been provided
+     */
     if (!projectId) {
       logger.warn(`No Sanity project found. Make sure you specify a ${colors.bold('projectId')} in your Sanity config.`)
     }
@@ -233,6 +272,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     addTemplate({
       filename: 'sanity-client.mjs',
       getContents: () => genExport(clientSpecifier, ['createClient']),
+      write: true,
     })
 
     if (options.globalHelper) {
@@ -244,21 +284,36 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
     }
 
-    const composablesFile = visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
+    const composablesPath = join(runtimeDir, 'composables/index')
 
     addImports([
+      { name: 'useSanity', from: composablesPath },
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', from: join(runtimeDir, 'groq') },
-      { name: 'useSanity', from: composablesFile },
-      { name: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
-      ...isNuxtMajorVersion(3) ? [{ name: 'useSanityQuery', from: composablesFile }] : [],
     ])
 
+    if (isNuxtMajorVersion(3)) {
+      addImports([
+        { name: 'useSanityQuery', from: composablesPath },
+        { name: 'useLazySanityQuery', from: composablesPath },
+        { name: 'useSanityConfig', from: composablesPath },
+        { name: 'useSanityPerspective', from: composablesPath },
+        { name: 'useSanityVisualEditingState', from: composablesPath },
+        { name: 'useIsSanityLivePreview', from: composablesPath },
+        { name: 'useIsSanityPresentationTool', from: composablesPath },
+        { name: 'useSanityPreviewPerspective', from: composablesPath },
+      ])
+    }
+
+    /**
+     * Programatically update the TypeScript configuration to include paths for
+     * the Sanity client and composables
+     */
     const clientPath = await resolvePath(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
-      tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesFile]
+      tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesPath]
     })
 
     nuxt.hook('nitro:config', (config) => {
@@ -267,7 +322,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           compilerOptions: {
             paths: {
               ['#sanity-client']: [clientPath],
-              ['#sanity-composables']: [composablesFile],
+              ['#sanity-composables']: [composablesPath],
             },
           },
         },
@@ -305,8 +360,22 @@ export default defineNuxtModule<SanityModuleOptions>({
       extensions: ['js', 'ts', 'mjs'],
     })
 
-    if (visualEditing) {
-      // Optimise dependencies of visual editing
+    if (options.liveContent) {
+      addPlugin({
+        mode: 'client',
+        src: join(runtimeDir, 'plugins', 'live-content.client'),
+      })
+    }
+
+    addImports([
+      { name: 'useSanityPreviewEnvironment', from: composablesPath },
+    ])
+
+    /**
+     * Setup visual editing if configured
+     */
+    if (publicRuntimeConfig.visualEditing) {
+      // Optimise visual editing dependencies
       nuxt.options.build.transpile.push('async-cache-dedupe')
       nuxt.options.vite.resolve = defu(nuxt.options.vite.resolve, {
         dedupe: ['@sanity/client'],
@@ -323,23 +392,35 @@ export default defineNuxtModule<SanityModuleOptions>({
           '@sanity/client',
         ],
       })
-      // Add auto-imports for visual editing
+
+      // Add auto-imports
       if (isNuxtMajorVersion(3)) {
         addImports([
-          { name: 'useSanityLiveMode', from: composablesFile },
-          { name: 'useSanityVisualEditing', from: composablesFile },
-          { name: 'useSanityVisualEditingState', from: composablesFile },
           { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+          { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
+          { name: 'useSanityLiveMode', from: composablesPath },
+          { name: 'useSanityVisualEditing', from: composablesPath },
         ])
+        // Hacky way to make the visual editing refresh function passed via
+        // nuxt.config available on the client
+        addTemplate({
+          filename: 'sanity-visual-editing-refresh.mjs',
+          getContents: () => `
+            export const sanityVisualEditingRefresh = ${options.visualEditing?.refresh?.toString() || 'undefined'}
+          `,
+          write: true,
+        })
       }
 
-      // Plugin to check visual editing on app initialisation
+      // Add server plugin to set visual editing state on app initialisation
       addPlugin({
         mode: 'server',
         src: join(runtimeDir, 'plugins', 'visual-editing.server'),
       })
 
-      if (visualEditing.mode !== 'custom') {
+      if (publicRuntimeConfig.visualEditing.mode !== 'custom') {
+        // Add client plugin to handle visual editing unless some custom visual
+        // editing implemention is being provided (i.e. 'custom' mode)
         addPlugin({
           mode: 'client',
           src: join(runtimeDir, 'plugins', 'visual-editing.client'),
@@ -350,26 +431,29 @@ export default defineNuxtModule<SanityModuleOptions>({
         logger.info(`Call ${colors.bold('useSanityVisualEditing()')} in your application to enable visual editing.`)
       }
 
+      // Add an endpoint to proxy queries through when in preview mode, as we
+      // need to use authentication to fetch preview data
       addServerHandler({
         method: 'post',
-        route: visualEditing.proxyEndpoint,
-        handler: join(runtimeDir, 'server/routes/proxy'),
+        route: publicRuntimeConfig.visualEditing.proxyEndpoint,
+        handler: join(runtimeDir, 'server/routes/preview/proxy'),
       })
 
-      if (visualEditing?.previewMode !== false) {
+      // Add endpoints to handle enabling and disabling preview mode
+      if (publicRuntimeConfig.visualEditing.previewMode !== false) {
         addServerHandler({
           method: 'get',
-          route: visualEditing.previewMode.enable,
+          route: publicRuntimeConfig.visualEditing.previewMode.enable,
           handler: join(runtimeDir, 'server/routes/preview/enable'),
         })
         addServerHandler({
           method: 'get',
-          route: visualEditing.previewMode.disable,
+          route: publicRuntimeConfig.visualEditing.previewMode.disable,
           handler: join(runtimeDir, 'server/routes/preview/disable'),
         })
 
         logger.info(
-          `Preview mode enabled. Added routes at: ${Object.values(visualEditing.previewMode)
+          `Preview mode enabled. Added routes at: ${Object.values(publicRuntimeConfig.visualEditing.previewMode)
             .map(route => colors.bold(route))
             .join(', ')}.`,
         )

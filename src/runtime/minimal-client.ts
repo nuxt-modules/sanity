@@ -7,6 +7,9 @@ import { $fetch } from 'ofetch'
 const apiHost = 'api.sanity.io'
 const cdnHost = 'apicdn.sanity.io'
 
+export type QueryParams = Record<string, unknown>
+
+export type ContentSourceMap = unknown
 export interface ClientConfig {
   useCdn?: boolean
   projectId: string
@@ -59,17 +62,20 @@ export function createClient(config: ClientConfig) {
     fetchOptions.credentials = withCredentials ? 'include' : 'omit'
   }
 
+  const clientConfig = {
+    useCdn,
+    projectId,
+    dataset,
+    apiVersion,
+    withCredentials,
+    token,
+    perspective,
+  }
+
   return {
+    config: () => clientConfig,
     clone: () =>
-      createClient({
-        useCdn,
-        projectId,
-        dataset,
-        apiVersion,
-        withCredentials,
-        token,
-        perspective,
-      }),
+      createClient(clientConfig),
     /**
      * Perform a fetch using GROQ syntax.
      */

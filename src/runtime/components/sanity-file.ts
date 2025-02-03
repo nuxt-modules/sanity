@@ -1,5 +1,5 @@
 import { computed, defineComponent, h } from 'vue'
-import { useSanity } from '../composables'
+import { useSanity } from '#imports'
 
 const baseURL = 'https://cdn.sanity.io/files'
 
