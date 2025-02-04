@@ -1,31 +1,37 @@
-import type { ClientConfig, QueryParams } from '../../client'
-import type { SanityHelper } from '../../../types'
+import type { ClientConfig, QueryParams, SanityClient } from '../../client'
+import type { SanityLiveStore } from '../../../types'
 
 /**
  * Internal composable to handle re-execution of queries based on incoming tags
  * @internal
  */
 export const useSanityTagRevalidation = ({
+  client,
   queryKey,
-  sanity,
+  liveStore,
 }: {
+  client: SanityClient
   queryKey: string
-  sanity: SanityHelper
+  liveStore: SanityLiveStore | undefined
 }) => {
   const liveContentTags = useState<string[]>(`tags:${queryKey}`, () => [])
 
-  let unsubscribe = () => {}
+  let unsubscribe = () => { }
+  let getLastLiveEventId: () => string | undefined = () => undefined
 
-  if (import.meta.client && sanity.tagStore) {
-    unsubscribe = sanity.tagStore.subscribe((tags) => {
+  if (import.meta.client && liveStore) {
+    const subscriber = liveStore.subscribe(queryKey, (tags, updateLastLiveEventId) => {
       // If any of the incoming tags match any of the tags associated with this
       // query, call `refreshNuxtData` to invalidate the cache and re-execute
       // the `useAsyncData` call defined above
       const tagsSet = new Set(tags)
       if (liveContentTags.value.some(tag => tagsSet.has(tag))) {
+        updateLastLiveEventId()
         refreshNuxtData(queryKey)
       }
     })
+    unsubscribe = subscriber.unsubscribe
+    getLastLiveEventId = subscriber.getLastLiveEventId
   }
 
   const fetchTags = async (
@@ -37,8 +43,9 @@ export const useSanityTagRevalidation = ({
       perspective: ClientConfig['perspective']
       useCdn: boolean
     }) => {
-    const { syncTags } = await sanity.fetch(query, params, {
+    const { syncTags } = await client.fetch(query, params, {
       ...options,
+      resultSourceMap: false,
       returnQuery: false,
       stega: false,
       tag: ['fetch-sync-tags'].filter(Boolean).join('.'),
@@ -47,5 +54,5 @@ export const useSanityTagRevalidation = ({
     liveContentTags.value = syncTags?.map(tag => `sanity:${tag}`) || []
   }
 
-  return { fetchTags, unsubscribe }
+  return { fetchTags, getLastLiveEventId, unsubscribe }
 }
