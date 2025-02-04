@@ -1,10 +1,5 @@
-import { useSanityVisualEditingState } from '../composables'
-// @ts-expect-error need correct typing of #imports
-import { defineNuxtPlugin, useRuntimeConfig, useSanityVisualEditing, useSanityLiveMode, sanityVisualEditingRefresh } from '#imports'
-
 export default defineNuxtPlugin(async () => {
-  const $config = useRuntimeConfig()
-  const { visualEditing } = $config.public.sanity
+  const { visualEditing } = useSanityConfig()
 
   const visualEditingState = useSanityVisualEditingState()
 
@@ -16,7 +11,7 @@ export default defineNuxtPlugin(async () => {
   ) {
     useSanityVisualEditing({
       refresh: sanityVisualEditingRefresh,
-      zIndex: visualEditing.zIndex,
+      zIndex: visualEditing.zIndex || undefined,
     })
   }
 
