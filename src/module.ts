@@ -251,7 +251,8 @@ export default defineNuxtModule<SanityModuleOptions>({
      * Merge with existing runtime configs
      */
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, runtimeConfig)
-    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity = defu(publicRuntimeConfig))
+    // @ts-expect-error @todo Perspective type string mismatch
+    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, publicRuntimeConfig))
 
     /**
      * Validate that a project ID has been provided
