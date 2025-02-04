@@ -49,5 +49,5 @@ export const useSanityQueryFetcher = <T = unknown, E = Error>(
     }
   }
 
-  return unsubscribe
+  return { unsubscribe }
 }

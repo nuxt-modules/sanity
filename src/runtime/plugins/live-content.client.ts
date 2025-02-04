@@ -20,7 +20,7 @@ export default defineNuxtPlugin(() => {
   const tag = 'nuxt-loader.live'
 
   /**
-   * 1. Handle live events
+   * 1. Initialise a method for handling live events
    */
   const _inPresentation = useIsSanityPresentationTool()
   watch(_inPresentation, (inPresentation, _wasInPresentation, onCleanup) => {
@@ -41,7 +41,7 @@ export default defineNuxtPlugin(() => {
           }
           else if (event.type === 'message') {
             const tags = event.tags.map(tag => `sanity:${tag}`)
-            sanity.tagStore?.notify(tags)
+            sanity.liveStore?.notify(tags, event.id)
           }
           else if (event.type === 'restart') {
             refreshNuxtData()
@@ -59,7 +59,7 @@ export default defineNuxtPlugin(() => {
   }, { immediate: true })
 
   /**
-   * 2. Handle comlink perspective
+   * 2. Set the environment when (maybe) outside of Presentation
    */
   const environment = useSanityPreviewEnvironment()
 
@@ -76,7 +76,9 @@ export default defineNuxtPlugin(() => {
     }
   }
 
-  // If we are potentially in Presentation Tool, initialise comlink and attempt to connect. If the connection fails
+  /**
+   * 3. If we are (maybe) in Presentation Tool, initialise comlink and attempt to determine the environment and perspective
+   */
   if (isMaybePresentation()) {
     const timeout = setTimeout(() => {
       environment.value = 'live'
@@ -105,4 +107,19 @@ export default defineNuxtPlugin(() => {
     comlink.start()
     onScopeDispose(comlink.stop)
   }
+
+  /**
+   * 4. Handle refreshing
+   */
+  const focusThrottleInterval = 5_000
+  let nextFocusRevalidatedAt = 0
+  const callback = () => {
+    const now = Date.now()
+    if (now > nextFocusRevalidatedAt && document.visibilityState !== 'hidden') {
+      refreshNuxtData()
+      nextFocusRevalidatedAt = now + focusThrottleInterval
+    }
+  }
+  document.addEventListener('visibilitychange', callback, { passive: true })
+  window.addEventListener('focus', callback, { passive: true })
 })

@@ -1,7 +1,7 @@
 import type { AsyncData } from 'nuxt/app'
 import { hash } from 'ohash'
 import { defineEncodeDataAttribute, type EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
-import type { ClientConfig, ContentSourceMap, QueryParams, SanityClient } from '../client'
+import type { ClientConfig, ContentSourceMap, QueryParams, QueryOptions, SanityClient } from '../client'
 import type { AsyncSanityData, Noop, SanityQueryResponse, UseSanityQueryOptions } from '../../types'
 import { createProxyClient } from '../util/createProxyClient'
 import { useSanityTagRevalidation } from './internal/useSanityTagRevalidation'
@@ -79,6 +79,10 @@ export function useSanityQuery<T = unknown, E = Error>(
     )
   }
 
+  const client = import.meta.server || perspective.value === 'published'
+    ? sanity.client // On the server or fetching published content
+    : createProxyClient() // Otherwise use proxy for authenticated requests
+
   // Handle query updates, using either the query loader or tag based
   // revalidation (Live Content API). The query loader is preferred when in
   // Presentation tool as it will live stream updates over postMessage (via
@@ -86,14 +90,14 @@ export function useSanityQuery<T = unknown, E = Error>(
   // slightly slower but does not rely on postMessage events, so is used when
   // not in Presentation tool (for both published and draft data) or when query
   // loaders are disabled.
-  const fetchTags = ref<ReturnType<typeof useSanityTagRevalidation>['fetchTags'] | undefined>(undefined)
+  let tagRevalidation: ReturnType<typeof useSanityTagRevalidation> | undefined = undefined
+  let queryFetcher: ReturnType<typeof useSanityQueryFetcher> | undefined = undefined
+
   const _inPresentation = useIsSanityPresentationTool()
-  let unsubscribeQueryFetcher = () => { }
-  let unsubscribeTagRevalidation = () => { }
   watch(_inPresentation, (inPresentation, _wasInPresentation, onCleanup) => {
     onCleanup(() => {
-      unsubscribeQueryFetcher()
-      unsubscribeTagRevalidation()
+      queryFetcher?.unsubscribe?.()
+      tagRevalidation?.unsubscribe()
     })
 
     // Use the query loader if visual editing is enabled in
@@ -102,7 +106,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     // we are in the Presentation tool.
     const enableQueryFetcher = !!(visualEditingState?.enabled && config.visualEditing?.mode === 'live-visual-editing' && inPresentation === true)
     if (enableQueryFetcher) {
-      unsubscribeQueryFetcher = useSanityQueryFetcher({
+      queryFetcher = useSanityQueryFetcher({
         onSnapshot: updateRefs,
         params,
         query,
@@ -114,18 +118,13 @@ export function useSanityQuery<T = unknown, E = Error>(
     // server or on the client and the query loader is explicitly disabled (i.e.
     // false, not null)
     if (config.liveContent && (import.meta.server || !enableQueryFetcher)) {
-      const result = useSanityTagRevalidation({
-        sanity,
+      tagRevalidation = useSanityTagRevalidation({
+        client,
+        liveStore: sanity.liveStore,
         queryKey,
       })
-      fetchTags.value = result.fetchTags
-      unsubscribeTagRevalidation = result.unsubscribe
     }
   }, { immediate: true })
-
-  const client = import.meta.server || perspective.value === 'published'
-    ? sanity.client // On the server or fetching published content
-    : createProxyClient() // Otherwise use proxy for authenticated requests
 
   const result = useAsyncData(queryKey, async () => {
     const useCdn = perspective.value === 'published'
@@ -138,14 +137,15 @@ export function useSanityQuery<T = unknown, E = Error>(
     const options = {
       cacheMode: useCdn ? 'noStale' : undefined,
       filterResponse: false,
+      lastLiveEventId: tagRevalidation?.getLastLiveEventId(),
       perspective: perspective.value,
       resultSourceMap: 'withKeyArraySelector',
       stega,
       token,
       useCdn,
-    } as const
+    } satisfies QueryOptions
 
-    await fetchTags.value?.(query, params, options)
+    await tagRevalidation?.fetchTags(query, params, options)
 
     const { result, resultSourceMap } = await client.fetch<T>(query, params || {}, options)
 

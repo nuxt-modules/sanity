@@ -1,50 +1,8 @@
 import defu from 'defu'
-import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
-import type { SanityClient } from '@sanity/client'
 import type { ClientConfig } from '../client'
-import type { SanityHelper, SanityResolvedConfig } from '../../types'
-
-const createQueryStore = (
-  visualEditing: SanityResolvedConfig['visualEditing'],
-  client: SanityClient,
-  tag?: string,
-) => {
-  if (!visualEditing) return undefined
-
-  const queryStore = createCoreQueryStore({
-    tag: tag || 'nuxt-loader',
-    client: false,
-    ssr: true,
-  })
-
-  if (import.meta.server) {
-    const serverClient = client.withConfig({
-      perspective: 'previewDrafts',
-      token: visualEditing?.token,
-      useCdn: false,
-    })
-    queryStore.setServerClient(serverClient)
-  }
-
-  return queryStore
-}
-
-const createTagStore = (liveContent: SanityResolvedConfig['liveContent']) => {
-  if (!liveContent) return undefined
-
-  const subscribers = new Set<(tags: string[]) => void>()
-  return {
-    notify(tags: string[]) {
-      subscribers.forEach(callback => callback(tags))
-    },
-    subscribe(callback: (tags: string[]) => void) {
-      subscribers.add(callback)
-      return () => {
-        subscribers.delete(callback)
-      }
-    },
-  }
-}
+import type { SanityHelper } from '../../types'
+import { createLiveStore } from '../util/createLiveStore'
+import { createQueryStore } from '../util/createQueryStore'
 
 const createSanityHelper = (clientConfig: ClientConfig): SanityHelper => {
   const sanityConfig = useSanityConfig()
@@ -52,13 +10,14 @@ const createSanityHelper = (clientConfig: ClientConfig): SanityHelper => {
 
   let client = createSanityClient(config)
   let queryStore = createQueryStore(sanityConfig.visualEditing, client)
-  const tagStore = createTagStore(sanityConfig.liveContent)
+  const liveStore = createLiveStore(sanityConfig.liveContent)
 
   return {
     client,
     config,
     // @ts-expect-error untyped args
     fetch: (...args) => client.fetch(...args),
+    liveStore,
     queryStore,
     setToken(token) {
       config.token = token
@@ -67,7 +26,6 @@ const createSanityHelper = (clientConfig: ClientConfig): SanityHelper => {
         queryStore = createQueryStore(sanityConfig.visualEditing, client)
       }
     },
-    tagStore,
   }
 }
 

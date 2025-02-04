@@ -69,9 +69,9 @@ export interface SanityHelper {
   client: SanityClient
   config: ClientConfig
   fetch: SanityClient['fetch']
+  liveStore?: SanityLiveStore
   queryStore?: QueryStore
   setToken: (token: string) => void
-  tagStore?: SanityTagStore
 }
 
 /**
@@ -85,12 +85,30 @@ export interface SanityQueryResponse<T> {
 }
 
 /**
- * The store used to manage tags for live content
  * @internal
  */
-export interface SanityTagStore {
-  notify: (tags: string[]) => void
-  subscribe: (callback: (tags: string[]) => void) => () => void
+export type SanityLiveStoreSubscriberCallback = (
+  tags: string[],
+  updateLastLiveEventId: () => void
+) => void
+
+/**
+ * @internal
+ */
+export type SanityLiveStoreSubscriber = (
+  queryKey: string,
+  callback: SanityLiveStoreSubscriberCallback
+) => {
+  getLastLiveEventId: () => string | undefined
+  unsubscribe: () => void
+}
+/**
+ * The store used to manage re-execution of live content queries
+ * @internal
+ */
+export interface SanityLiveStore {
+  notify: (tags: string[], lastEventId: string) => void
+  subscribe: SanityLiveStoreSubscriber
 }
 
 /**
