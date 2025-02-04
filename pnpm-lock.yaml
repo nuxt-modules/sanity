@@ -23,7 +23,7 @@ importers:
         version: 6.28.4(debug@4.4.0)
       '@sanity/core-loader':
         specifier: ^1.7.31
-        version: 1.7.31(@sanity/types@3.72.0(@types/react@18.3.18))
+        version: 1.7.31(@sanity/types@3.72.1(@types/react@18.3.18))
       '@sanity/presentation-comlink':
         specifier: ^1.0.4
         version: 1.0.4(@sanity/client@6.27.2(debug@4.4.0))(@sanity/types@3.72.0(@types/react@18.3.18)(debug@4.4.0))
@@ -2490,6 +2490,10 @@ packages:
   '@sanity/core-loader@1.8.0':
     resolution: {integrity: sha512-SBKXLxNBO7YrWFaFt8FyV+G8ky+ZKgrhWkHHM2fxQXkF9W2JJV3SnfnzkG9XgVXM+VMu65WQcW5qlj9oWUlQig==}
     engines: {node: '>=18'}
+
+  '@sanity/diff-match-patch@3.1.2':
+    resolution: {integrity: sha512-jW2zqnnV3cLXy7exOKbqaWJPb15rFSQGseAhlPljzbg5CP0hrujk0TwYpsNMz2xwTELOk1JkBUINQYbPE4TmaA==}
+    engines: {node: '>=18.18'}
 
   '@sanity/diff-match-patch@3.2.0':
     resolution: {integrity: sha512-4hPADs0qUThFZkBK/crnfKKHg71qkRowfktBljH2UIxGHHTxIzt8g8fBiXItyCjxkuNy+zpYOdRMifQNv8+Yww==}
@@ -11612,6 +11616,8 @@ snapshots:
     transitivePeerDependencies:
       - '@sanity/types'
       - debug
+
+  '@sanity/diff-match-patch@3.1.2': {}
 
   '@sanity/diff-match-patch@3.2.0': {}
 
