@@ -10,9 +10,9 @@ import { useSanityPreviewEnvironment } from './useSanityPreviewEnvironment'
  * @public
  */
 export function useIsSanityPresentationTool() {
+  const env = useSanityPreviewEnvironment()
   return computed(() => {
-    const env = useSanityPreviewEnvironment().value
-    if (env === 'checking') return null
-    return (['presentation-iframe', 'presentation-window'].includes(env))
+    if (env.value === 'checking') return null
+    return (['presentation-iframe', 'presentation-window'].includes(env.value))
   })
 }
