@@ -303,6 +303,12 @@ export default defineNuxtModule<SanityModuleOptions>({
         { name: 'useIsSanityLivePreview', from: composablesPath },
         { name: 'useIsSanityPresentationTool', from: composablesPath },
         { name: 'useSanityPreviewPerspective', from: composablesPath },
+        { name: 'useSanityPreviewEnvironment', from: composablesPath },
+        // Visual Editing
+        { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+        { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
+        { name: 'useSanityLiveMode', from: composablesPath },
+        { name: 'useSanityVisualEditing', from: composablesPath },
       ])
     }
 
@@ -368,10 +374,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
     }
 
-    addImports([
-      { name: 'useSanityPreviewEnvironment', from: composablesPath },
-    ])
-
     /**
      * Setup visual editing if configured
      */
@@ -396,13 +398,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
       // Add auto-imports
       if (isNuxtMajorVersion(3)) {
-        addImports([
-          { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
-          { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
-          { name: 'useSanityLiveMode', from: composablesPath },
-          { name: 'useSanityVisualEditing', from: composablesPath },
-        ])
-        // Hacky way to make the visual editing refresh function passed via
+        // Hacky(?) way to make the visual editing refresh function passed via
         // nuxt.config available on the client
         addTemplate({
           filename: 'sanity-visual-editing-refresh.mjs',
