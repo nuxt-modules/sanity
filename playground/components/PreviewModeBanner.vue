@@ -21,9 +21,9 @@
 
 <script setup lang="ts">
 const route = useRoute()
-const visualEditing = useSanityVisualEditingState()
 const environment = useSanityPreviewEnvironment()
 const perspective = useSanityPreviewPerspective()
+const isSanityPresentationTool = useIsSanityPresentationTool()
 
-const showDisable = computed(() => visualEditing && !visualEditing.inFrame)
+const showDisable = computed(() => isSanityPresentationTool.value === false)
 </script>
