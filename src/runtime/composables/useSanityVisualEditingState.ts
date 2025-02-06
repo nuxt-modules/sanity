@@ -29,6 +29,11 @@ export const useSanityVisualEditingState = () => {
 
   return reactive({
     enabled,
+    /**
+     * @deprecated Use the `useIsSanityLivePreview` and
+     * `useIsSanityPresentationTool` composables for conditional rendering
+     * instead
+     */
     inFrame: isInFrame(),
     token: visualEditing.token,
     previewMode: visualEditing.previewMode,
