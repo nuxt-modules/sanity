@@ -1,6 +1,5 @@
 import { createCompatibilityActors, isMaybePresentation, isMaybePreviewWindow, type LoaderControllerMsg, type LoaderNodeMsg } from '@sanity/presentation-comlink'
 import { createNode, createNodeMachine } from '@sanity/comlink'
-import { defineNuxtPlugin } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const { liveContent, visualEditing } = useSanityConfig()

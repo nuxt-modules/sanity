@@ -1,6 +1,4 @@
-import { useSanityVisualEditingState, useSanityConfig } from '../composables'
 import { previewCookieName } from '../constants'
-import { defineNuxtPlugin, useCookie } from '#imports'
 
 export default defineNuxtPlugin(() => {
   const { visualEditing } = useSanityConfig()
