@@ -1,3 +1,4 @@
+import type { Ref } from 'vue'
 import type { HistoryRefresh, VisualEditingOptions } from '@sanity/visual-editing'
 import type { QueryStore } from '@sanity/core-loader'
 import type { AsyncDataOptions } from 'nuxt/app'
