@@ -1,9 +1,12 @@
 import { enableVisualEditing } from '@sanity/visual-editing'
 import type { VisualEditingProps } from '../../types'
 
-export function useSanityVisualEditing(
-  options: VisualEditingProps = {},
-) {
+export function useSanityVisualEditing(options: VisualEditingProps = {}) {
+  const config = useSanityConfig()
+  if (!config.visualEditing) {
+    throw new Error('Configure the `sanity.visualEditing` property in your `nuxt.config.ts` to use the `useSanityVisualEditing` composable. ')
+  }
+
   const { zIndex, refresh } = options
 
   let disable = () => {}
