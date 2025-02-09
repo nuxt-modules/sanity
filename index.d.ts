@@ -1,10 +1,4 @@
-import type { ClientConfig, ClientPerspective, StegaConfig } from '@sanity/client'
-import type {
-  SanityVisualEditingMode,
-  SanityVisualEditingRefreshHandler,
-  SanityVisualEditingZIndex,
-} from './src/module'
-import type { SanityHelper } from '#sanity-composables'
+import type { SanityHelper, SanityPublicRuntimeConfig, SanityRuntimeConfig } from './src/types'
 
 type nullish = null | undefined
 
@@ -16,53 +10,11 @@ declare module '#app' {
 
 declare module 'nuxt/schema' {
   interface RuntimeConfig {
-    sanity: {
-      visualEditing:
-        | {
-          mode: SanityVisualEditingMode
-          previewMode:
-            | false
-            | {
-              enable: string
-              disable: string
-            }
-          previewModeId: string
-          proxyEndpoint: string
-          studioUrl: string
-          token: string
-        }
-        | undefined
-    }
+    sanity: SanityRuntimeConfig
   }
 
   interface PublicRuntimeConfig {
-    sanity: {
-      additionalClients: Record<string, ClientConfig>
-      apiVersion: string
-      dataset: string
-      disableSmartCdn: boolean
-      perspective: ClientPerspective
-      projectId: string
-      stega: StegaConfig
-      token: string
-      useCdn: boolean
-      visualEditing:
-        | {
-          mode: SanityVisualEditingMode
-          previewMode:
-            | false
-            | {
-              enable: string
-              disable: string
-            }
-          proxyEndpoint: string
-          refresh: SanityVisualEditingRefreshHandler | undefined
-          studioUrl: string
-          zIndex: SanityVisualEditingZIndex
-        }
-        | nullish
-    }
-    withCredentials: boolean
+    sanity: SanityPublicRuntimeConfig
   }
 }
 
