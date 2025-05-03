@@ -11,7 +11,7 @@
 
 > [Sanity](https://sanity.io/) integration for [Nuxt](https://nuxt.com)
 
-- [✨ &nbsp;Release Notes](https://sanity.nuxtjs.org/releases)
+- [✨ &nbsp;Release Notes](https://github.com/nuxt-modules/sanity/releases)
 - [📖 &nbsp;Documentation](https://sanity.nuxtjs.org)
 
 ## Features
