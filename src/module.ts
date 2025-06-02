@@ -114,7 +114,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     version,
     configKey: CONFIG_KEY,
     compatibility: {
-      nuxt: '^3.7.0',
+      nuxt: '>=3.7.0',
       bridge: true,
     },
   },
