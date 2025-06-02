@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, isNuxtMajorVersion } from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { join, relative, resolve } from 'pathe'
@@ -115,7 +115,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     configKey: CONFIG_KEY,
     compatibility: {
       nuxt: '>=3.7.0',
-      bridge: true,
     },
   },
   defaults: {
@@ -237,11 +236,6 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.globalHelper) {
       addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
-      if (isNuxtMajorVersion(2)) {
-        nuxt.hook('prepare:types', ({ references }) => {
-          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugins/global-helper' })
-        })
-      }
     }
 
     const composablesFile = visualEditing ? join(runtimeDir, 'composables/visual-editing') : join(runtimeDir, 'composables/index')
@@ -251,7 +245,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'useSanity', from: composablesFile },
       { name: 'useLazySanityQuery', from: join(runtimeDir, 'composables/index') },
-      ...isNuxtMajorVersion(3) ? [{ name: 'useSanityQuery', from: composablesFile }] : [],
+      { name: 'useSanityQuery', from: composablesFile },
     ])
 
     const clientPath = await resolvePath(clientSpecifier)
@@ -324,14 +318,12 @@ export default defineNuxtModule<SanityModuleOptions>({
         ],
       })
       // Add auto-imports for visual editing
-      if (isNuxtMajorVersion(3)) {
-        addImports([
-          { name: 'useSanityLiveMode', from: composablesFile },
-          { name: 'useSanityVisualEditing', from: composablesFile },
-          { name: 'useSanityVisualEditingState', from: composablesFile },
-          { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
-        ])
-      }
+      addImports([
+        { name: 'useSanityLiveMode', from: composablesFile },
+        { name: 'useSanityVisualEditing', from: composablesFile },
+        { name: 'useSanityVisualEditingState', from: composablesFile },
+        { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+      ])
 
       // Plugin to check visual editing on app initialisation
       addPlugin({
