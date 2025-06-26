@@ -54,7 +54,7 @@ export function useSanityQuery<T = unknown, E = Error>(
   // Visual editing overrides
   const perspective = useSanityPerspective(_perspective)
   const stega = _stega ?? (
-    clientConfig.stega.enabled
+    clientConfig.stega?.enabled
     && typeof clientConfig.stega.studioUrl !== 'undefined'
     && visualEditingState?.enabled
   )
