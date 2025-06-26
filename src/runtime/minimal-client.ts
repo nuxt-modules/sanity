@@ -96,7 +96,7 @@ export function createClient(config: ClientConfig) {
             query: { perspective },
           })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
-      return result
+      return { result }
     },
   }
 }
