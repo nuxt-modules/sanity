@@ -10,7 +10,7 @@ export default defineEventHandler(async (event) => {
   const { query, params = {}, options } = await readBody(event)
   const previewModeCookie = getCookie(event, previewCookieName)
 
-  const token = visualEditing.token || liveContent.serverToken
+  const token = visualEditing?.token || liveContent?.serverToken
 
   if (!visualEditing || !token) {
     throw createError({

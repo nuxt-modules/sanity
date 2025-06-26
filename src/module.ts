@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, isNuxtMajorVersion } from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { join, relative, resolve } from 'pathe'
@@ -120,8 +120,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     version,
     configKey: CONFIG_KEY,
     compatibility: {
-      nuxt: '^3.7.0',
-      bridge: true,
+      nuxt: '>=3.7.0',
     },
   },
   defaults: {
@@ -212,9 +211,9 @@ export default defineNuxtModule<SanityModuleOptions>({
     if (options.visualEditing) {
       const previewMode = (options.visualEditing.previewMode !== false
         ? defu(options.visualEditing.previewMode, {
-          enable: '/preview/enable',
-          disable: '/preview/disable',
-        })
+            enable: '/preview/enable',
+            disable: '/preview/disable',
+          })
         : false) as { enable: string, disable: string } | false
 
       runtimeConfig.visualEditing = {
@@ -251,7 +250,6 @@ export default defineNuxtModule<SanityModuleOptions>({
      * Merge with existing runtime configs
      */
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, runtimeConfig)
-    // @ts-expect-error @todo Perspective type string mismatch
     const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, publicRuntimeConfig))
 
     /**
@@ -278,11 +276,6 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.globalHelper) {
       addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
-      if (isNuxtMajorVersion(2)) {
-        nuxt.hook('prepare:types', ({ references }) => {
-          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugins/global-helper' })
-        })
-      }
     }
 
     const composablesPath = join(runtimeDir, 'composables/index')
@@ -293,24 +286,22 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'groq', from: join(runtimeDir, 'groq') },
     ])
 
-    if (isNuxtMajorVersion(3)) {
-      addImports([
-        { name: 'useSanityQuery', from: composablesPath },
-        { name: 'useLazySanityQuery', from: composablesPath },
-        { name: 'useSanityConfig', from: composablesPath },
-        { name: 'useSanityPerspective', from: composablesPath },
-        { name: 'useSanityVisualEditingState', from: composablesPath },
-        { name: 'useIsSanityLivePreview', from: composablesPath },
-        { name: 'useIsSanityPresentationTool', from: composablesPath },
-        { name: 'useSanityPreviewPerspective', from: composablesPath },
-        { name: 'useSanityPreviewEnvironment', from: composablesPath },
-        // Visual Editing
-        { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
-        { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
-        { name: 'useSanityLiveMode', from: composablesPath },
-        { name: 'useSanityVisualEditing', from: composablesPath },
-      ])
-    }
+    addImports([
+      { name: 'useSanityQuery', from: composablesPath },
+      { name: 'useLazySanityQuery', from: composablesPath },
+      { name: 'useSanityConfig', from: composablesPath },
+      { name: 'useSanityPerspective', from: composablesPath },
+      { name: 'useSanityVisualEditingState', from: composablesPath },
+      { name: 'useIsSanityLivePreview', from: composablesPath },
+      { name: 'useIsSanityPresentationTool', from: composablesPath },
+      { name: 'useSanityPreviewPerspective', from: composablesPath },
+      { name: 'useSanityPreviewEnvironment', from: composablesPath },
+      // Visual Editing
+      { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+      { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
+      { name: 'useSanityLiveMode', from: composablesPath },
+      { name: 'useSanityVisualEditing', from: composablesPath },
+    ])
 
     /**
      * Programatically update the TypeScript configuration to include paths for
@@ -397,17 +388,15 @@ export default defineNuxtModule<SanityModuleOptions>({
       })
 
       // Add auto-imports
-      if (isNuxtMajorVersion(3)) {
-        // Hacky(?) way to make the visual editing refresh function passed via
-        // nuxt.config available on the client
-        addTemplate({
-          filename: 'sanity-visual-editing-refresh.mjs',
-          getContents: () => `
+      // Hacky(?) way to make the visual editing refresh function passed via
+      // nuxt.config available on the client
+      addTemplate({
+        filename: 'sanity-visual-editing-refresh.mjs',
+        getContents: () => `
             export const sanityVisualEditingRefresh = ${options.visualEditing?.refresh?.toString() || 'undefined'}
           `,
-          write: true,
-        })
-      }
+        write: true,
+      })
 
       // Add server plugin to set visual editing state on app initialisation
       addPlugin({

@@ -1,4 +1,5 @@
 import defu from 'defu'
+import type { H3Event } from 'h3'
 import type { ClientConfig } from '../client'
 import type { SanityHelper } from '../../types'
 import { createLiveStore } from '../util/createLiveStore'
@@ -29,7 +30,10 @@ const createSanityHelper = (clientConfig: ClientConfig): SanityHelper => {
   }
 }
 
-export const useSanity = (client = 'default'): SanityHelper => {
+export function useSanity(client?: string): SanityHelper
+export function useSanity(event?: H3Event, client?: string): SanityHelper
+export function useSanity(_event?: H3Event | string, _client?: string): SanityHelper {
+  const client = typeof _event === 'string' ? _event : _client || 'default'
   const nuxtApp = useNuxtApp()
   if (nuxtApp._sanity?.[client]) {
     return nuxtApp._sanity[client]

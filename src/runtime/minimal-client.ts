@@ -10,6 +10,7 @@ const cdnHost = 'apicdn.sanity.io'
 export type QueryParams = Record<string, unknown>
 
 export type ContentSourceMap = unknown
+
 export interface ClientConfig {
   useCdn?: boolean
   projectId: string
@@ -89,11 +90,11 @@ export function createClient(config: ClientConfig) {
 
       const { result } = usePostRequest
         ? await $fetch<{ result: T }>(urlBase, {
-          ...fetchOptions,
-          method: 'post',
-          body: { query, params },
-          query: { perspective },
-        })
+            ...fetchOptions,
+            method: 'post',
+            body: { query, params },
+            query: { perspective },
+          })
         : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
       return result
     },

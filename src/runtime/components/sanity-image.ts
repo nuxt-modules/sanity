@@ -113,19 +113,19 @@ const props = {
    */
   invert: { type: Boolean },
   /**
-   * Maximum height. Specifies size limits giving the backend some freedom in picking a size according to the source image aspect ratio.
+   * @deprecated use `h` with `fit=max` instead
    */
   maxH: { type: [Number, String] },
   /**
-   * Maximum width. Specifies size limits giving the backend some freedom in picking a size according to the source image aspect ratio.
+   * @deprecated use `w` with `fit=max` instead
    */
   maxW: { type: [Number, String] },
   /**
-   * Minimum height. Specifies size limits giving the backend some freedom in picking a size according to the source image aspect ratio.
+   * @deprecated use `h` with `fit=min` instead
    */
   minH: { type: [Number, String] },
   /**
-   * Minimum width. Specifies size limits giving the backend some freedom in picking a size according to the source image aspect ratio.
+   * @deprecated use `w` with `fit=min` instead
    */
   minW: { type: [Number, String] },
   /**

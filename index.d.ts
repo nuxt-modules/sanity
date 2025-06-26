@@ -1,7 +1,5 @@
 import type { SanityHelper, SanityPublicRuntimeConfig, SanityRuntimeConfig } from './src/types'
 
-type nullish = null | undefined
-
 declare module '#app' {
   interface NuxtApp {
     _sanity?: Record<string, SanityHelper>
