@@ -1,5 +1,5 @@
 import { enableVisualEditing } from '@sanity/visual-editing'
-import type { VisualEditingProps } from '../../types'
+import type { VisualEditingProps } from '../types'
 
 export function useSanityVisualEditing(options: VisualEditingProps = {}) {
   const config = useSanityConfig()

@@ -1,5 +1,5 @@
 import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
-import type { SanityResolvedConfig } from '../../types'
+import type { SanityResolvedConfig } from '../types'
 import type { SanityClient } from '../client'
 
 export const createQueryStore = (

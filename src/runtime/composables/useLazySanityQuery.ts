@@ -1,6 +1,6 @@
 import { hash } from 'ohash'
 import type { AsyncData } from 'nuxt/app'
-import type { UseSanityQueryOptions } from '../../types'
+import type { UseSanityQueryOptions } from '../types'
 
 export const useLazySanityQuery = <T = unknown, E = Error> (query: string, _params?: Record<string, unknown>, _options: UseSanityQueryOptions<T> = {}): AsyncData<T | null, E> => {
   const { client, ...options } = _options

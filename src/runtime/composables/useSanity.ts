@@ -1,7 +1,7 @@
 import defu from 'defu'
 import type { H3Event } from 'h3'
 import type { ClientConfig } from '../client'
-import type { SanityHelper } from '../../types'
+import type { SanityHelper } from '../types'
 import { createLiveStore } from '../util/createLiveStore'
 import { createQueryStore } from '../util/createQueryStore'
 

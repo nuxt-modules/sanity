@@ -15,7 +15,7 @@ import type { HistoryRefresh } from '@sanity/visual-editing'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
-import type { SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './types'
+import type { SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 

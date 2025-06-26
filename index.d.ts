@@ -1,4 +1,4 @@
-import type { SanityHelper, SanityPublicRuntimeConfig, SanityRuntimeConfig } from './src/types'
+import type { SanityHelper, SanityPublicRuntimeConfig, SanityRuntimeConfig } from './src/runtime/types'
 
 declare module '#app' {
   interface NuxtApp {

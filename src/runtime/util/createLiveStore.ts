@@ -1,4 +1,4 @@
-import type { SanityLiveStore, SanityLiveStoreSubscriberCallback, SanityResolvedConfig } from '../../types'
+import type { SanityLiveStore, SanityLiveStoreSubscriberCallback, SanityResolvedConfig } from '../types'
 
 export const createLiveStore = (liveContent: SanityResolvedConfig['liveContent']): SanityLiveStore | undefined => {
   if (!liveContent) return undefined

@@ -1,5 +1,5 @@
 import type { ClientConfig, QueryParams, SanityClient } from '../../client'
-import type { SanityLiveStore } from '../../../types'
+import type { SanityLiveStore } from '../../types'
 
 /**
  * Internal composable to handle re-execution of queries based on incoming tags

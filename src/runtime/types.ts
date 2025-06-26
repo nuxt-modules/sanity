@@ -4,7 +4,7 @@ import type { QueryStore } from '@sanity/core-loader'
 import type { AsyncDataOptions } from 'nuxt/app'
 import type { ClientPerspective, ContentSourceMap, StegaConfig } from '@sanity/client'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
-import type { ClientConfig, SanityClient } from './runtime/client'
+import type { ClientConfig, SanityClient } from './client'
 
 /**
  * Augmented version of Nuxt's _AsyncData, with additional properties like

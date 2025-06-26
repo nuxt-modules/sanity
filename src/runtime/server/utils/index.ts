@@ -3,7 +3,7 @@ import type { H3Event } from 'h3'
 
 import type { ClientConfig } from '../../client'
 import { createClient } from '../../client'
-import type { SanityHelper } from '../../../types'
+import type { SanityHelper } from '../../types'
 
 import { useRuntimeConfig } from '#imports'
 

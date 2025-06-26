@@ -1,4 +1,4 @@
-import type { PreviewEnvironment } from '../../types'
+import type { PreviewEnvironment } from '../types'
 
 /**
  * Reports the current preview mode environment.
