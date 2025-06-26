@@ -15,11 +15,11 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        node: [18]
+        node: [20]
 
     steps:
       - uses: actions/checkout@v4
-      - run: npm i -g --force corepack && corepack enable
+      - run: corepack enable
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}

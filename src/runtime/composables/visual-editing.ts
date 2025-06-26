@@ -5,6 +5,7 @@ import { createQueryStore as createCoreQueryStore } from '@sanity/core-loader'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
 import { enableVisualEditing } from '@sanity/visual-editing'
 
+import type { H3Event } from 'h3'
 import type { Ref } from 'vue'
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
@@ -153,7 +154,11 @@ const isInFrame = () => {
   return !!(window.self !== window.top || window.opener)
 }
 
-export const useSanity = (client = 'default'): SanityHelper => {
+export function useSanity(client?: string): SanityHelper
+export function useSanity(event?: H3Event, client?: string): SanityHelper
+export function useSanity(_event?: H3Event | string, _client?: string): SanityHelper {
+  const client = typeof _event === 'string' ? _event : _client || 'default'
+
   const nuxtApp = useNuxtApp()
   if (nuxtApp._sanity?.[client]) {
     return nuxtApp._sanity[client]
