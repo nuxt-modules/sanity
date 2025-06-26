@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   const sanityConfig = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
 
   const client = sanity.client.withConfig({
-    token: sanityConfig.visualEditing!.token,
+    token: sanityConfig.visualEditing && 'token' in sanityConfig.visualEditing ? sanityConfig.visualEditing.token : undefined,
   })
 
   const { isValid, redirectTo = '/' } = await validatePreviewUrl(
@@ -26,7 +26,11 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  setCookie(event, '__sanity_preview', sanityConfig.visualEditing!.previewModeId, {
+  const id = sanityConfig.visualEditing && 'previewModeId' in sanityConfig.visualEditing
+    ? sanityConfig.visualEditing.previewModeId
+    : undefined as never
+
+  setCookie(event, '__sanity_preview', id, {
     httpOnly: true,
     sameSite: !import.meta.dev ? 'none' : 'lax',
     secure: !import.meta.dev,

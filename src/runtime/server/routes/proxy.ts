@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const { visualEditing } = import.meta.client ? $config.public.sanity : defu($config.sanity, $config.public.sanity)
 
-  if (!visualEditing || previewModeCookie !== visualEditing.previewModeId) {
+  if (!visualEditing || !('previewModeId' in visualEditing) || previewModeCookie !== visualEditing.previewModeId) {
     throw createError({
       statusCode: 400,
       statusMessage: 'This endpoint should only be used for fetching preview mode data',
@@ -20,7 +20,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const client = sanity.client.withConfig({
-    token: visualEditing.token,
+    token: visualEditing && 'token' in visualEditing ? visualEditing.token : undefined,
     useCdn: false,
   })
 
