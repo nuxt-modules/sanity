@@ -33,7 +33,7 @@ const createSanityHelper = (options: ClientConfig): SanityHelper => {
 export function useSanity(client?: string): SanityHelper
 export function useSanity(event?: H3Event, client?: string): SanityHelper
 export function useSanity(_event?: H3Event | string, _client?: string): SanityHelper {
-  const client = typeof _event === 'string' ? _event : _client
+  const client = typeof _event === 'string' ? _event : _client || 'default'
 
   const nuxtApp = useNuxtApp()
   if (nuxtApp._sanity?.[client]) {
