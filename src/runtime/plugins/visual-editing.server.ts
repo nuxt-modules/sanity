@@ -13,10 +13,10 @@ export default defineNuxtPlugin(() => {
   // editing is enabled.
   if (visualEditing?.previewMode) {
     const previewModeCookie = useCookie('__sanity_preview')
-    visualEditingState.enabled = previewModeCookie.value === visualEditing.previewModeId
+    visualEditingState.enabled = 'previewModeId' in visualEditing && previewModeCookie.value === visualEditing.previewModeId
   // If preview mode is _not_ configured, just enable visual editing.
   }
-  else if (typeof visualEditing === 'object' && !visualEditing.previewMode) {
+  else if (visualEditing && typeof visualEditing === 'object' && (!('previewMode' in visualEditing) || !visualEditing.previewMode)) {
     visualEditingState.enabled = true
   }
 })
