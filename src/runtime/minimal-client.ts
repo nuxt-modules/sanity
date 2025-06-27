@@ -9,6 +9,11 @@ const cdnHost = 'apicdn.sanity.io'
 
 export type QueryParams = Record<string, unknown>
 
+export interface QueryOptions {
+  perspective?: ClientConfig['perspective']
+  filterResponse?: boolean
+}
+
 export type ContentSourceMap = unknown
 
 export interface ClientConfig {
@@ -73,30 +78,37 @@ export function createClient(config: ClientConfig) {
     perspective,
   }
 
+  /**
+   * Perform a fetch using GROQ syntax.
+   */
+  async function fetch<T = unknown>(query: string, params: Record<string, unknown> | undefined, options: QueryOptions & { filterResponse: false }): Promise<{ result: T }>
+  async function fetch<T = unknown>(query: string, params?: Record<string, unknown>, options?: QueryOptions): Promise<T>
+  async function fetch<T = unknown>(query: string, params?: Record<string, unknown>, options?: QueryOptions) {
+    const requestPerspective = options?.perspective || perspective
+    const qs = getQuery(query, params) + `&perspective=${requestPerspective}`
+    const usePostRequest = getByteSize(qs) > 9000
+
+    const host = useCdn && !usePostRequest ? cdnHost : apiHost
+
+    const urlBase = `https://${projectId}.${host}/v${apiVersion}/data/query/${dataset}`
+
+    const response = usePostRequest
+      ? await $fetch<{ result: T }>(urlBase, {
+          ...fetchOptions,
+          method: 'post',
+          body: { query, params },
+          query: { perspective: requestPerspective },
+        })
+      : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
+    if (options?.filterResponse === false) {
+      return response
+    }
+    return response.result
+  }
+
   return {
     config: () => clientConfig,
-    clone: () =>
-      createClient(clientConfig),
-    /**
-     * Perform a fetch using GROQ syntax.
-     */
-    async fetch<T = unknown>(query: string, params?: Record<string, unknown>) {
-      const qs = getQuery(query, params) + `&perspective=${perspective}`
-      const usePostRequest = getByteSize(qs) > 9000
-
-      const host = useCdn && !usePostRequest ? cdnHost : apiHost
-
-      const urlBase = `https://${projectId}.${host}/v${apiVersion}/data/query/${dataset}`
-
-      const { result } = usePostRequest
-        ? await $fetch<{ result: T }>(urlBase, {
-            ...fetchOptions,
-            method: 'post',
-            body: { query, params },
-            query: { perspective },
-          })
-        : await $fetch<{ result: T }>(`${urlBase}${qs}`, fetchOptions)
-      return result
-    },
+    clone: () => createClient(clientConfig),
+    fetch,
   }
 }
