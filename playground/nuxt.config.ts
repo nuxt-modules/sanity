@@ -1,3 +1,5 @@
+const viewerToken = process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN
+
 export default defineNuxtConfig({
   modules: ['@nuxtjs/sanity'],
   app: {
@@ -8,13 +10,17 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-08-19',
   sanity: {
     globalHelper: true,
-    apiVersion: '2021-03-25',
+    apiVersion: '2021-03-26',
     additionalClients: {
       another: {},
     },
     visualEditing: {
-      token: process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN,
+      token: viewerToken,
       studioUrl: 'http://localhost:3333',
+    },
+    liveContent: {
+      browserToken: viewerToken,
+      serverToken: viewerToken,
     },
   },
 })

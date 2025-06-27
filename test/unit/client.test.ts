@@ -36,7 +36,7 @@ describe('minimal sanity client', () => {
       projectId: 'sample-project',
       apiVersion: '1',
     })
-    expect(Object.keys(client)).toEqual(['clone', 'fetch'])
+    expect(Object.keys(client)).toEqual(['config', 'clone', 'fetch'])
   })
 
   it('sends a GET request for smaller queries', () => {
@@ -71,7 +71,7 @@ describe('minimal sanity client', () => {
       apiVersion: '1',
     })
     const newClient = client.clone()
-    expect(Object.keys(newClient)).toEqual(['clone', 'fetch'])
+    expect(Object.keys(newClient)).toEqual(['config', 'clone', 'fetch'])
     expect(newClient).not.toEqual(client)
   })
 
