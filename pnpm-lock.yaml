@@ -66,14 +66,14 @@ importers:
         version: 2.0.3
     devDependencies:
       '@nuxt/cli':
-        specifier: 3.26.0
-        version: 3.26.0(magicast@0.3.5)
+        specifier: 3.26.1
+        version: 3.26.1(magicast@0.3.5)
       '@nuxt/eslint-config':
         specifier: 1.5.2
         version: 1.5.2(@vue/compiler-sfc@3.5.17)(eslint-plugin-import-x@4.16.0(@typescript-eslint/utils@8.35.1(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.31.0(jiti@2.4.2)))(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3)
       '@nuxt/module-builder':
         specifier: 1.0.1
-        version: 1.0.1(@nuxt/cli@3.26.0(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))
+        version: 1.0.1(@nuxt/cli@3.26.1(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/schema':
         specifier: 3.17.7
         version: 3.17.7
@@ -2000,8 +2000,8 @@ packages:
   '@nuxt-themes/typography@0.11.0':
     resolution: {integrity: sha512-TqyvD7sDWnqGmL00VtuI7JdmNTPL5/g957HCAWNzcNp+S20uJjW/FXSdkM76d4JSVDHvBqw7Wer3RsqVhqvA4w==}
 
-  '@nuxt/cli@3.26.0':
-    resolution: {integrity: sha512-/triwyQYI1Qku93dWNCnqpFORBQiTvbj9yLYz4A5hzsmXcF7QlStm7J6alqavepG9tFEyQqenC/UMoUU/wcrJQ==}
+  '@nuxt/cli@3.26.1':
+    resolution: {integrity: sha512-7LofkhcwhDaxjREMnMDjbMHsi0H73M8iYHp7gFV/91UkO5O06WUTlNxna3ymyRMjl6XKVUsOeMpa82B/I26zcw==}
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
@@ -2376,15 +2376,8 @@ packages:
   '@polka/url@1.0.0-next.28':
     resolution: {integrity: sha512-8LduaNlMZGwdZ6qWrKlfa+2M4gahzFkprZiAt2TF8uS0qQgBizKXpXURqvTJ4WtmupWxaLqjRb2UCTe72mu+Aw==}
 
-  '@poppinss/colors@4.1.4':
-    resolution: {integrity: sha512-FA+nTU8p6OcSH4tLDY5JilGYr1bVWHpNmcLr7xmMEdbWmKHa+3QZ+DqefrXKmdjO/brHTnQZo20lLSjaO7ydog==}
-    engines: {node: '>=18.16.0'}
-
   '@poppinss/colors@4.1.5':
     resolution: {integrity: sha512-FvdDqtcRCtz6hThExcFOgW0cWX+xwSMWcRuQe5ZEb2m7cVQOAVZOIMt+/v9RxGiD9/OY16qJBXK4CVKWAPalBw==}
-
-  '@poppinss/dumper@0.6.3':
-    resolution: {integrity: sha512-iombbn8ckOixMtuV1p3f8jN6vqhXefNjJttoPaJDMeIk/yIGhkkL3OrHkEjE9SRsgoAx1vBUU2GtgggjvA5hCA==}
 
   '@poppinss/dumper@0.6.4':
     resolution: {integrity: sha512-iG0TIdqv8xJ3Lt9O8DrPRxw1MRLjNpoqiSGU03P/wNLP/s0ra0udPJ1J2Tx5M0J3H/cVyEgpbn8xUKRY9j59kQ==}
@@ -11437,7 +11430,7 @@ snapshots:
       - vue
       - vue-tsc
 
-  '@nuxt/cli@3.26.0(magicast@0.3.5)':
+  '@nuxt/cli@3.26.1(magicast@0.3.5)':
     dependencies:
       c12: 3.1.0(magicast@0.3.5)
       citty: 0.1.6
@@ -11447,7 +11440,6 @@ snapshots:
       defu: 6.1.4
       exsolve: 1.0.7
       fuse.js: 7.1.0
-      get-port-please: 3.2.0
       giget: 2.0.0
       h3: 1.15.3
       httpxy: 0.1.7
@@ -11652,9 +11644,9 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/module-builder@1.0.1(@nuxt/cli@3.26.0(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))':
+  '@nuxt/module-builder@1.0.1(@nuxt/cli@3.26.1(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
-      '@nuxt/cli': 3.26.0(magicast@0.3.5)
+      '@nuxt/cli': 3.26.1(magicast@0.3.5)
       citty: 0.1.6
       consola: 3.4.2
       defu: 6.1.4
@@ -12149,19 +12141,9 @@ snapshots:
 
   '@polka/url@1.0.0-next.28': {}
 
-  '@poppinss/colors@4.1.4':
-    dependencies:
-      kleur: 4.1.5
-
   '@poppinss/colors@4.1.5':
     dependencies:
       kleur: 4.1.5
-
-  '@poppinss/dumper@0.6.3':
-    dependencies:
-      '@poppinss/colors': 4.1.4
-      '@sindresorhus/is': 7.0.2
-      supports-color: 10.0.0
 
   '@poppinss/dumper@0.6.4':
     dependencies:
@@ -17645,7 +17627,7 @@ snapshots:
 
   nuxt@3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@3.29.5)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@2.2.12(typescript@5.8.3))(yaml@2.8.0):
     dependencies:
-      '@nuxt/cli': 3.26.0(magicast@0.3.5)
+      '@nuxt/cli': 3.26.1(magicast@0.3.5)
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 2.6.2(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -17765,7 +17747,7 @@ snapshots:
 
   nuxt@3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.0)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@3.0.1(typescript@5.8.3))(yaml@2.8.0):
     dependencies:
-      '@nuxt/cli': 3.26.0(magicast@0.3.5)
+      '@nuxt/cli': 3.26.1(magicast@0.3.5)
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 2.6.2(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -20893,11 +20875,11 @@ snapshots:
 
   youch@4.1.0-beta.8:
     dependencies:
-      '@poppinss/colors': 4.1.4
-      '@poppinss/dumper': 0.6.3
+      '@poppinss/colors': 4.1.5
+      '@poppinss/dumper': 0.6.4
       '@speed-highlight/core': 1.2.7
       cookie: 1.0.2
-      youch-core: 0.3.2
+      youch-core: 0.3.3
 
   zhead@2.2.4: {}
 
