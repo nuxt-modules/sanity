@@ -3,17 +3,13 @@
   "description": "Access text, images, and other media with Nuxt and the Sanity headless CMS.",
   "homepage": "https://sanity.nuxtjs.org",
   "scripts": {
-    "dev": "nuxi dev",
-    "build": "nuxi build",
-    "generate": "nuxi generate",
-    "preview": "nuxi preview"
+    "dev": "docus dev",
+    "build": "docus build"
   },
-  "devDependencies": {
-    "@nuxt-themes/docus": "1.15.1",
-    "@nuxtjs/plausible": "latest",
-    "nuxt": "3.17.7"
+  "dependencies": {
+    "docus": "latest",
+    "better-sqlite3": "^11.10.0",
+    "nuxt": "^3.17.6"
   },
-  "engines": {
-    "node": "^14.18.0 || >=16.10.0"
-  }
+  "packageManager": "pnpm@9.13.2+sha512.88c9c3864450350e65a33587ab801acf946d7c814ed1134da4a924f6df5a2120fd36b46aab68f7cd1d413149112d53c7db3a4136624cfd00ff1846a0c6cef48a"
 }
