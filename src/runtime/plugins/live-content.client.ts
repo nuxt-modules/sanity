@@ -1,4 +1,5 @@
-import { createCompatibilityActors, isMaybePresentation, isMaybePreviewWindow, type LoaderControllerMsg, type LoaderNodeMsg } from '@sanity/presentation-comlink'
+import { createCompatibilityActors, isMaybePresentation, isMaybePreviewWindow } from '@sanity/presentation-comlink'
+import type { LoaderControllerMsg, LoaderNodeMsg } from '@sanity/presentation-comlink'
 import { createNode, createNodeMachine } from '@sanity/comlink'
 
 export default defineNuxtPlugin(() => {

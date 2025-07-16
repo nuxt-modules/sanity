@@ -20,7 +20,7 @@
 - Ultra-lightweight Sanity client
 - Zero-config image/file components + portable text renderer
 - Supports GROQ syntax highlighting
-- Nuxt 3 and Nuxt Bridge support
+- Nuxt 4 and Nuxt Bridge support
 
 [📖 &nbsp;Read more](https://sanity.nuxtjs.org)
 
