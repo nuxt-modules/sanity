@@ -1,5 +1,24 @@
 <template>
   <div>
+    <h1 class="text-2xl font-bold">
+      Sanity Content Example
+    </h1>
+    <p>This page demonstrates the use of custom serializers with Sanity content blocks.</p>
+    <h2 class="text-xl font-semibold">
+      SanityContent (Vue-PortableText)
+    </h2>
+    <p>This example uses the <a href="https://github.com/portabletext/vue-portabletext">vue-portabletext</a> library for rendering content.</p>
+    <SanityContent
+      :blocks="blocks"
+      :serializers="serializers"
+      use-portable-text-vue
+    />
+    <hr>
+
+    <h2 class="text-xl font-semibold">
+      SanityContent (Default)
+    </h2>
+    <p>This example uses the @nuxtjs/sanity rendering method.</p>
     <SanityContent
       :blocks="blocks"
       :serializers="serializers"

@@ -41,8 +41,8 @@ type AsyncDataRequestStatus = 'idle' | 'pending' | 'success' | 'error'
  * Return type of `useSanityQuery`
  * @public
  */
-export type AsyncSanityData<Data, Error> = _AsyncSanityData<Data, Error> &
-  Promise<_AsyncSanityData<Data, Error>>
+export type AsyncSanityData<Data, Error> = _AsyncSanityData<Data, Error>
+  & Promise<_AsyncSanityData<Data, Error>>
 
 /**
  * Utility type for a no-op function
@@ -54,13 +54,13 @@ export type Noop = () => void
  * The environment in which the app is being previewed
  * @public
  */
-export type PreviewEnvironment =
-  | 'checking'
-  | 'presentation-iframe'
-  | 'presentation-window'
-  | 'live'
-  | 'static'
-  | 'unknown'
+export type PreviewEnvironment
+  = | 'checking'
+    | 'presentation-iframe'
+    | 'presentation-window'
+    | 'live'
+    | 'static'
+    | 'unknown'
 
 /**
  * The global sanity helper object
@@ -148,14 +148,14 @@ export type SanityVisualEditingRefreshHandler = (
 
 export type SanityRuntimeConfig = {
   liveContent?:
-    | {
-      serverToken: string
-    }
+  | {
+    serverToken: string
+  }
   visualEditing?:
-    | {
-      previewModeId: string
-      token: string
-    }
+  | {
+    previewModeId: string
+    token: string
+  }
 }
 
 /**
@@ -168,30 +168,30 @@ export type SanityPublicRuntimeConfig = {
   dataset: string
   disableSmartCdn: boolean
   liveContent?:
-    | {
-      browserToken: string | ''
-      serverToken: ''
-    }
+  | {
+    browserToken: string | ''
+    serverToken: ''
+  }
   perspective: ClientPerspective
   projectId: string
   stega: StegaConfig
   token: string
   useCdn: boolean
   visualEditing?:
-    | {
-      mode: SanityVisualEditingMode
-      previewMode:
-        | false
-        | {
-          enable?: string
-          disable?: string
-        }
-      previewModeId: ''
-      proxyEndpoint: string
-      studioUrl: string
-      token: ''
-      zIndex: SanityVisualEditingZIndex | ''
-    }
+  | {
+    mode: SanityVisualEditingMode
+    previewMode:
+      | false
+      | {
+        enable?: string
+        disable?: string
+      }
+    previewModeId: ''
+    proxyEndpoint: string
+    studioUrl: string
+    token: ''
+    zIndex: SanityVisualEditingZIndex | ''
+  }
   withCredentials: boolean
 }
 
@@ -199,31 +199,31 @@ export type SanityPublicRuntimeConfig = {
  * Module resolved runtime configuration
  * @public
  */
-export type SanityResolvedConfig =
-  Omit<SanityPublicRuntimeConfig, 'liveContent' | 'visualEditing'>
-  & {
-    liveContent:
-      | null
-      | {
-        browserToken: string
-        serverToken: string | undefined // Private, undefined on public
-      }
-    visualEditing:
-      | null
-      | {
-        mode: SanityVisualEditingMode
-        previewMode:
-          | boolean
-          | {
-            enable?: string
-            disable?: string
-          }
-        previewModeId: string | undefined // Private, undefined on public
-        proxyEndpoint: string
-        studioUrl: string
-        token: string | undefined // Private, undefined on public
-        zIndex: SanityVisualEditingZIndex | null
-      }
-  }
+export type SanityResolvedConfig
+  = Omit<SanityPublicRuntimeConfig, 'liveContent' | 'visualEditing'>
+    & {
+      liveContent:
+        | null
+        | {
+          browserToken: string
+          serverToken: string | undefined // Private, undefined on public
+        }
+      visualEditing:
+        | null
+        | {
+          mode: SanityVisualEditingMode
+          previewMode:
+            | boolean
+            | {
+              enable?: string
+              disable?: string
+            }
+          previewModeId: string | undefined // Private, undefined on public
+          proxyEndpoint: string
+          studioUrl: string
+          token: string | undefined // Private, undefined on public
+          zIndex: SanityVisualEditingZIndex | null
+        }
+    }
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']

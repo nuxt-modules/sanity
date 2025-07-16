@@ -8,6 +8,8 @@ import type {
   PortableTextSpan,
   PortableTextMarkDefinition,
 } from '@portabletext/types'
+import { PortableText } from '@portabletext/vue'
+import type { PortableTextComponents } from '@portabletext/vue'
 
 import { isVue2 } from '#imports'
 
@@ -217,6 +219,33 @@ function renderBlocks(blocks: Array<Block>, serializers: Required<Serializers>) 
   })
 }
 
+function renderPortableTextVueBlocks(
+  value: Array<Block>,
+  components: PortableTextComponents,
+) {
+  // Create adapter components that handle the different prop formats
+  // TODO: Adjust types to match the expected props for each component
+  const adaptedComponents: PortableTextComponents = {
+    types: Object.fromEntries(
+      Object.entries(components.types || {}).map(([type, component]) => {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        return [type, (props: any) => {
+          console.log('rendering type', type, props)
+          // For custom block types, extract props from value
+          return h(component!, {
+            ...props.value,
+            key: props.value._key,
+          })
+        }]
+      }),
+    ),
+  }
+  return h(PortableText, {
+    value,
+    components: adaptedComponents,
+  })
+}
+
 export default defineComponent({
   name: 'SanityContent',
   inheritAttrs: false,
@@ -226,14 +255,21 @@ export default defineComponent({
       default: () => [] as Array<PortableTextBlock>,
     },
     serializers: {
-      type: Object as () => Serializers,
-      default: () => ({} as Serializers),
+      type: Object as () => PortableTextComponents | Serializers,
+      default: () => ({} as PortableTextComponents | Serializers),
+    },
+    usePortableTextVue: {
+      type: Boolean,
+      default: false,
     },
   },
   setup(props) {
+    if (props.usePortableTextVue) {
+      return () => renderPortableTextVueBlocks(props.blocks, props.serializers as PortableTextComponents)
+    }
+
     const serializers = defu(props.serializers, defaults) as Required<Serializers>
     serializers.types.list = serializers.types.list || createListSerializer(serializers)
-
     return () => renderBlocks(props.blocks?.reduce(walkList, [] as Array<PortableTextBlock | PortableTextListItemBlock>) || [], serializers)
   },
 })
