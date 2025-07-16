@@ -21,7 +21,7 @@ importers:
         version: 2.0.13
       '@sanity/client':
         specifier: ^7.6.0
-        version: 7.6.0(debug@4.4.1)
+        version: 7.6.0
       '@sanity/comlink':
         specifier: ^3.0.5
         version: 3.0.7
@@ -30,10 +30,10 @@ importers:
         version: 1.8.12(@sanity/types@3.99.0(@types/react@18.3.23))(typescript@5.8.3)
       '@sanity/presentation-comlink':
         specifier: ^1.0.21
-        version: 1.0.23(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+        version: 1.0.23(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))
       '@sanity/preview-url-secret':
         specifier: ^2.1.11
-        version: 2.1.12(@sanity/client@7.6.0(debug@4.4.1))
+        version: 2.1.12(@sanity/client@7.6.0)
       '@sanity/visual-editing':
         specifier: ^2.15.0
         version: 2.15.2(@emotion/is-prop-valid@1.2.2)(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)
@@ -66,14 +66,14 @@ importers:
         version: 2.0.3
     devDependencies:
       '@nuxt/cli':
-        specifier: 3.26.1
-        version: 3.26.1(magicast@0.3.5)
+        specifier: 3.26.2
+        version: 3.26.2(magicast@0.3.5)
       '@nuxt/eslint-config':
         specifier: 1.5.2
         version: 1.5.2(@vue/compiler-sfc@3.5.17)(eslint-plugin-import-x@4.16.0(@typescript-eslint/utils@8.35.1(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint@9.31.0(jiti@2.4.2)))(eslint@9.31.0(jiti@2.4.2))(typescript@5.8.3)
       '@nuxt/module-builder':
         specifier: 1.0.1
-        version: 1.0.1(@nuxt/cli@3.26.1(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))
+        version: 1.0.1(@nuxt/cli@3.26.2(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/schema':
         specifier: 3.17.7
         version: 3.17.7
@@ -148,7 +148,7 @@ importers:
         version: link:..
       '@sanity/client':
         specifier: latest
-        version: 7.6.0(debug@4.4.1)
+        version: 7.7.0(debug@4.4.1)
       nuxt:
         specifier: 3.17.7
         version: 3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.0)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@3.0.1(typescript@5.8.3))(yaml@2.8.0)
@@ -166,7 +166,7 @@ importers:
     dependencies:
       '@sanity/preview-url-secret':
         specifier: ^2.1.11
-        version: 2.1.12(@sanity/client@7.6.0(debug@4.4.1))
+        version: 2.1.12(@sanity/client@7.7.0)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -2000,8 +2000,8 @@ packages:
   '@nuxt-themes/typography@0.11.0':
     resolution: {integrity: sha512-TqyvD7sDWnqGmL00VtuI7JdmNTPL5/g957HCAWNzcNp+S20uJjW/FXSdkM76d4JSVDHvBqw7Wer3RsqVhqvA4w==}
 
-  '@nuxt/cli@3.26.1':
-    resolution: {integrity: sha512-7LofkhcwhDaxjREMnMDjbMHsi0H73M8iYHp7gFV/91UkO5O06WUTlNxna3ymyRMjl6XKVUsOeMpa82B/I26zcw==}
+  '@nuxt/cli@3.26.2':
+    resolution: {integrity: sha512-HDhLBE1zzK4k8JTrf1sEXGoTHKmi5LzR5tWxV4f6NrgZG12p8O72vdkUUvBDmDN0LZYnufOPDNwpq9y/RsNqEQ==}
     engines: {node: ^16.10.0 || >=18.0.0}
     hasBin: true
 
@@ -2659,6 +2659,10 @@ packages:
 
   '@sanity/client@7.6.0':
     resolution: {integrity: sha512-bNgqWkKzzbAh2qDKHK0IYgR+7TaRsmk6rCpeX+kwIJ6J8ot8ZnZxzRgwfPmBztOQu8YfahQ6t90giT4uVhQNEg==}
+    engines: {node: '>=20'}
+
+  '@sanity/client@7.7.0':
+    resolution: {integrity: sha512-PzMOc0zdrpX5O83j6KBWCCj8R510m0LE1U3y7MgWa7u8koOW6kBLUQ0N0WCniMouvSvraKlJOJAJ/Ex3w6ey9Q==}
     engines: {node: '>=20'}
 
   '@sanity/codegen@3.99.0':
@@ -11430,7 +11434,7 @@ snapshots:
       - vue
       - vue-tsc
 
-  '@nuxt/cli@3.26.1(magicast@0.3.5)':
+  '@nuxt/cli@3.26.2(magicast@0.3.5)':
     dependencies:
       c12: 3.1.0(magicast@0.3.5)
       citty: 0.1.6
@@ -11644,9 +11648,9 @@ snapshots:
     transitivePeerDependencies:
       - magicast
 
-  '@nuxt/module-builder@1.0.1(@nuxt/cli@3.26.1(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))':
+  '@nuxt/module-builder@1.0.1(@nuxt/cli@3.26.2(magicast@0.3.5))(@vue/compiler-core@3.5.17)(esbuild@0.25.6)(typescript@5.8.3)(vue-tsc@3.0.1(typescript@5.8.3))(vue@3.5.17(typescript@5.8.3))':
     dependencies:
-      '@nuxt/cli': 3.26.1(magicast@0.3.5)
+      '@nuxt/cli': 3.26.2(magicast@0.3.5)
       citty: 0.1.6
       consola: 3.4.2
       defu: 6.1.4
@@ -12412,7 +12416,7 @@ snapshots:
   '@sanity/cli@3.99.0(@types/node@22.10.6)(@types/react@18.3.23)(react@18.3.1)(terser@5.37.0)(typescript@5.8.3)(yaml@2.8.0)':
     dependencies:
       '@babel/traverse': 7.28.0
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/codegen': 3.99.0
       '@sanity/runtime-cli': 9.2.0(@types/node@22.10.6)(debug@4.4.1)(terser@5.37.0)(typescript@5.8.3)(yaml@2.8.0)
       '@sanity/telemetry': 0.8.1(react@18.3.1)
@@ -12455,7 +12459,16 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@sanity/client@7.6.0(debug@4.4.1)':
+  '@sanity/client@7.6.0':
+    dependencies:
+      '@sanity/eventsource': 5.0.2
+      get-it: 8.6.9(debug@4.4.1)
+      nanoid: 3.3.11
+      rxjs: 7.8.2
+    transitivePeerDependencies:
+      - debug
+
+  '@sanity/client@7.7.0(debug@4.4.1)':
     dependencies:
       '@sanity/eventsource': 5.0.2
       get-it: 8.6.9(debug@4.4.1)
@@ -12494,9 +12507,9 @@ snapshots:
 
   '@sanity/core-loader@1.8.12(@sanity/types@3.99.0(@types/react@18.3.23))(typescript@5.8.3)':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.6.0
       '@sanity/comlink': 3.0.7
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))
       '@sanity/visual-editing-csm': 2.0.19(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))(typescript@5.8.3)
     transitivePeerDependencies:
       - '@sanity/types'
@@ -12611,7 +12624,7 @@ snapshots:
 
   '@sanity/migrate@3.99.0(@types/react@18.3.23)':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/mutate': 0.12.4(debug@4.4.1)
       '@sanity/types': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
       '@sanity/util': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
@@ -12662,17 +12675,30 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  '@sanity/presentation-comlink@1.0.23(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))':
+  '@sanity/presentation-comlink@1.0.23(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.6.0
       '@sanity/comlink': 3.0.7
-      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/preview-url-secret@2.1.12(@sanity/client@7.6.0(debug@4.4.1))':
+  '@sanity/presentation-comlink@1.0.23(@sanity/client@7.7.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
+      '@sanity/comlink': 3.0.7
+      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.7.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+    transitivePeerDependencies:
+      - '@sanity/types'
+
+  '@sanity/preview-url-secret@2.1.12(@sanity/client@7.6.0)':
+    dependencies:
+      '@sanity/client': 7.6.0
+      '@sanity/uuid': 3.0.2
+
+  '@sanity/preview-url-secret@2.1.12(@sanity/client@7.7.0)':
+    dependencies:
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/uuid': 3.0.2
 
   '@sanity/runtime-cli@9.2.0(@types/node@22.10.6)(debug@4.4.1)(terser@5.37.0)(typescript@5.8.3)(yaml@2.8.0)':
@@ -12681,7 +12707,7 @@ snapshots:
       '@architect/inventory': 4.0.9
       '@oclif/core': 4.3.1
       '@oclif/plugin-help': 6.2.28
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       adm-zip: 0.5.16
       array-treeify: 0.1.5
       cardinal: 2.1.1
@@ -12772,7 +12798,7 @@ snapshots:
 
   '@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1)':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/media-library-types': 1.0.0
       '@types/react': 18.3.23
     transitivePeerDependencies:
@@ -12811,7 +12837,7 @@ snapshots:
     dependencies:
       '@date-fns/tz': 1.2.0
       '@date-fns/utc': 2.1.0
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/types': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
       date-fns: 4.1.0
       get-random-values-esm: 1.0.2
@@ -12866,16 +12892,22 @@ snapshots:
 
   '@sanity/visual-editing-csm@2.0.19(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))(typescript@5.8.3)':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
-      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/client': 7.6.0
+      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))
       valibot: 1.1.0(typescript@5.8.3)
     transitivePeerDependencies:
       - '@sanity/types'
       - typescript
 
-  '@sanity/visual-editing-types@1.1.1(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))':
+  '@sanity/visual-editing-types@1.1.1(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))':
     dependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.6.0
+    optionalDependencies:
+      '@sanity/types': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
+
+  '@sanity/visual-editing-types@1.1.1(@sanity/client@7.7.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))':
+    dependencies:
+      '@sanity/client': 7.7.0(debug@4.4.1)
     optionalDependencies:
       '@sanity/types': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
 
@@ -12885,8 +12917,8 @@ snapshots:
       '@sanity/icons': 3.7.4(react@18.3.1)
       '@sanity/insert-menu': 1.1.12(@emotion/is-prop-valid@1.2.2)(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/mutate': 0.11.0-canary.4(xstate@5.20.1)
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
-      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.6.0(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))
+      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.6.0)
       '@sanity/ui': 2.16.7(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/visual-editing-csm': 2.0.19(@sanity/client@7.6.0)(@sanity/types@3.99.0(@types/react@18.3.23))(typescript@5.8.3)
       '@vercel/stega': 0.1.2
@@ -12901,7 +12933,7 @@ snapshots:
       use-effect-event: 2.0.2(react@18.3.1)
       xstate: 5.20.1
     optionalDependencies:
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.6.0
     transitivePeerDependencies:
       - '@emotion/is-prop-valid'
       - '@sanity/types'
@@ -17627,7 +17659,7 @@ snapshots:
 
   nuxt@3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@3.29.5)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@2.2.12(typescript@5.8.3))(yaml@2.8.0):
     dependencies:
-      '@nuxt/cli': 3.26.1(magicast@0.3.5)
+      '@nuxt/cli': 3.26.2(magicast@0.3.5)
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 2.6.2(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -17747,7 +17779,7 @@ snapshots:
 
   nuxt@3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.0)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@3.0.1(typescript@5.8.3))(yaml@2.8.0):
     dependencies:
-      '@nuxt/cli': 3.26.1(magicast@0.3.5)
+      '@nuxt/cli': 3.26.2(magicast@0.3.5)
       '@nuxt/devalue': 2.0.2
       '@nuxt/devtools': 2.6.2(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(terser@5.37.0)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -19143,7 +19175,7 @@ snapshots:
       '@sanity/asset-utils': 2.2.1
       '@sanity/bifur-client': 0.4.1
       '@sanity/cli': 3.99.0(@types/node@22.10.6)(@types/react@18.3.23)(react@18.3.1)(terser@5.37.0)(typescript@5.8.3)(yaml@2.8.0)
-      '@sanity/client': 7.6.0(debug@4.4.1)
+      '@sanity/client': 7.7.0(debug@4.4.1)
       '@sanity/color': 3.0.6
       '@sanity/comlink': 3.0.7
       '@sanity/diff': 3.99.0
@@ -19161,8 +19193,8 @@ snapshots:
       '@sanity/message-protocol': 0.13.3
       '@sanity/migrate': 3.99.0(@types/react@18.3.23)
       '@sanity/mutator': 3.99.0(@types/react@18.3.23)
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.6.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
-      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.6.0(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.7.0(debug@4.4.1))(@sanity/types@3.99.0(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.7.0)
       '@sanity/schema': 3.99.0(@types/react@18.3.23)(debug@4.4.1)
       '@sanity/sdk': 0.0.0-alpha.25(@types/react@18.3.23)(debug@4.4.1)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
       '@sanity/telemetry': 0.8.1(react@18.3.1)
