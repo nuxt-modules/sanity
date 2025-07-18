@@ -9,4 +9,9 @@ export default defineAppConfig({
     siteName: 'Nuxt Sanity',
     favicon: '/favicon.ico',
   },
+  ui: {
+    colors: {
+      primary: 'red',
+    },
+  },
 })
