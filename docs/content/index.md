@@ -1,19 +1,15 @@
 ---
 seo:
-  title: Write beautiful docs with Markdown
-  description: Ship fast, flexible, and SEO-optimized documentation with beautiful
-    design out of the box. Docus brings together the best of the Nuxt ecosystem.
-    Powered by Nuxt UI Pro.
+  title: Nuxt Sanity
+  description: The easiest way to use Sanity with Nuxt. Get up and running in minutes with a lightweight client, zero-config components, and a great developer experience.
 ---
 
 ::u-page-hero
 #title
-Write beautiful docs with Markdown
+Nuxt Sanity
 
 #description
-Ship fast, flexible, and SEO-optimized documentation with beautiful design out of the box.
-
-Docus brings the best of the Nuxt ecosystem into one CLI.
+The easiest way to use Sanity with Nuxt. Get up and running in minutes with a lightweight client, zero-config components, and a great developer experience.
 
 #links
   :::u-button
@@ -26,98 +22,77 @@ Docus brings the best of the Nuxt ecosystem into one CLI.
   Get started
   :::
 
-  :::u-button
-  ---
-  color: neutral
-  icon: simple-icons-github
-  size: xl
-  to: https://github.com/nuxt-ui-pro/docus
-  variant: outline
-  ---
-  Star on GitHub
-  :::
-::
+  ::copy-code-input{source="npx nuxi@latest module add sanity"}
+  ::
 
 ::u-page-section
 #title
-Shipped with many features
+Everything you need for your Nuxt project
 
 #features
   :::u-page-feature
   ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://nuxt.com
+  icon: i-simple-icons-sanity
   ---
   #title
-  Built with [Nuxt 3]{.text-primary}
+  Zero-config setup
   
   #description
-  Optimized by the most famous Vue framework. Docus gives you everything you need to build fast, performant, and SEO-friendly websites.
+  Just bring your `sanity.config.ts` and you're good to go. No extra configuration needed.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-zap
+  ---
+  #title
+  Lightweight client
+  
+  #description
+  A super light client to fetch your content without slowing down your site.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-lucide-image
+  ---
+  #title
+  Components ready to use
+  
+  #description
+  Image and file components that work out of the box, including a renderer for your Portable Text.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-ph-eye-bold
+  ---
+  #title
+  Live Previews & Visual Editing
+  
+  #description
+  See your content changes live and jump straight from your site to the right spot in your Sanity Studio.
+  :::
+
+  :::u-page-feature
+  ---
+  icon: i-ph-file-code-bold
+  ---
+  #title
+  GROQ and TypeScript
+  
+  #description
+  Write your GROQ queries with syntax highlighting and get full type-safety for your data.
   :::
 
   :::u-page-feature
   ---
   icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://ui.nuxt.com/
   ---
   #title
-  Powered by [Nuxt UI Pro]{.text-primary}
+  Nuxt 3 & Bridge
   
   #description
-  Beautiful out of the box, minimal by design but highly customizable. Docus leverages Nuxt UI Pro to give you the best docs writing experience with zero boilerplate, just focus on your content.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://content.nuxt.com
-  ---
-  #title
-  Enhanced Markdown syntax by [Nuxt Content]{.text-primary}
-  
-  #description
-  The only thing you need to take care about is writing your content. Write your pages in Markdown and extend with MDC syntax to embed Nuxt UI or custom Vue components. Structure, routing, and rendering are handled for you.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://nuxt.com/docs/guide/directory-structure/app-config
-  ---
-  #title
-  Customize with [Nuxt App Config]{.text-primary}
-  
-  #description
-  Update colors, social links, header logos and component styles globally using the `app.config.ts`, no direct code modifications required.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://content.nuxt.com/studio
-  ---
-  #title
-  Collaborate on [Nuxt Studio]{.text-primary}
-  
-  #description
-  Write and manage your content visually, with zero Markdown knowledge required. Let your non technical colleagues collaborate on the documentation and integrate Vue components without code skills.
-  :::
-
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-nuxt
-  target: _blank
-  to: https://ui.nuxt.com/components/content-search
-  ---
-  #title
-  Built-in navigation and [full-text search]{.text-primary}
-  
-  #description
-  Only focus on ordering your content, Docus handles the search modal and auto-generates the side navigation for you.
+  Works perfectly with Nuxt 3 and Nuxt Bridge for any of your projects.
   :::
 ::
