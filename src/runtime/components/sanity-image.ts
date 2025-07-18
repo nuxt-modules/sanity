@@ -1,5 +1,16 @@
-import { computed, defineComponent, h } from 'vue'
+import { computed, defineComponent, h, defineAsyncComponent } from 'vue'
+import type { Component } from 'vue'
 import { useSanity, isVue2 } from '#imports'
+import type { SanityResolvedConfig } from '../types'
+
+const NuxtImg = defineAsyncComponent<Component>(() =>
+  import('#components')
+    .then(c => (c as { NuxtImg: Component }).NuxtImg)
+    .catch(() => {
+      // Silently fail if #components or NuxtImg isn't available.
+      return null as unknown as Component
+    }),
+)
 
 const baseURL = 'https://cdn.sanity.io/images'
 
@@ -190,6 +201,28 @@ export default defineComponent({
       return [baseURL, projectId, dataset, filename].join('/')
     })
 
+    const nuxtImgOptions = computed(() => {
+      const { w, h, ...rest } = props
+      const result: Record<string, unknown> = rest
+
+      if (w) {
+        result.width = w
+      }
+      if (h) {
+        result.height = h
+      }
+
+      return result
+    })
+
+    if ((sanity.config as SanityResolvedConfig).isNuxtImageEnabled) {
+      return () => h(NuxtImg, {
+        ...attrs,
+        ...nuxtImgOptions.value,
+        provider: 'sanity',
+        src: props.assetId,
+      })
+    }
     return () => slots.default?.({ src: src.value }) || h('img', isVue2
       ? { attrs: { ...attrs, src: src.value } }
       : { ...attrs, src: src.value })

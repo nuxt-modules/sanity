@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, hasNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { join, relative, resolve } from 'pathe'
@@ -106,6 +106,11 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
    * @default '~~/cms/sanity.config.ts'
    */
   configFile?: string
+  /**
+   * Internal flag to know if @nuxt/image is enabled
+   * @private
+   */
+  isNuxtImageEnabled?: boolean
 }
 
 export type ModuleOptions = SanityModuleOptions
@@ -129,9 +134,14 @@ export default defineNuxtModule<SanityModuleOptions>({
     disableSmartCdn: false,
     perspective: 'raw',
     withCredentials: false,
+    isNuxtImageEnabled: false,
     configFile: '~~/cms/sanity.config',
   },
   async setup(options, nuxt) {
+    if (hasNuxtModule('@nuxt/image', nuxt)) {
+      (options as SanityModuleOptions).isNuxtImageEnabled = true
+    }
+
     // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
     if (!options.projectId || !options.dataset) {
       // Register watcher on sanity.config.ts
@@ -203,6 +213,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       token: options.token || '',
       useCdn: options.useCdn ?? true,
       withCredentials: options.withCredentials ?? false,
+      isNuxtImageEnabled: (options as SanityModuleOptions).isNuxtImageEnabled,
     }
 
     /**
