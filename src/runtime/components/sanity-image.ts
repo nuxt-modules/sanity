@@ -219,7 +219,6 @@ export default defineComponent({
       return () => h(NuxtImg, {
         ...attrs,
         ...nuxtImgOptions.value,
-        provider: 'sanity',
         src: props.assetId,
       })
     }
