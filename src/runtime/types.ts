@@ -41,8 +41,8 @@ type AsyncDataRequestStatus = 'idle' | 'pending' | 'success' | 'error'
  * Return type of `useSanityQuery`
  * @public
  */
-export type AsyncSanityData<Data, Error> = _AsyncSanityData<Data, Error> &
-  Promise<_AsyncSanityData<Data, Error>>
+export type AsyncSanityData<Data, Error> = _AsyncSanityData<Data, Error>
+  & Promise<_AsyncSanityData<Data, Error>>
 
 /**
  * Utility type for a no-op function
@@ -54,13 +54,13 @@ export type Noop = () => void
  * The environment in which the app is being previewed
  * @public
  */
-export type PreviewEnvironment =
-  | 'checking'
-  | 'presentation-iframe'
-  | 'presentation-window'
-  | 'live'
-  | 'static'
-  | 'unknown'
+export type PreviewEnvironment
+  = | 'checking'
+    | 'presentation-iframe'
+    | 'presentation-window'
+    | 'live'
+    | 'static'
+    | 'unknown'
 
 /**
  * The global sanity helper object
@@ -193,37 +193,43 @@ export type SanityPublicRuntimeConfig = {
       zIndex: SanityVisualEditingZIndex | ''
     }
   withCredentials: boolean
+  /**
+   * Whether `@nuxt/image` is used to render images.
+   * @private
+   * @default false
+   */
+  isNuxtImageEnabled?: boolean
 }
 
 /**
  * Module resolved runtime configuration
  * @public
  */
-export type SanityResolvedConfig =
-  Omit<SanityPublicRuntimeConfig, 'liveContent' | 'visualEditing'>
-  & {
-    liveContent:
-      | null
-      | {
-        browserToken: string
-        serverToken: string | undefined // Private, undefined on public
-      }
-    visualEditing:
-      | null
-      | {
-        mode: SanityVisualEditingMode
-        previewMode:
-          | boolean
-          | {
-            enable?: string
-            disable?: string
-          }
-        previewModeId: string | undefined // Private, undefined on public
-        proxyEndpoint: string
-        studioUrl: string
-        token: string | undefined // Private, undefined on public
-        zIndex: SanityVisualEditingZIndex | null
-      }
-  }
+export type SanityResolvedConfig
+  = Omit<SanityPublicRuntimeConfig, 'liveContent' | 'visualEditing'>
+    & {
+      liveContent:
+        | null
+        | {
+          browserToken: string
+          serverToken: string | undefined // Private, undefined on public
+        }
+      visualEditing:
+        | null
+        | {
+          mode: SanityVisualEditingMode
+          previewMode:
+            | boolean
+            | {
+              enable?: string
+              disable?: string
+            }
+          previewModeId: string | undefined // Private, undefined on public
+          proxyEndpoint: string
+          studioUrl: string
+          token: string | undefined // Private, undefined on public
+          zIndex: SanityVisualEditingZIndex | null
+        }
+    }
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
