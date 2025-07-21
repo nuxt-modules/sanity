@@ -4,6 +4,9 @@ export default defineNuxtConfig({
   site: {
     name: 'Nuxt Sanity',
   },
+  routeRules: {
+    '/getting-started/quick-start': { redirect: '/getting-started/installation' },
+  },
   nitro: {
     static: true,
   },
