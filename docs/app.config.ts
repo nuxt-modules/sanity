@@ -1,4 +1,7 @@
 export default defineAppConfig({
+  socials: {
+    bluesky: 'https://bsky.app/profile/danielroe.dev',
+  },
   header: {
     title: 'Nuxt Sanity',
   },
