@@ -1,4 +1,9 @@
 packages:
-  - "docs"
-  - "playground/cms"
-  - "playground"
+  - docs
+  - playground/cms
+  - playground
+
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - better-sqlite3
+  - sharp
