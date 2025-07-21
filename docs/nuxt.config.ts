@@ -5,11 +5,10 @@ export default defineNuxtConfig({
     domain: 'sanity.nuxtjs.org',
   },
   scripts: {
-    registry:
-      {
-        plausibleAnalytics: {
-          domain: 'sanity.nuxtjs.org',
-        },
+    registry: {
+      plausibleAnalytics: {
+        domain: 'sanity.nuxtjs.org',
       },
+    },
   },
 })
