@@ -9,6 +9,11 @@ overrides:
   '@nuxtjs/sanity': link:.
   nuxt-component-meta: 0.12.1
 
+patchedDependencies:
+  '@nuxt/ui-pro':
+    hash: 418e4fbb1caa809b13af2fd292b745526588099abb336de340983efd50036e0d
+    path: patches/@nuxt__ui-pro.patch
+
 importers:
 
   .:
@@ -30,10 +35,10 @@ importers:
         version: 1.8.12(@sanity/types@4.0.1(@types/react@18.3.23))(typescript@5.8.3)
       '@sanity/presentation-comlink':
         specifier: ^1.0.21
-        version: 1.0.23(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+        version: 1.0.23(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
       '@sanity/preview-url-secret':
         specifier: ^2.1.11
-        version: 2.1.12(@sanity/client@7.8.0(debug@4.4.1))
+        version: 2.1.12(@sanity/client@7.8.0)
       '@sanity/visual-editing':
         specifier: ^2.15.0
         version: 2.15.2(@emotion/is-prop-valid@1.2.2)(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(typescript@5.8.3)
@@ -134,6 +139,9 @@ importers:
       '@nuxt/scripts':
         specifier: 0.11.10
         version: 0.11.10(@unhead/vue@2.0.12(vue@3.5.17(typescript@5.8.3)))(db0@0.3.2(better-sqlite3@11.10.0))(ioredis@5.6.1)(magicast@0.3.5)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
+      '@nuxtjs/mdc':
+        specifier: ^0.17.2
+        version: 0.17.2(magicast@0.3.5)
       '@unhead/vue':
         specifier: ^2.0.12
         version: 2.0.12(vue@3.5.17(typescript@5.8.3))
@@ -146,6 +154,9 @@ importers:
       nuxt:
         specifier: ^3.17.7
         version: 3.17.7(@parcel/watcher@2.5.0)(@types/node@22.10.6)(@vue/compiler-sfc@3.5.17)(better-sqlite3@11.10.0)(db0@0.3.2(better-sqlite3@11.10.0))(eslint@9.31.0(jiti@2.4.2))(ioredis@5.6.1)(lightningcss@1.30.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.0)(terser@5.37.0)(typescript@5.8.3)(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.37.0)(yaml@2.8.0))(vue-tsc@3.0.3(typescript@5.8.3))(yaml@2.8.0)
+      unist-util-visit:
+        specifier: ^5.0.0
+        version: 5.0.0
 
   playground:
     dependencies:
@@ -172,7 +183,7 @@ importers:
     dependencies:
       '@sanity/preview-url-secret':
         specifier: ^2.1.11
-        version: 2.1.12(@sanity/client@7.8.0(debug@4.4.1))
+        version: 2.1.12(@sanity/client@7.8.0)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -1936,8 +1947,8 @@ packages:
   '@nuxtjs/mdc@0.17.0':
     resolution: {integrity: sha512-5HFJ2Xatl4oSfEZuYRJhzYhVHNvb31xc9Tu/qfXpRIWeQsQphqjaV3wWB5VStZYEHpTw1i6Hzyz/ojQZVl4qPg==}
 
-  '@nuxtjs/mdc@0.17.1':
-    resolution: {integrity: sha512-ge8sfDEDc+FS7RyXO2xQhaNhnEeRvkusUYJh09QYYgQqEx6o20jbPQKhcxrWQMR+gzVlPMSc/6HdIA07Ongyew==}
+  '@nuxtjs/mdc@0.17.2':
+    resolution: {integrity: sha512-O0mhPrB3uAuoxIfJaSwvxIMKCQoLGLE9x7oOSa09FEQjDbFVMkaeSBxx8n0EaLQi+JMi9xoYxfQhwBFyAB5Mzw==}
 
   '@nuxtjs/robots@5.4.0':
     resolution: {integrity: sha512-E+bzaVsRQRgyN1RjhUexaqVZDV3MLKHff2e3WYHPiXrUNnOQ/RverO3D0yrP7fH5HqOBG0nBV6X3gD/q3+kUEA==}
@@ -7255,6 +7266,9 @@ packages:
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
 
+  parse5@8.0.0:
+    resolution: {integrity: sha512-9m4m5GSgXjL4AjumKzq1Fgfp3Z8rsvjRNbnkVwfu2ImRqE5D0LnY2QfDen18FSY9C573YU5XxSapdHZTZ2WolA==}
+
   parseurl@1.3.3:
     resolution: {integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==}
     engines: {node: '>= 0.8'}
@@ -11928,7 +11942,7 @@ snapshots:
       - magicast
       - typescript
 
-  '@nuxt/ui-pro@3.2.0(@babel/parser@7.28.0)(@emotion/is-prop-valid@1.2.2)(change-case@5.4.4)(db0@0.3.2(better-sqlite3@11.10.0))(embla-carousel@8.6.0)(focus-trap@7.6.4)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)(valibot@1.1.0(typescript@5.8.3))(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.37.0)(yaml@2.8.0))(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))(zod@3.25.76)':
+  '@nuxt/ui-pro@3.2.0(patch_hash=418e4fbb1caa809b13af2fd292b745526588099abb336de340983efd50036e0d)(@babel/parser@7.28.0)(@emotion/is-prop-valid@1.2.2)(change-case@5.4.4)(db0@0.3.2(better-sqlite3@11.10.0))(embla-carousel@8.6.0)(focus-trap@7.6.4)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)(valibot@1.1.0(typescript@5.8.3))(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.37.0)(yaml@2.8.0))(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))(zod@3.25.76)':
     dependencies:
       '@ai-sdk/vue': 1.2.12(vue@3.5.17(typescript@5.8.3))(zod@3.25.76)
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
@@ -12201,7 +12215,7 @@ snapshots:
       - magicast
       - supports-color
 
-  '@nuxtjs/mdc@0.17.1(magicast@0.3.5)':
+  '@nuxtjs/mdc@0.17.2(magicast@0.3.5)':
     dependencies:
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
       '@shikijs/langs': 3.8.0
@@ -12221,7 +12235,7 @@ snapshots:
       hast-util-to-string: 3.0.1
       mdast-util-to-hast: 13.2.0
       micromark-util-sanitize-uri: 2.0.1
-      parse5: 7.3.0
+      parse5: 8.0.0
       pathe: 2.0.3
       property-information: 7.1.0
       rehype-external-links: 3.0.0
@@ -12840,7 +12854,7 @@ snapshots:
     dependencies:
       '@sanity/client': 7.8.0(debug@4.4.1)
       '@sanity/comlink': 3.0.7
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
       '@sanity/visual-editing-csm': 2.0.19(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23))(typescript@5.8.3)
     transitivePeerDependencies:
       - '@sanity/types'
@@ -13027,15 +13041,15 @@ snapshots:
       - '@types/react'
       - supports-color
 
-  '@sanity/presentation-comlink@1.0.23(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))':
+  '@sanity/presentation-comlink@1.0.23(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))':
     dependencies:
       '@sanity/client': 7.8.0(debug@4.4.1)
       '@sanity/comlink': 3.0.7
-      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
     transitivePeerDependencies:
       - '@sanity/types'
 
-  '@sanity/preview-url-secret@2.1.12(@sanity/client@7.8.0(debug@4.4.1))':
+  '@sanity/preview-url-secret@2.1.12(@sanity/client@7.8.0)':
     dependencies:
       '@sanity/client': 7.8.0(debug@4.4.1)
       '@sanity/uuid': 3.0.2
@@ -13244,13 +13258,13 @@ snapshots:
   '@sanity/visual-editing-csm@2.0.19(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23))(typescript@5.8.3)':
     dependencies:
       '@sanity/client': 7.8.0(debug@4.4.1)
-      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/visual-editing-types': 1.1.1(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
       valibot: 1.1.0(typescript@5.8.3)
     transitivePeerDependencies:
       - '@sanity/types'
       - typescript
 
-  '@sanity/visual-editing-types@1.1.1(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))':
+  '@sanity/visual-editing-types@1.1.1(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))':
     dependencies:
       '@sanity/client': 7.8.0(debug@4.4.1)
     optionalDependencies:
@@ -13262,8 +13276,8 @@ snapshots:
       '@sanity/icons': 3.7.4(react@18.3.1)
       '@sanity/insert-menu': 1.1.12(@emotion/is-prop-valid@1.2.2)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/mutate': 0.11.0-canary.4(xstate@5.20.1)
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
-      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.8.0(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.8.0)
       '@sanity/ui': 2.16.7(@emotion/is-prop-valid@1.2.2)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1)(styled-components@6.1.19(react-dom@18.3.1(react@18.3.1))(react@18.3.1))
       '@sanity/visual-editing-csm': 2.0.19(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23))(typescript@5.8.3)
       '@vercel/stega': 0.1.2
@@ -15299,8 +15313,8 @@ snapshots:
       '@nuxt/content': 3.6.3(better-sqlite3@11.10.0)(magicast@0.3.5)(vue-component-type-helpers@2.2.10)
       '@nuxt/image': 1.10.0(db0@0.3.2(better-sqlite3@11.10.0))(ioredis@5.6.1)(magicast@0.3.5)
       '@nuxt/kit': 3.17.7(magicast@0.3.5)
-      '@nuxt/ui-pro': 3.2.0(@babel/parser@7.28.0)(@emotion/is-prop-valid@1.2.2)(change-case@5.4.4)(db0@0.3.2(better-sqlite3@11.10.0))(embla-carousel@8.6.0)(focus-trap@7.6.4)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)(valibot@1.1.0(typescript@5.8.3))(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.37.0)(yaml@2.8.0))(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))(zod@3.25.76)
-      '@nuxtjs/mdc': 0.17.1(magicast@0.3.5)
+      '@nuxt/ui-pro': 3.2.0(patch_hash=418e4fbb1caa809b13af2fd292b745526588099abb336de340983efd50036e0d)(@babel/parser@7.28.0)(@emotion/is-prop-valid@1.2.2)(change-case@5.4.4)(db0@0.3.2(better-sqlite3@11.10.0))(embla-carousel@8.6.0)(focus-trap@7.6.4)(ioredis@5.6.1)(jwt-decode@4.0.0)(magicast@0.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.8.3)(valibot@1.1.0(typescript@5.8.3))(vite@6.3.5(@types/node@22.10.6)(jiti@2.4.2)(lightningcss@1.30.1)(terser@5.37.0)(yaml@2.8.0))(vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)))(vue@3.5.17(typescript@5.8.3))(zod@3.25.76)
+      '@nuxtjs/mdc': 0.17.2(magicast@0.3.5)
       '@nuxtjs/robots': 5.4.0(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3))
       better-sqlite3: 11.10.0
       c12: 3.1.0(magicast@0.3.5)
@@ -18663,6 +18677,10 @@ snapshots:
     dependencies:
       entities: 6.0.1
 
+  parse5@8.0.0:
+    dependencies:
+      entities: 6.0.1
+
   parseurl@1.3.3: {}
 
   path-browserify@1.0.1: {}
@@ -19629,8 +19647,8 @@ snapshots:
       '@sanity/message-protocol': 0.13.3
       '@sanity/migrate': 4.0.1(@types/react@18.3.23)
       '@sanity/mutator': 4.0.1(@types/react@18.3.23)
-      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0(debug@4.4.1))(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
-      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.8.0(debug@4.4.1))
+      '@sanity/presentation-comlink': 1.0.23(@sanity/client@7.8.0)(@sanity/types@4.0.1(@types/react@18.3.23)(debug@4.4.1))
+      '@sanity/preview-url-secret': 2.1.12(@sanity/client@7.8.0)
       '@sanity/schema': 4.0.1(@types/react@18.3.23)(debug@4.4.1)
       '@sanity/sdk': 2.1.0(@types/react@18.3.23)(debug@4.4.1)(immer@10.1.1)(react@18.3.1)(use-sync-external-store@1.5.0(react@18.3.1))
       '@sanity/telemetry': 0.8.1(react@18.3.1)
