@@ -25,4 +25,7 @@ export default createConfigForNuxt({
       'vue/multi-word-component-names': 'off',
     },
   },
+  {
+    ignores: ['**/.sanity/**'],
+  },
 )
