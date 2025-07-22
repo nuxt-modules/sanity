@@ -1,11 +1,23 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: '@nuxt-themes/docus',
-  modules: ['@nuxtjs/plausible'],
-  colorMode: {
-    preference: 'dark',
+  modules: ['@nuxt/scripts'],
+  site: {
+    name: 'Nuxt Sanity',
   },
-  compatibilityDate: '2024-08-19',
-  plausible: {
+  routeRules: {
+    '/getting-started/quick-start': { redirect: '/getting-started/installation' },
+  },
+  nitro: {
+    static: true,
+  },
+  llms: {
     domain: 'sanity.nuxtjs.org',
+  },
+  scripts: {
+    registry: {
+      plausibleAnalytics: {
+        domain: 'sanity.nuxtjs.org',
+      },
+    },
   },
 })
