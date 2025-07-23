@@ -9,6 +9,7 @@
 base = "docs"
 command = "pnpm install --frozen-lockfile --shamefully-hoist && pnpm -w dev:prepare && pnpm generate"
 publish = "dist"
+ignore = "git diff --quiet $CACHED_COMMIT_REF $COMMIT_REF docs pnpm-lock.yaml"
 
 [build.environment]
 NPM_FLAGS="--version"

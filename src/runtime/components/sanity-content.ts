@@ -150,7 +150,7 @@ function walkList(blocks: Array<Block>, block: Block) {
     return blocks
   }
 
-  const lastBlock = blocks[blocks.length - 1] || {}
+  const lastBlock = blocks[blocks.length - 1] || {} as Partial<Block>
 
   // Start a new list
   if (lastBlock._type !== 'list' || !lastBlock.children || (block.level === 1 && block.listItem !== lastBlock.listItem)) {
