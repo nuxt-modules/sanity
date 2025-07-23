@@ -1,5 +1,6 @@
 import { computed, defineComponent, h } from 'vue'
-import { useSanity, isVue2 } from '#imports'
+import { useSanity } from '../composables'
+import ImageComponent from '#build/sanity-image-component.mjs'
 
 const baseURL = 'https://cdn.sanity.io/images'
 
@@ -190,8 +191,36 @@ export default defineComponent({
       return [baseURL, projectId, dataset, filename].join('/')
     })
 
-    return () => slots.default?.({ src: src.value }) || h('img', isVue2
-      ? { attrs: { ...attrs, src: src.value } }
-      : { ...attrs, src: src.value })
+    const nuxtImgOptions = computed(() => {
+      const { w, h, ...rest } = props
+      const result: Record<string, unknown> = rest
+
+      if (w) {
+        result.width = w
+      }
+      if (h) {
+        result.height = h
+      }
+
+      return result
+    })
+
+    return () => {
+      // If NuxtImg component is available, use it with Sanity provider
+      if (typeof ImageComponent !== 'string') {
+        return h(ImageComponent, {
+          provider: 'sanity',
+          ...attrs,
+          ...nuxtImgOptions.value,
+          src: props.assetId,
+        })
+      }
+
+      // Fallback to regular img or slot
+      return slots.default?.({ src: src.value }) || h('img', {
+        ...attrs,
+        src: src.value,
+      })
+    }
   },
 })
