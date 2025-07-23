@@ -1,16 +1,6 @@
-import { computed, defineComponent, h, defineAsyncComponent } from 'vue'
-import type { Component } from 'vue'
-import { useSanity, isVue2 } from '#imports'
-import type { SanityResolvedConfig } from '../types'
-
-const NuxtImg = defineAsyncComponent<Component>(() =>
-  import('#components')
-    .then(c => (c as { NuxtImg: Component }).NuxtImg)
-    .catch(() => {
-      // Silently fail if #components or NuxtImg isn't available.
-      return null as unknown as Component
-    }),
-)
+import { computed, defineComponent, h } from 'vue'
+import { useSanity } from '../composables'
+import ImageComponent from '#build/sanity-image-component.mjs'
 
 const baseURL = 'https://cdn.sanity.io/images'
 
@@ -215,15 +205,22 @@ export default defineComponent({
       return result
     })
 
-    if ((sanity.config as SanityResolvedConfig).isNuxtImageEnabled) {
-      return () => h(NuxtImg, {
+    return () => {
+      // If NuxtImg component is available, use it with Sanity provider
+      if (typeof ImageComponent !== 'string') {
+        return h(ImageComponent, {
+          provider: 'sanity',
+          ...attrs,
+          ...nuxtImgOptions.value,
+          src: props.assetId,
+        })
+      }
+
+      // Fallback to regular img or slot
+      return slots.default?.({ src: src.value }) || h('img', {
         ...attrs,
-        ...nuxtImgOptions.value,
-        src: props.assetId,
+        src: src.value,
       })
     }
-    return () => slots.default?.({ src: src.value }) || h('img', isVue2
-      ? { attrs: { ...attrs, src: src.value } }
-      : { ...attrs, src: src.value })
   },
 })
