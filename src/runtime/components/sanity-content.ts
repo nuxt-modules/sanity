@@ -3,6 +3,8 @@ import type {
   PortableTextBlock,
   TypedObject,
 } from '@portabletext/types'
+import { PortableText } from '@portabletext/vue'
+import type { ListNestMode, MissingComponentHandler, PortableTextComponents } from '@portabletext/vue'
 
 export default defineComponent({
   name: 'SanityContent',
