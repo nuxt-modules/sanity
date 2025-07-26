@@ -9,19 +9,8 @@
     </h2>
     <p>This example uses the <a href="https://github.com/portabletext/vue-portabletext">vue-portabletext</a> library for rendering content.</p>
     <SanityContent
-      :blocks="blocks"
-      :serializers="serializers"
-      use-portable-text-vue
-    />
-    <hr>
-
-    <h2 class="text-xl font-semibold">
-      SanityContent (Default)
-    </h2>
-    <p>This example uses the @nuxtjs/sanity rendering method.</p>
-    <SanityContent
-      :blocks="blocks"
-      :serializers="serializers"
+      :value
+      :components
     />
   </div>
 </template>
@@ -29,27 +18,37 @@
 <script setup>
 import { defineComponent, defineAsyncComponent, resolveComponent, h } from 'vue'
 
-const serializers = {
+const components = {
   types: {
     // This registered by `@nuxt/components`
-    lazyRegisteredComponent: resolveComponent('LazyCustomSerializer'),
+    lazyRegisteredComponent: props => h(resolveComponent('LazyCustomSerializer'), {
+      ...props.value,
+    }),
     // An example of an inline component/directly imported component
-    importedComponent: defineComponent({
+    importedComponent: props => h(defineComponent({
       props: { someProp: String },
-      render: props => h('p', 'An inline/imported custom component: ' + props.someProp),
+      render(componentProps) {
+        return h('p', 'An inline/imported custom component: ' + componentProps.someProp)
+      },
+    }), {
+      ...props.value,
     }),
     // Example of an async component
-    dynamicComponent: defineAsyncComponent({
+    dynamicComponent: props => h(defineAsyncComponent({
       loadingComponent: () => 'Loading...',
       loader: () => Promise.resolve(defineComponent({
         props: { someProp: String },
-        render: props => h('p', 'An dynamically imported custom component: ' + props.someProp),
+        render(componentProps) {
+          return h('p', 'An dynamically imported custom component: ' + componentProps.someProp)
+        },
       })),
+    }), {
+      ...props.value,
     }),
   },
 }
 
-const blocks = [
+const value = [
   {
     _type: 'lazyRegisteredComponent',
     someProp: 'some value',
