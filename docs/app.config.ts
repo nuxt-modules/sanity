@@ -1,34 +1,20 @@
 export default defineAppConfig({
-  docus: {
+  socials: {
+    bluesky: 'https://bsky.app/profile/danielroe.dev',
+  },
+  header: {
     title: 'Nuxt Sanity',
-    layout: 'docs',
-    url: 'https://sanity.nuxtjs.org/',
+  },
+  seo: {
+    title: 'Nuxt Sanity',
     description: 'Access text, images, and other media with Nuxt and the Sanity headless CMS.',
-    socials: { twitter: 'nuxt_js', github: 'nuxt-modules/sanity' },
-    debug: false,
-    // github: { root: 'docs/content', edit: true, releases: true },
-    cover: { src: '/cover.jpg', alt: 'A screenshot of the Nuxt Sanity module.' },
-    header: { title: false, logo: true },
-    footer: {
-      credits: [
-        {
-          icon: 'IconDocus',
-          text: 'Powered by Docus',
-          href: 'https://docus.com',
-        },
-      ],
-      icons: [
-        {
-          label: 'Nuxt',
-          href: 'https://nuxtjs.org',
-          component: 'IconNuxt',
-        },
-        {
-          label: 'Vue Telescope',
-          href: 'https://vuetelescope.com',
-          component: 'IconVueTelescope',
-        },
-      ],
+    image: '/social-card.png',
+    siteName: 'Nuxt Sanity',
+    favicon: '/favicon.ico',
+  },
+  ui: {
+    colors: {
+      primary: 'red',
     },
   },
 })

@@ -30,7 +30,7 @@ export function useSanity(client?: string): SanityHelper
 export function useSanity(_event?: H3Event | string, _client?: string): SanityHelper {
   const client = (typeof _event === 'string' ? _event : _client) || 'default'
   if (client in clients) {
-    return clients[client]
+    return clients[client]!
   }
 
   const $config = useRuntimeConfig(typeof _event === 'string' ? undefined : _event)
