@@ -121,6 +121,8 @@ export default defineNuxtModule<SanityModuleOptions>({
     configKey: CONFIG_KEY,
     compatibility: {
       nuxt: '>=3.7.0',
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore TODO: remove when we update to v4
       bridge: true,
     },
   },
