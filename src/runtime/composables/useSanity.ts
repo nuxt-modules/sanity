@@ -1,7 +1,9 @@
 import defu from 'defu'
 import type { H3Event } from 'h3'
+import { createSanityClient, useNuxtApp } from '#imports'
 import type { ClientConfig } from '../client'
 import type { SanityHelper } from '../types'
+import { useSanityConfig } from './useSanityConfig'
 import { createLiveStore } from '../util/createLiveStore'
 import { createQueryStore } from '../util/createQueryStore'
 

@@ -1,5 +1,6 @@
 import type { UnfilteredResponseQueryOptions } from '@sanity/client'
 import type { ContentSourceMap, QueryParams, SanityClient } from '../client'
+import { useSanityConfig } from '../composables'
 
 /**
  * Proxy client for forwarding queries that require authentication to the

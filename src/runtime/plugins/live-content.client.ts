@@ -1,5 +1,8 @@
 import { createCompatibilityActors, isMaybePresentation, isMaybePreviewWindow, type LoaderControllerMsg, type LoaderNodeMsg } from '@sanity/presentation-comlink'
 import { createNode, createNodeMachine } from '@sanity/comlink'
+import { onScopeDispose, watch } from 'vue'
+import { defineNuxtPlugin, refreshNuxtData } from '#imports'
+import { useSanityConfig, useSanityVisualEditingState, useSanity, useIsSanityPresentationTool, useSanityPreviewEnvironment, useSanityPerspective } from '../composables'
 
 export default defineNuxtPlugin(() => {
   const { liveContent, visualEditing } = useSanityConfig()

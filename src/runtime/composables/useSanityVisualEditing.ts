@@ -1,5 +1,8 @@
 import { enableVisualEditing } from '@sanity/visual-editing'
 import type { VisualEditingProps } from '../types'
+import { onScopeDispose } from 'vue'
+import { useRouter, reloadNuxtApp } from '#imports'
+import { useSanityConfig } from './useSanityConfig'
 
 export function useSanityVisualEditing(options: VisualEditingProps = {}) {
   const config = useSanityConfig()
