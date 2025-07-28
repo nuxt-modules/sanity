@@ -1,4 +1,5 @@
 import type { PreviewEnvironment } from '../types'
+import { useState } from '#imports'
 
 /**
  * Reports the current preview mode environment.
