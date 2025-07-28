@@ -1,3 +1,4 @@
+import { computed } from 'vue'
 import { useSanityPreviewEnvironment } from './useSanityPreviewEnvironment'
 
 /**

@@ -1,5 +1,6 @@
 import type { QueryStore, QueryStoreState } from '@sanity/core-loader'
 import type { ContentSourceMap, QueryParams } from '../../client'
+import { watch } from 'vue'
 
 /**
  * Internal composable used to setup update streaming from Presentation tool

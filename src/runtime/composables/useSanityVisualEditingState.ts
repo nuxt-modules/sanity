@@ -1,3 +1,5 @@
+import { computed, reactive } from 'vue'
+import { useState } from '#imports'
 import { useSanityConfig } from './useSanityConfig'
 
 export const useSanityVisualEditingState = () => {

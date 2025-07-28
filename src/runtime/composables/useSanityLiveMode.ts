@@ -1,4 +1,6 @@
+import { onScopeDispose } from 'vue'
 import { useSanity } from './useSanity'
+import { useSanityConfig } from './useSanityConfig'
 
 export function useSanityLiveMode(options?: { client?: string }) {
   const config = useSanityConfig()
