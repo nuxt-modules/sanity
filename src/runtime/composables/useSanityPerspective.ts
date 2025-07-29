@@ -1,5 +1,9 @@
-import { validateApiPerspective, type ClientPerspective } from '@sanity/client'
+import { validateApiPerspective } from '@sanity/client'
+import type { ClientPerspective } from '@sanity/client'
 import { perspectiveCookieName } from '@sanity/preview-url-secret/constants'
+import { computed } from 'vue'
+import { useCookie } from '#imports'
+import { useSanityVisualEditingState } from './useSanityVisualEditingState'
 
 const sanitizePerspective = (
   _perspective: unknown,

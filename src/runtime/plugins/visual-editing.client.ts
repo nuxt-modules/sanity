@@ -1,3 +1,6 @@
+import { defineNuxtPlugin, sanityVisualEditingRefresh } from '#imports'
+import { useSanityConfig, useSanityVisualEditingState, useSanityVisualEditing, useSanityLiveMode } from '../composables'
+
 export default defineNuxtPlugin(async () => {
   const { visualEditing } = useSanityConfig()
 

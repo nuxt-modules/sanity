@@ -148,14 +148,14 @@ export type SanityVisualEditingRefreshHandler = (
 
 export type SanityRuntimeConfig = {
   liveContent?:
-    | {
-      serverToken: string
-    }
+  | {
+    serverToken: string
+  }
   visualEditing?:
-    | {
-      previewModeId: string
-      token: string
-    }
+  | {
+    previewModeId: string
+    token: string
+  }
 }
 
 /**
@@ -168,30 +168,30 @@ export type SanityPublicRuntimeConfig = {
   dataset: string
   disableSmartCdn: boolean
   liveContent?:
-    | {
-      browserToken: string | ''
-      serverToken: ''
-    }
+  | {
+    browserToken: string | ''
+    serverToken: ''
+  }
   perspective: ClientPerspective
   projectId: string
   stega: StegaConfig
   token: string
   useCdn: boolean
   visualEditing?:
-    | {
-      mode: SanityVisualEditingMode
-      previewMode:
-        | false
-        | {
-          enable?: string
-          disable?: string
-        }
-      previewModeId: ''
-      proxyEndpoint: string
-      studioUrl: string
-      token: ''
-      zIndex: SanityVisualEditingZIndex | ''
-    }
+  | {
+    mode: SanityVisualEditingMode
+    previewMode:
+      | false
+      | {
+        enable?: string
+        disable?: string
+      }
+    previewModeId: ''
+    proxyEndpoint: string
+    studioUrl: string
+    token: ''
+    zIndex: SanityVisualEditingZIndex | ''
+  }
   withCredentials: boolean
   /**
    * Whether `@nuxt/image` is used to render images.

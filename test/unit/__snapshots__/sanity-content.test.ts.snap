@@ -1,76 +1,84 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`SanityContent > should render adjacentLists blocks 1`] = `
-"<ul>
-  <li>item</li>
-  <li>item</li>
-  <li>item</li>
+exports[`SanityContent > should render text blocks with marks 1`] = `"<p>Regular text and <strong>bold text</strong><em> and italic text</em></p>"`;
+
+exports[`SanityContent > should render with PortableText 1`] = `""`;
+
+exports[`SanityContent > should render with no props 1`] = `""`;
+
+exports[`SanityContent with PortableText > should handle nested blocks correctly 1`] = `
+"<div class="nested-block" _type="nestedBlock" _key="nested1">
+  <h3>Nested Block Title</h3>
+  <p>Nested block content goes here</p>
+  <ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+    <li>Item 3</li>
+  </ul>
+</div>"
+`;
+
+exports[`SanityContent with PortableText > should pass custom props to components correctly 1`] = `"<div class="custom-component" _type="customBlock" _key="test123">Props: test value, 42</div>"`;
+
+exports[`SanityContent with PortableText > should render custom list components correctly > custom-list-components 1`] = `
+"<ul class="mt-xl custom-bullet-list">
+  <li>First bullet item</li>
+  <li>Second bullet item</li>
 </ul>
-<ol>
-  <li>item</li>
-  <li>item</li>
-  <li>item</li>
+<ol class="mt-lg custom-number-list">
+  <li>First numbered item</li>
+  <li>Second numbered item</li>
+</ol>
+<ol class="m-auto text-lg custom-checkmarks-list">
+  <li>First checkmark item</li>
+  <li>Second checkmark item</li>
 </ol>"
 `;
 
-exports[`SanityContent > should render blockquote blocks 1`] = `"<blockquote>Build your next Vue.js application with confidence using <a href="https://nuxtjs.org">NuxtJS</a>. An open source framework making web development simple and powerful.</blockquote>"`;
-
-exports[`SanityContent > should render customBlockTypes blocks 1`] = `"<p>An example of <i>custom</i> block types.</p>"`;
-
-exports[`SanityContent > should render customComponent blocks 1`] = `
-"<div>propValuetext content</div>
-<div>propValuetext content</div>"
+exports[`SanityContent with PortableText > should render custom listItem components correctly > custom-list-item-components 1`] = `
+"<ul>
+  <li style="list-style-type: disclosure-closed;" class="custom-bullet-item">First bullet item</li>
+  <li style="list-style-type: disclosure-closed;" class="custom-bullet-item">Second bullet item</li>
+</ul>
+<ul>
+  <li class="custom-checkmark-item"><span class="checkmark">✅</span>First checkmark item</li>
+  <li class="custom-checkmark-item"><span class="checkmark">✅</span>Second checkmark item</li>
+</ul>"
 `;
 
-exports[`SanityContent > should render evenMoreNestedList blocks 1`] = `
+exports[`SanityContent with PortableText > should render deeply nested lists with proper structure > deeply-nested-list-structure 1`] = `
 "<ol>
-  <li>1. Top level</li>
-  <li>
-    <ol>
-      <li>a. Second level</li>
-      <li>
-        <ol>
+  <li>1. Top level<ol>
+      <li>a. Second level<ol>
           <li>i. Third level</li>
         </ol>
       </li>
       <li>b. Second level</li>
     </ol>
   </li>
-  <li>2. Top level</li>
-  <li>
-    <ol>
+  <li>2. Top level<ol>
       <li>a. Second level</li>
     </ol>
   </li>
 </ol>"
 `;
 
-exports[`SanityContent > should render exampleMarkDefs blocks 1`] = `
-"<ul>
-  <li><strong>Google Analytics</strong>: The Sites use Google Analytics. Further information is available at <a href="https://tools.google.com/dlpage/gaoptout/">https://tools.google.com/dlpage/gaoptout/</a>.</li>
+exports[`SanityContent with PortableText > should render link marks with href correctly 1`] = `"<p>Visit <a href="https://example.com">our website</a> for more info.</p>"`;
+
+exports[`SanityContent with PortableText > should render mixed content blocks consistently > portable-text-rendering 1`] = `
+"<div class="custom-content" _type="customBlock" _key="custom1">Custom block content</div>
+<h2><strong>Styled heading with marks</strong></h2>
+<ul>
+  <li>List item 1</li>
+  <li><em>List item 2 with emphasis</em></li>
 </ul>"
 `;
 
-exports[`SanityContent > should render heading blocks 1`] = `"<h3>3. Providing your personal data to others</h3>"`;
-
-exports[`SanityContent > should render link blocks 1`] = `"<a href="http://test.com/"></a>"`;
-
-exports[`SanityContent > should render list blocks 1`] = `
-"<ol>
-  <li>test</li>
-  <li>thing</li>
-</ol>"
-`;
-
-exports[`SanityContent > should render multipleDecorators blocks 1`] = `"<p>with <strong><em>bold and italic</em></strong> decorators</p>"`;
-
-exports[`SanityContent > should render nestedList blocks 1`] = `
+exports[`SanityContent with PortableText > should render nested lists with proper HTML structure > nested-list-structure 1`] = `
 "<h3>3. Providing your personal data to others</h3>
 <ol>
   <li>test</li>
-  <li>thing</li>
-  <li>
-    <ul>
+  <li>thing<ul>
       <li>nested</li>
       <li>list</li>
     </ul>
@@ -78,12 +86,28 @@ exports[`SanityContent > should render nestedList blocks 1`] = `
 </ol>"
 `;
 
-exports[`SanityContent > should render strong blocks 1`] = `"<p>An example of <strong>bold</strong> text and <strong>another</strong>.</p>"`;
-
-exports[`SanityContent > should render textWithProps blocks 1`] = `
-"<div>hello worldI’m a heading!</div>
-<blockquote class="blockquote">Build your next Vue.js application with confidence using <a href="https://nuxtjs.org">NuxtJS</a>. An open source framework making web development simple and powerful.</blockquote>
-<h1>What we do</h1>"
+exports[`SanityContent with PortableText > should use a single list component for all list types when provided > generic-list-component 1`] = `
+"<ul class="mt-xl">
+  <li>First bullet item</li>
+  <li>Second bullet item</li>
+</ul>
+<ol class="mt-lg">
+  <li>First numbered item</li>
+  <li>Second numbered item</li>
+</ol>
+<ol class="m-auto text-lg">
+  <li>First checkmark item</li>
+  <li>Second checkmark item</li>
+</ol>"
 `;
 
-exports[`SanityContent > should render with no props 1`] = `""`;
+exports[`SanityContent with PortableText > should use a single listItem component for all list item types when provided > generic-list-item-component 1`] = `
+"<ul>
+  <li style="list-style-type: disclosure-closed;">First bullet item</li>
+  <li style="list-style-type: disclosure-closed;">Second bullet item</li>
+</ul>
+<ul>
+  <li>✅First checkmark item</li>
+  <li>✅Second checkmark item</li>
+</ul>"
+`;

@@ -1,4 +1,7 @@
 import type { ClientPerspective } from '@sanity/client'
+import { computed } from 'vue'
+import { useSanityVisualEditingState } from './useSanityVisualEditingState'
+import { useSanityPerspective } from './useSanityPerspective'
 
 export type PreviewPerspective = 'checking' | 'unknown' | ClientPerspective
 
