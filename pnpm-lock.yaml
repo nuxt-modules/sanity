@@ -24,6 +24,9 @@ importers:
       '@portabletext/types':
         specifier: ^2.0.13
         version: 2.0.13
+      '@portabletext/vue':
+        specifier: ^1.0.12
+        version: 1.0.12(vue@3.5.18(typescript@5.8.3))
       '@sanity/client':
         specifier: ^7.6.0
         version: 7.8.1(debug@4.4.1)
@@ -2628,6 +2631,11 @@ packages:
   '@portabletext/types@2.0.13':
     resolution: {integrity: sha512-5xk5MSyQU9CrDho3Rsguj38jhijhD36Mk8S6mZo3huv6PM+t4M/5kJN2KFIxgvt4ONpvOEs1pVIZAV0cL0Vi+Q==}
     engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
+
+  '@portabletext/vue@1.0.12':
+    resolution: {integrity: sha512-RUmdORBquYHpf5rkPgppZEqFYA/SOjR2udUIUcg+HfStc+r48CyaQGUy9Iq4cfFPu7VlVwH9F5Dfr2BT0T3Ayw==}
+    peerDependencies:
+      vue: ^3.3.4
 
   '@resvg/resvg-js-android-arm-eabi@2.6.2':
     resolution: {integrity: sha512-FrJibrAk6v29eabIPgcTUMPXiEz8ssrAk7TXxsiZzww9UTQ1Z5KAbFJs+Z0Ez+VZTYgnE5IQJqBcoSiMebtPHA==}
@@ -13621,6 +13629,12 @@ snapshots:
       '@portabletext/types': 2.0.13
 
   '@portabletext/types@2.0.13': {}
+
+  '@portabletext/vue@1.0.12(vue@3.5.18(typescript@5.8.3))':
+    dependencies:
+      '@portabletext/toolkit': 2.0.17
+      '@portabletext/types': 2.0.13
+      vue: 3.5.18(typescript@5.8.3)
 
   '@resvg/resvg-js-android-arm-eabi@2.6.2':
     optional: true

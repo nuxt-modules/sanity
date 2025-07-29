@@ -1,6 +1,7 @@
 import type { AsyncData } from 'nuxt/app'
 import { hash } from 'ohash'
-import { defineEncodeDataAttribute, type EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
+import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
+import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
 import { useAsyncData } from '#imports'
 import { reactive, ref, watch, type Ref } from 'vue'
 import type { ClientConfig, ContentSourceMap, QueryParams, QueryOptions, SanityClient } from '../client'
