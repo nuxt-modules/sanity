@@ -327,4 +327,231 @@ describe('SanityContent with PortableText', () => {
     expect(wrapper.html()).toContain('Item 3')
     expect(wrapper.html()).toMatchSnapshot()
   })
+
+  // Test for correct rendering of nested lists
+  it('should render nested lists with proper HTML structure', () => {
+    const { nestedList } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: nestedList,
+      },
+    })
+
+    const html = wrapper.html()
+
+    expect(html).toContain('<h3>3. Providing your personal data to others</h3>')
+    const olCount = (html.match(/<ol[^>]*>/g) || []).length
+    expect(olCount).toBe(1)
+    const ulCount = (html.match(/<ul[^>]*>/g) || []).length
+    expect(ulCount).toBe(1)
+
+    // The HTML should NOT have the structure where a li contains another li directly without a ul/ol in between
+    // This means we shouldn't have patterns like '</li><li><li>' which would indicate incorrect nesting
+    expect(html).not.toContain('</li><li><li>')
+
+    expect(html).toContain('test')
+    expect(html).toContain('thing')
+    expect(html).toContain('nested')
+    expect(html).toContain('list')
+
+    // Verify the correct nesting structure - a sublist should be inside its parent list item
+    // The nested bullet list should appear inside the "thing" list item (not after it as a sibling)
+    const nestedListPattern = html.includes('<li>thing<ul>')
+      || html.includes('<li>thing <ul>')
+    expect(nestedListPattern).toBe(true)
+
+    // Ensure the nested list structure is properly contained
+    // The order of closing tags should maintain proper hierarchy
+    const closingTagsRegex = /<\/li>\s*<\/ul>\s*<\/li>\s*<\/ol>/
+    expect(closingTagsRegex.test(html)).toBe(true)
+
+    expect(wrapper.html()).toMatchSnapshot('nested-list-structure')
+  })
+
+  // Test for correct rendering of deeply nested lists with multiple levels
+  it('should render deeply nested lists with proper structure', () => {
+    const { evenMoreNestedList } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: evenMoreNestedList,
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Should have ordered lists for the different levels
+    const olCount = (html.match(/<ol[^>]*>/g) || []).length
+    expect(olCount).toBe(4)
+
+    expect(html).toContain('1. Top level')
+    expect(html).toContain('a. Second level')
+    expect(html).toContain('i. Third level')
+    expect(html).toContain('b. Second level')
+    expect(html).toContain('2. Top level')
+    expect(html).toContain('a. Second level') // The second "a. Second level" after "2. Top level"
+
+    // Check nesting structure - the proper structure should show items in the correct order
+    // and with proper parent-child relationships
+
+    const level1BeforeLevel2 = html.indexOf('1. Top level') < html.indexOf('a. Second level')
+    expect(level1BeforeLevel2).toBe(true)
+
+    const level2BeforeLevel3 = html.indexOf('a. Second level') < html.indexOf('i. Third level')
+    expect(level2BeforeLevel3).toBe(true)
+
+    const level3BeforeSecondLevel2 = html.indexOf('i. Third level') < html.indexOf('b. Second level')
+    expect(level3BeforeSecondLevel2).toBe(true)
+
+    const secondLevel2BeforeSecondLevel1 = html.indexOf('b. Second level') < html.indexOf('2. Top level')
+    expect(secondLevel2BeforeSecondLevel1).toBe(true)
+
+    // Check for proper nesting with ordered lists
+    // The proper structure would close inner lists before closing outer list items
+    expect(html).toMatch(/<\/ol>(\s*)<\/li>/g)
+
+    expect(wrapper.html()).toMatchSnapshot('deeply-nested-list-structure')
+  })
+
+  // Test for custom list components
+  it('should render custom list components correctly', () => {
+    const { listBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listBlocks,
+        components: {
+          list: {
+            bullet: (_, { slots }) => h('ul', { class: 'mt-xl custom-bullet-list' }, slots.default?.()),
+            number: (_, { slots }) => h('ol', { class: 'mt-lg custom-number-list' }, slots.default?.()),
+            checkmarks: (_, { slots }) => h('ol', { class: 'm-auto text-lg custom-checkmarks-list' }, slots.default?.()),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+    console.log(html)
+
+    // Check that custom list classes are applied
+    expect(html).toContain('class="mt-xl custom-bullet-list"')
+    expect(html).toContain('class="mt-lg custom-number-list"')
+    expect(html).toContain('class="m-auto text-lg custom-checkmarks-list"')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('Second bullet item')
+    expect(html).toContain('First numbered item')
+    expect(html).toContain('Second numbered item')
+    expect(html).toContain('First checkmark item')
+    expect(html).toContain('Second checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-list-components')
+  })
+
+  // Test for custom listItem components
+  it('should render custom listItem components correctly', () => {
+    const { listItemBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listItemBlocks,
+        components: {
+          listItem: {
+            bullet: (_, { slots }) => h('li', {
+              style: { listStyleType: 'disclosure-closed' },
+              class: 'custom-bullet-item',
+            }, slots.default?.()),
+            checkmarks: (_, { slots }) => h('li', { class: 'custom-checkmark-item' }, [
+              h('span', { class: 'checkmark' }, '✅'),
+              slots.default?.(),
+            ]),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom list item styles are applied
+    expect(html).toContain('class="custom-bullet-item"')
+    expect(html).toContain('style="list-style-type: disclosure-closed;"')
+    expect(html).toContain('class="custom-checkmark-item"')
+    expect(html).toContain('class="checkmark"')
+    expect(html).toContain('✅')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-list-item-components')
+  })
+
+  // Test for generic list component that handles all list types
+  it('should use a single list component for all list types when provided', () => {
+    const { listBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listBlocks,
+        components: {
+          list: {
+            // Ex. 1: customizing common list types
+            bullet: (_, { slots }) => h('ul', { class: 'mt-xl' }, slots.default?.()),
+            number: (_, { slots }) => h('ol', { class: 'mt-lg' }, slots.default?.()),
+
+            // Ex. 2: rendering custom lists
+            checkmarks: (_, { slots }) => h('ol', { class: 'm-auto text-lg' }, slots.default?.()),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom list classes are applied
+    expect(html).toContain('class="mt-xl"')
+    expect(html).toContain('class="mt-lg"')
+    expect(html).toContain('<ul')
+    expect(html).toContain('<ol')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First numbered item')
+
+    expect(wrapper.html()).toMatchSnapshot('generic-list-component')
+  })
+
+  // Test for generic listItem component that handles all list item types
+  it('should use a single listItem component for all list item types when provided', () => {
+    const { listItemBlocks } = exampleBlocks
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listItemBlocks,
+        components: {
+          listItem: {
+            // Ex. 1: customizing common list types
+            bullet: (_, { slots }) =>
+              h('li', { style: { listStyleType: 'disclosure-closed' } }, slots.default?.()),
+
+            // Ex. 2: rendering custom list items
+            checkmarks: (_, { slots }) => h('li', ['✅', slots.default?.()]),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom listItem styles are applied
+    expect(html).toContain('style="list-style-type: disclosure-closed;"')
+    expect(html).toContain('✅')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('generic-list-item-component')
+  })
 })
