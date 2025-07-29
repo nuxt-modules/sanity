@@ -20,6 +20,23 @@ exports[`SanityContent with PortableText > should handle nested blocks correctly
 
 exports[`SanityContent with PortableText > should pass custom props to components correctly 1`] = `"<div class="custom-component" _type="customBlock" _key="test123">Props: test value, 42</div>"`;
 
+exports[`SanityContent with PortableText > should render deeply nested lists with proper structure > deeply-nested-list-structure 1`] = `
+"<ol>
+  <li>1. Top level<ol>
+      <li>a. Second level<ol>
+          <li>i. Third level</li>
+        </ol>
+      </li>
+      <li>b. Second level</li>
+    </ol>
+  </li>
+  <li>2. Top level<ol>
+      <li>a. Second level</li>
+    </ol>
+  </li>
+</ol>"
+`;
+
 exports[`SanityContent with PortableText > should render link marks with href correctly 1`] = `"<p>Visit <a href="https://example.com">our website</a> for more info.</p>"`;
 
 exports[`SanityContent with PortableText > should render mixed content blocks consistently > portable-text-rendering 1`] = `
@@ -29,4 +46,16 @@ exports[`SanityContent with PortableText > should render mixed content blocks co
   <li>List item 1</li>
   <li><em>List item 2 with emphasis</em></li>
 </ul>"
+`;
+
+exports[`SanityContent with PortableText > should render nested lists with proper HTML structure > nested-list-structure 1`] = `
+"<h3>3. Providing your personal data to others</h3>
+<ol>
+  <li>test</li>
+  <li>thing<ul>
+      <li>nested</li>
+      <li>list</li>
+    </ul>
+  </li>
+</ol>"
 `;
