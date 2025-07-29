@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, isNuxtMajorVersion } from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { join, relative, resolve } from 'pathe'
@@ -121,9 +121,6 @@ export default defineNuxtModule<SanityModuleOptions>({
     configKey: CONFIG_KEY,
     compatibility: {
       nuxt: '>=3.7.0',
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore TODO: remove when we update to v4
-      bridge: true,
     },
   },
   defaults: {
@@ -279,11 +276,6 @@ export default defineNuxtModule<SanityModuleOptions>({
 
     if (options.globalHelper) {
       addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
-      if (isNuxtMajorVersion(2)) {
-        nuxt.hook('prepare:types', ({ references }) => {
-          references.push({ types: '@nuxtjs/sanity/dist/runtime/plugins/global-helper' })
-        })
-      }
     }
 
     const composablesPath = join(runtimeDir, 'composables/index')
@@ -295,21 +287,20 @@ export default defineNuxtModule<SanityModuleOptions>({
     ])
 
     addImports([
-      ...isNuxtMajorVersion(2) ? [] : [{ name: 'useSanityQuery', from: composablesPath }],
       { name: 'useSanityQuery', from: composablesPath },
       { name: 'useLazySanityQuery', from: composablesPath },
       { name: 'useSanityConfig', from: composablesPath },
       { name: 'useSanityPerspective', from: composablesPath },
-      ...isNuxtMajorVersion(2) ? [] : [{ name: 'useSanityVisualEditingState', from: composablesPath }],
+      { name: 'useSanityVisualEditingState', from: composablesPath },
       { name: 'useIsSanityLivePreview', from: composablesPath },
       { name: 'useIsSanityPresentationTool', from: composablesPath },
       { name: 'useSanityPreviewPerspective', from: composablesPath },
       { name: 'useSanityPreviewEnvironment', from: composablesPath },
       // Visual Editing
-      ...isNuxtMajorVersion(2) ? [] : [{ name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' }],
+      { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
       { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
-      ...isNuxtMajorVersion(2) ? [] : [{ name: 'useSanityLiveMode', from: composablesPath }],
-      ...isNuxtMajorVersion(2) ? [] : [{ name: 'useSanityVisualEditing', from: composablesPath }],
+      { name: 'useSanityLiveMode', from: composablesPath },
+      { name: 'useSanityVisualEditing', from: composablesPath },
     ])
 
     /**
