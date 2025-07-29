@@ -9,8 +9,8 @@
     </h2>
     <p>This example uses the <a href="https://github.com/portabletext/vue-portabletext">vue-portabletext</a> library for rendering content.</p>
     <SanityContent
-      :value
-      :components
+      :value="value"
+      :components="components"
     />
   </div>
 </template>
