@@ -413,4 +413,145 @@ describe('SanityContent with PortableText', () => {
 
     expect(wrapper.html()).toMatchSnapshot('deeply-nested-list-structure')
   })
+
+  // Test for custom list components
+  it('should render custom list components correctly', () => {
+    const { listBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listBlocks,
+        components: {
+          list: {
+            bullet: (_, { slots }) => h('ul', { class: 'mt-xl custom-bullet-list' }, slots.default?.()),
+            number: (_, { slots }) => h('ol', { class: 'mt-lg custom-number-list' }, slots.default?.()),
+            checkmarks: (_, { slots }) => h('ol', { class: 'm-auto text-lg custom-checkmarks-list' }, slots.default?.()),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+    console.log(html)
+
+    // Check that custom list classes are applied
+    expect(html).toContain('class="mt-xl custom-bullet-list"')
+    expect(html).toContain('class="mt-lg custom-number-list"')
+    expect(html).toContain('class="m-auto text-lg custom-checkmarks-list"')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('Second bullet item')
+    expect(html).toContain('First numbered item')
+    expect(html).toContain('Second numbered item')
+    expect(html).toContain('First checkmark item')
+    expect(html).toContain('Second checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-list-components')
+  })
+
+  // Test for custom listItem components
+  it('should render custom listItem components correctly', () => {
+    const { listItemBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listItemBlocks,
+        components: {
+          listItem: {
+            bullet: (_, { slots }) => h('li', {
+              style: { listStyleType: 'disclosure-closed' },
+              class: 'custom-bullet-item',
+            }, slots.default?.()),
+            checkmarks: (_, { slots }) => h('li', { class: 'custom-checkmark-item' }, [
+              h('span', { class: 'checkmark' }, '✅'),
+              slots.default?.(),
+            ]),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom list item styles are applied
+    expect(html).toContain('class="custom-bullet-item"')
+    expect(html).toContain('style="list-style-type: disclosure-closed;"')
+    expect(html).toContain('class="custom-checkmark-item"')
+    expect(html).toContain('class="checkmark"')
+    expect(html).toContain('✅')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-list-item-components')
+  })
+
+  // Test for generic list component that handles all list types
+  it('should use a single list component for all list types when provided', () => {
+    const { listBlocks } = exampleBlocks
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listBlocks,
+        components: {
+          list: {
+            // Ex. 1: customizing common list types
+            bullet: (_, { slots }) => h('ul', { class: 'mt-xl' }, slots.default?.()),
+            number: (_, { slots }) => h('ol', { class: 'mt-lg' }, slots.default?.()),
+
+            // Ex. 2: rendering custom lists
+            checkmarks: (_, { slots }) => h('ol', { class: 'm-auto text-lg' }, slots.default?.()),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom list classes are applied
+    expect(html).toContain('class="mt-xl"')
+    expect(html).toContain('class="mt-lg"')
+    expect(html).toContain('<ul')
+    expect(html).toContain('<ol')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First numbered item')
+
+    expect(wrapper.html()).toMatchSnapshot('generic-list-component')
+  })
+
+  // Test for generic listItem component that handles all list item types
+  it('should use a single listItem component for all list item types when provided', () => {
+    const { listItemBlocks } = exampleBlocks
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: listItemBlocks,
+        components: {
+          listItem: {
+            // Ex. 1: customizing common list types
+            bullet: (_, { slots }) =>
+              h('li', { style: { listStyleType: 'disclosure-closed' } }, slots.default?.()),
+
+            // Ex. 2: rendering custom list items
+            checkmarks: (_, { slots }) => h('li', ['✅', slots.default?.()]),
+          },
+        },
+      },
+    })
+
+    const html = wrapper.html()
+
+    // Check that custom listItem styles are applied
+    expect(html).toContain('style="list-style-type: disclosure-closed;"')
+    expect(html).toContain('✅')
+
+    // Check content
+    expect(html).toContain('First bullet item')
+    expect(html).toContain('First checkmark item')
+
+    expect(wrapper.html()).toMatchSnapshot('generic-list-item-component')
+  })
 })
