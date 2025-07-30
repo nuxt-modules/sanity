@@ -8,6 +8,16 @@
       SanityContent (Vue-PortableText)
     </h2>
     <p>This example uses the <a href="https://github.com/portabletext/vue-portabletext">vue-portabletext</a> library for rendering content.</p>
+
+    <h3 class="text-lg font-semibold mt-4">
+      With Automatic Image Handling
+    </h3>
+    <p>The images below are automatically rendered using the SanityImage component without any configuration needed!</p>
+    <SanityContent :value="contentWithImages" />
+
+    <h3 class="text-lg font-semibold mt-8">
+      With Custom Components
+    </h3>
     <SanityContent
       :value="value"
       :components="components"
@@ -47,6 +57,70 @@ const components = {
     }),
   },
 }
+
+// Content with images that will be automatically handled
+const contentWithImages = [
+  {
+    _key: 'd810da8ac845',
+    _type: 'block',
+    children: [
+      {
+        _key: 'd810da8ac8450',
+        _type: 'span',
+        marks: [],
+        text: 'Here is some text with an image below:',
+      },
+    ],
+    markDefs: [],
+    style: 'normal',
+  },
+  {
+    _key: 'example-image-1',
+    _type: 'image',
+    asset: {
+      _type: 'reference',
+      _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+    },
+    crop: {
+      top: 0.1,
+      bottom: 0.1,
+      left: 0.1,
+      right: 0.1,
+    },
+    hotspot: {
+      x: 0.5,
+      y: 0.5,
+      height: 0.8,
+      width: 0.8,
+    },
+    w: 300,
+    h: 450,
+  },
+  {
+    _key: 'd810da8ac846',
+    _type: 'block',
+    children: [
+      {
+        _key: 'd810da8ac8460',
+        _type: 'span',
+        marks: [],
+        text: 'And here is another image with different dimensions:',
+      },
+    ],
+    markDefs: [],
+    style: 'normal',
+  },
+  {
+    _key: 'example-image-2',
+    _type: 'image',
+    asset: {
+      _type: 'reference',
+      _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-600x400-jpg',
+    },
+    w: 600,
+    h: 400,
+  },
+]
 
 const value = [
   {

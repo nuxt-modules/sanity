@@ -5,6 +5,63 @@ import type {
 } from '@portabletext/types'
 import { PortableText } from '@portabletext/vue'
 import type { ListNestMode, MissingComponentHandler, PortableTextComponents } from '@portabletext/vue'
+import SanityImage from './sanity-image'
+
+// Type for Sanity image data structure in portable text
+interface SanityImageValue {
+  _type: 'image'
+  asset: {
+    _type: 'reference'
+    _ref: string
+  }
+  // TODO: Not in use
+  caption?: string
+  // TODO: Not in use
+  attribution?: string
+  crop?: {
+    top: number
+    bottom: number
+    left: number
+    right: number
+  }
+  hotspot?: {
+    x: number
+    y: number
+    height: number
+    width: number
+  }
+}
+
+// Default image component that handles Sanity images automatically
+const createDefaultImageComponent = () => (portableTextProps: { value: SanityImageValue }) => {
+  const { value } = portableTextProps
+
+  // Handle the correct Sanity image structure
+  const assetId = value.asset?._ref
+
+  if (!assetId) {
+    console.warn('SanityContent: Image missing asset reference', value)
+    return h('div', { class: 'sanity-image-error' }, 'Image not found')
+  }
+
+  // Prepare props for the SanityImage component
+  const sanityImageProps: Record<string, unknown> = {
+    assetId,
+  }
+
+  // Convert Sanity crop object to rect parameter for SanityImage component
+  if (value.crop) {
+    const { top, bottom, left, right } = value.crop
+    sanityImageProps.rect = `${left},${top},${right},${bottom}`
+  }
+  // Convert hotspot to focal point parameters
+  if (value.hotspot) {
+    sanityImageProps.fpX = value.hotspot.x
+    sanityImageProps.fpY = value.hotspot.y
+  }
+
+  return h(SanityImage, sanityImageProps)
+}
 
 export default defineComponent({
   name: 'SanityContent',
@@ -26,11 +83,28 @@ export default defineComponent({
       type: String as () => ListNestMode,
       default: undefined,
     },
+    disableDefaultImageComponent: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props) {
+    // Merge user components with defaults, allowing user components to override defaults
+    const mergedComponents = {
+      types: {
+        ...(props.disableDefaultImageComponent
+          ? {}
+          : {
+              image: createDefaultImageComponent(),
+            }),
+        ...props.components.types,
+      },
+      ...props.components,
+    }
+
     return () => h(PortableText, {
       value: props.value,
-      components: props.components,
+      components: mergedComponents,
       onMissingComponent: props.onMissingComponent,
       listNestingMode: props.listNestingMode,
     })

@@ -6,6 +6,16 @@ exports[`SanityContent > should render with PortableText 1`] = `""`;
 
 exports[`SanityContent > should render with no props 1`] = `""`;
 
+exports[`SanityContent with PortableText > should allow custom image components to override the default > custom-image-override 1`] = `"<div class="custom-image">Custom Image: image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg</div>"`;
+
+exports[`SanityContent with PortableText > should allow custom image components when default is disabled > custom-image-when-default-disabled 1`] = `"<div class="custom-image">Custom Image: image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg</div>"`;
+
+exports[`SanityContent with PortableText > should automatically handle Sanity images without user configuration > automatic-image-handling 1`] = `"<img src="https://cdn.sanity.io/images/test-project/production/G3i4emG6B8JnTmGoN0UjgAp8-300x450.jpg?fp-x=0.5&amp;fp-y=0.5&amp;rect=0.1,0.1,0.1,0.1">"`;
+
+exports[`SanityContent with PortableText > should disable default image component when disableDefaultImageComponent is true > disabled-default-image-component 1`] = `"<div style="display: none;">[@portabletext/vue] Unknown block type "image", specify a component for it in the \`components.types\` prop</div>"`;
+
+exports[`SanityContent with PortableText > should handle images without caption or attribution > automatic-image-handling-simple 1`] = `"<img src="https://cdn.sanity.io/images/test-project/production/G3i4emG6B8JnTmGoN0UjgAp8-300x450.jpg">"`;
+
 exports[`SanityContent with PortableText > should handle nested blocks correctly 1`] = `
 "<div class="nested-block" _type="nestedBlock" _key="nested1">
   <h3>Nested Block Title</h3>
