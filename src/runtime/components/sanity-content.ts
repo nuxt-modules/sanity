@@ -49,17 +49,6 @@ const createDefaultImageComponent = () => (portableTextProps: { value: SanityIma
     assetId,
   }
 
-  // Convert Sanity crop object to rect parameter for SanityImage component
-  if (value.crop) {
-    const { top, bottom, left, right } = value.crop
-    sanityImageProps.rect = `${left},${top},${right},${bottom}`
-  }
-  // Convert hotspot to focal point parameters
-  if (value.hotspot) {
-    sanityImageProps.fpX = value.hotspot.x
-    sanityImageProps.fpY = value.hotspot.y
-  }
-
   return h(SanityImage, sanityImageProps)
 }
 

@@ -79,7 +79,7 @@ const contentWithImages = [
     _type: 'image',
     asset: {
       _type: 'reference',
-      _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      _ref: 'image-5b433475b541fc1f2903d9b281efdde7ac9c28a5-780x1170-jpg',
     },
     crop: {
       top: 0.1,
@@ -115,7 +115,7 @@ const contentWithImages = [
     _type: 'image',
     asset: {
       _type: 'reference',
-      _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-600x400-jpg',
+      _ref: 'image-5b433475b541fc1f2903d9b281efdde7ac9c28a5-780x1170-jpg',
     },
     w: 600,
     h: 400,

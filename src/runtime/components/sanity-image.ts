@@ -1,5 +1,6 @@
 import { computed, defineComponent, h } from 'vue'
 import { useSanity } from '../composables'
+
 import ImageComponent from '#build/sanity-image-component.mjs'
 
 const baseURL = 'https://cdn.sanity.io/images'
@@ -164,7 +165,7 @@ const props = {
   w: { type: [Number, String] },
 }
 
-const keys = Object.keys(props).filter(k => !['assetId', 'projectId', 'dataset'].includes(k))
+const keys = Object.keys(props).filter(k => !['assetId', 'projectId', 'dataset', 'crop', 'hotspot'].includes(k))
 
 export default defineComponent({
   name: 'SanityImage',
