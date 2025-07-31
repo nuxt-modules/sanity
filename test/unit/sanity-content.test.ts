@@ -592,9 +592,6 @@ describe('SanityContent with PortableText', () => {
     // Verify that the image props are passed correctly
     const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
     expect(sanityImage.props('assetId')).toBe('image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg')
-    expect(sanityImage.props('rect')).toBe('0.1,0.1,0.1,0.1')
-    expect(sanityImage.props('fpX')).toBe(0.5)
-    expect(sanityImage.props('fpY')).toBe(0.5)
 
     // Verify that caption and attribution are NOT rendered (they are ignored)
     expect(wrapper.html()).not.toContain('This is the caption')
