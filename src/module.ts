@@ -387,6 +387,12 @@ export default defineNuxtModule<SanityModuleOptions>({
         ],
       })
 
+      nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
+        include: [
+          '@nuxtjs/sanity > @sanity/client > @sanity/visual-editing',
+        ],
+      })
+
       // Add auto-imports
       // Hacky(?) way to make the visual editing refresh function passed via
       // nuxt.config available on the client
