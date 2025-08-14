@@ -87,9 +87,13 @@ export function useSanityQuery<T = unknown, E = Error>(
     )
   }
 
-  const client = import.meta.server || perspective.value === 'published'
-    ? sanity.client // On the server or fetching published content
-    : createProxyClient() // Otherwise use proxy for authenticated requests
+  const client = visualEditingState?.enabled && import.meta.client
+  // If visual editing is enabled, and we're on the client, use the visual editing proxy
+    ? createProxyClient(config.visualEditing?.proxyEndpoint)
+    : config.proxyEndpoint
+    // Otherwise, if a proxy endpoint has been explicitly configured, use that
+      ? createProxyClient(config.proxyEndpoint)
+      : sanity.client
 
   // Handle query updates, using either the query loader or tag based
   // revalidation (Live Content API). The query loader is preferred when in
@@ -127,7 +131,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     // false, not null)
     if (config.liveContent && (import.meta.server || !enableQueryFetcher)) {
       tagRevalidation = useSanityTagRevalidation({
-        client,
+        client: sanity.client,
         liveStore: sanity.liveStore,
         queryKey,
       })
@@ -138,7 +142,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     const useCdn = perspective.value === 'published'
     const token = getToken({
       config,
-      client,
+      client: sanity.client,
       perspective: perspective.value,
     })
 
