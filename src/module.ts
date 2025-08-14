@@ -1,21 +1,36 @@
 import { fileURLToPath } from 'node:url'
 import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
+import { readFile, writeFile } from 'node:fs/promises'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
+import {
+  addComponentsDir,
+  addImports,
+  addPlugin,
+  addServerHandler,
+  addServerImports,
+  addServerTemplate,
+  addTemplate,
+  addTypeTemplate,
+  addVitePlugin,
+  defineNuxtModule,
+  resolvePath,
+  useLogger,
+} from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
-import { join, relative, resolve } from 'pathe'
+import { basename, join, relative, resolve, sep } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
+import { findQueriesInSource } from '@sanity/codegen'
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
 import type { HistoryRefresh } from '@sanity/visual-editing'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
-import type { SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
+import type { SanityDevGlobals, SanityGroqQueryArray, SanityGroqQueryMap, SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
@@ -40,8 +55,8 @@ export interface SanityModuleVisualEditingOptions {
    */
   mode?: SanityVisualEditingMode
   /**
-   * Set proxy endpoint for fetching preview data
-   * @default '/_sanity/fetch'
+   * Proxy endpoint for fetching preview data
+   * @default '/_sanity/visual-editing/fetch'
    */
   proxyEndpoint?: string
   /**
@@ -96,6 +111,12 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
     browserToken?: string
     serverToken?: string
   }
+  /**
+   * The endpoint `useSanityQuery` sends requests to. Defaults to the Sanity
+   * API, but can be overridden to point at a custom handler (e.g. your own
+   * server-side proxy).
+   */
+  queryEndpoint?: string
   /**
    * Configuration for visual editing
    */
@@ -196,6 +217,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       disableSmartCdn: options.disableSmartCdn ?? false,
       perspective: options.perspective || 'raw',
       projectId: options.projectId || '',
+      queryEndpoint: options.queryEndpoint || '',
       stega: (options.visualEditing && options.visualEditing.stega !== false && ({
         enabled: true,
         studioUrl: options.visualEditing.studioUrl,
@@ -225,7 +247,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         mode: options.visualEditing.mode || 'live-visual-editing',
         previewMode,
         previewModeId: '',
-        proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/fetch',
+        proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/visual-editing/fetch',
         studioUrl: options.visualEditing.studioUrl || '',
         token: '',
         zIndex: options.visualEditing.zIndex,
@@ -453,5 +475,172 @@ export default defineNuxtModule<SanityModuleOptions>({
         )
       }
     }
+
+    /**
+     * Support for proxying requests
+     *
+     * To support private datasets/proxying requests, we find GROQ queries in
+     * project source files. These can be used to construct a whitelist of
+     * queries that the user can compare against in their proxy event handler
+     */
+
+    // Path to the file we will store found GROQ queries in (.nuxt directory)
+    const queriesFilePath = join(nuxt.options.buildDir, 'sanity-groq-queries.json')
+
+    let writeTimer: NodeJS.Timeout | null = null
+    // Function used to write found GROQ queries to the filesystem
+    const writeQueriesFile = (queryArr: SanityGroqQueryArray) => {
+      if (writeTimer) clearTimeout(writeTimer)
+      writeTimer = setTimeout(async () => {
+        try {
+          await writeFile(queriesFilePath, JSON.stringify(queryArr), 'utf8')
+        }
+        catch {
+          // Ignore
+        }
+      }, 25)
+    }
+
+    // A virtual module to expose the filepath where the GROQ queries are stored
+    // @todo Maybe this is unnecessary and there's a cleaner way to pass the filepath
+    addServerTemplate({
+      filename: '#sanity-groq-queries-info',
+      getContents: () =>
+        `export const queriesFilePath = ${JSON.stringify(queriesFilePath)}`,
+    })
+
+    addTypeTemplate(
+      {
+        filename: 'types/sanity-groq-queries-info.d.ts',
+        getContents: () => `declare module '#sanity-groq-queries-info' {
+          export const queriesFilePath: string
+        }`,
+      },
+      { nitro: true, node: true },
+    )
+
+    // Vite plugin that actually finds GROQ queries in the project source files
+    addVitePlugin(() => {
+      // Queries are stored in a Map where key is the filepath and value is an
+      // array of GROQ queries
+      const queryMap = new Map<string, string[]>()
+
+      const queryMapToArray = (queryMap: SanityGroqQueryMap): SanityGroqQueryArray => {
+        return Array.from(queryMap, ([filepath, queries]) => ({ filepath, queries }))
+      }
+
+      const update = () => {
+        const queryArr = queryMapToArray(queryMap)
+        // Prefer to write to the filesystem...
+        writeQueriesFile(queryArr)
+
+        // ...but fallback to globalThis
+        const g = globalThis as SanityDevGlobals
+        g.__groqQueries ||= queryArr
+      }
+
+      return {
+        name: 'vite-groq-queries-finder',
+        enforce: 'pre',
+        transform(code, id) {
+          // Strip Vite's query suffixes (?macro=true, etc.), just leave the filepath
+          const [filepath] = id.split('?', 2)
+          if (!filepath) return null
+
+          const relativePath = relative(nuxt.options.rootDir, filepath)
+          // Ignore files outside of the project root
+          if (!relativePath || relativePath === '..' || relativePath.startsWith(`..${sep}`)) {
+            return null
+          }
+
+          const filename = basename(filepath)
+
+          try {
+            const found = findQueriesInSource(code, filename)
+            const prev = queryMap.get(relativePath)
+            const next = found?.length ? found.map(f => f.result) : undefined
+            // If we found new queries or the existing ones have changed, update the map
+            if (next && (!prev || next.length !== prev.length || next.some((v, i) => v !== prev[i]))) {
+              queryMap.set(relativePath, next)
+              update()
+            }
+            // If we found no queries but had some before, remove them
+            else if (!next && prev) {
+              queryMap.delete(relativePath)
+              update()
+            }
+          }
+          catch {
+            // Ignore
+          }
+          return null
+        },
+        // Handle deleted files
+        watchChange(id, change) {
+          if (change.event === 'delete') {
+            const relativePath = relative(nuxt.options.rootDir, id)
+            if (!relativePath || relativePath === '..' || relativePath.startsWith(`..${sep}`)) return
+            if (queryMap.delete(relativePath)) update()
+          }
+        },
+        // Update even if bundle fails or process stops
+        buildEnd: update,
+        // Update at the end of Rollup's process, after the bundle has been written
+        closeBundle: update,
+        // Runs before build/transform to ensure the queries file exists early
+        configResolved() {
+          const queries = queryMapToArray(queryMap)
+          writeQueriesFile(queries)
+        },
+      }
+    })
+
+    // Add a virtual module to expose GROQ queries in production
+    const VIRTUAL_ID = '#sanity-groq-queries'
+    const RESOLVED_ID = '\0' + VIRTUAL_ID
+
+    const proxyUtilsPath = join(runtimeDir, 'server/utils/proxy')
+
+    // Add auto-imports for proxy utils. Currently types will not be generated
+    // for explicitly importing via #imports.
+    addServerImports([
+      { name: 'validateQuery', as: 'validateSanityQuery', from: proxyUtilsPath },
+      { name: 'getGroqQueries', as: 'getSanityGroqQueries', from: proxyUtilsPath },
+    ])
+
+    nuxt.hook('nitro:config', (config) => {
+      config.rollupConfig ||= {}
+      config.rollupConfig.plugins ||= []
+      if (Array.isArray(config.rollupConfig.plugins)) {
+        config.rollupConfig.plugins.push({
+          name: 'nitro-groq-queries',
+          resolveId(id) {
+            return id === VIRTUAL_ID ? RESOLVED_ID : null
+          },
+          async load(id) {
+            if (id !== RESOLVED_ID) return null
+            try {
+              const raw = await readFile(queriesFilePath, 'utf8')
+              // We trust the file was written as valid JSON
+              return `export const queryArr = ${raw};`
+            }
+            catch {
+              return `export const queryArr = [];`
+            }
+          },
+        })
+      }
+    })
+
+    addTypeTemplate(
+      {
+        filename: `types/${VIRTUAL_ID}.d.ts`,
+        getContents: () => `
+        declare module '${VIRTUAL_ID}' {
+          export const queryArr: Array<{ filepath: string, queries: string[] }>
+        }`,
+      },
+      { nitro: true, node: true },
+    )
   },
 })
