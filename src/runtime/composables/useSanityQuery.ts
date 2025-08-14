@@ -12,7 +12,7 @@ import { useSanityConfig } from './useSanityConfig'
 import { useIsSanityPresentationTool } from './useIsSanityPresentationTool'
 import { useSanityPerspective } from './useSanityPerspective'
 import { useSanityVisualEditingState } from './useSanityVisualEditingState'
-import { createProxyClient } from '../util/createProxyClient'
+import { createForwardingClient } from '../util/createForwardingClient'
 import { useSanityTagRevalidation } from './internal/useSanityTagRevalidation'
 import { useSanityQueryFetcher } from './internal/useSanityQueryFetcher'
 
@@ -100,9 +100,14 @@ export function useSanityQuery<T = unknown, E = Error>(
     )
   }
 
-  const client = import.meta.server || perspective.value === 'published'
-    ? sanity.client // On the server or fetching published content
-    : createProxyClient() // Otherwise use proxy for authenticated requests
+  const client = config.visualEditing && visualEditingState?.enabled && import.meta.client
+  // If visual editing is enabled, and we're on the client, route requests
+  // through the visual editing handler
+    ? createForwardingClient(config.visualEditing.proxyEndpoint)
+    : config.queryEndpoint
+    // Otherwise, if a request endpoint has been explicitly configured, use that
+      ? createForwardingClient(config.queryEndpoint)
+      : sanity.client
 
   // Handle query updates, using either the query loader or tag based
   // revalidation (Live Content API). The query loader is preferred when in
@@ -140,7 +145,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     // false, not null)
     if (config.liveContent && (import.meta.server || !enableQueryFetcher)) {
       tagRevalidation = useSanityTagRevalidation({
-        client,
+        client: sanity.client,
         liveStore: sanity.liveStore,
         queryKey,
       })
@@ -151,7 +156,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     const useCdn = perspective.value === 'published'
     const token = getToken({
       config,
-      client,
+      client: sanity.client,
       perspective: perspective.value,
     })
 
