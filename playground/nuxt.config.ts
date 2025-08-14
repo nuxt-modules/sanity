@@ -24,6 +24,7 @@ export default defineNuxtConfig({
     additionalClients: {
       another: {},
     },
+    // queryEndpoint: '/api/proxy',
     visualEditing: {
       token: viewerToken,
       studioUrl: 'http://localhost:3333',
