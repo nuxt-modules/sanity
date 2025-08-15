@@ -174,6 +174,7 @@ export type SanityPublicRuntimeConfig = {
   }
   perspective: ClientPerspective
   projectId: string
+  proxyEndpoint: string
   stega: StegaConfig
   token: string
   useCdn: boolean
@@ -227,3 +228,11 @@ export type SanityResolvedConfig
     }
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
+
+export type SanityGroqQueryArray = Array<{ filepath: string, queries: string[] }>
+
+export type SanityGroqQueryMap = Map<string, string[]>
+
+export type SanityDevGlobals = typeof globalThis & {
+  __groqQueries?: SanityGroqQueryArray
+}
