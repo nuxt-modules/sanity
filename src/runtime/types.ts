@@ -90,7 +90,7 @@ export interface SanityQueryResponse<T> {
  */
 export type SanityLiveStoreSubscriberCallback = (
   tags: string[],
-  updateLastLiveEventId: () => void
+  updateLastLiveEventId: () => void,
 ) => void
 
 /**
@@ -98,7 +98,7 @@ export type SanityLiveStoreSubscriberCallback = (
  */
 export type SanityLiveStoreSubscriber = (
   queryKey: string,
-  callback: SanityLiveStoreSubscriberCallback
+  callback: SanityLiveStoreSubscriberCallback,
 ) => {
   getLastLiveEventId: () => string | undefined
   unsubscribe: () => void
