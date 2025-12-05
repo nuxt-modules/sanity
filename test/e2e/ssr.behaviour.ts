@@ -5,7 +5,7 @@ export const ssrBehaviour = () => {
   it('Sanity image builder works', async () => {
     const html = await $fetch('/')
     expect(html).toContain(
-      'https://cdn.sanity.io/images/j1o4tmjp/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?auto=format&amp;w=128',
+      'https://cdn.sanity.io/images/j1o4tmjp/production/7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170.jpg?w=128&amp;auto=format',
     )
   })
 
