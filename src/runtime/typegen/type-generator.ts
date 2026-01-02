@@ -12,9 +12,24 @@ export interface GenerateSanityTypesOptions {
   overloadClientMethods?: boolean
 }
 
+export interface GenerateSanityTypesResult {
+  code: string
+  fileCount: number
+  errors: string[]
+  typeNames: string[]
+}
+
+/**
+ * Extract exported type names from the generated code
+ */
+function extractTypeNames(code: string): string[] {
+  const matches = code.matchAll(/^export type (\w+)/gm)
+  return Array.from(matches, m => m[1]).filter((name): name is string => typeof name === 'string')
+}
+
 export async function generateSanityTypes(
   options: GenerateSanityTypesOptions,
-): Promise<{ code: string, fileCount: number, errors: string[] }> {
+): Promise<GenerateSanityTypesResult> {
   registerBabel()
 
   const { files, queries } = findQueriesInPath({
@@ -47,5 +62,6 @@ export async function generateSanityTypes(
     code: result.code,
     fileCount: files.length,
     errors,
+    typeNames: extractTypeNames(result.code),
   }
 }

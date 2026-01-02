@@ -52,16 +52,9 @@ const movieBySlugQuery = groq`*[_type == "movie" && slug.current == $slug][0] {
   overview
 }`
 
-interface QueryResult {
-  title: string
-  releaseDate: string
-  castMembers: Array<{ characterName: string }>
-  overview: any[]
-}
-
 const route = useRoute()
 const { data: details, encodeDataAttribute }
-  = await useSanityQuery<QueryResult>(movieBySlugQuery, {
+  = await useSanityQuery<MovieBySlugQueryResult>(movieBySlugQuery, {
     slug: route.params.slug,
   })
 </script>

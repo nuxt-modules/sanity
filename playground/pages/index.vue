@@ -26,8 +26,6 @@
 </template>
 
 <script setup lang="ts">
-import type { MoviesQueryResult } from '#sanity-types'
-
 const moviesQuery = groq`*[_type == "movie"] {
   title,
   "poster": poster.asset._ref,
