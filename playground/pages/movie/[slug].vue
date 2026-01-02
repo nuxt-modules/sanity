@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-const query = groq`*[_type == "movie" && slug.current == $slug][0] {
+const movieBySlugQuery = groq`*[_type == "movie" && slug.current == $slug][0] {
   title,
   releaseDate,
   castMembers[] {
@@ -61,7 +61,7 @@ interface QueryResult {
 
 const route = useRoute()
 const { data: details, encodeDataAttribute }
-  = await useSanityQuery<QueryResult>(query, {
+  = await useSanityQuery<QueryResult>(movieBySlugQuery, {
     slug: route.params.slug,
   })
 </script>

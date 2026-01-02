@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-const query = groq`*[_type == "movie"] {
+const moviesQuery = groq`*[_type == "movie"] {
   title,
   "poster": poster.asset._ref,
   "slug": slug.current
@@ -38,7 +38,7 @@ interface QueryResult {
   slug: string
 }
 
-const { data } = await useSanityQuery<QueryResult[]>(query)
+const { data } = await useSanityQuery<QueryResult[]>(moviesQuery)
 
 const movies = computed(() => (data.value || []).sort((a, b) => a.title.localeCompare(b.title)))
 </script>
