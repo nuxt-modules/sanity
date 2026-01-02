@@ -4,20 +4,20 @@
   >
     <h2>Project ID: {{ $sanity.config.projectId }}</h2>
     <NuxtLink
-      v-for="({ title, poster, slug }) in movies"
-      :key="title"
-      :to="`/movie/${slug}`"
+      v-for="(movie, index) in movies"
+      :key="movie.title ?? index"
+      :to="`/movie/${movie.slug}`"
       class="flex h-48 relative justify-start"
     >
       <div
         class="py-2 px-4 left-0 bottom-0 mb-4 flex-grow absolute bg-gray-100 rounded shadow-md font-semibold text-gray-800"
       >
-        {{ title }}
+        {{ movie.title }}
       </div>
 
       <SanityImage
         class="object-contain w-48"
-        :asset-id="poster"
+        :asset-id="movie.poster ?? undefined"
         w="128"
         auto="format"
       />
@@ -26,19 +26,15 @@
 </template>
 
 <script setup lang="ts">
+import type { MoviesQueryResult } from '#sanity-types'
+
 const moviesQuery = groq`*[_type == "movie"] {
   title,
   "poster": poster.asset._ref,
   "slug": slug.current
 }`
 
-interface QueryResult {
-  title: string
-  poster: string
-  slug: string
-}
+const { data } = await useSanityQuery<MoviesQueryResult>(moviesQuery)
 
-const { data } = await useSanityQuery<QueryResult[]>(moviesQuery)
-
-const movies = computed(() => (data.value || []).sort((a, b) => a.title.localeCompare(b.title)))
+const movies = computed(() => (data.value || []).sort((a, b) => (a.title ?? '').localeCompare(b.title ?? '')))
 </script>
