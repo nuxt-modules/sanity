@@ -14,7 +14,7 @@ describe('sanity typegen (programmatic)', () => {
     const schema = await extractSchemaFromTypesFile({ typesPath })
 
     expect(Array.isArray(schema)).toBe(true)
-    expect(schema.some((t: any) => t?.type === 'document' && t?.name === 'movie')).toBe(true)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
   })
 
   it('generates type declarations for extracted queries', async () => {
