@@ -411,12 +411,14 @@ export default defineNuxtModule<SanityModuleOptions>({
         }, { nitro: true })
 
         // Add generated types as auto-imports
+        // Use relative path from .nuxt/types/imports.d.ts to .nuxt/types/sanity-typegen.d.ts
         nuxt.hook('imports:extend', async (imports) => {
           const result = await getTypesResult()
           for (const typeName of result.typeNames) {
             imports.push({
               name: typeName,
-              from: '#sanity-types',
+              from: typegenTemplate!.dst,
+              typeFrom: './sanity-typegen',
               type: true,
             })
           }
@@ -461,10 +463,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       tsConfig.compilerOptions.paths ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
       tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesPath]
-
-      if (typegenTemplate) {
-        tsConfig.compilerOptions.paths['#sanity-types'] = [typegenTemplate.dst]
-      }
     })
 
     nuxt.hook('nitro:config', (config) => {
@@ -478,14 +476,6 @@ export default defineNuxtModule<SanityModuleOptions>({
           },
         },
       })
-
-      if (typegenTemplate) {
-        config.typescript ||= {}
-        config.typescript.tsConfig ||= { compilerOptions: {} }
-        config.typescript.tsConfig.compilerOptions ||= {}
-        config.typescript.tsConfig.compilerOptions.paths ||= {}
-        config.typescript.tsConfig.compilerOptions.paths['#sanity-types'] = [typegenTemplate.dst]
-      }
 
       if (config.imports === false) return
 

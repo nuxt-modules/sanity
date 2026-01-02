@@ -4,9 +4,10 @@ import {
   getResolver,
   registerBabel,
 } from '@sanity/codegen'
+import type { SchemaType } from 'groq-js'
 
 export interface GenerateSanityTypesOptions {
-  schema: unknown
+  schema: SchemaType
   queryPaths: string | string[]
   rootDir: string
   overloadClientMethods?: boolean
