@@ -2,6 +2,7 @@ import type { AsyncData } from 'nuxt/app'
 import { hash } from 'ohash'
 import { defineEncodeDataAttribute } from '@sanity/core-loader/encode-data-attribute'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
+import type { ClientReturn } from '@sanity/client'
 import { useAsyncData } from '#imports'
 import { reactive, ref, watch, type Ref } from 'vue'
 import type { ClientConfig, ContentSourceMap, QueryParams, QueryOptions, SanityClient } from '../client'
@@ -36,6 +37,18 @@ const getToken = (
   }
   return undefined
 }
+
+export function useSanityQuery<const Q extends string, E = Error>(
+  query: Q,
+  _params?: QueryParams,
+  _options?: UseSanityQueryOptions<SanityQueryResponse<ClientReturn<Q, unknown> | null>>,
+): AsyncSanityData<ClientReturn<Q, unknown> | null, E>
+
+export function useSanityQuery<T = unknown, E = Error>(
+  query: string,
+  _params?: QueryParams,
+  _options?: UseSanityQueryOptions<SanityQueryResponse<T | null>>,
+): AsyncSanityData<T | null, E>
 
 export function useSanityQuery<T = unknown, E = Error>(
   query: string,
