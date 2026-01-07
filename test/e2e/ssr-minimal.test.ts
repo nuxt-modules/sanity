@@ -19,6 +19,7 @@ await setup({
     hooks: {
       'modules:before'() {
         const nuxt = useNuxt()
+        nuxt.options.sanity ||= {}
         nuxt.options.sanity.liveContent = undefined
       },
     },
