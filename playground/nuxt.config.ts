@@ -1,13 +1,19 @@
 const viewerToken = process.env.NUXT_SANITY_VISUAL_EDITING_TOKEN
 
 export default defineNuxtConfig({
-  modules: ['@nuxtjs/sanity'],
+  modules: ['@nuxtjs/sanity', '@nuxt/image'],
   app: {
     head: {
       script: [{ src: 'https://unpkg.com/tailwindcss-jit-cdn' }],
     },
   },
   compatibilityDate: '2024-08-19',
+  image: {
+    sanity: {
+      projectId: 'j1o4tmjp',
+      dataset: 'production',
+    },
+  },
   sanity: {
     globalHelper: true,
     apiVersion: '2021-03-26',
