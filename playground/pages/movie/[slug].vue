@@ -4,7 +4,7 @@
       <p :data-sanity="encodeDataAttribute?.(['title'])">
         <strong>Title</strong>: {{ details.title }}
       </p>
-      <p>
+      <p v-if="details.releaseDate">
         <strong>Release date</strong>:
         {{
           new Date(details.releaseDate).toLocaleDateString('en-GB', {
@@ -15,8 +15,8 @@
       </p>
       <ul class="mt-4">
         <li
-          v-for="{ characterName } in details.castMembers"
-          :key="characterName"
+          v-for="({ characterName }, index) in details.castMembers"
+          :key="characterName ?? index"
         >
           {{ characterName }}
         </li>
@@ -26,7 +26,10 @@
         project-id="j1o4tmjp"
         asset-id="image-e22a88d23751a84df81f03ef287ae85fc992fe12-780x1170-jpg"
       />
-      <div :data-sanity="encodeDataAttribute?.(['overview'])">
+      <div
+        v-if="details.overview"
+        :data-sanity="encodeDataAttribute?.(['overview'])"
+      >
         <SanityContent :value="details.overview" />
       </div>
     </template>
@@ -43,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-const query = groq`*[_type == "movie" && slug.current == $slug][0] {
+const movieBySlugQuery = groq`*[_type == "movie" && slug.current == $slug][0] {
   title,
   releaseDate,
   castMembers[] {
@@ -52,16 +55,9 @@ const query = groq`*[_type == "movie" && slug.current == $slug][0] {
   overview
 }`
 
-interface QueryResult {
-  title: string
-  releaseDate: string
-  castMembers: Array<{ characterName: string }>
-  overview: any[]
-}
-
 const route = useRoute()
 const { data: details, encodeDataAttribute }
-  = await useSanityQuery<QueryResult>(query, {
+  = await useSanityQuery<MovieBySlugQueryResult>(movieBySlugQuery, {
     slug: route.params.slug,
   })
 </script>
