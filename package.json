@@ -96,6 +96,11 @@
     "@nuxtjs/sanity": "link:.",
     "nuxt-component-meta": "0.16.0"
   },
+  "lint-staged": {
+    "*.{js,mjs,cjs,ts,tsx,vue,json}": [
+      "eslint --fix"
+    ]
+  },
   "simple-git-hooks": {
     "pre-commit": "npx lint-staged"
   },
