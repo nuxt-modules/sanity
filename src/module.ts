@@ -3,10 +3,10 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, hasNuxtModule, resolvePath, useLogger } from '@nuxt/kit'
+import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, hasNuxtModule, resolvePath, useLogger, addTypeTemplate, updateTemplates } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
-import { join, relative, resolve } from 'pathe'
+import { isAbsolute, join, relative, resolve } from 'pathe'
 import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
@@ -16,6 +16,8 @@ import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
 import type { SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
+import { extractSchemaFromTypesFile } from './runtime/typegen/schema-extractor'
+import { generateSanityTypes } from './runtime/typegen/type-generator'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
@@ -70,6 +72,36 @@ export interface SanityModuleVisualEditingOptions {
    */
   zIndex?: SanityVisualEditingZIndex
 }
+
+export interface SanityTypegenOptions {
+  /**
+   * Enable programmatic schema/query type generation.
+   *
+   * @default false
+   */
+  enabled?: boolean
+  /**
+   * Path to a module exporting your schema types array (e.g. `cms/schemaTypes/index.ts`).
+   */
+  schemaTypesPath?: string
+  /**
+   * The export name to read schema types from.
+   *
+   * @default 'schemaTypes'
+   */
+  schemaTypesExport?: string
+  /**
+   * Glob(s) to scan for GROQ queries.
+   */
+  queryPaths?: string | string[]
+  /**
+   * Generate `@sanity/client` query overloads.
+   *
+   * @default true
+   */
+  overloadClientMethods?: boolean
+}
+
 export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConfig> & {
   /** Globally register a $sanity helper throughout your app */
   globalHelper?: boolean
@@ -111,6 +143,10 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
    * @private
    */
   isNuxtImageEnabled?: boolean
+  /**
+   * Programmatic Sanity type generation.
+   */
+  typegen?: SanityTypegenOptions
 }
 
 export type ModuleOptions = SanityModuleOptions
@@ -261,7 +297,8 @@ export default defineNuxtModule<SanityModuleOptions>({
      * Merge with existing runtime configs
      */
     nuxt.options.runtimeConfig.sanity = defu(nuxt.options.runtimeConfig.sanity, runtimeConfig)
-    const { projectId, dataset } = (nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, publicRuntimeConfig))
+    nuxt.options.runtimeConfig.public.sanity = defu(nuxt.options.runtimeConfig.public.sanity, publicRuntimeConfig)
+    const { projectId, dataset } = nuxt.options.runtimeConfig.public.sanity
 
     /**
      * Validate that a project ID has been provided
@@ -295,6 +332,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'useSanity', from: composablesPath },
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', from: join(runtimeDir, 'groq') },
+      { name: 'defineQuery', from: join(runtimeDir, 'groq') },
     ])
 
     addImports([
@@ -314,6 +352,118 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'useSanityVisualEditing', from: composablesPath },
     ])
 
+    let typegenTemplate: { filename: string, dst: string } | null = null
+
+    if (options.typegen?.enabled) {
+      if (!options.typegen.schemaTypesPath) {
+        logger.warn('Sanity typegen is enabled but `schemaTypesPath` is missing.')
+      }
+      else {
+        const schemaTypesPath = await resolvePath(options.typegen.schemaTypesPath)
+
+        const queryPaths = options.typegen.queryPaths
+          ? (Array.isArray(options.typegen.queryPaths) ? options.typegen.queryPaths : [options.typegen.queryPaths])
+          : [join(nuxt.options.srcDir, '**/*.{ts,tsx,js,jsx,mjs,cjs,vue,astro}')]
+
+        const resolvedQueryPaths = queryPaths.map(p => isAbsolute(p) ? p : resolve(nuxt.options.rootDir, p))
+
+        // Generate types and extract type names for auto-imports
+        const generateTypes = async () => {
+          const schema = await extractSchemaFromTypesFile({
+            typesPath: schemaTypesPath,
+            exportName: options.typegen?.schemaTypesExport,
+          })
+
+          const result = await generateSanityTypes({
+            schema,
+            queryPaths: resolvedQueryPaths,
+            rootDir: nuxt.options.rootDir,
+            overloadClientMethods: options.typegen?.overloadClientMethods,
+          })
+
+          if (result.errors.length) {
+            const uniqueErrors = [...new Set(result.errors)]
+            const maxErrors = 10
+
+            logger.warn(
+              `Sanity typegen skipped ${uniqueErrors.length} error(s):\n${uniqueErrors
+                .slice(0, maxErrors)
+                .map(e => `- ${e}`)
+                .join('\n')}${uniqueErrors.length > maxErrors ? '\n- (truncated)' : ''}`,
+            )
+          }
+
+          return result
+        }
+
+        // Generate types once at setup to get type names for auto-imports
+        let cachedResult: Awaited<ReturnType<typeof generateTypes>> | null = null
+        const getTypesResult = async () => {
+          if (!cachedResult) {
+            try {
+              cachedResult = await generateTypes()
+            }
+            catch (error) {
+              const message = error instanceof Error ? error.message : String(error)
+              logger.warn(`Could not generate Sanity types: ${message}`)
+              cachedResult = { code: 'export {}', fileCount: 0, errors: [], typeNames: [] }
+            }
+          }
+          return cachedResult
+        }
+
+        typegenTemplate = addTypeTemplate({
+          filename: 'types/sanity-typegen.d.ts',
+          getContents: async () => {
+            const result = await getTypesResult()
+            return `// Generated by @nuxtjs/sanity\n${result.code}`
+          },
+          write: true,
+        }, { nitro: true })
+
+        // Add generated types as auto-imports
+        // Use relative path from .nuxt/types/imports.d.ts to .nuxt/types/sanity-typegen.d.ts
+        nuxt.hook('imports:extend', async (imports) => {
+          const result = await getTypesResult()
+          for (const typeName of result.typeNames) {
+            imports.push({
+              name: typeName,
+              from: typegenTemplate!.dst,
+              typeFrom: './sanity-typegen',
+              type: true,
+            })
+          }
+        })
+
+        if (nuxt.options.dev) {
+          nuxt.options.watch.push(schemaTypesPath)
+
+          nuxt.hook('builder:watch', async (_event, path) => {
+            if (!typegenTemplate) return
+
+            const changedPath = isAbsolute(path) ? path : resolve(nuxt.options.rootDir, path)
+
+            const isSchemaChange = changedPath === schemaTypesPath
+            const relativeToSrc = relative(nuxt.options.srcDir, changedPath)
+            const isInSrcDir = !relativeToSrc.startsWith('..')
+            const isSupportedExt = /\.(?:ts|tsx|js|jsx|mjs|cjs|vue|astro)$/.test(changedPath)
+
+            if (!isSchemaChange && !(isInSrcDir && isSupportedExt)) {
+              return
+            }
+
+            // Invalidate cache and regenerate
+            cachedResult = null
+            await updateTemplates({
+              filter: template => template.dst === typegenTemplate!.dst,
+            })
+          })
+        }
+
+        logger.info('Sanity type generation enabled.')
+      }
+    }
+
     /**
      * Programatically update the TypeScript configuration to include paths for
      * the Sanity client and composables
@@ -321,6 +471,7 @@ export default defineNuxtModule<SanityModuleOptions>({
     const clientPath = await resolvePath(clientSpecifier)
     nuxt.hook('prepare:types', async ({ tsConfig }) => {
       tsConfig.compilerOptions ||= {}
+      tsConfig.compilerOptions.paths ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
       tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesPath]
     })
@@ -358,7 +509,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           },
           {
             from: join(runtimeDir, 'groq'),
-            imports: ['groq'],
+            imports: ['groq', 'defineQuery'],
           },
         ],
       })

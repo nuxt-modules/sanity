@@ -17,6 +17,10 @@ export default defineNuxtConfig({
   sanity: {
     globalHelper: true,
     apiVersion: '2021-03-26',
+    typegen: {
+      enabled: true,
+      schemaTypesPath: './cms/schemaTypes',
+    },
     additionalClients: {
       another: {},
     },
