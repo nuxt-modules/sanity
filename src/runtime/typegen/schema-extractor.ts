@@ -55,14 +55,3 @@ function resolveSchemaTypes(mod: SchemaTypesModule, exportName?: string): unknow
 
   return mod.default
 }
-
-export async function writeSchemaJson(
-  schemaPath: string,
-  schema: ExtractedSchema,
-): Promise<void> {
-  const { writeFile, mkdir } = await import('node:fs/promises')
-  const { dirname } = await import('pathe')
-
-  await mkdir(dirname(schemaPath), { recursive: true })
-  await writeFile(schemaPath, JSON.stringify(schema, null, 2), 'utf-8')
-}
