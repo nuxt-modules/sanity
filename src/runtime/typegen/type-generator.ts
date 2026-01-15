@@ -41,10 +41,10 @@ export async function generateSanityTypes(
   const errors: string[] = []
   const wrappedQueries = (async function* () {
     for await (const mod of queries) {
-      if (!mod.errors) return
-
-      for (const error of mod.errors) {
-        errors.push(error.message)
+      if (mod.errors) {
+        for (const error of mod.errors) {
+          errors.push(error.message)
+        }
       }
 
       yield mod
