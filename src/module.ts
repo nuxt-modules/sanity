@@ -315,30 +315,23 @@ export default defineNuxtModule<SanityModuleOptions>({
       addPlugin({ src: join(runtimeDir, 'plugins/global-helper') })
     }
 
-    const composablesPath = join(runtimeDir, 'composables/index')
-
     addImports([
-      { name: 'useSanity', from: composablesPath },
+      { name: 'useSanity', from: join(runtimeDir, 'composables/useSanity') },
       { name: 'createClient', as: 'createSanityClient', from: '#build/sanity-client.mjs' },
       { name: 'groq', from: join(runtimeDir, 'groq') },
       { name: 'defineQuery', from: join(runtimeDir, 'groq') },
     ])
 
     addImports([
-      { name: 'useSanityQuery', from: composablesPath },
-      { name: 'useLazySanityQuery', from: composablesPath },
-      { name: 'useSanityConfig', from: composablesPath },
-      { name: 'useSanityPerspective', from: composablesPath },
-      { name: 'useSanityVisualEditingState', from: composablesPath },
-      { name: 'useIsSanityLivePreview', from: composablesPath },
-      { name: 'useIsSanityPresentationTool', from: composablesPath },
-      { name: 'useSanityPreviewPerspective', from: composablesPath },
-      { name: 'useSanityPreviewEnvironment', from: composablesPath },
-      // Visual Editing
-      { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
-      { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
-      { name: 'useSanityLiveMode', from: composablesPath },
-      { name: 'useSanityVisualEditing', from: composablesPath },
+      { name: 'useSanityQuery', from: join(runtimeDir, 'composables/useSanityQuery') },
+      { name: 'useLazySanityQuery', from: join(runtimeDir, 'composables/useLazySanityQuery') },
+      { name: 'useSanityConfig', from: join(runtimeDir, 'composables/useSanityConfig') },
+      { name: 'useSanityPerspective', from: join(runtimeDir, 'composables/useSanityPerspective') },
+      { name: 'useSanityVisualEditingState', from: join(runtimeDir, 'composables/useSanityVisualEditingState') },
+      { name: 'useIsSanityLivePreview', from: join(runtimeDir, 'composables/useIsSanityLivePreview') },
+      { name: 'useIsSanityPresentationTool', from: join(runtimeDir, 'composables/useIsSanityPresentationTool') },
+      { name: 'useSanityPreviewPerspective', from: join(runtimeDir, 'composables/useSanityPreviewPerspective') },
+      { name: 'useSanityPreviewEnvironment', from: join(runtimeDir, 'composables/useSanityPreviewEnvironment') },
     ])
 
     let typegenTemplate: { filename: string, dst: string } | null = null
@@ -454,6 +447,38 @@ export default defineNuxtModule<SanityModuleOptions>({
     }
 
     /**
+     * Generate a dynamic barrel export for composables that conditionally
+     * includes Visual Editing composables only when configured
+     */
+    const composablesTemplate = addTemplate({
+      filename: 'sanity-composables.mjs',
+      getContents: () => {
+        const baseExports = [
+          `export { useSanity } from '${join(runtimeDir, 'composables/useSanity')}'`,
+          `export { useSanityQuery } from '${join(runtimeDir, 'composables/useSanityQuery')}'`,
+          `export { useLazySanityQuery } from '${join(runtimeDir, 'composables/useLazySanityQuery')}'`,
+          `export { useSanityConfig } from '${join(runtimeDir, 'composables/useSanityConfig')}'`,
+          `export { useSanityPerspective } from '${join(runtimeDir, 'composables/useSanityPerspective')}'`,
+          `export { useSanityVisualEditingState } from '${join(runtimeDir, 'composables/useSanityVisualEditingState')}'`,
+          `export { useIsSanityLivePreview } from '${join(runtimeDir, 'composables/useIsSanityLivePreview')}'`,
+          `export { useIsSanityPresentationTool } from '${join(runtimeDir, 'composables/useIsSanityPresentationTool')}'`,
+          `export { useSanityPreviewPerspective } from '${join(runtimeDir, 'composables/useSanityPreviewPerspective')}'`,
+          `export { useSanityPreviewEnvironment } from '${join(runtimeDir, 'composables/useSanityPreviewEnvironment')}'`,
+        ]
+
+        const visualEditingExports = publicRuntimeConfig.visualEditing
+          ? [
+              `export { useSanityVisualEditing } from '${join(runtimeDir, 'composables/useSanityVisualEditing')}'`,
+              `export { useSanityLiveMode } from '${join(runtimeDir, 'composables/useSanityLiveMode')}'`,
+            ]
+          : []
+
+        return [...baseExports, ...visualEditingExports].join('\n')
+      },
+      write: true,
+    })
+
+    /**
      * Programatically update the TypeScript configuration to include paths for
      * the Sanity client and composables
      */
@@ -462,7 +487,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       tsConfig.compilerOptions ||= {}
       tsConfig.compilerOptions.paths ||= {}
       tsConfig.compilerOptions.paths['#sanity-client'] = [clientPath]
-      tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesPath]
+      tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesTemplate.dst]
     })
 
     nuxt.hook('nitro:config', (config) => {
@@ -471,7 +496,7 @@ export default defineNuxtModule<SanityModuleOptions>({
           compilerOptions: {
             paths: {
               ['#sanity-client']: [clientPath],
-              ['#sanity-composables']: [composablesPath],
+              ['#sanity-composables']: [composablesTemplate.dst],
             },
           },
         },
@@ -556,6 +581,14 @@ export default defineNuxtModule<SanityModuleOptions>({
           `,
         write: true,
       })
+
+      // Add Visual Editing auto-imports
+      addImports([
+        { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+        { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
+        { name: 'useSanityLiveMode', from: join(runtimeDir, 'composables/useSanityLiveMode') },
+        { name: 'useSanityVisualEditing', from: join(runtimeDir, 'composables/useSanityVisualEditing') },
+      ])
 
       // Add server plugin to set visual editing state on app initialisation
       addPlugin({
