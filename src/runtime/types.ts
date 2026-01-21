@@ -138,7 +138,7 @@ export interface VisualEditingProps {
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
 
 /**
- * Handler function for handlign visual editing refreshing events
+ * Handler function for handling visual editing refreshing events
  * @public
  */
 export type SanityVisualEditingRefreshHandler = (

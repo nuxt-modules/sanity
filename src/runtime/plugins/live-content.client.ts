@@ -3,7 +3,12 @@ import type { LoaderControllerMsg, LoaderNodeMsg } from '@sanity/presentation-co
 import { createNode, createNodeMachine } from '@sanity/comlink'
 import { onScopeDispose, watch } from 'vue'
 import { defineNuxtPlugin, refreshNuxtData } from '#imports'
-import { useSanityConfig, useSanityVisualEditingState, useSanity, useIsSanityPresentationTool, useSanityPreviewEnvironment, useSanityPerspective } from '../composables'
+import { useSanityConfig } from '../composables/useSanityConfig'
+import { useSanityVisualEditingState } from '../composables/useSanityVisualEditingState'
+import { useSanity } from '../composables/useSanity'
+import { useIsSanityPresentationTool } from '../composables/useIsSanityPresentationTool'
+import { useSanityPreviewEnvironment } from '../composables/useSanityPreviewEnvironment'
+import { useSanityPerspective } from '../composables/useSanityPerspective'
 
 export default defineNuxtPlugin(() => {
   const { liveContent, visualEditing } = useSanityConfig()
