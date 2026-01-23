@@ -8,6 +8,7 @@
 [![License][license-src]][license-href]
 [![Nuxt][nuxt-src]][nuxt-href]
 [![Volta][volta-src]][volta-href]
+[![nuxt.care health](https://img.shields.io/endpoint?url=https://nuxt.care/api/badge/sanity)](https://nuxt.care/?search=sanity)
 
 > [Sanity](https://sanity.io/) integration for [Nuxt](https://nuxt.com)
 
