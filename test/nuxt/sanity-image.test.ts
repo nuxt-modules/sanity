@@ -2,7 +2,7 @@ import { vi, expect, describe, it, beforeEach, afterEach } from 'vitest'
 import { h } from 'vue'
 import { mount } from '@vue/test-utils'
 
-import SanityImage from '../../src/runtime/components/sanity-image'
+import SanityImage from '../../src/runtime/components/sanity-image-base'
 
 const projectId = 'test-project'
 

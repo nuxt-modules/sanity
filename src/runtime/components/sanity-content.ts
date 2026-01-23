@@ -1,11 +1,11 @@
-import { defineComponent, h } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import type {
   PortableTextBlock,
   TypedObject,
 } from '@portabletext/types'
 import { PortableText } from '@portabletext/vue'
 import type { ListNestMode, MissingComponentHandler, PortableTextComponents } from '@portabletext/vue'
-import SanityImage from './sanity-image'
+import SanityImage from '#build/sanity-image.mjs'
 
 // Type for Sanity image data structure in portable text
 interface SanityImageValue {
@@ -79,7 +79,8 @@ export default defineComponent({
   },
   setup(props) {
     // Merge user components with defaults, allowing user components to override defaults
-    const mergedComponents = {
+    // Use computed to make it reactive to prop changes
+    const mergedComponents = computed(() => ({
       types: {
         ...(props.disableDefaultImageComponent
           ? {}
@@ -89,11 +90,11 @@ export default defineComponent({
         ...props.components.types,
       },
       ...props.components,
-    }
+    }))
 
     return () => h(PortableText, {
       value: props.value,
-      components: mergedComponents,
+      components: mergedComponents.value,
       onMissingComponent: props.onMissingComponent,
       listNestingMode: props.listNestingMode,
     })

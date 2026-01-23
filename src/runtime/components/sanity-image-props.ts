@@ -1,11 +1,10 @@
-import { computed, defineComponent, h } from 'vue'
-import { useSanity } from '../composables'
+/**
+ * Shared props and utilities for SanityImage components
+ */
 
-import ImageComponent from '#build/sanity-image-component.mjs'
+export const baseURL = 'https://cdn.sanity.io/images'
 
-const baseURL = 'https://cdn.sanity.io/images'
-
-const props = {
+export const sanityImageProps = {
   assetId: { type: String, required: true },
   projectId: {
     type: String,
@@ -165,63 +164,9 @@ const props = {
   w: { type: [Number, String] },
 }
 
-const keys = Object.keys(props).filter(k => !['assetId', 'projectId', 'dataset', 'crop', 'hotspot'].includes(k))
+/** Keys used to build the image URL query string (excludes assetId, projectId, dataset) */
+export const urlParamKeys = Object.keys(sanityImageProps).filter(
+  k => !['assetId', 'projectId', 'dataset'].includes(k),
+)
 
-export default defineComponent({
-  name: 'SanityImage',
-  props,
-  setup(props, { attrs, slots }) {
-    const sanity = useSanity()
-
-    const src = computed(() => {
-      const queryParams = keys
-        .map((prop) => {
-          const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
-          return props[prop as keyof typeof props] ? `${urlFormat}=${props[prop as keyof typeof props]}` : undefined
-        })
-        .filter(Boolean)
-        .join('&')
-
-      const parts = props.assetId?.split('-').slice(1) || []
-      const format = parts.pop()
-
-      const projectId = props.projectId || sanity.config.projectId
-      const dataset = props.dataset || sanity.config.dataset || 'production'
-
-      const filename = `${parts.join('-')}.${format}${queryParams ? '?' + queryParams : ''}`
-      return [baseURL, projectId, dataset, filename].join('/')
-    })
-
-    const nuxtImgOptions = computed(() => {
-      const { w, h, ...rest } = props
-      const result: Record<string, unknown> = rest
-
-      if (w) {
-        result.width = w
-      }
-      if (h) {
-        result.height = h
-      }
-
-      return result
-    })
-
-    return () => {
-      // If NuxtImg component is available, use it with Sanity provider
-      if (typeof ImageComponent !== 'string') {
-        return h(ImageComponent, {
-          provider: 'sanity',
-          ...attrs,
-          ...nuxtImgOptions.value,
-          src: props.assetId,
-        })
-      }
-
-      // Fallback to regular img or slot
-      return slots.default?.({ src: src.value }) || h('img', {
-        ...attrs,
-        src: src.value,
-      })
-    }
-  },
-})
+export type SanityImageProps = typeof sanityImageProps

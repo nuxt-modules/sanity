@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, hasNuxtModule, resolvePath, useLogger, addTypeTemplate, updateTemplates } from '@nuxt/kit'
+import { addComponent, addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, addTypeTemplate, updateTemplates } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { isAbsolute, join, relative, resolve } from 'pathe'
@@ -139,11 +139,6 @@ export type SanityModuleOptions = Partial<MinimalClientConfig | SanityClientConf
    */
   configFile?: string
   /**
-   * Internal flag to know if @nuxt/image is enabled
-   * @private
-   */
-  isNuxtImageEnabled?: boolean
-  /**
    * Programmatic Sanity type generation.
    */
   typegen?: SanityTypegenOptions
@@ -170,14 +165,9 @@ export default defineNuxtModule<SanityModuleOptions>({
     disableSmartCdn: false,
     perspective: 'raw',
     withCredentials: false,
-    isNuxtImageEnabled: false,
     configFile: '~~/cms/sanity.config',
   },
   async setup(options, nuxt) {
-    if (hasNuxtModule('@nuxt/image', nuxt)) {
-      (options as SanityModuleOptions).isNuxtImageEnabled = true
-    }
-
     // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
     if (!options.projectId || !options.dataset) {
       // Register watcher on sanity.config.ts
@@ -249,7 +239,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       token: options.token || '',
       useCdn: options.useCdn ?? true,
       withCredentials: options.withCredentials ?? false,
-      isNuxtImageEnabled: (options as SanityModuleOptions).isNuxtImageEnabled,
     }
 
     /**
@@ -518,21 +507,30 @@ export default defineNuxtModule<SanityModuleOptions>({
     await addComponentsDir({
       path: join(runtimeDir, 'components'),
       extensions: ['js', 'ts', 'mjs'],
+      // Exclude sanity-image variants (registered separately via virtual template)
+      ignore: ['**/sanity-image-*.ts'],
     })
 
+    // Add SanityImage component - uses NuxtImg variant if @nuxt/image is available
     addTemplate({
-      filename: 'sanity-image-component.mjs',
+      filename: 'sanity-image.mjs',
       write: true,
       getContents: ({ app }) => {
-        const image = app.components.find(c =>
+        const hasNuxtImage = app.components.some(c =>
           c.pascalName === 'NuxtImg'
           && !c.filePath.includes('nuxt/dist/app')
           && !c.filePath.includes('nuxt-nightly/dist/app'),
         )
-        return image
-          ? `export { default } from "${image.filePath}"`
-          : 'export default "img"'
+        const componentPath = hasNuxtImage
+          ? join(runtimeDir, 'components/sanity-image-nuxt')
+          : join(runtimeDir, 'components/sanity-image-base')
+        return `export { default } from ${JSON.stringify(componentPath)}`
       },
+    })
+
+    addComponent({
+      name: 'SanityImage',
+      filePath: '#build/sanity-image.mjs',
     })
 
     if (options.liveContent) {

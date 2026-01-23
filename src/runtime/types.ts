@@ -193,12 +193,6 @@ export type SanityPublicRuntimeConfig = {
     zIndex: SanityVisualEditingZIndex | ''
   }
   withCredentials: boolean
-  /**
-   * Whether `@nuxt/image` is used to render images.
-   * @private
-   * @default false
-   */
-  isNuxtImageEnabled?: boolean
 }
 
 /**
