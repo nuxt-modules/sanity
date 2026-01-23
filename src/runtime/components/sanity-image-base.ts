@@ -1,5 +1,5 @@
 import { computed, defineComponent, h } from 'vue'
-import { useSanity } from '../composables'
+import { useSanity } from '../composables/useSanity'
 import { baseURL, sanityImageProps, urlParamKeys } from './sanity-image-props'
 
 export default defineComponent({
