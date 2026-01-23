@@ -1,9 +1,10 @@
-import { computed, defineComponent, h } from 'vue'
-import { useSanity, isVue2 } from '#imports'
+/**
+ * Shared props and utilities for SanityImage components
+ */
 
-const baseURL = 'https://cdn.sanity.io/images'
+export const baseURL = 'https://cdn.sanity.io/images'
 
-const props = {
+export const sanityImageProps = {
   assetId: { type: String, required: true },
   projectId: {
     type: String,
@@ -163,35 +164,56 @@ const props = {
   w: { type: [Number, String] },
 }
 
-const keys = Object.keys(props).filter(k => !['assetId', 'projectId', 'dataset'].includes(k))
+/** Keys used to build the image URL query string (excludes assetId, projectId, dataset) */
+export const urlParamKeys = Object.keys(sanityImageProps).filter(
+  k => !['assetId', 'projectId', 'dataset'].includes(k),
+)
 
-export default defineComponent({
-  name: 'SanityImage',
-  props,
-  setup(props, { attrs, slots }) {
-    const sanity = useSanity()
+export type SanityImageProps = typeof sanityImageProps
 
-    const src = computed(() => {
-      const queryParams = keys
-        .map((prop) => {
-          const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
-          return props[prop as keyof typeof props] ? `${urlFormat}=${props[prop as keyof typeof props]}` : undefined
-        })
-        .filter(Boolean)
-        .join('&')
+export interface ParsedAssetId {
+  hash: string
+  width: number
+  height: number
+  format: string
+}
 
-      const parts = props.assetId?.split('-').slice(1) || []
-      const format = parts.pop()
+export function parseAssetId(assetId: string): ParsedAssetId | null {
+  const parts = assetId.split('-').slice(1) // Remove 'image' prefix
+  if (parts.length < 2) return null
 
-      const projectId = props.projectId || sanity.config.projectId
-      const dataset = props.dataset || sanity.config.dataset || 'production'
+  const format = parts.pop()!
+  const dimensionPart = parts.pop()!
+  const match = dimensionPart.match(/^(\d+)x(\d+)$/)
 
-      const filename = `${parts.join('-')}.${format}${queryParams ? '?' + queryParams : ''}`
-      return [baseURL, projectId, dataset, filename].join('/')
+  if (!match) return null
+
+  return {
+    hash: parts.join('-'),
+    width: Number(match[1]),
+    height: Number(match[2]),
+    format,
+  }
+}
+
+export function buildImageUrl(
+  assetId: string,
+  projectId: string,
+  dataset: string,
+  params: Record<string, unknown> = {},
+): string {
+  const parsed = parseAssetId(assetId)
+  if (!parsed) return ''
+
+  const queryParams = urlParamKeys
+    .map((prop) => {
+      const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
+      const value = params[prop]
+      return value ? `${urlFormat}=${value}` : undefined
     })
+    .filter(Boolean)
+    .join('&')
 
-    return () => slots.default?.({ src: src.value }) || h('img', isVue2
-      ? { attrs: { ...attrs, src: src.value } }
-      : { ...attrs, src: src.value })
-  },
-})
+  const filename = `${parsed.hash}-${parsed.width}x${parsed.height}.${parsed.format}${queryParams ? '?' + queryParams : ''}`
+  return [baseURL, projectId, dataset, filename].join('/')
+}

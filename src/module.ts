@@ -3,7 +3,7 @@ import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
-import { addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, addTypeTemplate, defineNuxtModule, resolvePath, updateTemplates, useLogger } from '@nuxt/kit'
+import { addComponent, addComponentsDir, addImports, addPlugin, addServerHandler, addTemplate, defineNuxtModule, resolvePath, useLogger, addTypeTemplate, updateTemplates } from '@nuxt/kit'
 
 import { colors } from 'consola/utils'
 import { isAbsolute, join, relative, resolve } from 'pathe'
@@ -532,6 +532,30 @@ export default defineNuxtModule<SanityModuleOptions>({
     await addComponentsDir({
       path: join(runtimeDir, 'components'),
       extensions: ['js', 'ts', 'mjs'],
+      // Exclude sanity-image variants (registered separately via virtual template)
+      ignore: ['**/sanity-image-*.ts'],
+    })
+
+    // Add SanityImage component - uses NuxtImg variant if @nuxt/image is available
+    addTemplate({
+      filename: 'sanity-image.mjs',
+      write: true,
+      getContents: ({ app }) => {
+        const hasNuxtImage = app.components.some(c =>
+          c.pascalName === 'NuxtImg'
+          && !c.filePath.includes('nuxt/dist/app')
+          && !c.filePath.includes('nuxt-nightly/dist/app'),
+        )
+        const componentPath = hasNuxtImage
+          ? join(runtimeDir, 'components/sanity-image-nuxt')
+          : join(runtimeDir, 'components/sanity-image-base')
+        return `export { default } from ${JSON.stringify(componentPath)}`
+      },
+    })
+
+    addComponent({
+      name: 'SanityImage',
+      filePath: '#build/sanity-image.mjs',
     })
 
     if (options.liveContent) {
