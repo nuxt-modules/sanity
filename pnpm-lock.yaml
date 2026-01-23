@@ -43,8 +43,8 @@ importers:
         specifier: ^2.0.0
         version: 2.0.1(@sanity/client@7.14.1)(@sanity/types@5.5.0(@types/react@18.3.27))
       '@sanity/preview-url-secret':
-        specifier: ^3.0.0
-        version: 3.0.0(@sanity/client@7.14.1)(@sanity/icons@3.7.4(react@18.3.1))(sanity@4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2))
+        specifier: ^4.0.0
+        version: 4.0.2(@sanity/client@7.14.1)
       '@sanity/schema':
         specifier: ^5.3.1
         version: 5.5.0(@types/react@18.3.27)
@@ -202,9 +202,12 @@ importers:
 
   playground/cms:
     dependencies:
+      '@sanity/debug-preview-url-secret-plugin':
+        specifier: ^1.0.3
+        version: 1.0.3(@sanity/client@7.14.1)(react@18.3.1)(sanity@4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2))
       '@sanity/preview-url-secret':
-        specifier: ^3.0.0
-        version: 3.0.0(@sanity/client@7.14.1)(@sanity/icons@3.7.4(react@18.3.1))(sanity@4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2))
+        specifier: ^4.0.0
+        version: 4.0.2(@sanity/client@7.14.1)
       prop-types:
         specifier: 15.8.1
         version: 15.8.1
@@ -3749,6 +3752,13 @@ packages:
   '@sanity/core-loader@2.0.5':
     resolution: {integrity: sha512-MbEcv27wyv5wZNUhZ+zGOb3z7YJGA6TjZ97xRtBTWLQCdpYdsijUgIPM0tCiUoQDKzQYP3X+5KHpW0B2ZHDiPg==}
     engines: {node: '>=18'}
+
+  '@sanity/debug-preview-url-secret-plugin@1.0.3':
+    resolution: {integrity: sha512-jll6uygRAiaYK5ICXnxy2jcOQNNWI+f5f4xPAvZ3PPbcq+yrPNEqAwoHbjK3EOCWEHSPEvW6o92DOvc4VRImpQ==}
+    engines: {node: '>=20.19 <22 || >=22.12'}
+    peerDependencies:
+      react: ^18.3 || ^19
+      sanity: ^4.0.0-0 || ^5.0.0-0
 
   '@sanity/descriptors@1.3.0':
     resolution: {integrity: sha512-S2KYYGRUVZy+FDjPp3meoyczbCjobSQvZcgNayo3oYlYS9Qz0E+6RezGxi/KOb6iF52Oir3LEXp9SVfIgEwNjg==}
@@ -14654,6 +14664,15 @@ snapshots:
       - '@sanity/types'
       - debug
       - typescript
+
+  '@sanity/debug-preview-url-secret-plugin@1.0.3(@sanity/client@7.14.1)(react@18.3.1)(sanity@4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2))':
+    dependencies:
+      '@sanity/icons': 3.7.4(react@18.3.1)
+      '@sanity/preview-url-secret': 3.0.0(@sanity/client@7.14.1)(@sanity/icons@3.7.4(react@18.3.1))(sanity@4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2))
+      react: 18.3.1
+      sanity: 4.22.0(@emotion/is-prop-valid@1.4.0)(@portabletext/sanity-bridge@1.2.14(@types/react@18.3.27))(@types/node@25.0.2)(@types/react@18.3.27)(jiti@2.6.1)(lightningcss@1.30.2)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@6.3.8(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(terser@5.46.0)(typescript@5.9.3)(yaml@2.8.2)
+    transitivePeerDependencies:
+      - '@sanity/client'
 
   '@sanity/descriptors@1.3.0':
     dependencies:
