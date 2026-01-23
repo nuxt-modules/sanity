@@ -171,12 +171,14 @@ export function useSanityQuery<T = unknown, E = Error>(
     const { result, resultSourceMap } = await client.fetch<T>(query, params || {}, options)
 
     updateRefs(result, resultSourceMap)
-    return { data: result, sourceMap: resultSourceMap }
-  }, options) as AsyncData<SanityQueryResponse<T | null>, E>
+    return { data: result, sourceMap: resultSourceMap } satisfies SanityQueryResponse<T>
+  }, options) as AsyncData<SanityQueryResponse<T | null> | undefined, E>
 
   return Object.assign(new Promise((resolve) => {
     result.then((value) => {
-      updateRefs(value.data.value.data, value.data.value.sourceMap)
+      if (value.data.value) {
+        updateRefs(value.data.value.data, value.data.value.sourceMap)
+      }
       resolve({
         ...result,
         data,
