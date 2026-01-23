@@ -6,6 +6,7 @@ import type {
 import { PortableText } from '@portabletext/vue'
 import type { ListNestMode, MissingComponentHandler, PortableTextComponents } from '@portabletext/vue'
 import SanityImage from '#build/sanity-image.mjs'
+import { parseAssetId } from './sanity-image-props'
 
 // Type for Sanity image data structure in portable text
 interface SanityImageValue {
@@ -52,18 +53,13 @@ const createDefaultImageComponent = () => (portableTextProps: { value: SanityIma
   }
 
   // Calculate rect from crop percentages using dimensions from assetId
-  // Asset ID format: image-{hash}-{width}x{height}-{format}
   if (value.crop) {
-    const parts = assetId.split('-')
-    const dimensionPart = parts[parts.length - 2]
-    const match = dimensionPart?.match(/^(\d+)x(\d+)$/)
-    if (match) {
-      const width = Number(match[1])
-      const height = Number(match[2])
-      const left = Math.round(value.crop.left * width)
-      const top = Math.round(value.crop.top * height)
-      const rectWidth = Math.round(width * (1 - value.crop.left - value.crop.right))
-      const rectHeight = Math.round(height * (1 - value.crop.top - value.crop.bottom))
+    const parsed = parseAssetId(assetId)
+    if (parsed) {
+      const left = Math.round(value.crop.left * parsed.width)
+      const top = Math.round(value.crop.top * parsed.height)
+      const rectWidth = Math.round(parsed.width * (1 - value.crop.left - value.crop.right))
+      const rectHeight = Math.round(parsed.height * (1 - value.crop.top - value.crop.bottom))
       sanityImageProps.rect = `${left},${top},${rectWidth},${rectHeight}`
     }
   }

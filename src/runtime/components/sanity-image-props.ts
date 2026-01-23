@@ -170,3 +170,50 @@ export const urlParamKeys = Object.keys(sanityImageProps).filter(
 )
 
 export type SanityImageProps = typeof sanityImageProps
+
+export interface ParsedAssetId {
+  hash: string
+  width: number
+  height: number
+  format: string
+}
+
+export function parseAssetId(assetId: string): ParsedAssetId | null {
+  const parts = assetId.split('-').slice(1) // Remove 'image' prefix
+  if (parts.length < 2) return null
+
+  const format = parts.pop()!
+  const dimensionPart = parts.pop()!
+  const match = dimensionPart.match(/^(\d+)x(\d+)$/)
+
+  if (!match) return null
+
+  return {
+    hash: parts.join('-'),
+    width: Number(match[1]),
+    height: Number(match[2]),
+    format,
+  }
+}
+
+export function buildImageUrl(
+  assetId: string,
+  projectId: string,
+  dataset: string,
+  params: Record<string, unknown> = {},
+): string {
+  const parsed = parseAssetId(assetId)
+  if (!parsed) return ''
+
+  const queryParams = urlParamKeys
+    .map((prop) => {
+      const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
+      const value = params[prop]
+      return value ? `${urlFormat}=${value}` : undefined
+    })
+    .filter(Boolean)
+    .join('&')
+
+  const filename = `${parsed.hash}-${parsed.width}x${parsed.height}.${parsed.format}${queryParams ? '?' + queryParams : ''}`
+  return [baseURL, projectId, dataset, filename].join('/')
+}

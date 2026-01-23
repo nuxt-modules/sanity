@@ -1,6 +1,6 @@
 import { computed, defineComponent, h } from 'vue'
 import { useSanity } from '../composables/useSanity'
-import { baseURL, sanityImageProps, urlParamKeys } from './sanity-image-props'
+import { buildImageUrl, sanityImageProps } from './sanity-image-props'
 
 export default defineComponent({
   name: 'SanityImage',
@@ -9,23 +9,10 @@ export default defineComponent({
     const sanity = useSanity()
 
     const src = computed(() => {
-      const queryParams = urlParamKeys
-        .map((prop) => {
-          const urlFormat = prop.replace(/[A-Z]/, r => '-' + r.toLowerCase())
-          const value = (props as Record<string, unknown>)[prop]
-          return value ? `${urlFormat}=${value}` : undefined
-        })
-        .filter(Boolean)
-        .join('&')
-
-      const parts = props.assetId?.split('-').slice(1) || []
-      const format = parts.pop()
-
+      if (!props.assetId) return ''
       const projectId = props.projectId || sanity.config.projectId
       const dataset = props.dataset || sanity.config.dataset || 'production'
-
-      const filename = `${parts.join('-')}.${format}${queryParams ? '?' + queryParams : ''}`
-      return [baseURL, projectId, dataset, filename].join('/')
+      return buildImageUrl(props.assetId, projectId!, dataset, props as Record<string, unknown>)
     })
 
     return () => {
