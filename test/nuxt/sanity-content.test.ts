@@ -593,6 +593,16 @@ describe('SanityContent with PortableText', () => {
     const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
     expect(sanityImage.props('assetId')).toBe('image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg')
 
+    // Verify hotspot is passed as focal point coordinates
+    expect(sanityImage.props('fpX')).toBe(0.5)
+    expect(sanityImage.props('fpY')).toBe(0.5)
+
+    // Verify crop is converted to rect parameter
+    // Original dimensions: 300x450, crop: 10% on all sides
+    // left = 0.1 * 300 = 30, top = 0.1 * 450 = 45
+    // width = 300 * (1 - 0.1 - 0.1) = 240, height = 450 * (1 - 0.1 - 0.1) = 360
+    expect(sanityImage.props('rect')).toBe('30,45,240,360')
+
     // Verify that caption and attribution are NOT rendered (they are ignored)
     expect(wrapper.html()).not.toContain('This is the caption')
     expect(wrapper.html()).not.toContain('Public domain')
@@ -600,6 +610,71 @@ describe('SanityContent with PortableText', () => {
     expect(wrapper.find('.sanity-image-caption').exists()).toBe(false)
 
     expect(wrapper.html()).toMatchSnapshot('automatic-image-handling')
+  })
+
+  // Test hotspot is passed as focal point
+  it('should pass hotspot as focal point coordinates to SanityImage', () => {
+    const imageBlock = {
+      _key: 'test-hotspot',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-abc123-800x600-jpg',
+      },
+      hotspot: {
+        x: 0.75,
+        y: 0.25,
+        height: 0.5,
+        width: 0.5,
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
+    expect(sanityImage.props('fpX')).toBe(0.75)
+    expect(sanityImage.props('fpY')).toBe(0.25)
+    // rect should not be set when there's no crop
+    expect(sanityImage.props('rect')).toBeUndefined()
+  })
+
+  // Test crop is converted to rect parameter
+  it('should convert crop to rect parameter using image dimensions', () => {
+    const imageBlock = {
+      _key: 'test-crop',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        // Dimensions are 1000x500
+        _ref: 'image-xyz789-1000x500-png',
+      },
+      crop: {
+        top: 0.2, // 20% from top = 100px
+        bottom: 0.1, // 10% from bottom
+        left: 0.05, // 5% from left = 50px
+        right: 0.15, // 15% from right
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
+    // left = 0.05 * 1000 = 50
+    // top = 0.2 * 500 = 100
+    // width = 1000 * (1 - 0.05 - 0.15) = 800
+    // height = 500 * (1 - 0.2 - 0.1) = 350
+    expect(sanityImage.props('rect')).toBe('50,100,800,350')
+    // fpX/fpY should not be set when there's no hotspot
+    expect(sanityImage.props('fpX')).toBeUndefined()
+    expect(sanityImage.props('fpY')).toBeUndefined()
   })
 
   // Test automatic image handling without caption/attribution

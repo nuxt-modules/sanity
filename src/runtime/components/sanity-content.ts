@@ -14,10 +14,6 @@ interface SanityImageValue {
     _type: 'reference'
     _ref: string
   }
-  // TODO: Not in use
-  caption?: string
-  // TODO: Not in use
-  attribution?: string
   crop?: {
     top: number
     bottom: number
@@ -47,6 +43,29 @@ const createDefaultImageComponent = () => (portableTextProps: { value: SanityIma
   // Prepare props for the SanityImage component
   const sanityImageProps: Record<string, unknown> = {
     assetId,
+  }
+
+  // Pass hotspot as focal point coordinates
+  if (value.hotspot) {
+    sanityImageProps.fpX = value.hotspot.x
+    sanityImageProps.fpY = value.hotspot.y
+  }
+
+  // Calculate rect from crop percentages using dimensions from assetId
+  // Asset ID format: image-{hash}-{width}x{height}-{format}
+  if (value.crop) {
+    const parts = assetId.split('-')
+    const dimensionPart = parts[parts.length - 2]
+    const match = dimensionPart?.match(/^(\d+)x(\d+)$/)
+    if (match) {
+      const width = Number(match[1])
+      const height = Number(match[2])
+      const left = Math.round(value.crop.left * width)
+      const top = Math.round(value.crop.top * height)
+      const rectWidth = Math.round(width * (1 - value.crop.left - value.crop.right))
+      const rectHeight = Math.round(height * (1 - value.crop.top - value.crop.bottom))
+      sanityImageProps.rect = `${left},${top},${rectWidth},${rectHeight}`
+    }
   }
 
   return h(SanityImage, sanityImageProps)
