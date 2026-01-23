@@ -523,7 +523,7 @@ describe('SanityContent with PortableText', () => {
     expect(wrapper.html()).toMatchSnapshot('generic-list-component')
   })
 
-  // Test for generic listItem component that handles all list item types
+  // Test for generic listItem component that handles all list item types when provided
   it('should use a single listItem component for all list item types when provided', () => {
     const { listItemBlocks } = exampleBlocks
     const wrapper = mount(SanityContent, {
@@ -553,5 +553,258 @@ describe('SanityContent with PortableText', () => {
     expect(html).toContain('First checkmark item')
 
     expect(wrapper.html()).toMatchSnapshot('generic-list-item-component')
+  })
+
+  // Test automatic image handling
+  it('should automatically handle Sanity images without user configuration', () => {
+    const imageBlock = {
+      _key: 'test-image',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+      caption: 'This is the caption',
+      attribution: 'Public domain',
+      crop: {
+        top: 0.1,
+        bottom: 0.1,
+        left: 0.1,
+        right: 0.1,
+      },
+      hotspot: {
+        x: 0.5,
+        y: 0.5,
+        height: 0.8,
+        width: 0.8,
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    // Verify that the SanityImage component is rendered
+    expect(wrapper.findComponent({ name: 'SanityImage' }).exists()).toBe(true)
+
+    // Verify that the image props are passed correctly
+    const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
+    expect(sanityImage.props('assetId')).toBe('image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg')
+
+    // Verify hotspot is passed as focal point coordinates
+    expect(sanityImage.props('fpX')).toBe(0.5)
+    expect(sanityImage.props('fpY')).toBe(0.5)
+
+    // Verify crop is converted to rect parameter
+    // Original dimensions: 300x450, crop: 10% on all sides
+    // left = 0.1 * 300 = 30, top = 0.1 * 450 = 45
+    // width = 300 * (1 - 0.1 - 0.1) = 240, height = 450 * (1 - 0.1 - 0.1) = 360
+    expect(sanityImage.props('rect')).toBe('30,45,240,360')
+
+    // Verify that caption and attribution are NOT rendered (they are ignored)
+    expect(wrapper.html()).not.toContain('This is the caption')
+    expect(wrapper.html()).not.toContain('Public domain')
+    expect(wrapper.find('.sanity-image-figure').exists()).toBe(false)
+    expect(wrapper.find('.sanity-image-caption').exists()).toBe(false)
+
+    expect(wrapper.html()).toMatchSnapshot('automatic-image-handling')
+  })
+
+  // Test hotspot is passed as focal point
+  it('should pass hotspot as focal point coordinates to SanityImage', () => {
+    const imageBlock = {
+      _key: 'test-hotspot',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-abc123-800x600-jpg',
+      },
+      hotspot: {
+        x: 0.75,
+        y: 0.25,
+        height: 0.5,
+        width: 0.5,
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
+    expect(sanityImage.props('fpX')).toBe(0.75)
+    expect(sanityImage.props('fpY')).toBe(0.25)
+    // rect should not be set when there's no crop
+    expect(sanityImage.props('rect')).toBeUndefined()
+  })
+
+  // Test crop is converted to rect parameter
+  it('should convert crop to rect parameter using image dimensions', () => {
+    const imageBlock = {
+      _key: 'test-crop',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        // Dimensions are 1000x500
+        _ref: 'image-xyz789-1000x500-png',
+      },
+      crop: {
+        top: 0.2, // 20% from top = 100px
+        bottom: 0.1, // 10% from bottom
+        left: 0.05, // 5% from left = 50px
+        right: 0.15, // 15% from right
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    const sanityImage = wrapper.findComponent({ name: 'SanityImage' })
+    // left = 0.05 * 1000 = 50
+    // top = 0.2 * 500 = 100
+    // width = 1000 * (1 - 0.05 - 0.15) = 800
+    // height = 500 * (1 - 0.2 - 0.1) = 350
+    expect(sanityImage.props('rect')).toBe('50,100,800,350')
+    // fpX/fpY should not be set when there's no hotspot
+    expect(sanityImage.props('fpX')).toBeUndefined()
+    expect(sanityImage.props('fpY')).toBeUndefined()
+  })
+
+  // Test automatic image handling without caption/attribution
+  it('should handle images without caption or attribution', () => {
+    const imageBlock = {
+      _key: 'test-image-simple',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+      },
+    })
+
+    // Verify that the SanityImage component is rendered
+    expect(wrapper.findComponent({ name: 'SanityImage' }).exists()).toBe(true)
+
+    // Verify that no figure element is created (caption/attribution are ignored)
+    expect(wrapper.find('.sanity-image-figure').exists()).toBe(false)
+    expect(wrapper.find('.sanity-image-caption').exists()).toBe(false)
+
+    expect(wrapper.html()).toMatchSnapshot('automatic-image-handling-simple')
+  })
+
+  // Test that custom image components can override the default
+  it('should allow custom image components to override the default', () => {
+    const imageBlock = {
+      _key: 'test-image',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+    }
+
+    const CustomImageComponent = defineComponent({
+      name: 'CustomImageComponent',
+      props: ['assetId'],
+      template: '<div class="custom-image">Custom Image: {{ assetId }}</div>',
+    })
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+        components: {
+          types: {
+            image: props => h(CustomImageComponent, {
+              assetId: props.value.asset._ref,
+            }),
+          },
+        },
+      },
+    })
+
+    // Verify that the custom component is rendered instead of SanityImage
+    expect(wrapper.findComponent({ name: 'SanityImage' }).exists()).toBe(false)
+    expect(wrapper.findComponent({ name: 'CustomImageComponent' }).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Custom Image: image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-image-override')
+  })
+
+  // Test that default image component can be disabled
+  it('should disable default image component when disableDefaultImageComponent is true', () => {
+    const imageBlock = {
+      _key: 'test-image',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+    }
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+        disableDefaultImageComponent: true,
+      },
+    })
+
+    // Verify that the SanityImage component is NOT rendered when disabled
+    expect(wrapper.findComponent({ name: 'SanityImage' }).exists()).toBe(false)
+
+    // Verify that PortableText shows an error message when no image component is provided
+    expect(wrapper.html()).toContain('Unknown block type "image"')
+
+    expect(wrapper.html()).toMatchSnapshot('disabled-default-image-component')
+  })
+
+  // Test that custom image components still work when default is disabled
+  it('should allow custom image components when default is disabled', () => {
+    const imageBlock = {
+      _key: 'test-image',
+      _type: 'image',
+      asset: {
+        _type: 'reference',
+        _ref: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+    }
+
+    const CustomImageComponent = defineComponent({
+      name: 'CustomImageComponent',
+      props: ['assetId'],
+      template: '<div class="custom-image">Custom Image: {{ assetId }}</div>',
+    })
+
+    const wrapper = mount(SanityContent, {
+      props: {
+        value: [imageBlock],
+        disableDefaultImageComponent: true,
+        components: {
+          types: {
+            image: props => h(CustomImageComponent, {
+              assetId: props.value.asset._ref,
+            }),
+          },
+        },
+      },
+    })
+
+    // Verify that the custom component is rendered
+    expect(wrapper.findComponent({ name: 'SanityImage' }).exists()).toBe(false)
+    expect(wrapper.findComponent({ name: 'CustomImageComponent' }).exists()).toBe(true)
+    expect(wrapper.text()).toContain('Custom Image: image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg')
+
+    expect(wrapper.html()).toMatchSnapshot('custom-image-when-default-disabled')
   })
 })
