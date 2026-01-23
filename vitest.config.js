@@ -20,7 +20,37 @@ export default defineConfig({
           environmentOptions: {
             nuxt: {
               overrides: {
+                modules: ['@nuxtjs/sanity', '@nuxt/image'],
+                image: {
+                  sanity: {
+                    projectId: 'test-project',
+                  },
+                },
+                runtimeConfig: {
+                  sanity: {
+                    token: 'test',
+                  },
+                  public: {
+                    sanity: {
+                      projectId: 'test-project',
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      }),
+      await defineVitestProject({
+        test: {
+          name: 'nuxt-no-image',
+          include: ['test/nuxt-no-image/*.{test,spec}.ts'],
+          environment: 'nuxt',
+          environmentOptions: {
+            nuxt: {
+              overrides: {
                 modules: ['@nuxtjs/sanity'],
+                image: false,
                 runtimeConfig: {
                   sanity: {
                     token: 'test',

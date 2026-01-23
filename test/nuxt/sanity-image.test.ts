@@ -1,20 +1,22 @@
 import { vi, expect, describe, it, beforeEach, afterEach } from 'vitest'
 import { h } from 'vue'
 import { mount } from '@vue/test-utils'
+import { mountSuspended } from '@nuxt/test-utils/runtime'
 
-import SanityImage from '../../src/runtime/components/sanity-image-base'
+import SanityImageBase from '../../src/runtime/components/sanity-image-base'
+import { SanityImage } from '#components'
 
 const projectId = 'test-project'
 
 const getWrapper = (propsData: Record<string, any>) =>
-  mount(SanityImage, {
+  mount(SanityImageBase, {
     propsData: {
       projectId,
       ...propsData,
     },
   })
 
-describe('SanityImage', () => {
+describe('SanityImage base component', () => {
   it('parses asset IDs correctly', () => {
     const wrapper = getWrapper({
       assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
@@ -38,7 +40,7 @@ describe('SanityImage', () => {
   })
 
   it('provides a valid renderless component', () => {
-    const wrapper = mount(SanityImage,
+    const wrapper = mount(SanityImageBase,
       {
         props: {
           assetId: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
@@ -126,5 +128,106 @@ describe('SanityImage prop validation', () => {
         expect(mockError).toHaveBeenCalledTimes(0)
       })
     })
+  })
+})
+
+/**
+ * Tests for SanityImage component when @nuxt/image IS available.
+ * This tests the NuxtImg-based component behavior (sanity-image-nuxt).
+ */
+describe('SanityImage with @nuxt/image', () => {
+  it('renders NuxtImg component', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
+      },
+    })
+
+    // Should render NuxtImg when @nuxt/image is available
+    expect(wrapper.findComponent({ name: 'NuxtImg' }).exists()).toBe(true)
+  })
+
+  it('passes sanity provider to NuxtImg', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
+      },
+    })
+
+    const nuxtImg = wrapper.findComponent({ name: 'NuxtImg' })
+    expect(nuxtImg.props('provider')).toBe('sanity')
+  })
+
+  it('passes assetId as src to NuxtImg', async () => {
+    const assetId = 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg'
+    const wrapper = await mountSuspended(SanityImage, {
+      props: { assetId },
+    })
+
+    const nuxtImg = wrapper.findComponent({ name: 'NuxtImg' })
+    expect(nuxtImg.props('src')).toBe(assetId)
+  })
+
+  it('passes modifiers to NuxtImg', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
+        auto: 'format',
+        q: 80,
+      },
+    })
+
+    const nuxtImg = wrapper.findComponent({ name: 'NuxtImg' })
+    const modifiers = nuxtImg.props('modifiers')
+    expect(modifiers).toMatchObject({
+      auto: 'format',
+      q: 80,
+    })
+  })
+
+  it('passes width and height as top-level props', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
+        w: 200,
+        h: 300,
+      },
+    })
+
+    const nuxtImg = wrapper.findComponent({ name: 'NuxtImg' })
+    expect(nuxtImg.props('width')).toBe(200)
+    expect(nuxtImg.props('height')).toBe(300)
+  })
+
+  it('supports scoped slot for custom rendering', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-G3i4emG6B8JnTmGoN0UjgAp8-300x450-jpg',
+      },
+      slots: {
+        default: `<template #default="{ src }"><img :src="src" class="custom-image" /></template>`,
+      },
+    })
+
+    // When scoped slot is used, should render custom content instead of NuxtImg
+    const img = wrapper.find('img.custom-image')
+    expect(img.exists()).toBe(true)
+    expect(wrapper.findComponent({ name: 'NuxtImg' }).exists()).toBe(false)
+  })
+
+  it('passes through additional attributes', async () => {
+    const wrapper = await mountSuspended(SanityImage, {
+      props: {
+        assetId: 'image-7aa06723bb01a7a79055b6d6f5be80329a0e5b58-780x1170-jpg',
+      },
+      attrs: {
+        alt: 'Test image',
+        class: 'my-image',
+      },
+    })
+
+    const nuxtImg = wrapper.findComponent({ name: 'NuxtImg' })
+    expect(nuxtImg.attributes('alt')).toBe('Test image')
+    expect(nuxtImg.attributes('class')).toBe('my-image')
   })
 })
