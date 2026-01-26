@@ -18,7 +18,7 @@ export const useSanityPreviewPerspective = () => {
   return computed<PreviewPerspective>({
     get() {
       // If visual editing isn't configured or if it is configured AND enabled use
-      // the sanitized value of the cookie, defaulting to 'previewDrafts' if it is
+      // the sanitized value of the cookie, defaulting to 'drafts' if it is
       // not yet set
       if (visualEditingState?.enabled) {
         return perspective.value

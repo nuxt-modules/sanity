@@ -17,7 +17,7 @@ export const createQueryStore = (
 
   if (import.meta.server) {
     const serverClient = client.withConfig({
-      perspective: 'previewDrafts',
+      perspective: 'drafts',
       token: visualEditing?.token,
       useCdn: false,
     })

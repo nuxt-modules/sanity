@@ -7,7 +7,9 @@ export default defineNuxtPlugin(() => {
   const { visualEditing } = useSanityConfig()
   const visualEditingState = useSanityVisualEditingState()
 
-  if (!visualEditingState) return
+  if (!visualEditingState) {
+    return
+  }
 
   const { previewMode, previewModeId } = visualEditingState
   // If preview mode is _configured_ (i.e. `visualEditing.previewMode` is set)

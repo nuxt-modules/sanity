@@ -1,14 +1,9 @@
-import { createCompatibilityActors, isMaybePresentation, isMaybePreviewWindow } from '@sanity/presentation-comlink'
-import type { LoaderControllerMsg, LoaderNodeMsg } from '@sanity/presentation-comlink'
-import { createNode, createNodeMachine } from '@sanity/comlink'
-import { onScopeDispose, watch } from 'vue'
+import { watch } from 'vue'
 import { defineNuxtPlugin, refreshNuxtData } from '#imports'
 import { useSanityConfig } from '../composables/useSanityConfig'
 import { useSanityVisualEditingState } from '../composables/useSanityVisualEditingState'
 import { useSanity } from '../composables/useSanity'
 import { useIsSanityPresentationTool } from '../composables/useIsSanityPresentationTool'
-import { useSanityPreviewEnvironment } from '../composables/useSanityPreviewEnvironment'
-import { useSanityPerspective } from '../composables/useSanityPerspective'
 
 export default defineNuxtPlugin(() => {
   const { liveContent, visualEditing } = useSanityConfig()
@@ -67,57 +62,7 @@ export default defineNuxtPlugin(() => {
   }, { immediate: true })
 
   /**
-   * 2. Set the environment when (maybe) outside of Presentation
-   */
-  const environment = useSanityPreviewEnvironment()
-
-  // If we're not in Presentation Tool, detect which environment we're in
-  if (!isMaybePresentation()) {
-    if (visualEditingState?.enabled && browserToken) {
-      environment.value = 'live'
-    }
-    else if (visualEditingState?.enabled) {
-      environment.value = 'static'
-    }
-    else {
-      environment.value = 'unknown'
-    }
-  }
-
-  /**
-   * 3. If we are (maybe) in Presentation Tool, initialise comlink and attempt to determine the environment and perspective
-   */
-  if (isMaybePresentation()) {
-    const timeout = setTimeout(() => {
-      environment.value = 'live'
-    }, 5_000)
-    const comlink = createNode<LoaderNodeMsg, LoaderControllerMsg>(
-      { name: 'loaders', connectTo: 'presentation' },
-      createNodeMachine<LoaderNodeMsg, LoaderControllerMsg>().provide({
-        actors: createCompatibilityActors<LoaderNodeMsg>(),
-      }),
-    )
-
-    // Handle perspective messages: set the cookie with the new value
-    comlink.on('loader/perspective', (data) => {
-      const perspective = useSanityPerspective()
-      if (perspective.value !== data.perspective) {
-        perspective.value = data.perspective
-      }
-    })
-
-    // When comlink connects, we can determine the environment
-    comlink.onStatus(() => {
-      clearTimeout(timeout)
-      environment.value = isMaybePreviewWindow() ? 'presentation-window' : 'presentation-iframe'
-    }, 'connected')
-
-    comlink.start()
-    onScopeDispose(comlink.stop)
-  }
-
-  /**
-   * 4. Handle refreshing
+   * 2. Handle refreshing
    */
   const focusThrottleInterval = 5_000
   let nextFocusRevalidatedAt = 0
