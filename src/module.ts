@@ -558,6 +558,13 @@ export default defineNuxtModule<SanityModuleOptions>({
       filePath: '#build/sanity-image.mjs',
     })
 
+    if (options.liveContent || publicRuntimeConfig.visualEditing) {
+      addPlugin({
+        mode: 'client',
+        src: join(runtimeDir, 'plugins', 'preview-environment.client'),
+      })
+    }
+
     if (options.liveContent) {
       addPlugin({
         mode: 'client',

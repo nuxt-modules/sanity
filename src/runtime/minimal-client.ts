@@ -23,7 +23,7 @@ export interface ClientConfig {
   apiVersion: string
   withCredentials?: boolean
   token?: string
-  perspective?: 'raw' | 'published' | 'previewDrafts'
+  perspective?: 'raw' | 'published' | 'drafts' | 'previewDrafts'
 }
 
 /** @deprecated Prefer `ClientConfig` instead - this will be removed in a future version. */
@@ -54,7 +54,7 @@ export function createClient(config: ClientConfig) {
     perspective = 'raw',
   } = config
 
-  const useCdn = perspective !== 'previewDrafts' && config.useCdn
+  const useCdn = perspective !== 'drafts' && perspective !== 'previewDrafts' && config.useCdn
 
   const fetchOptions: RequestInit = {
     headers: {
