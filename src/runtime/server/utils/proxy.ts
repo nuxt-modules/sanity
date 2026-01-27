@@ -161,11 +161,12 @@ export function validateQuery(
  * @returns `true` if the query is valid, otherwise throws an error or returns `false` based on the options.
  */
 export async function validateSanityQuery(query: string, options: ValidateQueryOptions = {}): Promise<boolean> {
+  const { throwError, ...rest } = options
   const queries = await getGroqQueries(import.meta.dev)
 
-  const result = validateQuery(queries, query, options)
+  const result = validateQuery(queries, query, rest)
 
-  if (result === false && options.throwError) {
+  if (result === false && options.throwError !== false) {
     throw createError({
       statusCode: 400,
       statusMessage: 'The provided query is not allowed',
