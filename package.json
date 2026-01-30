@@ -41,7 +41,7 @@
     "build": "nuxt-module-build build",
     "lint": "eslint .",
     "prepublishOnly": "pnpm test",
-    "release": "bumpp && npm publish",
+    "release": "bumpp",
     "test": "pnpm lint && pnpm vitest run --coverage",
     "test:types": "vue-tsc --noEmit",
     "test:unit": "vitest run test/unit/*.test.*",
