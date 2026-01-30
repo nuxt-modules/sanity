@@ -3,8 +3,14 @@ packages:
   - playground/cms
   - playground
 
+ignoreWorkspaceRootCheck: true
+
+ignoredBuiltDependencies:
+  - '@parcel/watcher'
+  - '@swc/core'
+  - vue-demi
+
 onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - better-sqlite3
   - sharp
-

@@ -38,3 +38,7 @@ jobs:
 
       - name: 📦 Release
         run: pnpm publish --no-git-checks
+
+      - run: pnpm changelogithub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
