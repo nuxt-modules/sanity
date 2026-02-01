@@ -9,32 +9,32 @@ import { normalizeQuery } from '../../util/normalizeQuery'
 const hasGroqQueries = (g: typeof globalThis): g is SanityDevGlobals => '__nuxt_sanity_groqQueries' in g
 
 /**
- * Retrieves the GROQ queries detected in the codebase.
+ * Retrieves the GROQ queries from the file system.
+ * Used in development where queries can change and need to be synchronized across processes.
+ * Falls back to `globalThis` if the file is not yet written.
  *
  * @internal
- * @param fromFileSystem Whether to read from file system/globalThis (true) or virtual module (false)
- * @returns The GROQ queries
- *
- * - When true: Reads directly from the generated file for cross-process support. This is used
- *   in development where queries can change and need to be synchronized across processes.
- *   Falls back to `globalThis` if the file is not yet written.
- * - When false: Reads from the virtual module baked at build time. This is used in production
- *   for better performance (avoids runtime file I/O) since queries are static after build.
  */
-export async function getGroqQueries(fromFileSystem: boolean): Promise<SanityGroqQueryArray> {
-  if (fromFileSystem) {
-    try {
-      const raw = await readFile(queriesFilePath, 'utf8')
-      return JSON.parse(raw)
-    }
-    catch (err) {
-      console.debug('Failed to read GROQ queries file, falling back to globalThis:', err)
-    }
-
-    const g = globalThis
-    return hasGroqQueries(g) && Array.isArray(g.__nuxt_sanity_groqQueries) ? g.__nuxt_sanity_groqQueries : []
+export async function getGroqQueriesFromFileSystem(): Promise<SanityGroqQueryArray> {
+  try {
+    const raw = await readFile(queriesFilePath, 'utf8')
+    return JSON.parse(raw)
+  }
+  catch (err) {
+    console.debug('Failed to read GROQ queries file, falling back to globalThis:', err)
   }
 
+  const g = globalThis
+  return hasGroqQueries(g) && Array.isArray(g.__nuxt_sanity_groqQueries) ? g.__nuxt_sanity_groqQueries : []
+}
+
+/**
+ * Retrieves the GROQ queries from the virtual module.
+ * Used in production for better performance (avoids runtime file I/O) since queries are static after build.
+ *
+ * @internal
+ */
+export async function getGroqQueriesFromModule(): Promise<SanityGroqQueryArray> {
   try {
     const { queryArr } = await import('#sanity-groq-queries')
     return Array.isArray(queryArr) ? queryArr : []
@@ -45,6 +45,15 @@ export async function getGroqQueries(fromFileSystem: boolean): Promise<SanityGro
 
   return []
 }
+
+/**
+ * Retrieves the GROQ queries detected in the codebase.
+ *
+ * @internal
+ */
+export const getGroqQueries = import.meta.dev
+  ? getGroqQueriesFromFileSystem
+  : getGroqQueriesFromModule
 
 const normalizeExt = (e: string) => (e.startsWith('.') ? e.toLowerCase() : `.${e.toLowerCase()}`)
 
@@ -162,7 +171,7 @@ export function validateQuery(
  */
 export async function validateSanityQuery(query: string, options: ValidateQueryOptions = {}): Promise<boolean> {
   const { throwError, ...rest } = options
-  const queries = await getGroqQueries(import.meta.dev)
+  const queries = await getGroqQueries()
 
   const result = validateQuery(queries, query, rest)
 

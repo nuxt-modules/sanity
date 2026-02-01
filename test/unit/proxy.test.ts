@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import type { SanityGroqQueryArray } from '../../src/runtime/types'
-import { validateQuery, filterQueries, getGroqQueries } from '../../src/runtime/server/utils/proxy'
+import { validateQuery, filterQueries, getGroqQueriesFromFileSystem, getGroqQueriesFromModule } from '../../src/runtime/server/utils/proxy'
 
 const mockVirtualModuleQueries: SanityGroqQueryArray = [
   { filepath: 'virtual/module.vue', queries: ['*[_type == "virtual"]'] },
@@ -205,28 +205,28 @@ describe('proxy', () => {
       vi.clearAllMocks()
     })
 
-    it('should read from virtual module when fromFileSystem is false', async () => {
-      const result = await getGroqQueries(false)
+    it('should read from virtual module', async () => {
+      const result = await getGroqQueriesFromModule()
 
       expect(result).toEqual(mockVirtualModuleQueries)
     })
 
-    it('should read from file system when fromFileSystem is true', async () => {
+    it('should read from file system', async () => {
       const mockFileQueries: SanityGroqQueryArray = [{ filepath: 'from/file.vue', queries: ['*[_type == "file"]'] }]
       const { readFile } = await import('node:fs/promises')
       vi.mocked(readFile).mockResolvedValue(JSON.stringify(mockFileQueries))
 
-      const result = await getGroqQueries(true)
+      const result = await getGroqQueriesFromFileSystem()
 
       expect(result).toEqual(mockFileQueries)
     })
 
-    it('should call readFile with correct path when fromFileSystem is true', async () => {
+    it('should call readFile with correct path when reading from file system', async () => {
       const mockFileQueries: SanityGroqQueryArray = [{ filepath: 'from/file.vue', queries: ['*[_type == "file"]'] }]
       const { readFile } = await import('node:fs/promises')
       vi.mocked(readFile).mockResolvedValue(JSON.stringify(mockFileQueries))
 
-      await getGroqQueries(true)
+      await getGroqQueriesFromFileSystem()
 
       expect(readFile).toHaveBeenCalledWith('/mock/path/to/queries.json', 'utf8')
     })
@@ -245,7 +245,7 @@ describe('proxy', () => {
       // @ts-expect-error - Setting test data on globalThis
       globalThis.__nuxt_sanity_groqQueries = globalThisQueries
 
-      const result = await getGroqQueries(true)
+      const result = await getGroqQueriesFromFileSystem()
 
       expect(result).toEqual(globalThisQueries)
 
@@ -258,7 +258,7 @@ describe('proxy', () => {
       const { readFile } = await import('node:fs/promises')
       vi.mocked(readFile).mockRejectedValue(new Error('File not found'))
 
-      const result = await getGroqQueries(true)
+      const result = await getGroqQueriesFromFileSystem()
 
       expect(result).toEqual([])
     })
