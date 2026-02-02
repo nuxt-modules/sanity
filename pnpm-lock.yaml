@@ -27,7 +27,7 @@ importers:
         version: 7.14.1(debug@4.4.3)
       '@sanity/codegen':
         specifier: ^5.3.1
-        version: 5.9.0(@noble/hashes@2.0.1)(@types/node@25.0.10)(@types/react@19.2.10)(jiti@2.6.1)(lightningcss@1.30.2)(react@19.2.4)(terser@5.46.0)(yaml@2.8.2)
+        version: 5.9.1(@noble/hashes@2.0.1)(@sanity/telemetry@0.8.1(react@19.2.4))(@types/node@25.0.10)(@types/react@19.2.10)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(yaml@2.8.2)
       '@sanity/comlink':
         specifier: ^4.0.0
         version: 4.0.1
@@ -3525,10 +3525,12 @@ packages:
     resolution: {integrity: sha512-o66wdsYNjJVGk33rIsEIwCGjVHjpqGgZkdVvJcXVW1ErUhSetCUH1+TIcT9+EpXQg0Jp2VL4mmEzAciiLPHcqg==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@sanity/codegen@5.9.0':
-    resolution: {integrity: sha512-hv+TlbWAgz61mDUB0uv0+RJF3fYHsIz6AmCktkpyRUudHZwufP3Mjbhm2zpDddh7yfcBEWdwrpMPYo1oYQ/uuQ==}
+  '@sanity/codegen@5.9.1':
+    resolution: {integrity: sha512-Znsh0ed09NZftKAThi24qqymDzNaUhaahJ4vg3JXiAJ80KYOv//XXHJS2sLxC9TjcJgjvrYpktVcLDB127KDXg==}
     engines: {node: '>=20.19 <22 || >=22.12'}
     hasBin: true
+    peerDependencies:
+      '@sanity/telemetry': ^0.8.0
 
   '@sanity/color@3.0.6':
     resolution: {integrity: sha512-2TjYEvOftD0v7ukx3Csdh9QIu44P2z7NDJtlC3qITJRYV36J7R6Vfd3trVhFnN77/7CZrGjqngrtohv8VqO5nw==}
@@ -5282,8 +5284,8 @@ packages:
   caniuse-api@3.0.0:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
 
-  caniuse-lite@1.0.30001766:
-    resolution: {integrity: sha512-4C0lfJ0/YPjJQHagaE9x2Elb69CIqEPZeG0anQt9SIvIoOH4a4uaRl73IavyO+0qZh6MDLH//DrXThEYKHkmYA==}
+  caniuse-lite@1.0.30001767:
+    resolution: {integrity: sha512-34+zUAMhSH+r+9eKmYG+k2Rpt8XttfE4yXAjoZvkAPs15xcYQhyBYdalJ65BzivAvGRMViEjy6oKr/S91loekQ==}
 
   cardinal@2.1.1:
     resolution: {integrity: sha512-JSr5eOgoEymtYHBjNWyjrMqet9Am2miJhlfKNdqLp6zoeAh0KN5dRAcxlecj5mAJrmQomgiOBj35xHLrFjqBpw==}
@@ -14563,7 +14565,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@sanity/codegen@5.9.0(@noble/hashes@2.0.1)(@types/node@25.0.10)(@types/react@19.2.10)(jiti@2.6.1)(lightningcss@1.30.2)(react@19.2.4)(terser@5.46.0)(yaml@2.8.2)':
+  '@sanity/codegen@5.9.1(@noble/hashes@2.0.1)(@sanity/telemetry@0.8.1(react@19.2.4))(@types/node@25.0.10)(@types/react@19.2.10)(jiti@2.6.1)(lightningcss@1.30.2)(terser@5.46.0)(yaml@2.8.2)':
     dependencies:
       '@babel/core': 7.29.0
       '@babel/generator': 7.29.0
@@ -14598,7 +14600,6 @@ snapshots:
       - jiti
       - less
       - lightningcss
-      - react
       - sass
       - sass-embedded
       - stylus
@@ -16493,7 +16494,7 @@ snapshots:
   autoprefixer@10.4.23(postcss@8.5.6):
     dependencies:
       browserslist: 4.28.1
-      caniuse-lite: 1.0.30001766
+      caniuse-lite: 1.0.30001767
       fraction.js: 5.3.4
       picocolors: 1.1.1
       postcss: 8.5.6
@@ -16614,7 +16615,7 @@ snapshots:
   browserslist@4.28.1:
     dependencies:
       baseline-browser-mapping: 2.9.19
-      caniuse-lite: 1.0.30001766
+      caniuse-lite: 1.0.30001767
       electron-to-chromium: 1.5.283
       node-releases: 2.0.27
       update-browserslist-db: 1.2.3(browserslist@4.28.1)
@@ -16721,11 +16722,11 @@ snapshots:
   caniuse-api@3.0.0:
     dependencies:
       browserslist: 4.28.1
-      caniuse-lite: 1.0.30001766
+      caniuse-lite: 1.0.30001767
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
 
-  caniuse-lite@1.0.30001766: {}
+  caniuse-lite@1.0.30001767: {}
 
   cardinal@2.1.1:
     dependencies:
