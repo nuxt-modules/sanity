@@ -227,3 +227,18 @@ export type SanityResolvedConfig
     }
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
+
+/**
+ * Re-export all types from @portabletext/vue
+ * Allows users to import portable text types directly from @nuxtjs/sanity
+ * without needing to install @portabletext/vue separately
+ * @public
+ */
+export type * from '@portabletext/vue'
+
+/**
+ * Re-export types from @portabletext/types
+ * These are the core Portable Text type definitions used by components
+ * @public
+ */
+export type * from '@portabletext/types'
