@@ -72,8 +72,7 @@ export function useSanityQuery<T = unknown, E = Error>(
   const params = _params ? reactive(_params) : undefined
   const queryKey = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
-  // Visual editing overrides
-  const perspective = useSanityPerspective(_perspective)
+  const perspective = useSanityPerspective(_perspective, clientConfig.perspective)
   const stega = _stega ?? (
     clientConfig.stega?.enabled
     && typeof clientConfig.stega.studioUrl !== 'undefined'
@@ -100,9 +99,9 @@ export function useSanityQuery<T = unknown, E = Error>(
     )
   }
 
-  const client = import.meta.server || perspective.value === 'published'
-    ? sanity.client // On the server or fetching published content
-    : createProxyClient() // Otherwise use proxy for authenticated requests
+  const client = import.meta.client && visualEditingState?.enabled && perspective.value !== 'published'
+    ? createProxyClient() // Use proxy for authenticated client-side requests when visual editing is enabled
+    : sanity.client // On the server, or fetching published content, or visual editing not enabled
 
   // Handle query updates, using either the query loader or tag based
   // revalidation (Live Content API). The query loader is preferred when in
