@@ -3,15 +3,12 @@ import { readFile } from 'node:fs/promises'
 import { extname } from 'pathe'
 import picomatch from 'picomatch'
 import { queriesFilePath } from '#sanity-groq-queries-info'
-import type { SanityDevGlobals, SanityGroqQueryArray } from '../../types'
+import type { SanityGroqQueryArray } from '../../types'
 import { normalizeQuery } from '../../util/normalizeQuery'
-
-const hasGroqQueries = (g: typeof globalThis): g is SanityDevGlobals => '__nuxt_sanity_groqQueries' in g
 
 /**
  * Retrieves the GROQ queries from the file system.
  * Used in development where queries can change and need to be synchronized across processes.
- * Falls back to `globalThis` if the file is not yet written.
  *
  * @internal
  */
@@ -21,11 +18,9 @@ export async function getGroqQueriesFromFileSystem(): Promise<SanityGroqQueryArr
     return JSON.parse(raw)
   }
   catch (err) {
-    console.debug('Failed to read GROQ queries file, falling back to globalThis:', err)
+    console.warn('[getGroqQueriesFromFileSystem] Failed to read queries file:', err)
+    return []
   }
-
-  const g = globalThis
-  return hasGroqQueries(g) && Array.isArray(g.__nuxt_sanity_groqQueries) ? g.__nuxt_sanity_groqQueries : []
 }
 
 /**

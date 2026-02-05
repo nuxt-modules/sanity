@@ -231,30 +231,7 @@ describe('proxy', () => {
       expect(readFile).toHaveBeenCalledWith('/mock/path/to/queries.json', 'utf8')
     })
 
-    it('should fall back to globalThis when file read fails', async () => {
-      const { readFile } = await import('node:fs/promises')
-      vi.mocked(readFile).mockRejectedValue(new Error('File not found'))
-
-      const globalThisQueries: SanityGroqQueryArray = [
-        {
-          filepath: 'from/globalThis.vue',
-          queries: ['*[_type == "global"]'],
-        },
-      ]
-
-      // @ts-expect-error - Setting test data on globalThis
-      globalThis.__nuxt_sanity_groqQueries = globalThisQueries
-
-      const result = await getGroqQueriesFromFileSystem()
-
-      expect(result).toEqual(globalThisQueries)
-
-      // Cleanup
-      // @ts-expect-error - Removing test data from globalThis
-      delete globalThis.__nuxt_sanity_groqQueries
-    })
-
-    it('should return empty array when file read fails and globalThis is not set', async () => {
+    it('should return empty array when file read fails', async () => {
       const { readFile } = await import('node:fs/promises')
       vi.mocked(readFile).mockRejectedValue(new Error('File not found'))
 

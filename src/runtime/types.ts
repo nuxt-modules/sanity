@@ -233,10 +233,6 @@ export type SanityGroqQueryArray = Array<{ filepath: string, queries: string[] }
 
 export type SanityGroqQueryMap = Map<string, string[]>
 
-export type SanityDevGlobals = typeof globalThis & {
-  __nuxt_sanity_groqQueries?: SanityGroqQueryArray
-}
-
 /**
  * Re-export all types from @portabletext/vue
  * Allows users to import portable text types directly from @nuxtjs/sanity

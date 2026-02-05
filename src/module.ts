@@ -33,7 +33,7 @@ import { normalizeQuery } from './runtime/util/normalizeQuery'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
-import type { SanityDevGlobals, SanityGroqQueryArray, SanityGroqQueryMap, SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
+import type { SanityGroqQueryArray, SanityGroqQueryMap, SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
 import { extractSchemaFromTypesFile } from './runtime/typegen/schema-extractor'
 import { generateSanityTypes } from './runtime/typegen/type-generator'
 
@@ -751,12 +751,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
       const update = () => {
         const queryArr = queryMapToArray(queryMap)
-        // Prefer to write to the filesystem...
         writeQueriesFile(queryArr)
-
-        // ...but fallback to globalThis
-        const g = globalThis as SanityDevGlobals
-        g.__nuxt_sanity_groqQueries ||= queryArr
       }
 
       return {
