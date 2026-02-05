@@ -42,7 +42,7 @@ const sanitizePerspective = (
   }
 }
 
-export const useSanityPerspective = (perspective?: ClientPerspective) => {
+export const useSanityPerspective = (perspective?: ClientPerspective, fallback?: ClientPerspective) => {
   const visualEditingState = useSanityVisualEditingState()
 
   const devMode = import.meta.dev
@@ -66,7 +66,7 @@ export const useSanityPerspective = (perspective?: ClientPerspective) => {
       if (visualEditingState?.enabled) {
         return sanitizePerspective(cookie.value, 'drafts')
       }
-      return 'published'
+      return fallback || 'published'
     },
     set(perspective) {
       try {
