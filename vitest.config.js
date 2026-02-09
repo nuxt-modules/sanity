@@ -7,6 +7,13 @@ export default defineConfig({
     projects: [
       {
         test: {
+          name: 'unit',
+          include: ['test/unit/*.{test,spec}.ts'],
+          environment: 'node',
+        },
+      },
+      {
+        test: {
           name: 'e2e',
           include: ['test/{e2e,types}/*.{test,spec}.ts'],
           environment: 'node',
