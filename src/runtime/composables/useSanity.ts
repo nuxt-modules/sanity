@@ -49,9 +49,6 @@ export function useSanity(_event?: H3Event | string, _client?: string): SanityHe
   if (!options.disableSmartCdn && nuxtApp.$preview) {
     options.useCdn = false
   }
-  else if (!import.meta.dev && !options.useCdn && !options.token) {
-    options.useCdn = true
-  }
 
   if (client === 'default') {
     nuxtApp._sanity.default = createSanityHelper(options as ClientConfig) // @todo casting
