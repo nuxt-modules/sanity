@@ -5,8 +5,9 @@ import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-dat
 import type { ClientReturn } from '@sanity/client'
 import { useAsyncData } from '#imports'
 import { reactive, ref, watch, type Ref } from 'vue'
-import type { ClientConfig, ContentSourceMap, QueryParams, QueryOptions, SanityClient } from '../client'
+import type { ContentSourceMap, QueryParams } from '../client'
 import type { AsyncSanityData, Noop, SanityQueryResponse, UseSanityQueryOptions } from '../types'
+import { resolveFetchOptions } from '../util/resolveFetchOptions'
 import { useSanity } from './useSanity'
 import { useSanityConfig } from './useSanityConfig'
 import { useIsSanityPresentationTool } from './useIsSanityPresentationTool'
@@ -15,28 +16,6 @@ import { useSanityVisualEditingState } from './useSanityVisualEditingState'
 import { createForwardingClient } from '../util/createForwardingClient'
 import { useSanityTagRevalidation } from './internal/useSanityTagRevalidation'
 import { useSanityQueryFetcher } from './internal/useSanityQueryFetcher'
-
-const getToken = (
-  {
-    config,
-    client,
-    perspective,
-  }: {
-    config: ReturnType<typeof useSanityConfig>
-    client: SanityClient
-    perspective: ClientConfig['perspective']
-  }) => {
-  if (perspective === 'published') {
-    return client.config().token || undefined
-  }
-  if (config.liveContent?.serverToken) {
-    return config.liveContent.serverToken
-  }
-  if (config.visualEditing) {
-    return config.visualEditing.token
-  }
-  return undefined
-}
 
 export function useSanityQuery<const Q extends string, E = Error>(
   query: Q,
@@ -57,10 +36,14 @@ export function useSanityQuery<T = unknown, E = Error>(
 ): AsyncSanityData<T | null, E> {
   const {
     client: _client,
-    perspective: _perspective,
-    stega: _stega,
+    perspective: legacyPerspectiveParam,
+    stega: legacyStegaParam,
+    queryOptions,
     ...options
   } = _options
+
+  const perspectiveOption = queryOptions?.perspective ?? legacyPerspectiveParam
+  const stegaOption = queryOptions?.stega ?? legacyStegaParam
 
   // Get configuration
   const sanity = useSanity(_client)
@@ -72,12 +55,7 @@ export function useSanityQuery<T = unknown, E = Error>(
   const params = _params ? reactive(_params) : undefined
   const queryKey = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
-  const perspective = useSanityPerspective(_perspective, clientConfig.perspective)
-  const stega = _stega ?? (
-    clientConfig.stega?.enabled
-    && typeof clientConfig.stega.studioUrl !== 'undefined'
-    && visualEditingState?.enabled
-  )
+  const perspective = useSanityPerspective(perspectiveOption, clientConfig.perspective)
 
   options.watch = options.watch || []
   options.watch.push(perspective)
@@ -149,28 +127,25 @@ export function useSanityQuery<T = unknown, E = Error>(
   }, { immediate: true })
 
   const result = useAsyncData(queryKey, async () => {
-    const useCdn = perspective.value === 'published'
-    const token = getToken({
-      config,
-      client: sanity.client,
+    const options = resolveFetchOptions({
+      clientConfig,
+      lastLiveEventId: tagRevalidation?.getLastLiveEventId(),
+      liveContentEnabled: !!config.liveContent,
       perspective: perspective.value,
+      queryOptions,
+      runtimeConfig: config,
+      stega: stegaOption,
+      visualEditingEnabled: !!visualEditingState?.enabled,
     })
 
-    const options = {
-      cacheMode: useCdn ? 'noStale' : undefined,
+    await tagRevalidation?.fetchTags(query, params, {
+      cacheMode: perspective.value === 'published' ? 'noStale' : undefined,
       filterResponse: false,
-      lastLiveEventId: tagRevalidation?.getLastLiveEventId(),
       perspective: perspective.value,
-      resultSourceMap: 'withKeyArraySelector',
-      stega,
-      token,
-      useCdn,
-    } satisfies QueryOptions
-
-    await tagRevalidation?.fetchTags(query, params, options)
+      useCdn: perspective.value === 'published',
+    })
 
     const { result, resultSourceMap } = await client.fetch<T>(query, params || {}, options)
-
     updateRefs(result, resultSourceMap)
     return { data: result, sourceMap: resultSourceMap } satisfies SanityQueryResponse<T>
   }, options) as AsyncData<SanityQueryResponse<T | null> | undefined, E>
