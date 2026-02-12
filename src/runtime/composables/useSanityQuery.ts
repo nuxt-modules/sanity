@@ -57,6 +57,7 @@ export function useSanityQuery<T = unknown, E = Error>(
 ): AsyncSanityData<T | null, E> {
   const {
     client: _client,
+    key: _key,
     perspective: _perspective,
     stega: _stega,
     ...options
@@ -70,7 +71,7 @@ export function useSanityQuery<T = unknown, E = Error>(
   const clientConfig = sanity.client.config()
 
   const params = _params ? reactive(_params) : undefined
-  const queryKey = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
+  const queryKey = _key || 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
   const perspective = useSanityPerspective(_perspective, clientConfig.perspective)
   const stega = _stega ?? (

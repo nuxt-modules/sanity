@@ -118,6 +118,7 @@ export interface SanityLiveStore {
  */
 export interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
+  key?: string
   perspective?: ClientPerspective
   stega?: boolean
 }
