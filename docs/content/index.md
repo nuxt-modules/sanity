@@ -84,15 +84,4 @@ Everything you need for your Nuxt project
   #description
   Write your GROQ queries with syntax highlighting and get full type-safety for your data.
   :::
-
-  :::u-page-feature
-  ---
-  icon: i-simple-icons-nuxt
-  ---
-  #title
-  Nuxt 3 & Bridge
-  
-  #description
-  Works perfectly with Nuxt 3 and Nuxt Bridge for any of your projects.
-  :::
 ::
