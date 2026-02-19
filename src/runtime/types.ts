@@ -4,7 +4,7 @@ import type { QueryStore } from '@sanity/core-loader'
 import type { AsyncDataOptions } from 'nuxt/app'
 import type { ClientPerspective, ContentSourceMap, StegaConfig } from '@sanity/client'
 import type { EncodeDataAttributeFunction } from '@sanity/core-loader/encode-data-attribute'
-import type { ClientConfig, SanityClient } from './client'
+import type { ClientConfig, QueryOptions, SanityClient } from './client'
 
 /**
  * Augmented version of Nuxt's _AsyncData, with additional properties like
@@ -118,7 +118,10 @@ export interface SanityLiveStore {
  */
 export interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
   client?: string
+  queryOptions?: QueryOptions
+  /** @deprecated Use `queryOptions.perspective` instead. */
   perspective?: ClientPerspective
+  /** @deprecated Use `queryOptions.stega` instead. */
   stega?: boolean
 }
 
