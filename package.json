@@ -24,6 +24,9 @@
   "exports": {
     ".": "./dist/module.mjs",
     "./package.json": "./package.json",
+    "./runtime/types": {
+      "types": "./dist/runtime/types.d.ts"
+    },
     "./runtime/*": "./dist/runtime/*"
   },
   "types": "./dist/module.d.mts",
