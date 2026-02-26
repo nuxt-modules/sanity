@@ -2,16 +2,16 @@
 
 import { describe, expectTypeOf, it } from 'vitest'
 import type { Ref } from 'vue'
-import { useSanitySmartFetch } from '#imports'
+import { useSanitySmartQuery } from '#imports'
 
-describe('useSanitySmartFetch', () => {
+describe('useSanitySmartQuery', () => {
   it('should return typed response matching useSanityQuery signature', () => {
-    const response = useSanitySmartFetch<{ title: string }>(`*[_type == "article"]{title}`)
+    const response = useSanitySmartQuery<{ title: string }>(`*[_type == "article"]{title}`)
     expectTypeOf(response.data).toEqualTypeOf<Ref<{ title: string } | null>>()
   })
 
   it('should accept query params', () => {
-    const response = useSanitySmartFetch<{ title: string }>(
+    const response = useSanitySmartQuery<{ title: string }>(
       `*[_type == "article" && topic == $topic]{title}`,
       { topic: 'news' },
     )
@@ -19,7 +19,7 @@ describe('useSanitySmartFetch', () => {
   })
 
   it('should accept options matching UseSanityQueryOptions', () => {
-    const response = useSanitySmartFetch<{ title: string }>(
+    const response = useSanitySmartQuery<{ title: string }>(
       `*[_type == "article"]{title}`,
       {},
       { lazy: false },

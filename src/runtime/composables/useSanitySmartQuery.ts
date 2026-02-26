@@ -55,7 +55,7 @@ const getToken = (
  * @example
  * ```ts
  * // Works fast on SSR; switches to preview client when opened in Presentation Tool
- * const { data, encodeDataAttribute } = await useSanitySmartFetch<Product>(
+ * const { data, encodeDataAttribute } = await useSanitySmartQuery<Product>(
  *   `*[_type == "product" && slug.current == $slug][0]`,
  *   { slug: route.params.slug },
  * )
@@ -63,19 +63,19 @@ const getToken = (
  *
  * @public
  */
-export function useSanitySmartFetch<const Q extends string, E = Error>(
+export function useSanitySmartQuery<const Q extends string, E = Error>(
   query: Q,
   _params?: QueryParams,
   _options?: UseSanityQueryOptions<SanityQueryResponse<ClientReturn<Q, unknown> | null>>,
 ): AsyncSanityData<ClientReturn<Q, unknown> | null, E>
 
-export function useSanitySmartFetch<T = unknown, E = Error>(
+export function useSanitySmartQuery<T = unknown, E = Error>(
   query: string,
   _params?: QueryParams,
   _options?: UseSanityQueryOptions<SanityQueryResponse<T | null>>,
 ): AsyncSanityData<T | null, E>
 
-export function useSanitySmartFetch<T = unknown, E = Error>(
+export function useSanitySmartQuery<T = unknown, E = Error>(
   query: string,
   _params?: QueryParams,
   _options: UseSanityQueryOptions<SanityQueryResponse<T | null>> = {},
