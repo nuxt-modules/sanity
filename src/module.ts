@@ -357,6 +357,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'useIsSanityPresentationTool', from: join(runtimeDir, 'composables/useIsSanityPresentationTool') },
       { name: 'useSanityPreviewPerspective', from: join(runtimeDir, 'composables/useSanityPreviewPerspective') },
       { name: 'useSanityPreviewEnvironment', from: join(runtimeDir, 'composables/useSanityPreviewEnvironment') },
+      { name: 'useSanitySmartFetch', from: join(runtimeDir, 'composables/useSanitySmartFetch') },
+      { name: 'useSanityPreviewState', from: join(runtimeDir, 'composables/useSanityPreviewState') },
     ])
 
     let typegenTemplate: { filename: string, dst: string } | null = null
@@ -489,6 +491,8 @@ export default defineNuxtModule<SanityModuleOptions>({
           `export { useIsSanityPresentationTool } from '${join(runtimeDir, 'composables/useIsSanityPresentationTool')}'`,
           `export { useSanityPreviewPerspective } from '${join(runtimeDir, 'composables/useSanityPreviewPerspective')}'`,
           `export { useSanityPreviewEnvironment } from '${join(runtimeDir, 'composables/useSanityPreviewEnvironment')}'`,
+          `export { useSanitySmartFetch } from '${join(runtimeDir, 'composables/useSanitySmartFetch')}'`,
+          `export { useSanityPreviewState } from '${join(runtimeDir, 'composables/useSanityPreviewState')}'`,
         ]
 
         const visualEditingExports = publicRuntimeConfig.visualEditing
