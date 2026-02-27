@@ -7,6 +7,8 @@ export default defineNuxtConfig({
   },
   routeRules: {
     '/getting-started/quick-start': { redirect: '/getting-started/installation' },
+    '/getting-started/query-optimization': { redirect: '/advanced/query-optimization' },
+    '/getting-started/caching': { redirect: '/advanced/caching' },
   },
   nitro: {
     static: true,
