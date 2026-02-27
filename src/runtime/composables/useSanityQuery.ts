@@ -73,11 +73,6 @@ export function useSanityQuery<T = unknown, E = Error>(
   const queryKey = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
   const perspective = useSanityPerspective(_perspective, clientConfig.perspective)
-  const stega = _stega ?? (
-    clientConfig.stega?.enabled
-    && typeof clientConfig.stega.studioUrl !== 'undefined'
-    && visualEditingState?.enabled
-  )
 
   options.watch = options.watch || []
   options.watch.push(perspective)
@@ -98,12 +93,6 @@ export function useSanityQuery<T = unknown, E = Error>(
       config.visualEditing?.studioUrl,
     )
   }
-
-  const client = config.visualEditing && visualEditingState?.enabled && import.meta.client && perspective.value !== 'published'
-    ? createForwardingClient(config.visualEditing.proxyEndpoint)
-    : config.queryEndpoint
-      ? createForwardingClient(config.queryEndpoint)
-      : sanity.client
 
   // Handle query updates, using either the query loader or tag based
   // revalidation (Live Content API). The query loader is preferred when in
@@ -150,11 +139,29 @@ export function useSanityQuery<T = unknown, E = Error>(
 
   const result = useAsyncData(queryKey, async () => {
     const useCdn = perspective.value === 'published'
+    const currentEnabled = visualEditingState?.enabled ?? false
     const token = getToken({
       config,
       client: sanity.client,
       perspective: perspective.value,
     })
+
+    // Select the appropriate client based on current preview state.
+    // Evaluated on every invocation so that a mid-session perspective change
+    // (e.g. Presentation Tool activating preview) correctly switches to the
+    // authenticated proxy endpoint rather than reusing a client captured at
+    // composable-setup time.
+    const client = config.visualEditing && currentEnabled && import.meta.client && perspective.value !== 'published'
+      ? createForwardingClient(config.visualEditing.proxyEndpoint)
+      : config.queryEndpoint
+        ? createForwardingClient(config.queryEndpoint)
+        : sanity.client
+
+    const stega = _stega ?? (
+      clientConfig.stega?.enabled
+      && typeof clientConfig.stega.studioUrl !== 'undefined'
+      && currentEnabled
+    )
 
     const options = {
       cacheMode: useCdn ? 'noStale' : undefined,

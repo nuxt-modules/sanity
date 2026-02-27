@@ -357,7 +357,6 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'useIsSanityPresentationTool', from: join(runtimeDir, 'composables/useIsSanityPresentationTool') },
       { name: 'useSanityPreviewPerspective', from: join(runtimeDir, 'composables/useSanityPreviewPerspective') },
       { name: 'useSanityPreviewEnvironment', from: join(runtimeDir, 'composables/useSanityPreviewEnvironment') },
-      { name: 'useSanitySmartQuery', from: join(runtimeDir, 'composables/useSanitySmartQuery') },
       { name: 'useSanityPreviewState', from: join(runtimeDir, 'composables/useSanityPreviewState') },
     ])
 
