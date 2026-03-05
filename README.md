@@ -59,14 +59,14 @@ npx nuxi@latest module add sanity
 [MIT License](./LICENSE)
 
 <!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/@nuxtjs/sanity/latest.svg?style=flat&colorA=18181B&colorB=28CF8D
-[npm-version-href]: https://npmjs.com/package/@nuxtjs/sanity
-[npm-downloads-src]: https://img.shields.io/npm/dm/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
+[npm-version-src]: https://npmx.dev/api/registry/badge/version/@nuxtjs/sanity
+[npm-version-href]: https://npmx.dev/package/@nuxtjs/sanity
+[npm-downloads-src]: https://npmx.dev/api/registry/badge/downloads/@nuxtjs/sanity
 [npm-downloads-href]: https://npm.chart.dev/@nuxtjs/sanity
 [codecov-src]: https://img.shields.io/codecov/c/github/nuxt-modules/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
 [codecov-href]: https://codecov.io/gh/nuxt-modules/sanity
-[license-src]: https://img.shields.io/npm/l/@nuxtjs/sanity.svg?style=flat&colorA=18181B&colorB=28CF8D
-[license-href]: https://npmjs.com/package/@nuxtjs/sanity
+[license-src]: https://npmx.dev/api/registry/badge/license/@nuxtjs/sanity
+[license-href]: https://npmx.dev/package/@nuxtjs/sanity
 [volta-src]: https://user-images.githubusercontent.com/904724/209143798-32345f6c-3cf8-4e06-9659-f4ace4a6acde.svg
 [volta-href]: https://volta.net/nuxt-modules/sanity?utm_source=readme_nuxt_sanity
 [nuxt-src]: https://img.shields.io/badge/Nuxt-18181B?&logo=nuxt.js
