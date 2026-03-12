@@ -24,7 +24,7 @@ export function useLazySanityQuery<T = unknown, E = Error>(
   _params?: QueryParams,
   _options: UseSanityQueryOptions<T | null> = {},
 ): AsyncData<T | null, E> {
-  const { client, ...options } = _options
+  const { client, key, ...options } = _options
   const sanity = useSanity(client)
   const params = _params ? reactive(_params) : undefined
 
@@ -34,7 +34,7 @@ export function useLazySanityQuery<T = unknown, E = Error>(
   }
 
   return useLazyAsyncData(
-    'sanity-' + hash(query + (params ? JSON.stringify(params) : '')),
+    key || 'sanity-' + hash(query + (params ? JSON.stringify(params) : '')),
     () => sanity.fetch<T>(query, params || {}),
     options,
   ) as AsyncData<T | null, E>
