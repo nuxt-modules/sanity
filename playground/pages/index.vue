@@ -3,6 +3,7 @@
     class="bg-gray-300 grid grid-flow-row grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 p-8 overflow-x-hidden min-h-screen"
   >
     <h2>Project ID: {{ $sanity.config.projectId }}</h2>
+    <!-- @ts-expect-error -->
     <NuxtLink
       v-for="(movie, index) in movies"
       :key="movie.title ?? index"
@@ -34,5 +35,5 @@ const moviesQuery = groq`*[_type == "movie"] {
 
 const { data } = await useSanityQuery<MoviesQueryResult>(moviesQuery)
 
-const movies = computed(() => (data.value || []).sort((a, b) => (a.title ?? '').localeCompare(b.title ?? '')))
+const movies = computed(() => (data.value?.data || []).sort((a, b) => (a.title ?? '').localeCompare(b.title ?? '')))
 </script>
