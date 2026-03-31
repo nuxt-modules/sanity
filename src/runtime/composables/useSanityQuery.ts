@@ -57,6 +57,7 @@ export function useSanityQuery<T = unknown, E = Error>(
 ): AsyncSanityData<T | null, E> {
   const {
     client: _client,
+    key: _key,
     perspective: _perspective,
     stega: _stega,
     ...options
@@ -70,7 +71,7 @@ export function useSanityQuery<T = unknown, E = Error>(
   const clientConfig = sanity.client.config()
 
   const params = _params ? reactive(_params) : undefined
-  const queryKey = 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
+  const queryKey = _key || 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
   const perspective = useSanityPerspective(_perspective, clientConfig.perspective)
   const stega = _stega ?? (
@@ -175,17 +176,23 @@ export function useSanityQuery<T = unknown, E = Error>(
     return { data: result, sourceMap: resultSourceMap } satisfies SanityQueryResponse<T>
   }, options) as AsyncData<SanityQueryResponse<T | null> | undefined, E>
 
+  // Exclude promise methods from the spread to prevent them from shadowing the
+  // new Promise's own methods. From Nuxt 4.4.0, `useAsyncData` defines `then`,
+  // `catch`, and `finally` as enumerable own properties, which would overwrite
+  // the Promise prototype methods when spread via `Object.assign`.
+  const { then: _, catch: __, finally: ___, ...resultProps } = result
+
   return Object.assign(new Promise((resolve) => {
     result.then((value) => {
       if (value.data.value) {
         updateRefs(value.data.value.data, value.data.value.sourceMap)
       }
       resolve({
-        ...result,
+        ...resultProps,
         data,
         sourceMap,
         encodeDataAttribute,
       })
     })
-  }), { ...result, data, sourceMap, encodeDataAttribute }) as AsyncSanityData<T | null, E>
+  }), { ...resultProps, data, sourceMap, encodeDataAttribute }) as AsyncSanityData<T | null, E>
 }
