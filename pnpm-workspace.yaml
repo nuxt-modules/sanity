@@ -14,3 +14,8 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - better-sqlite3
   - sharp
+
+overrides:
+  "@nuxt/schema": "4.4.2"
+  "@nuxtjs/sanity": "link:."
+  nuxt-component-meta: "0.17.2"
