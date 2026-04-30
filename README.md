@@ -52,7 +52,8 @@ npx nuxi@latest module add sanity
 1. Clone this repository
 2. Install dependencies using `pnpm install`
 3. Stub module with `pnpm dev:prepare`
-3. Start development server using `pnpm dev`
+4. *Optional: [Import sample development data](/playground/cms/README.md#import-sample-data-optional) into your Sanity Content Lake dataset with* `pnpm studio:import`
+5. Start development server using `pnpm dev`
 
 ## License
 

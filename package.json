@@ -37,6 +37,7 @@
     "dev:build": "nuxt build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
     "studio:build": "pnpm --filter nuxt-sanity-cms build",
+    "studio:import": "pnpm --filter nuxt-sanity-cms import-sample-data",
     "docs:generate": "nuxt generate docs",
     "prepare": "simple-git-hooks",
     "build": "nuxt-module-build build",
