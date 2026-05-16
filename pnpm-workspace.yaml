@@ -5,17 +5,18 @@ packages:
 
 ignoreWorkspaceRootCheck: true
 
-ignoredBuiltDependencies:
-  - '@parcel/watcher'
-  - '@swc/core'
-  - vue-demi
-
-onlyBuiltDependencies:
-  - '@tailwindcss/oxide'
-  - better-sqlite3
-  - sharp
-
 overrides:
   "@nuxt/schema": "4.4.5"
   "@nuxtjs/sanity": "link:."
   nuxt-component-meta: "0.17.2"
+
+allowBuilds:
+  '@parcel/watcher': false
+  '@swc/core': false
+  '@tailwindcss/oxide': true
+  better-sqlite3: true
+  esbuild: false
+  sharp: true
+  simple-git-hooks: true
+  unrs-resolver: false
+  vue-demi: false
