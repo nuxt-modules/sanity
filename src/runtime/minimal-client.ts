@@ -7,14 +7,26 @@ import { $fetch } from 'ofetch'
 const apiHost = 'api.sanity.io'
 const cdnHost = 'apicdn.sanity.io'
 
+export type ClientPerspective = 'raw' | 'published' | 'drafts' | 'previewDrafts'
+
 export type QueryParams = Record<string, unknown>
 
 export interface QueryOptions {
-  perspective?: ClientConfig['perspective']
+  perspective?: ClientPerspective
   filterResponse?: boolean
+  [key: string]: unknown
+}
+
+export type UnfilteredResponseQueryOptions = QueryOptions & {
+  filterResponse: false
 }
 
 export type ContentSourceMap = unknown
+
+export interface StegaConfig {
+  enabled?: boolean
+  studioUrl?: string
+}
 
 export interface ClientConfig {
   useCdn?: boolean
@@ -23,7 +35,11 @@ export interface ClientConfig {
   apiVersion: string
   withCredentials?: boolean
   token?: string
-  perspective?: 'raw' | 'published' | 'drafts' | 'previewDrafts'
+  perspective?: ClientPerspective
+}
+
+export interface InitializedClientConfig extends ClientConfig {
+  stega?: StegaConfig
 }
 
 /** @deprecated Prefer `ClientConfig` instead - this will be removed in a future version. */

@@ -1,6 +1,6 @@
 {
   "name": "@nuxtjs/sanity",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -41,8 +41,6 @@
     "prepare": "simple-git-hooks",
     "build": "nuxt-module-build build",
     "lint": "eslint .",
-    "prepublishOnly": "pnpm test",
-    "release": "bumpp",
     "test": "pnpm lint && pnpm vitest run --coverage",
     "test:types": "vue-tsc --noEmit",
     "test:unit": "vitest run test/unit/*.test.*",
@@ -54,7 +52,7 @@
     "@portabletext/vue": "^1.0.12",
     "@sanity/cli": "^6.2.1",
     "@sanity/client": "^7.6.0",
-    "@sanity/codegen": "^5.3.1",
+    "@sanity/codegen": "^7.0.0",
     "@sanity/comlink": "^4.0.0",
     "@sanity/core-loader": "^2.0.0",
     "@sanity/presentation-comlink": "^2.0.0",
@@ -74,36 +72,29 @@
     "picomatch": "^4.0.3"
   },
   "devDependencies": {
-    "@nuxt/cli": "3.34.0",
+    "@nuxt/cli": "3.35.2",
     "@nuxt/eslint-config": "1.15.2",
     "@nuxt/module-builder": "1.0.2",
-    "@nuxt/schema": "4.4.2",
-    "@nuxt/test-utils": "4.0.0",
+    "@nuxt/schema": "4.4.7",
+    "@nuxt/test-utils": "4.0.3",
     "@types/picomatch": "4.0.2",
-    "@vitest/coverage-v8": "4.0.18",
+    "@vitest/coverage-v8": "4.1.8",
     "@vue/test-utils": "2.4.6",
-    "bumpp": "10.4.1",
-    "changelogithub": "14.0.0",
-    "eslint": "10.0.3",
+    "eslint": "10.4.1",
     "groq-js": "1.29.0",
     "h3": "1.15.10",
-    "happy-dom": "20.8.3",
+    "happy-dom": "20.10.2",
     "installed-check": "10.0.1",
-    "lint-staged": "16.4.0",
-    "nuxt": "4.4.2",
+    "lint-staged": "17.0.4",
+    "nuxt": "4.4.7",
     "pkg-pr-new": "0.0.66",
     "simple-git-hooks": "2.13.1",
-    "typescript": "5.9.3",
-    "vitest": "4.0.18",
-    "vitest-environment-nuxt": "1.0.1",
-    "vue": "3.5.30",
+    "typescript": "6.0.2",
+    "vitest": "4.1.8",
+    "vitest-environment-nuxt": "2.0.0",
+    "vue": "3.5.35",
     "vue-router": "5.0.4",
     "vue-tsc": "3.2.6"
-  },
-  "resolutions": {
-    "@nuxt/schema": "4.4.2",
-    "@nuxtjs/sanity": "link:.",
-    "nuxt-component-meta": "0.17.2"
   },
   "lint-staged": {
     "*.{js,mjs,cjs,ts,tsx,vue,json}": [
@@ -116,7 +107,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "packageManager": "pnpm@10.33.0",
+  "packageManager": "pnpm@11.1.2",
   "engines": {
     "node": "^20.19.1 || ^22.12.0 || >=23.0.0"
   }
