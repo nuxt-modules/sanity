@@ -10,13 +10,15 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
     throw new Error('Configure the `sanity.visualEditing` property in your `nuxt.config.ts` to use the `useSanityVisualEditing` composable. ')
   }
 
-  const { zIndex, refresh } = options
+  const { keepStegaOnCopy, onSuspiciousStega, zIndex, refresh } = options
 
   let disable = () => {}
 
   if (import.meta.client) {
     const router = useRouter()
     disable = enableVisualEditing({
+      keepStegaOnCopy,
+      onSuspiciousStega,
       zIndex,
       // It is unlikely this API will be used as much by Nuxt users, as
       // implementing fully fledged visual editing is more straightforward

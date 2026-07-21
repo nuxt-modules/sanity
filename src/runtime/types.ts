@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { HistoryRefresh, VisualEditingOptions } from '@sanity/visual-editing'
+import type { HistoryRefresh, SuspiciousStegaReport, VisualEditingOptions } from '@sanity/visual-editing'
 import type { QueryStore } from '@sanity/core-loader'
 import type { AsyncDataOptions } from 'nuxt/app'
 import type { ClientPerspective, ContentSourceMap, StegaConfig } from '@sanity/client'
@@ -131,6 +131,8 @@ export interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
  * @internal
  */
 export interface VisualEditingProps {
+  keepStegaOnCopy?: boolean
+  onSuspiciousStega?: SanityVisualEditingOnSuspiciousStega
   refresh?: SanityVisualEditingRefreshHandler
   zIndex?: SanityVisualEditingZIndex
 }
@@ -149,6 +151,15 @@ export type SanityVisualEditingRefreshHandler = (
   payload: HistoryRefresh,
   refreshDefault: () => false | Promise<void>,
 ) => false | Promise<void>
+
+/**
+ * Handler function for reports of stega payloads found in places where they
+ * always cause bugs or bloat
+ * @public
+ */
+export type SanityVisualEditingOnSuspiciousStega = (
+  reports: SuspiciousStegaReport[],
+) => void
 
 export type SanityRuntimeConfig = {
   liveContent?:
@@ -184,6 +195,7 @@ export type SanityPublicRuntimeConfig = {
   useCdn: boolean
   visualEditing?:
   | {
+    keepStegaOnCopy: boolean
     mode: SanityVisualEditingMode
     previewMode:
       | false
@@ -216,6 +228,7 @@ export type SanityResolvedConfig
       visualEditing:
         | null
         | {
+          keepStegaOnCopy: boolean
           mode: SanityVisualEditingMode
           previewMode:
             | boolean
@@ -232,6 +245,13 @@ export type SanityResolvedConfig
     }
 
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
+
+/**
+ * Re-export of the `SuspiciousStegaReport` type from `@sanity/visual-editing`,
+ * describing the reports passed to an `onSuspiciousStega` handler
+ * @public
+ */
+export type { SuspiciousStegaReport } from '@sanity/visual-editing'
 
 export type SanityGroqQueryArray = Array<{ filepath: string, queries: string[] }>
 

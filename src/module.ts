@@ -28,7 +28,7 @@ import { genExport } from 'knitwork'
 
 import { findQueriesInSource } from '@sanity/codegen'
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
-import type { HistoryRefresh } from '@sanity/visual-editing'
+import type { HistoryRefresh, SuspiciousStegaReport } from '@sanity/visual-editing'
 import { normalizeQuery } from './runtime/util/normalizeQuery'
 import { name, version } from '../package.json'
 
@@ -43,6 +43,10 @@ export type SanityVisualEditingRefreshHandler = (
   payload: HistoryRefresh,
   refreshDefault: () => false | Promise<void>,
 ) => false | Promise<void>
+
+export type SanityVisualEditingOnSuspiciousStega = (
+  reports: SuspiciousStegaReport[],
+) => void
 
 export interface SanityModuleVisualEditingOptions {
   /**
@@ -79,11 +83,27 @@ export interface SanityModuleVisualEditingOptions {
    */
   stega?: boolean
   /**
+   * While visual editing is enabled, stega-encoded metadata (invisible
+   * characters) is automatically stripped from clipboard data when content is
+   * copied from the page. Set this option to `true` to opt out and keep stega
+   * in copied content.
+   * @default false
+   */
+  keepStegaOnCopy?: boolean
+  /**
    * An optional function for overriding the default handling of refresh events
    * received from the studio. This is generally not need needed if the `mode`
    * option is set to `live-visual-editing`.
    */
   refresh?: SanityVisualEditingRefreshHandler
+  /**
+   * An optional callback that reports stega payloads found in places where
+   * they always cause bugs or bloat, such as `class`, `href`, `src`, `id` and
+   * other attributes, inside `<head>`, `<script>` or `<style>` contents, form
+   * values, or the page URL. Providing the callback opts in to the detection
+   * logic — when it isn't provided no scanning runs.
+   */
+  onSuspiciousStega?: SanityVisualEditingOnSuspiciousStega
   /**
    * The CSS z-index on the root node that renders overlays
    * @default 9999999
@@ -283,6 +303,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
 
       publicRuntimeConfig.visualEditing = {
+        keepStegaOnCopy: options.visualEditing.keepStegaOnCopy ?? false,
         mode: options.visualEditing.mode || 'live-visual-editing',
         previewMode,
         previewModeId: '',
@@ -634,6 +655,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         filename: 'sanity-visual-editing-refresh.mjs',
         getContents: () => `
             export const sanityVisualEditingRefresh = ${options.visualEditing?.refresh?.toString() || 'undefined'}
+            export const sanityVisualEditingOnSuspiciousStega = ${options.visualEditing?.onSuspiciousStega?.toString() || 'undefined'}
           `,
         write: true,
       })
@@ -642,6 +664,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       addImports([
         { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
         { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
+        { name: 'sanityVisualEditingOnSuspiciousStega', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'useSanityLiveMode', from: join(runtimeDir, 'composables/useSanityLiveMode') },
         { name: 'useSanityVisualEditing', from: join(runtimeDir, 'composables/useSanityVisualEditing') },
       ])
