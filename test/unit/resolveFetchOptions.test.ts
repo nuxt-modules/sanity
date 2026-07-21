@@ -184,11 +184,11 @@ describe('resolveFetchOptions', () => {
       expect(opts.stega).toBeUndefined()
     })
 
-    it('is omitted when visual editing is not enabled', () => {
+    it('is disabled when configured on the client but visual editing is not enabled', () => {
       const opts = resolveFetchOptions({
         clientConfig: { stega: { enabled: true, studioUrl: 'https://studio.test' } } as any,
       })
-      expect(opts.stega).toBeUndefined()
+      expect(opts.stega).toBe(false)
     })
 
     it('is omitted when client config stega is not enabled', () => {
