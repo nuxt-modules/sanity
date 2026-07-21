@@ -25,12 +25,13 @@ export function resolveFetchOptions({
   visualEditingEnabled?: boolean
 }): UnfilteredResponseQueryOptions {
   // Stega encoding is only enabled when configured on the client and visual
-  // editing is enabled, unless explicitly set in the query options.
-  const stegaFromClientConfig = (
-    clientConfig?.stega?.enabled
+  // editing is enabled, unless explicitly set in the query options. It must be
+  // explicitly disabled otherwise so the client does not fall back to its
+  // enabled default.
+  const stegaFromClientConfig = clientConfig?.stega?.enabled
     && typeof clientConfig?.stega.studioUrl !== 'undefined'
-    && visualEditingEnabled
-  ) || undefined
+    ? !!visualEditingEnabled
+    : undefined
   const resolvedStega = stega ?? stegaFromClientConfig
 
   // These tokens grant access to draft content, so they are only included
