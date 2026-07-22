@@ -1,5 +1,5 @@
 import type { Ref } from 'vue'
-import type { HistoryRefresh, SuspiciousStegaReport, VisualEditingOptions } from '@sanity/visual-editing'
+import type { HistoryRefresh, SuspiciousStegaReport, VisualEditingOptions } from '@sanity/visual-editing-standalone'
 import type { QueryStore } from '@sanity/core-loader'
 import type { AsyncDataOptions } from 'nuxt/app'
 import type { ClientPerspective, ContentSourceMap, StegaConfig } from '@sanity/client'
@@ -247,11 +247,12 @@ export type SanityResolvedConfig
 export type SanityVisualEditingZIndex = VisualEditingOptions['zIndex']
 
 /**
- * Re-export of the `SuspiciousStegaReport` type from `@sanity/visual-editing`,
- * describing the reports passed to an `onSuspiciousStega` handler
+ * Re-export of the `SuspiciousStegaReport` type from
+ * `@sanity/visual-editing-standalone`, describing the reports passed to an
+ * `onSuspiciousStega` handler
  * @public
  */
-export type { SuspiciousStegaReport } from '@sanity/visual-editing'
+export type { SuspiciousStegaReport } from '@sanity/visual-editing-standalone'
 
 export type SanityGroqQueryArray = Array<{ filepath: string, queries: string[] }>
 

@@ -1,4 +1,4 @@
-import { enableVisualEditing } from '@sanity/visual-editing'
+import { enableVisualEditing } from '@sanity/visual-editing-standalone'
 import type { VisualEditingProps } from '../types'
 import { onScopeDispose } from 'vue'
 import { useRouter, reloadNuxtApp } from '#imports'

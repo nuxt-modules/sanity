@@ -28,7 +28,7 @@ import { genExport } from 'knitwork'
 
 import { findQueriesInSource } from '@sanity/codegen'
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
-import type { HistoryRefresh, SuspiciousStegaReport } from '@sanity/visual-editing'
+import type { HistoryRefresh, SuspiciousStegaReport } from '@sanity/visual-editing-standalone'
 import { normalizeQuery } from './runtime/util/normalizeQuery'
 import { name, version } from '../package.json'
 
@@ -623,28 +623,13 @@ export default defineNuxtModule<SanityModuleOptions>({
      */
     if (publicRuntimeConfig.visualEditing) {
       // Optimise visual editing dependencies
-      nuxt.options.build.transpile.push('async-cache-dedupe')
       nuxt.options.vite.resolve = defu(nuxt.options.vite.resolve, {
         dedupe: ['@sanity/client'],
       })
       nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
         include: [
-          '@nuxtjs/sanity > @sanity/visual-editing > @sanity/insert-menu',
-          '@nuxtjs/sanity > @sanity/visual-editing > @sanity/mutate > lodash/groupBy.js',
-          '@nuxtjs/sanity > @sanity/visual-editing > @sanity/ui > styled-components',
-          '@nuxtjs/sanity > @sanity/visual-editing > @sanity/visual-editing > react-is',
-          '@nuxtjs/sanity > @sanity/visual-editing > react',
-          '@nuxtjs/sanity > @sanity/visual-editing > react/jsx-runtime',
-          '@nuxtjs/sanity > @sanity/visual-editing > react-dom',
-          '@nuxtjs/sanity > @sanity/visual-editing > react-dom/client',
-          '@nuxtjs/sanity > @sanity/visual-editing > react-compiler-runtime',
+          '@nuxtjs/sanity > @sanity/visual-editing-standalone',
           '@sanity/client',
-        ],
-      })
-
-      nuxt.options.vite.optimizeDeps = defu(nuxt.options.vite.optimizeDeps, {
-        include: [
-          '@nuxtjs/sanity > @sanity/client > @sanity/visual-editing',
         ],
       })
 
@@ -662,7 +647,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
       // Add Visual Editing auto-imports
       addImports([
-        { name: 'createDataAttribute', from: '@sanity/visual-editing', as: 'createSanityDataAttribute' },
+        { name: 'createDataAttribute', from: '@sanity/visual-editing-standalone', as: 'createSanityDataAttribute' },
         { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'sanityVisualEditingOnSuspiciousStega', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'useSanityLiveMode', from: join(runtimeDir, 'composables/useSanityLiveMode') },
