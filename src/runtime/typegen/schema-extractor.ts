@@ -8,6 +8,7 @@ type SchemaTypesModule = Record<string, unknown> & { default?: unknown }
 type SanityConfig = {
   dataset?: string
   name?: string
+  schema?: Record<string, unknown>
   projectId?: string
 }
 
@@ -35,9 +36,10 @@ export async function extractSchemaFromTypesFile(
 ): Promise<ExtractedSchema> {
   const { typesPath, exportName, configPath } = options
 
-  const schemaTypes = configPath
-    ? await resolveSchemaTypesFromConfig(configPath, options)
-    : await resolveSchemaTypesFromModule(typesPath, exportName)
+  const schemaTypes = await resolveSchemaTypesFromModule(typesPath, exportName)
+  const resolvedSchemaTypes = configPath
+    ? await resolveSchemaTypesFromConfig(configPath, options, schemaTypes)
+    : schemaTypes
 
   const builtinSchema = Schema.compile({
     name: 'studio',
@@ -46,7 +48,7 @@ export async function extractSchemaFromTypesFile(
 
   const compiledSchema = Schema.compile({
     name: 'default',
-    types: schemaTypes,
+    types: resolvedSchemaTypes,
     parent: builtinSchema,
   })
 
@@ -77,6 +79,7 @@ async function resolveSchemaTypesFromModule(
 async function resolveSchemaTypesFromConfig(
   configPath: string,
   options: ExtractSchemaFromTypesOptions,
+  schemaTypes: unknown[],
 ): Promise<unknown[]> {
   const jiti = createJiti(configPath, {
     jsx: true,
@@ -93,25 +96,32 @@ async function resolveSchemaTypesFromConfig(
 
   const configs = Array.isArray(config) ? config : [config]
   const workspace = selectWorkspace(configs, configPath, options)
+  const typegenWorkspace = {
+    ...workspace,
+    schema: {
+      ...workspace.schema,
+      types: schemaTypes,
+    },
+  }
 
   const sanity = await jiti.import<SanityModule>('sanity')
   if (typeof sanity?.resolveSchemaTypes !== 'function') {
     throw new TypeError(`The Sanity package used by ${configPath} does not export resolveSchemaTypes`)
   }
 
-  const schemaTypes = sanity.resolveSchemaTypes({
-    config: workspace,
+  const resolvedSchemaTypes = sanity.resolveSchemaTypes({
+    config: typegenWorkspace,
     context: {
       dataset: options.dataset || workspace.dataset,
       projectId: options.projectId || workspace.projectId,
     },
   })
 
-  if (!Array.isArray(schemaTypes)) {
+  if (!Array.isArray(resolvedSchemaTypes)) {
     throw new TypeError(`Could not resolve schema types from Sanity config at ${configPath}`)
   }
 
-  return schemaTypes
+  return resolvedSchemaTypes
 }
 
 function selectWorkspace(

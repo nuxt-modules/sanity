@@ -28,7 +28,9 @@ describe('sanity typegen (programmatic)', () => {
       typesPath,
     })
 
-    expect(schema.some(t => t?.type === 'document' && t?.name === 'pluginDocument')).toBe(true)
+    expect(schema.some(t => t?.name === 'pluginString')).toBe(true)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
+    expect(schema.some(t => t?.name === 'pluginDocument')).toBe(false)
   })
 
   it('requires an explicit workspace when config matches are ambiguous', async () => {
@@ -55,8 +57,9 @@ describe('sanity typegen (programmatic)', () => {
       workspace: 'second',
     })
 
-    expect(schema.some(t => t?.type === 'document' && t?.name === 'secondDocument')).toBe(true)
-    expect(schema.some(t => t?.type === 'document' && t?.name === 'firstDocument')).toBe(false)
+    expect(schema.some(t => t?.name === 'secondPluginString')).toBe(true)
+    expect(schema.some(t => t?.name === 'firstPluginString')).toBe(false)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
   })
 
   it('generates type declarations for extracted queries', async () => {

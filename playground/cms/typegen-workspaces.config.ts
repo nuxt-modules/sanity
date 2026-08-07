@@ -1,4 +1,18 @@
-import { defineConfig } from 'sanity'
+import { defineConfig, definePlugin } from 'sanity'
+
+const firstPlugin = definePlugin({
+  name: 'first-plugin',
+  schema: {
+    types: [{ name: 'firstPluginString', type: 'string' }],
+  },
+})
+
+const secondPlugin = definePlugin({
+  name: 'second-plugin',
+  schema: {
+    types: [{ name: 'secondPluginString', type: 'string' }],
+  },
+})
 
 export default defineConfig([
   {
@@ -6,6 +20,7 @@ export default defineConfig([
     basePath: '/first',
     projectId: 'typegen-test',
     dataset: 'production',
+    plugins: [firstPlugin()],
     schema: {
       types: [{ name: 'firstDocument', type: 'document', fields: [] }],
     },
@@ -15,6 +30,7 @@ export default defineConfig([
     basePath: '/second',
     projectId: 'typegen-test',
     dataset: 'production',
+    plugins: [secondPlugin()],
     schema: {
       types: [{ name: 'secondDocument', type: 'document', fields: [] }],
     },
