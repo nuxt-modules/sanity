@@ -17,6 +17,48 @@ describe('sanity typegen (programmatic)', () => {
     expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
   })
 
+  it('extracts schema types contributed by Sanity plugins', async () => {
+    const configPath = resolve(process.cwd(), 'playground/cms/typegen-plugin.config.ts')
+    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
+
+    const schema = await extractSchemaFromTypesFile({
+      configPath,
+      dataset: 'production',
+      projectId: 'typegen-test',
+      typesPath,
+    })
+
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'pluginDocument')).toBe(true)
+  })
+
+  it('requires an explicit workspace when config matches are ambiguous', async () => {
+    const configPath = resolve(process.cwd(), 'playground/cms/typegen-workspaces.config.ts')
+    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
+
+    await expect(extractSchemaFromTypesFile({
+      configPath,
+      dataset: 'production',
+      projectId: 'typegen-test',
+      typesPath,
+    })).rejects.toThrow('Set typegen.workspace to one of: first, second')
+  })
+
+  it('extracts the explicitly selected workspace', async () => {
+    const configPath = resolve(process.cwd(), 'playground/cms/typegen-workspaces.config.ts')
+    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
+
+    const schema = await extractSchemaFromTypesFile({
+      configPath,
+      dataset: 'production',
+      projectId: 'typegen-test',
+      typesPath,
+      workspace: 'second',
+    })
+
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'secondDocument')).toBe(true)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'firstDocument')).toBe(false)
+  })
+
   it('generates type declarations for extracted queries', async () => {
     const typesPath = resolve(process.cwd(), 'test/fixtures/schema-types.ts')
     const schema = await extractSchemaFromTypesFile({ typesPath })

@@ -129,6 +129,10 @@ export interface SanityTypegenOptions {
    */
   schemaTypesExport?: string
   /**
+   * Sanity workspace name to use when the Studio config defines multiple workspaces.
+   */
+  workspace?: string
+  /**
    * Glob(s) to scan for GROQ queries.
    */
   queryPaths?: string | string[]
@@ -212,10 +216,13 @@ export default defineNuxtModule<SanityModuleOptions>({
     configFile: '~~/cms/sanity.config',
   },
   async setup(options, nuxt) {
+    const resolvedSanityConfigPath = await resolvePath(options.configFile!)
+    const sanityConfigPath = resolvedSanityConfigPath
+      || /* backwards compatibility */ resolve(nuxt.options.rootDir, './sanity.json')
+
     // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
     if (!options.projectId || !options.dataset) {
       // Register watcher on sanity.config.ts
-      const sanityConfigPath = await resolvePath(options.configFile!) || /* backwards compatibility */ resolve(nuxt.options.rootDir, './sanity.json')
       const relativeSanityConfigPath = relative(nuxt.options.rootDir, sanityConfigPath)
       if (!relativeSanityConfigPath.startsWith('..')) {
         nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
@@ -388,6 +395,9 @@ export default defineNuxtModule<SanityModuleOptions>({
       }
       else {
         const schemaTypesPath = await resolvePath(options.typegen.schemaTypesPath)
+        const typegenConfigPath = resolvedSanityConfigPath && existsSync(resolvedSanityConfigPath)
+          ? resolvedSanityConfigPath
+          : undefined
 
         const queryPaths = options.typegen.queryPaths
           ? (Array.isArray(options.typegen.queryPaths) ? options.typegen.queryPaths : [options.typegen.queryPaths])
@@ -400,6 +410,10 @@ export default defineNuxtModule<SanityModuleOptions>({
           const schema = await extractSchemaFromTypesFile({
             typesPath: schemaTypesPath,
             exportName: options.typegen?.schemaTypesExport,
+            configPath: typegenConfigPath,
+            dataset,
+            projectId,
+            workspace: options.typegen?.workspace,
           })
 
           const result = await generateSanityTypes({
@@ -465,13 +479,16 @@ export default defineNuxtModule<SanityModuleOptions>({
 
         if (nuxt.options.dev) {
           nuxt.options.watch.push(schemaTypesPath)
+          if (typegenConfigPath) {
+            nuxt.options.watch.push(typegenConfigPath)
+          }
 
           nuxt.hook('builder:watch', async (_event, path) => {
             if (!typegenTemplate) return
 
             const changedPath = isAbsolute(path) ? path : resolve(nuxt.options.rootDir, path)
 
-            const isSchemaChange = changedPath === schemaTypesPath
+            const isSchemaChange = changedPath === schemaTypesPath || changedPath === typegenConfigPath
             const relativeToSrc = relative(nuxt.options.srcDir, changedPath)
             const isInSrcDir = !relativeToSrc.startsWith('..')
             const isSupportedExt = /\.(?:ts|tsx|js|jsx|mjs|cjs|vue|astro)$/.test(changedPath)
