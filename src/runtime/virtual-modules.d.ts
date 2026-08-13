@@ -7,3 +7,5 @@ declare module '#build/sanity-visual-editing-refresh.mjs' {
   export const sanityVisualEditingRefresh: SanityVisualEditingRefreshHandler | undefined
   export const sanityVisualEditingOnSuspiciousStega: SanityVisualEditingOnSuspiciousStega | undefined
 }
+
+declare module '@sanity/visual-editing-standalone/styles.css'
