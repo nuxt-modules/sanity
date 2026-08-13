@@ -1,3 +1,4 @@
+import '@sanity/visual-editing-standalone/styles.css'
 import { enableVisualEditing } from '@sanity/visual-editing-standalone'
 import type { VisualEditingProps } from '../types'
 import { onScopeDispose } from 'vue'
@@ -19,7 +20,6 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
 
   if (import.meta.client) {
     const router = useRouter()
-    void import('@sanity/visual-editing-standalone/styles.css')
     disable = enableVisualEditing({
       keepStegaOnCopy,
       onSuspiciousStega,
