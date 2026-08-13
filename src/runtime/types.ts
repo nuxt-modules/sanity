@@ -132,6 +132,7 @@ export interface UseSanityQueryOptions<T> extends AsyncDataOptions<T> {
  */
 export interface VisualEditingProps {
   keepStegaOnCopy?: boolean
+  onPerspectiveChange?: SanityVisualEditingOnPerspectiveChange
   onSuspiciousStega?: SanityVisualEditingOnSuspiciousStega
   refresh?: SanityVisualEditingRefreshHandler
   zIndex?: SanityVisualEditingZIndex
@@ -159,6 +160,14 @@ export type SanityVisualEditingRefreshHandler = (
  */
 export type SanityVisualEditingOnSuspiciousStega = (
   reports: SuspiciousStegaReport[],
+) => void
+
+/**
+ * Handler function for Studio perspective changes
+ * @public
+ */
+export type SanityVisualEditingOnPerspectiveChange = (
+  perspective: ClientPerspective,
 ) => void
 
 export type SanityRuntimeConfig = {

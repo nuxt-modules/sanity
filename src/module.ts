@@ -27,7 +27,7 @@ import { defu } from 'defu'
 import { genExport } from 'knitwork'
 
 import { findQueriesInSource } from '@sanity/codegen'
-import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
+import type { ClientConfig as SanityClientConfig, ClientPerspective, StegaConfig } from '@sanity/client'
 import type { HistoryRefresh, SuspiciousStegaReport } from '@sanity/visual-editing-standalone'
 import { normalizeQuery } from './runtime/util/normalizeQuery'
 import { name, version } from '../package.json'
@@ -46,6 +46,10 @@ export type SanityVisualEditingRefreshHandler = (
 
 export type SanityVisualEditingOnSuspiciousStega = (
   reports: SuspiciousStegaReport[],
+) => void
+
+export type SanityVisualEditingOnPerspectiveChange = (
+  perspective: ClientPerspective,
 ) => void
 
 export interface SanityModuleVisualEditingOptions {
@@ -104,6 +108,12 @@ export interface SanityModuleVisualEditingOptions {
    * logic — when it isn't provided no scanning runs.
    */
   onSuspiciousStega?: SanityVisualEditingOnSuspiciousStega
+  /**
+   * An optional callback fired when the Studio perspective changes. By default
+   * the module persists the perspective to a cookie so server-side fetches use
+   * the same client perspective. Providing this callback replaces that default.
+   */
+  onPerspectiveChange?: SanityVisualEditingOnPerspectiveChange
   /**
    * The CSS z-index on the root node that renders overlays
    * @default 9999999
@@ -641,6 +651,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         getContents: () => `
             export const sanityVisualEditingRefresh = ${options.visualEditing?.refresh?.toString() || 'undefined'}
             export const sanityVisualEditingOnSuspiciousStega = ${options.visualEditing?.onSuspiciousStega?.toString() || 'undefined'}
+            export const sanityVisualEditingOnPerspectiveChange = ${options.visualEditing?.onPerspectiveChange?.toString() || 'undefined'}
           `,
         write: true,
       })
@@ -650,6 +661,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         { name: 'createDataAttribute', from: '@sanity/visual-editing-standalone', as: 'createSanityDataAttribute' },
         { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'sanityVisualEditingOnSuspiciousStega', from: '#build/sanity-visual-editing-refresh.mjs' },
+        { name: 'sanityVisualEditingOnPerspectiveChange', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'useSanityLiveMode', from: join(runtimeDir, 'composables/useSanityLiveMode') },
         { name: 'useSanityVisualEditing', from: join(runtimeDir, 'composables/useSanityVisualEditing') },
       ])

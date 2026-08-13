@@ -1,5 +1,5 @@
 import { defineNuxtPlugin } from '#imports'
-import { sanityVisualEditingOnSuspiciousStega, sanityVisualEditingRefresh } from '#build/sanity-visual-editing-refresh.mjs'
+import { sanityVisualEditingOnPerspectiveChange, sanityVisualEditingOnSuspiciousStega, sanityVisualEditingRefresh } from '#build/sanity-visual-editing-refresh.mjs'
 import { useSanityConfig } from '../composables/useSanityConfig'
 import { useSanityVisualEditingState } from '../composables/useSanityVisualEditingState'
 import { useSanityVisualEditing } from '../composables/useSanityVisualEditing'
@@ -18,6 +18,7 @@ export default defineNuxtPlugin(async () => {
   ) {
     useSanityVisualEditing({
       keepStegaOnCopy: visualEditing.keepStegaOnCopy || undefined,
+      onPerspectiveChange: sanityVisualEditingOnPerspectiveChange,
       onSuspiciousStega: sanityVisualEditingOnSuspiciousStega,
       refresh: sanityVisualEditingRefresh,
       zIndex: visualEditing.zIndex || undefined,

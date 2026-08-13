@@ -2,10 +2,11 @@
 // These stubs are used for type checking source files before Nuxt app preparation
 
 declare module '#build/sanity-visual-editing-refresh.mjs' {
-  import type { SanityVisualEditingOnSuspiciousStega, SanityVisualEditingRefreshHandler } from '@nuxtjs/sanity'
+  import type { SanityVisualEditingOnPerspectiveChange, SanityVisualEditingOnSuspiciousStega, SanityVisualEditingRefreshHandler } from '@nuxtjs/sanity'
 
   export const sanityVisualEditingRefresh: SanityVisualEditingRefreshHandler | undefined
   export const sanityVisualEditingOnSuspiciousStega: SanityVisualEditingOnSuspiciousStega | undefined
+  export const sanityVisualEditingOnPerspectiveChange: SanityVisualEditingOnPerspectiveChange | undefined
 }
 
 declare module '@sanity/visual-editing-standalone/styles.css'
