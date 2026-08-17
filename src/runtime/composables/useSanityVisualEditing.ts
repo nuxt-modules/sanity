@@ -12,8 +12,10 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
 
   const { keepStegaOnCopy, onSuspiciousStega, zIndex, refresh } = options
 
-  let disable = () => {}
   let cancelled = false
+  let disable = () => {
+    cancelled = true
+  }
 
   if (import.meta.client) {
     const router = useRouter()
