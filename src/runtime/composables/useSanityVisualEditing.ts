@@ -84,5 +84,5 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
     disable()
   })
 
-  return () => disable()
+  return disable
 }
