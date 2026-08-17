@@ -13,15 +13,17 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
   const { keepStegaOnCopy, onSuspiciousStega, zIndex, refresh } = options
 
   let cancelled = false
-  let disable = () => {
+  let stop = () => {}
+  const disable = () => {
     cancelled = true
+    stop()
   }
 
   if (import.meta.client) {
     const router = useRouter()
     void import('@sanity/visual-editing-standalone/styles.css').then(() => {
       if (cancelled) return
-      disable = enableVisualEditing({
+      stop = enableVisualEditing({
         keepStegaOnCopy,
         onSuspiciousStega,
         zIndex,
@@ -75,10 +77,7 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
     })
   }
 
-  onScopeDispose(() => {
-    cancelled = true
-    disable()
-  })
+  onScopeDispose(disable)
 
   return disable
 }
