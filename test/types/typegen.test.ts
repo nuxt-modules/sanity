@@ -7,6 +7,9 @@ import { join, resolve } from 'pathe'
 import { extractSchemaFromTypesFile } from '../../src/runtime/typegen/schema-extractor'
 import { generateSanityTypes } from '../../src/runtime/typegen/type-generator'
 
+const pluginConfigPath = resolve(process.cwd(), 'playground/cms/typegen-fixtures/plugin.config.ts')
+const workspacesConfigPath = resolve(process.cwd(), 'playground/cms/typegen-fixtures/workspaces.config.ts')
+
 describe('sanity typegen (programmatic)', () => {
   it('extracts schema from schema types module', async () => {
     const typesPath = resolve(process.cwd(), 'test/fixtures/schema-types.ts')
@@ -17,49 +20,40 @@ describe('sanity typegen (programmatic)', () => {
     expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
   })
 
-  it('extracts schema types contributed by Sanity plugins', async () => {
-    const configPath = resolve(process.cwd(), 'playground/cms/typegen-plugin.config.ts')
-    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
-
-    const schema = await extractSchemaFromTypesFile({
-      configPath,
-      dataset: 'production',
-      projectId: 'typegen-test',
-      typesPath,
-    })
+  it('extracts schema types declared by the Sanity config and its plugins', async () => {
+    const schema = await extractSchemaFromTypesFile({ configPath: pluginConfigPath })
 
     expect(schema.some(t => t?.name === 'pluginString')).toBe(true)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'pluginDocument')).toBe(true)
+  })
+
+  it('falls back to the schema types module when the config cannot be resolved', async () => {
+    const schema = await extractSchemaFromTypesFile({
+      configPath: resolve(process.cwd(), 'playground/cms/typegen-fixtures/does-not-exist.config.ts'),
+      typesPath: resolve(process.cwd(), 'test/fixtures/schema-types.ts'),
+    })
+
     expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
-    expect(schema.some(t => t?.name === 'pluginDocument')).toBe(false)
   })
 
   it('requires an explicit workspace when config matches are ambiguous', async () => {
-    const configPath = resolve(process.cwd(), 'playground/cms/typegen-workspaces.config.ts')
-    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
-
     await expect(extractSchemaFromTypesFile({
-      configPath,
+      configPath: workspacesConfigPath,
       dataset: 'production',
       projectId: 'typegen-test',
-      typesPath,
-    })).rejects.toThrow('Set typegen.workspace to one of: first, second')
+      typesPath: resolve(process.cwd(), 'test/fixtures/schema-types.ts'),
+    })).rejects.toThrow('Set `typegen.workspace` to one of: first, second')
   })
 
   it('extracts the explicitly selected workspace', async () => {
-    const configPath = resolve(process.cwd(), 'playground/cms/typegen-workspaces.config.ts')
-    const typesPath = resolve(process.cwd(), 'playground/cms/schemaTypes/index.ts')
-
     const schema = await extractSchemaFromTypesFile({
-      configPath,
-      dataset: 'production',
-      projectId: 'typegen-test',
-      typesPath,
+      configPath: workspacesConfigPath,
       workspace: 'second',
     })
 
     expect(schema.some(t => t?.name === 'secondPluginString')).toBe(true)
     expect(schema.some(t => t?.name === 'firstPluginString')).toBe(false)
-    expect(schema.some(t => t?.type === 'document' && t?.name === 'movie')).toBe(true)
+    expect(schema.some(t => t?.type === 'document' && t?.name === 'secondDocument')).toBe(true)
   })
 
   it('generates type declarations for extracted queries', async () => {

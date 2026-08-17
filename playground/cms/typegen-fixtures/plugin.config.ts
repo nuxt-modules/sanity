@@ -1,5 +1,5 @@
 import { defineConfig } from 'sanity'
-import { typegenTestPlugin } from './typegen-test-plugin'
+import { typegenTestPlugin } from './test-plugin'
 
 export default defineConfig({
   name: 'default',
