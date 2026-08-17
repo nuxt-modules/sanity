@@ -15,8 +15,10 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
 
   const perspective = useSanityPerspective()
 
-  let disable = () => {}
   let cancelled = false
+  let disable = () => {
+    cancelled = true
+  }
 
   if (import.meta.client) {
     const router = useRouter()
