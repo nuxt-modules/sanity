@@ -43,6 +43,7 @@ export const useSanityTagRevalidation = ({
       filterResponse: false
       perspective: ClientConfig['perspective']
       useCdn: boolean
+      variant?: string
     }) => {
     const { syncTags } = await client.fetch(query, params, {
       ...options,

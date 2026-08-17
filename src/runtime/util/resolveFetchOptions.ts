@@ -13,6 +13,7 @@ export function resolveFetchOptions({
   queryOptions,
   runtimeConfig,
   stega,
+  variant,
   visualEditingEnabled,
 }: {
   clientConfig?: InitializedClientConfig
@@ -22,6 +23,7 @@ export function resolveFetchOptions({
   queryOptions?: QueryOptions
   runtimeConfig?: SanityResolvedConfig
   stega?: StegaConfig | boolean
+  variant?: string
   visualEditingEnabled?: boolean
 }): UnfilteredResponseQueryOptions {
   // Stega encoding is only enabled when configured on the client and visual
@@ -78,6 +80,7 @@ export function resolveFetchOptions({
       stega: resolvedStega,
       token: resolvedToken,
       useCdn: resolvedUseCdn,
+      variant: queryOptions?.variant ?? variant,
     }),
   }
 }

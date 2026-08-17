@@ -15,6 +15,9 @@
       </div>
       <div>Environment: {{ environment }}</div>
       <div>Perspective: {{ perspective }}</div>
+      <div v-if="variant">
+        Variant: {{ variant }}
+      </div>
     </Component>
   </ClientOnly>
 </template>
@@ -23,6 +26,7 @@
 const route = useRoute()
 const environment = useSanityPreviewEnvironment()
 const perspective = useSanityPreviewPerspective()
+const variant = useSanityPreviewVariant()
 const isSanityPresentationTool = useIsSanityPresentationTool()
 
 const showDisable = computed(() => isSanityPresentationTool.value === false)

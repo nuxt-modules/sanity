@@ -377,6 +377,8 @@ export default defineNuxtModule<SanityModuleOptions>({
       { name: 'useIsSanityLivePreview', from: join(runtimeDir, 'composables/useIsSanityLivePreview') },
       { name: 'useIsSanityPresentationTool', from: join(runtimeDir, 'composables/useIsSanityPresentationTool') },
       { name: 'useSanityPreviewPerspective', from: join(runtimeDir, 'composables/useSanityPreviewPerspective') },
+      { name: 'useSanityPreviewVariant', from: join(runtimeDir, 'composables/useSanityPreviewVariant') },
+      { name: 'useSanityVariant', from: join(runtimeDir, 'composables/useSanityVariant') },
       { name: 'useSanityPreviewEnvironment', from: join(runtimeDir, 'composables/useSanityPreviewEnvironment') },
     ])
 
@@ -509,6 +511,8 @@ export default defineNuxtModule<SanityModuleOptions>({
           `export { useIsSanityLivePreview } from '${join(runtimeDir, 'composables/useIsSanityLivePreview')}'`,
           `export { useIsSanityPresentationTool } from '${join(runtimeDir, 'composables/useIsSanityPresentationTool')}'`,
           `export { useSanityPreviewPerspective } from '${join(runtimeDir, 'composables/useSanityPreviewPerspective')}'`,
+          `export { useSanityPreviewVariant } from '${join(runtimeDir, 'composables/useSanityPreviewVariant')}'`,
+          `export { useSanityVariant } from '${join(runtimeDir, 'composables/useSanityVariant')}'`,
           `export { useSanityPreviewEnvironment } from '${join(runtimeDir, 'composables/useSanityPreviewEnvironment')}'`,
         ]
 

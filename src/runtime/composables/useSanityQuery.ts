@@ -12,6 +12,7 @@ import { useSanity } from './useSanity'
 import { useSanityConfig } from './useSanityConfig'
 import { useIsSanityPresentationTool } from './useIsSanityPresentationTool'
 import { useSanityPerspective } from './useSanityPerspective'
+import { useSanityVariant } from './useSanityVariant'
 import { useSanityVisualEditingState } from './useSanityVisualEditingState'
 import { createForwardingClient } from '../util/createForwardingClient'
 import { useSanityTagRevalidation } from './internal/useSanityTagRevalidation'
@@ -57,9 +58,11 @@ export function useSanityQuery<T = unknown, E = Error>(
   const queryKey = _key || 'sanity-' + hash(query + (params ? JSON.stringify(params) : ''))
 
   const perspective = useSanityPerspective(perspectiveOption, clientConfig.perspective)
+  const variant = useSanityVariant()
 
   options.watch = options.watch || []
   options.watch.push(perspective)
+  options.watch.push(variant)
   if (params) {
     options.watch.push(params)
   }
@@ -136,6 +139,7 @@ export function useSanityQuery<T = unknown, E = Error>(
       queryOptions,
       runtimeConfig: config,
       stega: stegaOption,
+      variant: variant.value,
       visualEditingEnabled: !!visualEditingState?.enabled,
     })
 
@@ -144,6 +148,7 @@ export function useSanityQuery<T = unknown, E = Error>(
       filterResponse: false,
       perspective: perspective.value,
       useCdn: perspective.value === 'published',
+      variant: variant.value,
     })
 
     const { result, resultSourceMap } = await client.fetch<T>(query, params || {}, options)

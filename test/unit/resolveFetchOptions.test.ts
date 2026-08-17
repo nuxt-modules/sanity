@@ -281,4 +281,24 @@ describe('resolveFetchOptions', () => {
       })
     })
   })
+
+  describe('variant', () => {
+    it('passes variant through', () => {
+      const opts = resolveFetchOptions({ variant: 'Ab12cd34' })
+      expect(opts.variant).toBe('Ab12cd34')
+    })
+
+    it('queryOptions.variant takes priority over variant', () => {
+      const opts = resolveFetchOptions({
+        variant: 'from-cookie',
+        queryOptions: { variant: 'from-query' },
+      })
+      expect(opts.variant).toBe('from-query')
+    })
+
+    it('omits variant when undefined', () => {
+      const opts = resolveFetchOptions({})
+      expect(opts).not.toHaveProperty('variant')
+    })
+  })
 })
