@@ -20,8 +20,8 @@ importers:
         specifier: ^4.0.2
         version: 4.0.2
       '@portabletext/vue':
-        specifier: ^1.0.14
-        version: 1.0.14(vue@3.5.41(typescript@6.0.3))
+        specifier: ^2.0.0
+        version: 2.0.0(vue@3.5.41(typescript@6.0.3))
       '@sanity/client':
         specifier: ^7.24.0
         version: 7.26.2
@@ -3797,24 +3797,21 @@ packages:
     resolution: {integrity: sha512-w59PcErj5JXUCv9tbV2npqJmcnORTAftCMLp0vc9FnWrXL3C9qYvuB2MQbdHsZEOesF3VmwqUsYUgjm7PX4JTw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/toolkit@2.0.18':
-    resolution: {integrity: sha512-m3v2WwKQTNNk5BFZlUuPuCW0Zi6iDSpwrium4Ej5L2FHDXhFuwAyEMPXDrvwPvqjES/oJzcwmdKLMhYa44T9BQ==}
-    engines: {node: ^14.13.1 || >=16.0.0}
-
   '@portabletext/toolkit@5.0.2':
     resolution: {integrity: sha512-Njc1LE1PMJkTx/wEPqZ6sOWGgFgX2B47fxpOQ/Ia4ByhsZoA5Sq8dNvvV5F052j/xE8TbOLiBEjS848FkKADDQ==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/types@2.0.15':
-    resolution: {integrity: sha512-2e6i2gSQsrA/5OL5Gm4/9bxB9MNO73Fa47zj+0mT93xkoQUCGCWX5fZh1YBJ86hszaRYlqvqG08oULxvvPPp/Q==}
-    engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
+  '@portabletext/toolkit@6.0.0':
+    resolution: {integrity: sha512-+qSqe0KnefuZfNLUhzQRTpbSKxslZof+3pNwxg0DC8dfZ1yLKyyBUw6iR7EpDL+SJlrnpiBfEcfmEuFitK1NSQ==}
+    engines: {node: '>=22.12'}
 
   '@portabletext/types@4.0.2':
     resolution: {integrity: sha512-djfIGU9n6DRrunlvj2nIDAp17URo/nA4jSXGvf+Gupx8NLLy9fmJBZ3GL8yhqn9lSVc+cKCharjOa3aOBnWbRw==}
     engines: {node: '>=20.19 <22 || >=22.12'}
 
-  '@portabletext/vue@1.0.14':
-    resolution: {integrity: sha512-piVkECB5RpiLa4+i4aYrtYXp/N9y0V20JYoulOKXQ/ptc35Ql7GkhFzw1vmn7IexhNvHjX1NMzrKUg1mPInynA==}
+  '@portabletext/vue@2.0.0':
+    resolution: {integrity: sha512-uYSScj4BO9LMKid+na8XIRdvdcYuMoOQU8UffglDDWKd4k0bTg6fiQd+iplQZIbQwzOikFeutIky3OYYYd2UYw==}
+    engines: {node: '>=22.12'}
     peerDependencies:
       vue: ^3.3.4
 
@@ -16455,22 +16452,20 @@ snapshots:
       '@portabletext/toolkit': 5.0.2
       '@portabletext/types': 4.0.2
 
-  '@portabletext/toolkit@2.0.18':
-    dependencies:
-      '@portabletext/types': 2.0.15
-
   '@portabletext/toolkit@5.0.2':
     dependencies:
       '@portabletext/types': 4.0.2
 
-  '@portabletext/types@2.0.15': {}
+  '@portabletext/toolkit@6.0.0':
+    dependencies:
+      '@portabletext/types': 4.0.2
 
   '@portabletext/types@4.0.2': {}
 
-  '@portabletext/vue@1.0.14(vue@3.5.41(typescript@6.0.3))':
+  '@portabletext/vue@2.0.0(vue@3.5.41(typescript@6.0.3))':
     dependencies:
-      '@portabletext/toolkit': 2.0.18
-      '@portabletext/types': 2.0.15
+      '@portabletext/toolkit': 6.0.0
+      '@portabletext/types': 4.0.2
       vue: 3.5.41(typescript@6.0.3)
 
   '@quansync/fs@1.0.0':
