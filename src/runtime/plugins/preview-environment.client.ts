@@ -5,6 +5,7 @@ import { onScopeDispose } from 'vue'
 import { defineNuxtPlugin } from '#imports'
 import { useSanityPreviewEnvironment } from '../composables/useSanityPreviewEnvironment'
 import { useSanityPerspective } from '../composables/useSanityPerspective'
+import { useSanityVariant } from '../composables/useSanityVariant'
 import { useSanityConfig } from '../composables/useSanityConfig'
 import { useSanityVisualEditingState } from '../composables/useSanityVisualEditingState'
 
@@ -33,9 +34,13 @@ export default defineNuxtPlugin(() => {
 
     // Handle perspective messages: set the cookie with the new value
     const perspective = useSanityPerspective()
+    const variant = useSanityVariant()
     comlink.on('loader/perspective', (data) => {
       if (perspective.value !== data.perspective) {
         perspective.value = data.perspective
+      }
+      if (variant.value !== data.variant) {
+        variant.value = data.variant
       }
     })
 

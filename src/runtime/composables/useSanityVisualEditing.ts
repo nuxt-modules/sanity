@@ -3,6 +3,8 @@ import type { VisualEditingProps } from '../types'
 import { onScopeDispose } from 'vue'
 import { useRouter, reloadNuxtApp } from '#imports'
 import { useSanityConfig } from './useSanityConfig'
+import { useSanityPerspective } from './useSanityPerspective'
+import { useSanityVariant } from './useSanityVariant'
 
 export function useSanityVisualEditing(options: VisualEditingProps = {}) {
   const config = useSanityConfig()
@@ -11,6 +13,9 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
   }
 
   const { keepStegaOnCopy, onSuspiciousStega, zIndex, refresh } = options
+
+  const perspective = useSanityPerspective()
+  const variant = useSanityVariant()
 
   let cancelled = false
   let stop = () => {}
@@ -27,6 +32,12 @@ export function useSanityVisualEditing(options: VisualEditingProps = {}) {
         keepStegaOnCopy,
         onSuspiciousStega,
         zIndex,
+        onPerspectiveChange: (next) => {
+          perspective.value = next
+        },
+        onVariantChange: (next) => {
+          variant.value = next
+        },
         // It is unlikely this API will be used as much by Nuxt users, as
         // implementing fully fledged visual editing is more straightforward
         // compared with other frameworks

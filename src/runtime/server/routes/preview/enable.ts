@@ -1,7 +1,8 @@
-import { createError, defineEventHandler, getRequestURL, setCookie, sendRedirect } from 'h3'
+import { createError, defineEventHandler, getRequestURL, setCookie, deleteCookie, sendRedirect } from 'h3'
 import { validatePreviewUrl } from '@sanity/preview-url-secret'
+import { perspectiveCookieName, variantCookieName } from '@sanity/preview-url-secret/constants'
 import defu from 'defu'
-import { previewCookieName } from '../../../constants'
+import { getPreviewStateCookieOptions, previewCookieName } from '../../../constants'
 import { useSanity, useRuntimeConfig } from '#imports'
 
 export default defineEventHandler(async (event) => {
@@ -14,7 +15,7 @@ export default defineEventHandler(async (event) => {
     token: sanityConfig.visualEditing && 'token' in sanityConfig.visualEditing ? sanityConfig.visualEditing.token : undefined,
   })
 
-  const { isValid, redirectTo = '/' } = await validatePreviewUrl(
+  const { isValid, redirectTo = '/', studioPreviewPerspective, studioPreviewVariant } = await validatePreviewUrl(
     client,
     getRequestURL(event).toString(),
   )
@@ -30,12 +31,23 @@ export default defineEventHandler(async (event) => {
     ? sanityConfig.visualEditing.previewModeId
     : undefined as never
 
+  const cookieOptions = getPreviewStateCookieOptions(import.meta.dev)
+
   setCookie(event, previewCookieName, id, {
     httpOnly: true,
-    sameSite: !import.meta.dev ? 'none' : 'lax',
-    secure: !import.meta.dev,
-    path: '/',
+    ...cookieOptions,
   })
+
+  if (studioPreviewPerspective) {
+    setCookie(event, perspectiveCookieName, studioPreviewPerspective, cookieOptions)
+  }
+
+  if (studioPreviewVariant) {
+    setCookie(event, variantCookieName, studioPreviewVariant, cookieOptions)
+  }
+  else {
+    deleteCookie(event, variantCookieName, cookieOptions)
+  }
 
   await sendRedirect(event, redirectTo, 307)
 })

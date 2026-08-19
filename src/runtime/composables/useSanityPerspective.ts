@@ -3,6 +3,7 @@ import { perspectiveCookieName } from '@sanity/preview-url-secret/constants'
 import { computed } from 'vue'
 import { useCookie } from '#imports'
 import { useSanityVisualEditingState } from './useSanityVisualEditingState'
+import { getPreviewStateCookieOptions } from '../constants'
 
 function isValidPerspective(perspective: unknown, allowRaw: false): perspective is Exclude<ClientPerspective, 'raw'>
 function isValidPerspective(perspective: unknown, allowRaw: true): perspective is ClientPerspective
@@ -49,9 +50,7 @@ export const useSanityPerspective = (perspective?: ClientPerspective, fallback?:
   // Not httpOnly, so it can be set from the client
   const cookie = useCookie<ClientPerspective | null>(perspectiveCookieName, {
     default: () => null,
-    sameSite: devMode ? 'lax' : 'none',
-    secure: !devMode,
-    path: '/',
+    ...getPreviewStateCookieOptions(devMode),
   })
 
   return computed<ClientPerspective, unknown>({
