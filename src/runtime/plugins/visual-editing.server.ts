@@ -16,7 +16,7 @@ export default defineNuxtPlugin(() => {
   // check the cookie value against `previewModeId` to determine if visual
   // editing is enabled.
   if (previewMode) {
-    const previewModeCookie = useCookie(previewCookieName)
+    const previewModeCookie = useCookie(visualEditing?.previewCookieName ?? previewCookieName)
     visualEditingState.enabled = previewModeCookie.value === previewModeId
   // If preview mode is _not_ configured, just enable visual editing.
   }
