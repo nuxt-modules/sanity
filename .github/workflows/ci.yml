@@ -28,10 +28,7 @@ jobs:
         with:
           runtime: node@${{ matrix.node }}
           cache: true
-          install: false
-
-      - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: 🚧 Set up project
         run: pnpm dev:prepare
@@ -72,10 +69,7 @@ jobs:
       - uses: pnpm/setup@84cb39b217b10273981911c288cd62326dc7c6d2 # v2
         with:
           cache: true
-          install: false
-
-      - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile
+          require-lockfile: true
 
       - name: 🚧 Set up project
         run: pnpm dev:prepare
@@ -84,4 +78,4 @@ jobs:
         run: pnpm build
 
       - name: 🌃 publish nightly release
-        run: pnpm pkg-pr-new publish --compact
+        run: pnpm pkg-pr-new publish --compact --pnpm
