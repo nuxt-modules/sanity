@@ -30,7 +30,11 @@ export default defineEventHandler(async (event) => {
     ? sanityConfig.visualEditing.previewModeId
     : undefined as never
 
-  setCookie(event, previewCookieName, id, {
+  const cookieName = sanityConfig.visualEditing && 'previewCookieName' in sanityConfig.visualEditing
+    ? sanityConfig.visualEditing.previewCookieName
+    : previewCookieName
+
+  setCookie(event, cookieName, id, {
     httpOnly: true,
     sameSite: !import.meta.dev ? 'none' : 'lax',
     secure: !import.meta.dev,
