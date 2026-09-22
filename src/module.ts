@@ -2,7 +2,6 @@ import { fileURLToPath } from 'node:url'
 import crypto from 'node:crypto'
 import { existsSync } from 'node:fs'
 import { readFile, writeFile } from 'node:fs/promises'
-import { createJiti } from 'jiti'
 import { createRegExp, exactly } from 'magic-regexp'
 import {
   addComponent,
@@ -35,6 +34,7 @@ import { name, version } from '../package.json'
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
 import type { SanityGroqQueryArray, SanityGroqQueryMap, SanityPublicRuntimeConfig, SanityRuntimeConfig, SanityVisualEditingZIndex } from './runtime/types'
 import { extractSchemaFromTypesFile } from './runtime/typegen/schema-extractor'
+import { loadStudioConfig, selectStudioWorkspace } from './runtime/typegen/studio-config'
 import { generateSanityTypes } from './runtime/typegen/type-generator'
 
 export type SanityVisualEditingMode = 'live-visual-editing' | 'visual-editing' | 'custom'
@@ -120,6 +120,9 @@ export interface SanityTypegenOptions {
   enabled?: boolean
   /**
    * Path to a module exporting your schema types array (e.g. `cms/schemaTypes/index.ts`).
+   *
+   * Only used when no Sanity config file is found at `configFile`, as the schema declared there
+   * includes types contributed by plugins.
    */
   schemaTypesPath?: string
   /**
@@ -128,6 +131,10 @@ export interface SanityTypegenOptions {
    * @default 'schemaTypes'
    */
   schemaTypesExport?: string
+  /**
+   * Sanity workspace name to use when the Studio config defines multiple workspaces.
+   */
+  workspace?: string
   /**
    * Glob(s) to scan for GROQ queries.
    */
@@ -212,20 +219,23 @@ export default defineNuxtModule<SanityModuleOptions>({
     configFile: '~~/cms/sanity.config',
   },
   async setup(options, nuxt) {
+    const sanityConfigPath = await resolvePath(options.configFile!)
+      || /* backwards compatibility */ resolve(nuxt.options.rootDir, './sanity.json')
+    const hasSanityConfig = existsSync(sanityConfigPath)
+
     // If explicit configuration is not provided, attempt to load it from `sanity.config.ts`
     if (!options.projectId || !options.dataset) {
       // Register watcher on sanity.config.ts
-      const sanityConfigPath = await resolvePath(options.configFile!) || /* backwards compatibility */ resolve(nuxt.options.rootDir, './sanity.json')
       const relativeSanityConfigPath = relative(nuxt.options.rootDir, sanityConfigPath)
       if (!relativeSanityConfigPath.startsWith('..')) {
         nuxt.options.watch.push(createRegExp(exactly(relativeSanityConfigPath)))
       }
-      const jiti = createJiti(import.meta.url, { jsx: true })
-      if (existsSync(sanityConfigPath)) {
-        const sanityConfig = await jiti.import(sanityConfigPath, { default: true, try: true }) as { projectId?: string, dataset?: string }
-        if (sanityConfig) {
-          options.projectId ||= sanityConfig.projectId
-          options.dataset ||= sanityConfig.dataset
+      if (hasSanityConfig) {
+        const config = await loadStudioConfig(sanityConfigPath)
+        const workspace = config && selectStudioWorkspace(config.workspaces, { name: options.typegen?.workspace })
+        if (workspace) {
+          options.projectId ||= workspace.projectId
+          options.dataset ||= workspace.dataset
         }
       }
     }
@@ -383,11 +393,14 @@ export default defineNuxtModule<SanityModuleOptions>({
     let typegenTemplate: { filename: string, dst: string } | null = null
 
     if (options.typegen?.enabled) {
-      if (!options.typegen.schemaTypesPath) {
-        logger.warn('Sanity typegen is enabled but `schemaTypesPath` is missing.')
+      if (!options.typegen.schemaTypesPath && !hasSanityConfig) {
+        logger.warn('Sanity typegen is enabled but no Sanity config was found and `schemaTypesPath` is missing.')
       }
       else {
-        const schemaTypesPath = await resolvePath(options.typegen.schemaTypesPath)
+        const schemaTypesPath = options.typegen.schemaTypesPath
+          ? await resolvePath(options.typegen.schemaTypesPath)
+          : undefined
+        const typegenConfigPath = hasSanityConfig ? sanityConfigPath : undefined
 
         const queryPaths = options.typegen.queryPaths
           ? (Array.isArray(options.typegen.queryPaths) ? options.typegen.queryPaths : [options.typegen.queryPaths])
@@ -400,6 +413,10 @@ export default defineNuxtModule<SanityModuleOptions>({
           const schema = await extractSchemaFromTypesFile({
             typesPath: schemaTypesPath,
             exportName: options.typegen?.schemaTypesExport,
+            configPath: typegenConfigPath,
+            dataset,
+            projectId,
+            workspace: options.typegen?.workspace,
           })
 
           const result = await generateSanityTypes({
@@ -464,14 +481,19 @@ export default defineNuxtModule<SanityModuleOptions>({
         })
 
         if (nuxt.options.dev) {
-          nuxt.options.watch.push(schemaTypesPath)
+          if (schemaTypesPath) {
+            nuxt.options.watch.push(schemaTypesPath)
+          }
+          if (typegenConfigPath) {
+            nuxt.options.watch.push(typegenConfigPath)
+          }
 
           nuxt.hook('builder:watch', async (_event, path) => {
             if (!typegenTemplate) return
 
             const changedPath = isAbsolute(path) ? path : resolve(nuxt.options.rootDir, path)
 
-            const isSchemaChange = changedPath === schemaTypesPath
+            const isSchemaChange = changedPath === schemaTypesPath || changedPath === typegenConfigPath
             const relativeToSrc = relative(nuxt.options.srcDir, changedPath)
             const isInSrcDir = !relativeToSrc.startsWith('..')
             const isSupportedExt = /\.(?:ts|tsx|js|jsx|mjs|cjs|vue|astro)$/.test(changedPath)
