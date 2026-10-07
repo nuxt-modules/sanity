@@ -30,6 +30,7 @@ import { findQueriesInSource } from '@sanity/codegen'
 import type { ClientConfig as SanityClientConfig, StegaConfig } from '@sanity/client'
 import type { HistoryRefresh, SuspiciousStegaReport } from '@sanity/visual-editing-standalone'
 import { normalizeQuery } from './runtime/util/normalizeQuery'
+import { previewCookieName as defaultPreviewCookieName } from './runtime/constants'
 import { name, version } from '../package.json'
 
 import type { ClientConfig as MinimalClientConfig } from './runtime/minimal-client'
@@ -58,6 +59,12 @@ export interface SanityModuleVisualEditingOptions {
       enable?: string
       disable?: string
     }
+  /**
+   * The name of the cookie used to store the preview mode ID. Useful if the
+   * default cookie name conflicts with another cookie used in your app.
+   * @default 'sanity-preview-id'
+   */
+  previewCookieName?: string
   /**
    * Enable visual editing at app level or per component
    * @default 'live-visual-editing'
@@ -305,6 +312,7 @@ export default defineNuxtModule<SanityModuleOptions>({
       publicRuntimeConfig.visualEditing = {
         keepStegaOnCopy: options.visualEditing.keepStegaOnCopy ?? false,
         mode: options.visualEditing.mode || 'live-visual-editing',
+        previewCookieName: options.visualEditing.previewCookieName || defaultPreviewCookieName,
         previewMode,
         previewModeId: '',
         proxyEndpoint: options.visualEditing.proxyEndpoint || '/_sanity/visual-editing/fetch',
@@ -514,6 +522,7 @@ export default defineNuxtModule<SanityModuleOptions>({
 
         const visualEditingExports = publicRuntimeConfig.visualEditing
           ? [
+              `export { useSanityPreviewCookie } from '${join(runtimeDir, 'composables/useSanityPreviewCookie')}'`,
               `export { useSanityVisualEditing } from '${join(runtimeDir, 'composables/useSanityVisualEditing')}'`,
               `export { useSanityLiveMode } from '${join(runtimeDir, 'composables/useSanityLiveMode')}'`,
             ]
@@ -651,6 +660,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         { name: 'sanityVisualEditingRefresh', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'sanityVisualEditingOnSuspiciousStega', from: '#build/sanity-visual-editing-refresh.mjs' },
         { name: 'useSanityLiveMode', from: join(runtimeDir, 'composables/useSanityLiveMode') },
+        { name: 'useSanityPreviewCookie', from: join(runtimeDir, 'composables/useSanityPreviewCookie') },
         { name: 'useSanityVisualEditing', from: join(runtimeDir, 'composables/useSanityVisualEditing') },
       ])
 
