@@ -184,8 +184,8 @@ importers:
         specifier: ^7.24.0
         version: 7.27.0
       '@sanity/codegen':
-        specifier: ^7.0.3
-        version: 7.0.3(@oclif/core@4.11.14)(@sanity/cli-core@2.5.0(@noble/hashes@2.3.0)(@types/node@26.1.1)(esbuild@0.28.1)(supports-color@8.1.1)(terser@5.49.2)(yaml@2.9.1))(react@19.3.0)(supports-color@8.1.1)
+        specifier: ^8.0.0
+        version: 8.2.0(react@19.3.0)(supports-color@8.1.1)(typescript@6.0.3)
       '@sanity/comlink':
         specifier: ^4.0.1
         version: 4.0.3
@@ -4225,15 +4225,6 @@ packages:
       babel-plugin-react-compiler:
         optional: true
 
-  '@sanity/cli-core@2.5.0':
-    resolution: {integrity: sha512-0Foa6su7HU2kc5FPEQSrpu9VS9UzqhO75rFwpQq0nfD8OLpHHfEf5ACI9V/zGSBCT8HeiEX9V6lERLKLha71jA==}
-    engines: {node: '>=22.12'}
-    peerDependencies:
-      babel-plugin-react-compiler: '*'
-    peerDependenciesMeta:
-      babel-plugin-react-compiler:
-        optional: true
-
   '@sanity/cli@6.7.2':
     resolution: {integrity: sha512-VKKUKbUe7ooTYXkOxf0BzaW8Dl94EgtrlmhNqprP5XvCdGWQydmrpjbkRmpkx35CXMgUtDNeNp6vXx0F485ccw==}
     engines: {node: '>=20.19.1 <22 || >=22.12'}
@@ -4259,12 +4250,10 @@ packages:
       oxfmt:
         optional: true
 
-  '@sanity/codegen@7.0.3':
-    resolution: {integrity: sha512-t3Svo28RWX7OOvj4DkNX0fSWpzt+94pslKwvkKhSs4Lw24Ta1hYkE1a+OgwUjKBbw2Za54V7NpMwNlXjPEr2Fw==}
-    engines: {node: '>=20.19 <22 || >=22.12'}
+  '@sanity/codegen@8.2.0':
+    resolution: {integrity: sha512-bMJuhbXLwMGZfnwenRBa4umhWoO5VTZQhAiXBcO/rwgnzEtA9mF5fv9SYcqX7mj8O3l35XeeETUdi1qZYVg1GQ==}
+    engines: {node: '>=22.12'}
     peerDependencies:
-      '@oclif/core': ^4.8.0
-      '@sanity/cli-core': ^2
       oxfmt: '*'
     peerDependenciesMeta:
       oxfmt:
@@ -16957,42 +16946,6 @@ snapshots:
       - terser
       - yaml
 
-  '@sanity/cli-core@2.5.0(@noble/hashes@2.3.0)(@types/node@26.1.1)(esbuild@0.28.1)(supports-color@8.1.1)(terser@5.49.2)(yaml@2.9.1)':
-    dependencies:
-      '@inquirer/prompts': 8.5.2(@types/node@26.1.1)
-      '@oclif/core': 4.11.14
-      '@sanity/client': 7.27.0
-      boxen: 8.0.1
-      debug: 4.4.3(supports-color@8.1.1)
-      empathic: 2.0.1
-      get-it: 8.8.3
-      get-tsconfig: 4.14.0
-      import-meta-resolve: 4.2.0
-      jiti: 2.7.0
-      jsdom: 29.1.1(@noble/hashes@2.3.0)
-      json-lexer: 1.2.0
-      log-symbols: 7.0.1
-      ora: 9.4.1
-      rxjs: 7.8.2
-      tsx: 4.23.1
-      vite: 8.2.1(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.2)(tsx@4.23.1)(yaml@2.9.1)
-      vite-node: 6.0.0(@types/node@26.1.1)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.49.2)(tsx@4.23.1)(yaml@2.9.1)
-      zod: 4.6.5
-    transitivePeerDependencies:
-      - '@noble/hashes'
-      - '@types/node'
-      - '@vitejs/devtools'
-      - canvas
-      - esbuild
-      - less
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - supports-color
-      - terser
-      - yaml
-
   '@sanity/cli@6.7.2(@noble/hashes@2.3.0)(@types/node@26.1.1)(@types/react@19.3.0)(jiti@2.7.0)(lightningcss@1.33.0)(supports-color@8.1.1)(terser@5.49.2)(typescript@5.9.3)(xstate@5.32.5)':
     dependencies:
       '@oclif/core': 4.11.14
@@ -17119,7 +17072,7 @@ snapshots:
       - react
       - supports-color
 
-  '@sanity/codegen@7.0.3(@oclif/core@4.11.14)(@sanity/cli-core@2.5.0(@noble/hashes@2.3.0)(@types/node@26.1.1)(esbuild@0.28.1)(supports-color@8.1.1)(terser@5.49.2)(yaml@2.9.1))(react@19.3.0)(supports-color@8.1.1)':
+  '@sanity/codegen@8.2.0(react@19.3.0)(supports-color@8.1.1)(typescript@6.0.3)':
     dependencies:
       '@babel/core': 7.29.7(supports-color@8.1.1)
       '@babel/generator': 7.29.8
@@ -17129,24 +17082,23 @@ snapshots:
       '@babel/register': 7.29.7(@babel/core@7.29.7(supports-color@8.1.1))
       '@babel/traverse': 7.29.8(supports-color@8.1.1)
       '@babel/types': 7.29.8
-      '@oclif/core': 4.11.14
-      '@sanity/cli-core': 2.5.0(@noble/hashes@2.3.0)(@types/node@26.1.1)(esbuild@0.28.1)(supports-color@8.1.1)(terser@5.49.2)(yaml@2.9.1)
       '@sanity/telemetry': 1.1.0(react@19.3.0)
       '@sanity/worker-channels': 2.0.0
       chokidar: 3.6.0
-      debug: 4.4.3(supports-color@8.1.1)
       globby: 11.1.0
       groq: 6.5.0
-      groq-js: 1.30.3(supports-color@8.1.1)
+      groq-js: 2.0.0
       json5: 2.2.3
       lodash-es: 4.18.1
+      obug: 3.0.0
       prettier: 3.9.5
       reselect: 5.2.0
       tsconfig-paths: 4.2.0
-      zod: 4.6.5
+      valibot: 1.4.2(typescript@6.0.3)
     transitivePeerDependencies:
       - react
       - supports-color
+      - typescript
 
   '@sanity/color@3.0.6': {}
 
