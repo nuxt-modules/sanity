@@ -2,11 +2,12 @@ packages:
   - docs
   - playground/cms
   - playground
+  - playground-v5
 
 ignoreWorkspaceRootCheck: true
 
 overrides:
-  "@nuxt/schema": "4.5.2"
+  "@nuxt/schema@4": "4.6.1"
   "@nuxtjs/sanity": "workspace:*"
   nuxt-component-meta: "0.18.0"
 
@@ -25,3 +26,6 @@ minimumReleaseAgeExclude:
   - '@sanity/preview-url-secret@4.1.0'
   - '@sanity/visual-editing@5.6.0'
   - '@sanity/visual-editing-standalone@1.0.2'
+  - '@nuxt/*'
+  - nuxt-nightly
+  - nuxt@4.6.1
