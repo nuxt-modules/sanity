@@ -127,7 +127,7 @@ export function useSanityQuery<T = unknown, E = Error>(
     }
   }, { immediate: true })
 
-  const result = useAsyncData(queryKey, async () => {
+  const result = useAsyncData(queryKey, async (): Promise<SanityQueryResponse<T | null>> => {
     const options = resolveFetchOptions({
       clientConfig,
       lastLiveEventId: tagRevalidation?.getLastLiveEventId(),

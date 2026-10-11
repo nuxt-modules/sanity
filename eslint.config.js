@@ -9,12 +9,13 @@ export default createConfigForNuxt({
   dirs: {
     src: [
       './playground',
+      './playground-v5/app',
       './docs',
     ],
   },
 }).append(
   {
-    files: ['test/**', 'playground/**'],
+    files: ['test/**', 'playground/**', 'playground-v5/**'],
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
     },

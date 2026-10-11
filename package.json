@@ -34,8 +34,10 @@
   "scripts": {
     "prepack": "pnpm dev:prepare && nuxt-module-build build",
     "dev": "nuxt dev playground",
+    "dev:v5": "pnpm --filter nuxt-sanity-playground-v5 exec nuxt dev",
     "dev:build": "nuxt build playground",
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxt prepare playground",
+    "dev:prepare:v5": "nuxt-module-build build --stub && nuxt-module-build prepare && pnpm --filter nuxt-sanity-playground-v5 exec nuxt prepare",
     "studio:build": "pnpm --filter nuxt-sanity-cms build",
     "docs:generate": "nuxt generate docs",
     "prepare": "simple-git-hooks",
@@ -47,7 +49,7 @@
     "test:e2e": "vitest run test/e2e/*.test.*"
   },
   "dependencies": {
-    "@nuxt/kit": "^4.0.0",
+    "@nuxt/kit": "^4.6.1",
     "@portabletext/types": "^4.0.2",
     "@portabletext/vue": "^1.0.14",
     "@sanity/client": "^7.24.0",
@@ -74,7 +76,7 @@
     "@nuxt/cli": "4.0.0",
     "@nuxt/eslint-config": "1.17.0",
     "@nuxt/module-builder": "1.0.3",
-    "@nuxt/schema": "4.5.2",
+    "@nuxt/schema": "4.6.1",
     "@nuxt/test-utils": "4.3.3",
     "@types/picomatch": "4.0.3",
     "@vitest/coverage-v8": "5.0.3",
@@ -85,7 +87,7 @@
     "happy-dom": "20.14.5",
     "installed-check": "11.0.0",
     "lint-staged": "17.6.0",
-    "nuxt": "4.5.2",
+    "nuxt": "4.6.1",
     "pkg-pr-new": "0.0.90",
     "simple-git-hooks": "2.14.0",
     "typescript": "6.0.3",

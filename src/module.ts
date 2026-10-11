@@ -17,6 +17,7 @@ import {
   addVitePlugin,
   defineNuxtModule,
   resolvePath,
+  resolveServerVariant,
   updateTemplates,
   useLogger,
 } from '@nuxt/kit'
@@ -536,6 +537,11 @@ export default defineNuxtModule<SanityModuleOptions>({
       tsConfig.compilerOptions.paths['#sanity-composables'] = [composablesTemplate.dst]
     })
 
+    const serverUtilsPath = resolveServerVariant({
+      nuxt: join(runtimeDir, 'server/utils/index.portable'),
+      nitro2: join(runtimeDir, 'server/utils/index'),
+    })
+
     nuxt.hook('nitro:config', (config) => {
       config.typescript = defu(config.typescript, {
         tsConfig: {
@@ -563,10 +569,12 @@ export default defineNuxtModule<SanityModuleOptions>({
             from: '#sanity-client',
             imports: [{ name: 'createClient', as: 'createSanityClient' }],
           },
-          {
-            from: join(runtimeDir, 'server/utils/index'),
-            imports: ['useSanity'],
-          },
+          ...(serverUtilsPath
+            ? [{
+                from: serverUtilsPath,
+                imports: ['useSanity'],
+              }]
+            : []),
           {
             from: join(runtimeDir, 'groq'),
             imports: ['groq', 'defineQuery'],
@@ -678,7 +686,10 @@ export default defineNuxtModule<SanityModuleOptions>({
       addServerHandler({
         method: 'post',
         route: publicRuntimeConfig.visualEditing.proxyEndpoint,
-        handler: join(runtimeDir, 'server/routes/preview/proxy'),
+        handler: {
+          nuxt: join(runtimeDir, 'server/routes/preview/proxy.portable'),
+          nitro2: join(runtimeDir, 'server/routes/preview/proxy'),
+        },
       })
 
       // Add endpoints to handle enabling and disabling preview mode
@@ -686,12 +697,18 @@ export default defineNuxtModule<SanityModuleOptions>({
         addServerHandler({
           method: 'get',
           route: publicRuntimeConfig.visualEditing.previewMode.enable,
-          handler: join(runtimeDir, 'server/routes/preview/enable'),
+          handler: {
+            nuxt: join(runtimeDir, 'server/routes/preview/enable.portable'),
+            nitro2: join(runtimeDir, 'server/routes/preview/enable'),
+          },
         })
         addServerHandler({
           method: 'get',
           route: publicRuntimeConfig.visualEditing.previewMode.disable,
-          handler: join(runtimeDir, 'server/routes/preview/disable'),
+          handler: {
+            nuxt: join(runtimeDir, 'server/routes/preview/disable.portable'),
+            nitro2: join(runtimeDir, 'server/routes/preview/disable'),
+          },
         })
 
         logger.info(
@@ -767,7 +784,7 @@ export default defineNuxtModule<SanityModuleOptions>({
         enforce: 'pre',
         transform(code, id) {
           // Strip Vite's query suffixes (?macro=true, etc.), just leave the filepath
-          const [filepath] = id.split('?', 2)
+          const [filepath, query] = id.split('?', 2)
           if (!filepath) return null
 
           const relativePath = relative(nuxt.options.rootDir, filepath)
@@ -788,7 +805,7 @@ export default defineNuxtModule<SanityModuleOptions>({
               update()
             }
             // If we found no queries but had some before, remove them
-            else if (!next && prev) {
+            else if (!next && prev && !query) {
               queryMap.delete(relativePath)
               update()
             }
@@ -824,7 +841,10 @@ export default defineNuxtModule<SanityModuleOptions>({
     const VIRTUAL_ID = '#sanity-groq-queries'
     const RESOLVED_ID = '\0' + VIRTUAL_ID
 
-    const proxyUtilsPath = join(runtimeDir, 'server/utils/proxy')
+    const proxyUtilsPath = {
+      nuxt: join(runtimeDir, 'server/utils/proxy.portable'),
+      nitro2: join(runtimeDir, 'server/utils/proxy'),
+    }
 
     // Add auto-imports for proxy utils. Currently types will not be generated
     // for explicitly importing via #imports.
