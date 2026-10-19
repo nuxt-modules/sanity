@@ -197,6 +197,7 @@ export type SanityPublicRuntimeConfig = {
   | {
     keepStegaOnCopy: boolean
     mode: SanityVisualEditingMode
+    previewCookieName: string
     previewMode:
       | false
       | {
@@ -230,6 +231,7 @@ export type SanityResolvedConfig
         | {
           keepStegaOnCopy: boolean
           mode: SanityVisualEditingMode
+          previewCookieName: string
           previewMode:
             | boolean
             | {
