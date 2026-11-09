@@ -34,7 +34,7 @@ export async function generateSanityTypes(
   registerBabel()
 
   const { files, queries } = findQueriesInPath({
-    path: options.queryPaths,
+    path: [options.queryPaths, `!${options.rootDir}/**/node_modules/**`].flat(),
     resolver: getResolver(options.rootDir),
   })
 
