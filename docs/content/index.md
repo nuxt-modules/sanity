@@ -22,8 +22,9 @@ The easiest way to use Sanity with Nuxt. Get up and running in minutes with a li
   Get started
   :::
 
-  ::copy-code-input{source="npx nuxi@latest module add sanity"}
-  ::
+  :::copy-code-input{source="npx nuxi@latest module add sanity"}
+  :::
+::
 
 ::u-page-section
 #title
