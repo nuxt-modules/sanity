@@ -8,7 +8,7 @@ export default defineEventHandler(async (event) => {
   const { liveContent, visualEditing } = $config.sanity
 
   const { query, params = {}, options } = await readBody(event)
-  const previewModeCookie = getCookie(event, previewCookieName)
+  const previewModeCookie = getCookie(event, $config.public.sanity.visualEditing?.previewCookieName ?? previewCookieName)
 
   const token = visualEditing?.token || liveContent?.serverToken
 
